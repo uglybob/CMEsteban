@@ -1,0 +1,120 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "1f23317c6a219f51cd85c6ebb15867b5",
+    "packages": [
+        {
+            "name": "depage/htmlform",
+            "version": "1.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/depage/depage-forms.git",
+                "reference": "2da1b22b2df677a7f94c545594a807d13679a48a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/depage/depage-forms/zipball/2da1b22b2df677a7f94c545594a807d13679a48a",
+                "reference": "2da1b22b2df677a7f94c545594a807d13679a48a",
+                "shasum": ""
+            },
+            "require": {
+                "php": " >= 5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "depage\\htmlform\\": "../../"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT",
+                "GPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Frank Hellenkamp",
+                    "homepage": "http://depage.net",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Sebastian Reinhold",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Ben Wallis",
+                    "homepage": "http://www.benedict-wallis.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "depage-forms is PHP library for HTML form generation with focus on usability. By abstracting HTML, browser flaws (duplicate form submissions) and form validation, it provides a comfortable way to obtain reliable and validated data from users.",
+            "homepage": "http://docs.depage.net/depage-forms/",
+            "keywords": [
+                "Forms",
+                "form",
+                "html",
+                "validation"
+            ],
+            "time": "2013-09-20 00:00:00"
+        },
+        {
+            "name": "facebook/php-sdk-v4",
+            "version": "4.0.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/facebook/facebook-php-sdk-v4.git",
+                "reference": "e2dc662c4ab4da680434b6b777d56461a9bd2563"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/facebook/facebook-php-sdk-v4/zipball/e2dc662c4ab4da680434b6b777d56461a9bd2563",
+                "reference": "e2dc662c4ab4da680434b6b777d56461a9bd2563",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "~4.0",
+                "mockery/mockery": "dev-master",
+                "phpunit/phpunit": "3.7.*"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "Allows for implementation of the Guzzle HTTP client"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Facebook\\": "src/Facebook/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Facebook Platform"
+            ],
+            "authors": [
+                {
+                    "name": "Facebook",
+                    "homepage": "https://github.com/facebook/facebook-php-sdk-v4/contributors"
+                }
+            ],
+            "description": "Facebook SDK for PHP",
+            "homepage": "https://github.com/facebook/facebook-php-sdk-v4",
+            "keywords": [
+                "facebook",
+                "sdk"
+            ],
+            "time": "2014-08-25 18:58:37"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "platform": [],
+    "platform-dev": []
+}

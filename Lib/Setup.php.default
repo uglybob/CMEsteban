@@ -1,0 +1,20 @@
+<?php
+
+namespace BH\Lib;
+
+class Setup
+{
+    public $setup;
+
+    public function __construct()
+    {
+        $this->setup = array(
+            'FbClientId'        => '',
+            'FbClientSecret'    => '',
+            'DbHost'            => 'localhost',
+            'DbName'            => '',
+            'DbUser'            => '',
+            'DbPass'            => '',
+        );
+    }
+}
