@@ -33,12 +33,10 @@ class Edit extends Backend
 
         if ($this->editForm->validate()) {
             $this->saveForm();
-
             $this->mapper->save($this->object);
             $this->editForm->clearSession();
 
-            header('Location: /Directory/' . $this->class);
-            die();
+            $this->redirect('/Directory/' . $this->class);
         }
     }
     // }}}

@@ -20,8 +20,7 @@ class Delete extends Backend
         if (isset($objects[0])) {
             $this->object = $objects[0];
         } else {
-            header('Location: /Directory/' . $this->class);
-            die();
+            $this->redirect('/Directory/' . $this->class);
         }
 
         $this->deleteForm = new \depage\htmlform\htmlform('delete' . $this->class, array('label' => 'löschen'));
@@ -32,8 +31,7 @@ class Delete extends Backend
             $this->mapper->delete($this->object);
             $this->deleteForm->clearSession();
 
-            header('Location: /Directory/' . $this->class);
-            die();
+            $this->redirect('/Directory/' . $this->class);
         }
     }
     // }}}

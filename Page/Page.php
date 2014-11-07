@@ -95,4 +95,13 @@ abstract class Page {
         return $string;
     }
     // }}}
+
+    // {{{ redirect
+    protected function redirect($url)
+    {
+        header('Location: ' . $url);
+        die();
+
+    }
+    // }}}
 }
