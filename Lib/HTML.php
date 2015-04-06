@@ -77,6 +77,12 @@ class HTML
         return self::tag('a', $attributes, $content);
     }
     // }}}
+    // {{{ img
+    static public function img($attributes = '', $content = '')
+    {
+        return self::tag('img', $attributes, $content);
+    }
+    // }}}
     // {{{ div
     static public function div($attributes = '', $content = '')
     {

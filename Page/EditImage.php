@@ -2,6 +2,8 @@
 
 namespace BH\Page;
 
+use BH\Lib\HTML;
+
 class EditImage extends Edit
 {
     public function __construct($controller, $path)
@@ -26,6 +28,7 @@ class EditImage extends Edit
     // {{{ populateForm
     protected function populateForm()
     {
+        $this->editForm->addHtml(HTML::img('src="/' . $this->{$this->class}->path . '"'));
         $this->editForm->populate(
             array(
                 'Name'          => $this->{$this->class}->name,
