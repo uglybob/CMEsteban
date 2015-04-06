@@ -6,11 +6,6 @@ use BH\Lib\HTML;
 
 class EditImage extends Edit
 {
-    public function __construct($controller, $path)
-    {
-        parent::__construct($controller, $path);
-    }
-
     protected function handlePath($path)
     {
         $this->id       = array_shift($path);
@@ -28,12 +23,12 @@ class EditImage extends Edit
     // {{{ populateForm
     protected function populateForm()
     {
-        $this->editForm->addHtml(HTML::img('src="/' . $this->{$this->class}->path . '"'));
+        $this->editForm->addHtml(HTML::img('src="/' . $this->object->path . '"'));
         $this->editForm->populate(
             array(
-                'Name'          => $this->{$this->class}->name,
-                'Beschreibung'  => $this->{$this->class}->alt,
-                'Bild'          => $this->{$this->class}->path,
+                'Name'          => $this->object->name,
+                'Beschreibung'  => $this->object->alt,
+                'Bild'          => $this->object->path,
             )
         );
     }
@@ -41,10 +36,10 @@ class EditImage extends Edit
     // {{{ saveForm
     protected function saveForm()
     {
-        $this->{$this->class}->name     = $this->editForm->getValues()['Name'];
-        $this->{$this->class}->alt      = $this->editForm->getValues()['Beschreibung'];
-        $this->{$this->class}->tmp      = $this->editForm->getValues()['Bild'][0]['tmp_name'];
-        $this->{$this->class}->fileName = $this->editForm->getValues()['Bild'][0]['name'];
+        $this->object->name     = $this->editForm->getValues()['Name'];
+        $this->object->alt      = $this->editForm->getValues()['Beschreibung'];
+        $this->object->tmp      = $this->editForm->getValues()['Bild'][0]['tmp_name'];
+        $this->object->fileName = $this->editForm->getValues()['Bild'][0]['name'];
     }
     // }}}
 }

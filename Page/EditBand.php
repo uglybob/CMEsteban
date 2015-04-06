@@ -4,11 +4,6 @@ namespace BH\Page;
 
 class EditBand extends Edit
 {
-    public function __construct($controller, $path)
-    {
-        parent::__construct($controller, $path);
-    }
-
     protected function handlePath($path)
     {
         $this->id       = array_shift($path);
@@ -34,9 +29,9 @@ class EditBand extends Edit
     {
         $this->editForm->populate(
             array(
-                'Name'          => $this->{$this->class}->name,
-                'Beschreibung'  => $this->{$this->class}->description,
-                'Bild'          => $this->{$this->class}->image,
+                'Name'          => $this->object->name,
+                'Beschreibung'  => $this->object->description,
+                'Bild'          => $this->object->image,
             )
         );
     }
@@ -44,9 +39,9 @@ class EditBand extends Edit
     // {{{ saveForm
     protected function saveForm()
     {
-        $this->{$this->class}->name         = $this->editForm->getValues()['Name'];
-        $this->{$this->class}->description  = $this->editForm->getValues()['Beschreibung'];
-        $this->{$this->class}->image        = $this->editForm->getValues()['Bild'];
+        $this->object->name         = $this->editForm->getValues()['Name'];
+        $this->object->description  = $this->editForm->getValues()['Beschreibung'];
+        $this->object->image        = $this->editForm->getValues()['Bild'];
     }
     // }}}
 }

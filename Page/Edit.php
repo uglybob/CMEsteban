@@ -19,21 +19,21 @@ class Edit extends Backend
         $object = $this->mapper->load($this->id);
 
         if ($object) {
-            $this->title            = $this->class . ' editieren';
-            $this->{$this->class}   = $object;
+            $this->title    = $this->class . ' editieren';
+            $this->object   = $object;
 
             $this->populateForm();
         } else {
-            $this->title            = $this->class . ' erstellen';
-            $classString            = '\BH\Entity\\' . $this->class;
-            $this->{$this->class}   = new $classString();
+            $this->title    = $this->class . ' erstellen';
+            $classString    = '\BH\Entity\\' . $this->class;
+            $this->object   = new $classString();
         }
 
         $this->editForm->process();
 
         if ($this->editForm->validate()) {
             $this->saveForm();
-            $this->mapper->save($this->{$this->class});
+            $this->mapper->save($this->object);
             $this->editForm->clearSession();
 
             $this->redirect('/Directory/' . $this->class);
@@ -45,22 +45,6 @@ class Edit extends Backend
     {
         $this->class    = array_shift($path);
         $this->id       = array_shift($path);
-    }
-    // }}}
-
-    // {{{ createForm
-    protected function createForm()
-    {
-    }
-    // }}}
-    // {{{ populateForm
-    protected function populateForm()
-    {
-    }
-    // }}}
-    // {{{ saveForm
-    protected function saveForm()
-    {
     }
     // }}}
 
