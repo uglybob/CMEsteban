@@ -13,6 +13,7 @@ class ImageMapper extends Mapper
         $this->table    = 'Image';
         $this->columns  = array(
             'alt',
+            'name',
             'path',
         );
     }
@@ -21,14 +22,18 @@ class ImageMapper extends Mapper
     public function save($object)
     {
         if (isset($object->tmp)) {
+            // @todo hard coded image path
             $tempName   = str_replace('/tmp/depage-form-upload-', '', $object->tmp);
             $fileName   = $tempName . $object->fileName;
             // @todo hard coded image path
-            $path       = '/var/www/brausehaus/Images/Content/' . $fileName;
+            $path       = 'Images/Content/' . $fileName;
 
-            copy($object->tmp, $path);
+            if (copy($object->tmp, $path)) {
+                $object->path = $path;
+            } else {
+                throw new \BH\Exceptions\PermissionsException();
+            }
 
-            $object->path = $path;
         }
         parent::save($object);
     }

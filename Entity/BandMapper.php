@@ -12,7 +12,7 @@ class BandMapper extends Mapper
         $this->class    = 'BH\Entity\Band';
         $this->table    = 'Band';
         $this->columns  = array(
-            'picture',
+            'image',
             'name',
             'description',
         );

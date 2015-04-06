@@ -14,26 +14,26 @@ class Edit extends Backend
         $this->editForm         = new \depage\htmlform\htmlform('edit' . $this->class, array('label' => 'speichern'));
 
         $this->mapper           = $this->controller->getMapper($this->class);
-        $this->createForm();
+        $this->createForm($this->editForm);
 
-        $objects = $this->mapper->getAllWhere(array('id' => $this->id));
+        $object = $this->mapper->load($this->id);
 
-        if (isset($objects[0])) {
-            $this->title    = $this->class . ' editieren';
-            $this->object   = $objects[0];
+        if ($object) {
+            $this->title            = $this->class . ' editieren';
+            $this->{$this->class}   = $object;
 
-            $this->populateForm();
+            $this->populateForm($this->editForm, $this->{$this->class});
         } else {
-            $this->title    = $this->class . ' erstellen';
-            $classString    = '\BH\Entity\\' . $this->class;
-            $this->object   = new $classString();
+            $this->title            = $this->class . ' erstellen';
+            $classString            = '\BH\Entity\\' . $this->class;
+            $this->{$this->class}   = new $classString();
         }
 
         $this->editForm->process();
 
         if ($this->editForm->validate()) {
             $this->saveForm();
-            $this->mapper->save($this->object);
+            $this->mapper->save($this->{$this->class});
             $this->editForm->clearSession();
 
             $this->redirect('/Directory/' . $this->class);

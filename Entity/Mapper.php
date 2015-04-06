@@ -65,7 +65,25 @@ class Mapper
         $statement->execute();
     }
     // }}}
-    // {{{ getBy
+    // {{{ load
+    public function load($id)
+    {
+        $objects = $this->getAllWhere(array('id' => $id));
+
+        if (
+            count($objects) === 1
+            && isset($objects[0])
+        ) {
+            $loaded = $objects[0];
+        } else {
+            // @todo exception on > 1
+            $loaded = false;
+        }
+
+        return $loaded;
+    }
+    // }}}
+    // {{{ getAllWhere
     public function getAllWhere($conditions = array())
     {
         $whereString = '';

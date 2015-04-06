@@ -4,6 +4,11 @@ namespace BH\Page;
 
 class EditBand extends Edit
 {
+    public function __construct($controller, $path)
+    {
+        parent::__construct($controller, $path);
+    }
+
     protected function handlePath($path)
     {
         $this->id       = array_shift($path);
@@ -15,7 +20,15 @@ class EditBand extends Edit
     {
         $this->editForm->addText('Name')->setRequired();
         $this->editForm->addTextArea('Beschreibung');
-        $this->editForm->addFile('Bild');
+
+        $images = $this->controller->getMapper('Image')->getAll();
+
+        $list = array();
+        foreach($images as $image) {
+            $list[$image->id] = $image->name;
+        }
+        var_dump($list);
+        $this->editForm->addSingle('Bild', array('list' => $list));
     }
     // }}}
     // {{{ populateForm
@@ -23,8 +36,9 @@ class EditBand extends Edit
     {
         $this->editForm->populate(
             array(
-                'Name'          => $this->object->name,
-                'Beschreibung'  => $this->object->description,
+                'Name'          => $this->{$this->class}->name,
+                'Beschreibung'  => $this->{$this->class}->description,
+                'Bild'          => $this->{$this->class}->image,
             )
         );
     }
@@ -32,8 +46,9 @@ class EditBand extends Edit
     // {{{ saveForm
     protected function saveForm()
     {
-        $this->object->name         = $this->editForm->getValues()['Name'];
-        $this->object->description  = $this->editForm->getValues()['Beschreibung'];
+        $this->{$this->class}->name         = $this->editForm->getValues()['Name'];
+        $this->{$this->class}->description  = $this->editForm->getValues()['Beschreibung'];
+        $this->{$this->class}->description  = $this->editForm->getValues()['Bild'];
     }
     // }}}
 }

@@ -101,7 +101,6 @@ abstract class Page {
     {
         header('Location: ' . $url);
         die();
-
     }
     // }}}
 }
