@@ -51,12 +51,14 @@ class Edit extends Backend
     {
         $this->addElements();
 
-        $images = $this->controller->getMapper('Image')->getAll();
-        $list = array('null' => 'auswählen');
-        foreach($images as $image) {
-            $list[$image->id] = $image->name;
+        foreach($this->connections() as $connection => $label) {
+            $objects = $this->controller->getMapper($connection)->getAll();
+            $list = array('null' => 'auswählen');
+            foreach($objects as $object) {
+                $list[$object->id] = $object->name;
+            }
+            $this->editForm->addSingle($label, array('skin' => 'select', 'list' => $list));
         }
-        $this->editForm->addSingle('Bild', array('skin' => 'select', 'list' => $list));
     }
     // }}}
     // {{{ populateForm
@@ -64,7 +66,10 @@ class Edit extends Backend
     {
         $data = $this->populateArray();
 
-        $data['Bild'] = $this->object->image;
+        foreach($this->connections() as $connection => $label) {
+            $data[$label] = $this->object->{strtolower($connection)};
+        }
+
         $this->editForm->populate($data);
     }
     // }}}
@@ -72,7 +77,11 @@ class Edit extends Backend
     protected function saveForm()
     {
         $this->saveObject();
-        $this->object->image = $this->editForm->getValues()['Bild'];
+
+        foreach($this->connections() as $connection => $label) {
+            $this->object->{strtolower($connection)} = $this->editForm->getValues()[$label];
+        }
+
     }
     // }}}
 

@@ -35,4 +35,11 @@ class EditBand extends Edit
         $this->object->description  = $this->editForm->getValues()['Beschreibung'];
     }
     // }}}
+
+    // {{{ connections
+    protected function connections()
+    {
+        return array('Image' => 'Bild');
+    }
+    // }}}
 }
