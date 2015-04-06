@@ -9,7 +9,7 @@ abstract class Page {
     protected $stylesheets = array();
 
     // {{{ constructor
-    public function __construct($controller)
+    public function __construct($controller, $path = array())
     {
         $this->controller = $controller;
     }

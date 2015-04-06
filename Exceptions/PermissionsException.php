@@ -2,6 +2,6 @@
 
 namespace BH\Exceptions;
 
-class PermissionsException extends \Exception
+class PermissionsException extends BhException
 {
 }

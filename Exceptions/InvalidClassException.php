@@ -2,6 +2,6 @@
 
 namespace BH\Exceptions;
 
-class InvalidClassException extends \Exception
+class InvalidClassException extends BhException
 {
 }
