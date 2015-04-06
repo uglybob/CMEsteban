@@ -14,7 +14,7 @@ class Edit extends Backend
         $this->editForm         = new \depage\htmlform\htmlform('edit' . $this->class, array('label' => 'speichern'));
 
         $this->mapper           = $this->controller->getMapper($this->class);
-        $this->createForm($this->editForm);
+        $this->createForm();
 
         $object = $this->mapper->load($this->id);
 
@@ -22,7 +22,7 @@ class Edit extends Backend
             $this->title            = $this->class . ' editieren';
             $this->{$this->class}   = $object;
 
-            $this->populateForm($this->editForm, $this->{$this->class});
+            $this->populateForm();
         } else {
             $this->title            = $this->class . ' erstellen';
             $classString            = '\BH\Entity\\' . $this->class;

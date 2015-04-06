@@ -22,13 +22,11 @@ class EditBand extends Edit
         $this->editForm->addTextArea('Beschreibung');
 
         $images = $this->controller->getMapper('Image')->getAll();
-
-        $list = array();
+        $list = array('null' => 'auswählen');
         foreach($images as $image) {
             $list[$image->id] = $image->name;
         }
-        var_dump($list);
-        $this->editForm->addSingle('Bild', array('list' => $list));
+        $this->editForm->addSingle('Bild', array('skin' => 'select', 'list' => $list));
     }
     // }}}
     // {{{ populateForm
@@ -48,7 +46,7 @@ class EditBand extends Edit
     {
         $this->{$this->class}->name         = $this->editForm->getValues()['Name'];
         $this->{$this->class}->description  = $this->editForm->getValues()['Beschreibung'];
-        $this->{$this->class}->description  = $this->editForm->getValues()['Bild'];
+        $this->{$this->class}->image        = $this->editForm->getValues()['Bild'];
     }
     // }}}
 }
