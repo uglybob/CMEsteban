@@ -2,7 +2,7 @@
 
 namespace BH\Page;
 
-class Home extends Backend
+class Home extends Brausehaus
 {
     // {{{ renderContent
     protected function renderContent()

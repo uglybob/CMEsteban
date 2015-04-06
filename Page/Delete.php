@@ -15,10 +15,10 @@ class Delete extends Backend
         $this->stylesheets[]    = '/Lib/css/depage-forms.css';
         $this->mapper           = $this->controller->getMapper($this->class);
 
-        $objects = $this->mapper->getAllWhere(array('id' => $this->id));
+        $object = $this->mapper->load($this->id);
 
-        if (isset($objects[0])) {
-            $this->object = $objects[0];
+        if ($object) {
+            $this->object = $object;
         } else {
             $this->redirect('/Directory/' . $this->class);
         }
