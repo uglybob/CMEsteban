@@ -37,6 +37,7 @@ class Mapper
             }
 
             if (!$statement->execute()) {
+                // @todo data exception
                 throw new \Exception(implode($statement->errorInfo()));
             }
         } else {

@@ -2,6 +2,8 @@
 
 namespace BH\Page;
 
+use \depage\htmlform\htmlform;
+
 class Edit extends Backend
 {
     // {{{ constructor
@@ -11,12 +13,11 @@ class Edit extends Backend
         $this->handlePath($path);
 
         $this->stylesheets[]    = '/Lib/css/depage-forms.css';
-        $this->editForm         = new \depage\htmlform\htmlform('edit' . $this->class, array('label' => 'speichern'));
+        $this->form             = new htmlform('edit' . $this->class, array('label' => 'speichern'));
         $this->mapper           = $this->controller->getMapper($this->class);
         $this->createForm();
 
         $object = $this->mapper->load($this->id);
-
         if ($object) {
             $this->title    = $this->class . ' editieren';
             $this->object   = $object;
@@ -27,13 +28,10 @@ class Edit extends Backend
             $this->object   = new $classString();
         }
 
-        $this->editForm->process();
+        $this->form->process();
 
-        if ($this->editForm->validate()) {
+        if ($this->form->validate()) {
             $this->saveForm();
-            $this->mapper->save($this->object);
-            $this->editForm->clearSession();
-
             $this->redirect('/Directory/' . $this->class);
         }
     }
@@ -41,54 +39,57 @@ class Edit extends Backend
     // {{{ handlePath
     protected function handlePath($path)
     {
-        $this->class    = array_shift($path);
-        $this->id       = array_shift($path);
+        $this->class = array_shift($path);
+        $this->id = array_shift($path);
     }
     // }}}
 
     // {{{ createForm
     protected function createForm()
     {
-        $this->addElements();
-
-        foreach($this->connections() as $connection => $label) {
-            $objects = $this->controller->getMapper($connection)->getAll();
-            $list = array('null' => 'auswählen');
-            foreach($objects as $object) {
-                $list[$object->id] = $object->name;
+        foreach($this->fields as $field) {
+            $params = (isset($field['params'])) ? $field['params'] : array();
+            if ($field['input'] == 'Connection') {
+                $objects = $this->controller->getMapper(ucfirst($field['name']))->getAll();
+                $list = array('null' => 'auswählen');
+                foreach($objects as $object) {
+                    $list[$object->id] = $object->name;
+                }
+                // @todo merge with params
+                $this->form->addSingle($field['label'], array('skin' => 'select', 'list' => $list));
+            } else {
+                $addInput = 'add' . $field['input'];
+                $this->form->$addInput($field['label'], $params);
             }
-            $this->editForm->addSingle($label, array('skin' => 'select', 'list' => $list));
         }
     }
     // }}}
     // {{{ populateForm
     protected function populateForm()
     {
-        $data = $this->populateArray();
-
-        foreach($this->connections() as $connection => $label) {
-            $data[$label] = $this->object->{strtolower($connection)};
+        $data = array();
+        foreach($this->fields as $field) {
+            $data[$field['label']] = $this->object->{$field['name']};
         }
 
-        $this->editForm->populate($data);
+        $this->form->populate($data);
     }
     // }}}
     // {{{ saveForm
     protected function saveForm()
     {
-        $this->saveObject();
-
-        foreach($this->connections() as $connection => $label) {
-            $this->object->{strtolower($connection)} = $this->editForm->getValues()[$label];
+        foreach($this->fields as $field) {
+            $this->object->{$field['name']} = $this->form->getValues()[$field['label']];
         }
-
+        $this->mapper->save($this->object);
+        $this->form->clearSession();
     }
     // }}}
 
     // {{{ renderContent
     protected function renderContent()
     {
-        return $this->editForm;
+        return $this->form;
     }
     // }}}
 }
