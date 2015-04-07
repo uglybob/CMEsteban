@@ -9,8 +9,8 @@ class Edit extends Backend
     // {{{ constructor
     public function __construct($controller, $path)
     {
-        parent::__construct($controller);
         $this->handlePath($path);
+        parent::__construct($controller, $path);
 
         $this->stylesheets[]    = '/Lib/css/depage-forms.css';
         $this->form             = new htmlform('edit' . $this->class, array('label' => 'speichern'));
