@@ -9,13 +9,12 @@ class BandMapper extends Mapper
     {
         parent::__construct($pdo);
 
-        $this->class    = 'BH\Entity\Band';
-        $this->table    = 'Band';
-        $this->columns  = array(
-            'name',
-            'description',
-            'image',
-        );
+        $this->class = 'BH\Entity\Band';
+        $this->table = 'Band';
+
+        $this->addField(new Field('name',         'Text',         'Name',         array('required' => true)));
+        $this->addField(new Field('description',  'TextArea',     'Beschreibung'));
+        $this->addField(new Field('image',        'Connection',   'Bild'));
     }
     // }}}
 }

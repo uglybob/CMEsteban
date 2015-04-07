@@ -4,11 +4,12 @@ namespace BH\Entity;
 
 class Mapper
 {
-    protected $pdo      = null;
-    protected $class    = null;
-    protected $table    = null;
-    protected $columns  = array();
-
+    // {{{ variables
+    protected $pdo = null;
+    protected $class = null;
+    protected $table = null;
+    protected $fields = array();
+    // }}}
     // {{{ constructor
     public function __construct($pdo)
     {
@@ -16,13 +17,38 @@ class Mapper
     }
     // }}}
 
+    // {{{ addField
+    public function addField($field)
+    {
+        $this->fields[] = $field;
+    }
+    // }}}
+    // {{{ getFields
+    public function getFields()
+    {
+        return $this->fields;
+    }
+    // }}}
+    // {{{ getColumns
+    protected function getColumns()
+    {
+        $columns = array();
+        foreach ($this->getFields() as $field) {
+            $columns[] = $field->getColumn();
+        }
+        return $columns;
+    }
+    // }}}
+
     // {{{ save
     public function save($object)
     {
+        $columns = $this->getColumns();
+
         if ($object->id) {
             $setString = '';
 
-            foreach ($this->columns as $column) {
+            foreach ($columns as $column) {
                 $setString .= $column . ' = :' . $column . ', ';
             }
 
@@ -32,7 +58,7 @@ class Mapper
 
             $statement->bindParam('id', $object->id);
 
-            foreach($this->columns as $column) {
+            foreach($columns as $column) {
                 $statement->bindParam($column, $object->$column);
             }
 
@@ -41,10 +67,10 @@ class Mapper
                 throw new \Exception(implode($statement->errorInfo()));
             }
         } else {
-            $sql        = 'INSERT INTO ' . $this->table . ' (' . implode(', ', $this->columns) . ') VALUES (:' . implode(', :', $this->columns) . ')';
+            $sql        = 'INSERT INTO ' . $this->table . ' (' . implode(', ', $columns) . ') VALUES (:' . implode(', :', $columns) . ')';
             $statement  = $this->pdo->prepare($sql);
 
-            foreach($this->columns as $column) {
+            foreach($columns as $column) {
                 $statement->bindParam($column, $object->$column);
             }
 
@@ -95,7 +121,7 @@ class Mapper
 
         $whereString  = substr($whereString, 0, -5 );
 
-        $sql        = 'SELECT id,timestamp,' . implode(',', $this->columns) . ' FROM ' . $this->table . ' WHERE ' . $whereString;
+        $sql        = 'SELECT id,timestamp,' . implode(',', $this->getColumns()) . ' FROM ' . $this->table . ' WHERE ' . $whereString;
         $statement  = $this->pdo->prepare($sql);
 
         foreach($conditions as $column => $value) {
@@ -111,15 +137,15 @@ class Mapper
     // {{{ getAll
     public function getAll()
     {
-        return $this->queryClass('SELECT id,timestamp,' . implode(',', $this->columns) . ' FROM ' . $this->table);
+        return $this->queryClass('SELECT id,timestamp,' . implode(',', $this->getColumns()) . ' FROM ' . $this->table);
     }
     // }}}
 
     // {{{ queryClass
     protected function queryClass($query)
     {
-        $statement  = $this->pdo->query($query);
-        $results    = $statement->fetchAll(\PDO::FETCH_CLASS, $this->class);
+        $statement = $this->pdo->query($query);
+        $results = $statement->fetchAll(\PDO::FETCH_CLASS, $this->class);
 
         return $results;
     }

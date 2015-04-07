@@ -9,13 +9,12 @@ class ImageMapper extends Mapper
     {
         parent::__construct($pdo);
 
-        $this->class    = 'BH\Entity\Image';
-        $this->table    = 'Image';
-        $this->columns  = array(
-            'alt',
-            'name',
-            'path',
-        );
+        $this->class = 'BH\Entity\Image';
+        $this->table = 'Image';
+
+        $this->addField(new Field('name',   'Text',         'Name',         array('required' => true)));
+        $this->addField(new Field('alt',    'TextArea',     'Beschreibung'));
+        $this->addField(new Field('path',   'File',         'Bild',         array('required' => true)));
     }
     // }}}
     // {{{ save

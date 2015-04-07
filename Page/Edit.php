@@ -15,6 +15,7 @@ class Edit extends Backend
         $this->stylesheets[]    = '/Lib/css/depage-forms.css';
         $this->form             = new htmlform('edit' . $this->class, array('label' => 'speichern'));
         $this->mapper           = $this->controller->getMapper($this->class);
+        $this->fields           = $this->mapper->getFields();
         $this->createForm();
 
         $object = $this->mapper->load($this->id);
@@ -48,18 +49,17 @@ class Edit extends Backend
     protected function createForm()
     {
         foreach($this->fields as $field) {
-            $params = (isset($field['params'])) ? $field['params'] : array();
-            if ($field['input'] == 'Connection') {
-                $objects = $this->controller->getMapper(ucfirst($field['name']))->getAll();
+            if ($field->getType() == 'Connection') {
+                $objects = $this->controller->getMapper($field->getClass())->getAll();
                 $list = array('null' => 'auswählen');
                 foreach($objects as $object) {
                     $list[$object->id] = $object->name;
                 }
                 // @todo merge with params
-                $this->form->addSingle($field['label'], array('skin' => 'select', 'list' => $list));
+                $this->form->addSingle($field->getLabel(), array('skin' => 'select', 'list' => $list));
             } else {
-                $addInput = 'add' . $field['input'];
-                $this->form->$addInput($field['label'], $params);
+                $addInput = 'add' . $field->getType();
+                $this->form->$addInput($field->getLabel(), $field->getParams());
             }
         }
     }
@@ -69,7 +69,7 @@ class Edit extends Backend
     {
         $data = array();
         foreach($this->fields as $field) {
-            $data[$field['label']] = $this->object->{$field['name']};
+            $data[$field->getLabel()] = $this->object->{$field->getName()};
         }
 
         $this->form->populate($data);
@@ -79,7 +79,7 @@ class Edit extends Backend
     protected function saveForm()
     {
         foreach($this->fields as $field) {
-            $this->object->{$field['name']} = $this->form->getValues()[$field['label']];
+            $this->object->{$field->getName()} = $this->form->getValues()[$field->getLabel()];
         }
         $this->mapper->save($this->object);
         $this->form->clearSession();
