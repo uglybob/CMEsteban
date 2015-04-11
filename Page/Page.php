@@ -27,14 +27,15 @@ abstract class Page {
 
     // {{{ renderHead
     protected function renderHead() {
-        $header =   HTML::head('',
-                        HTML::title('', $this->hookTitle()) .
-                        HTML::link('rel="shortcut icon" href="/Images/favicon.ico" type="image/vnd.microsoft.icon"') .
-                        HTML::meta('http-equiv="Content-Type" content="text/html; charset=utf-8"') .
-                        HTML::meta('name="description" content=\'The name "Brausehaus" stands for our underground music-collective.\'') .
-                        $this->hookHeader() .
-                        $this->renderStylesheets()
-                    );
+        // @todo content
+        $header = HTML::head('',
+            HTML::title('', $this->hookTitle()) .
+            HTML::link('rel="shortcut icon" href="/Content/Images/favicon.ico" type="image/vnd.microsoft.icon"') .
+            HTML::meta('http-equiv="Content-Type" content="text/html; charset=utf-8"') .
+            HTML::meta('name="description" content=\'The name "Brausehaus" stands for our underground music-collective.\'') .
+            $this->hookHeader() .
+            $this->renderStylesheets()
+        );
 
         return $header;
     }
