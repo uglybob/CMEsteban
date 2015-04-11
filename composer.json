@@ -1,4 +1,7 @@
 {
+    "config": {
+        "preferred-install" : "dist"
+    },
     "require" : {
         "facebook/php-sdk-v4" : "4.0.*",
         "depage/htmlform": "~1.4"
