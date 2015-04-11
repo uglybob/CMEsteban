@@ -1,6 +1,6 @@
 <?php
 
-namespace BH\Entity;
+namespace Bh\Entity;
 
 class Mapper
 {
@@ -52,9 +52,9 @@ class Mapper
                 $setString .= $column . ' = :' . $column . ', ';
             }
 
-            $setString  = substr($setString, 0, -2 ) . ' ';
-            $sql        = 'UPDATE ' . $this->table . ' SET ' . $setString . 'WHERE id = :id';
-            $statement  = $this->pdo->prepare($sql);
+            $setString = substr($setString, 0, -2 ) . ' ';
+            $sql = 'UPDATE ' . $this->table . ' SET ' . $setString . 'WHERE id = :id';
+            $statement = $this->pdo->prepare($sql);
 
             $statement->bindParam('id', $object->id);
 
@@ -67,14 +67,15 @@ class Mapper
                 throw new \Exception(implode($statement->errorInfo()));
             }
         } else {
-            $sql        = 'INSERT INTO ' . $this->table . ' (' . implode(', ', $columns) . ') VALUES (:' . implode(', :', $columns) . ')';
-            $statement  = $this->pdo->prepare($sql);
+            $sql = 'INSERT INTO ' . $this->table . ' (' . implode(', ', $columns) . ') VALUES (:' . implode(', :', $columns) . ')';
+            $statement = $this->pdo->prepare($sql);
 
             foreach($columns as $column) {
                 $statement->bindParam($column, $object->$column);
             }
 
             if (!$statement->execute()) {
+                // @todo data exception
                 throw new \Exception(implode($statement->errorInfo()));
             }
 
@@ -85,8 +86,8 @@ class Mapper
     // {{{ delete
     public function delete($object)
     {
-        $sql        = ('DELETE FROM ' . $this->table . ' WHERE id = :id');
-        $statement  = $this->pdo->prepare($sql);
+        $sql = ('DELETE FROM ' . $this->table . ' WHERE id = :id');
+        $statement = $this->pdo->prepare($sql);
 
         $statement->bindParam('id', $object->id);
         $statement->execute();
@@ -119,10 +120,10 @@ class Mapper
             $whereString .= $column . ' = :' . $column . ' AND ';
         }
 
-        $whereString  = substr($whereString, 0, -5 );
+        $whereString = substr($whereString, 0, -5 );
 
-        $sql        = 'SELECT id,timestamp,' . implode(',', $this->getColumns()) . ' FROM ' . $this->table . ' WHERE ' . $whereString;
-        $statement  = $this->pdo->prepare($sql);
+        $sql = 'SELECT id,timestamp,' . implode(',', $this->getColumns()) . ' FROM ' . $this->table . ' WHERE ' . $whereString;
+        $statement = $this->pdo->prepare($sql);
 
         foreach($conditions as $column => $value) {
             $statement->bindParam($column, $value);

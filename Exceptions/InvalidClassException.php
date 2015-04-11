@@ -1,6 +1,6 @@
 <?php
 
-namespace BH\Exceptions;
+namespace Bh\Exceptions;
 
 class InvalidClassException extends BhException
 {

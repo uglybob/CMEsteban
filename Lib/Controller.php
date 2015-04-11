@@ -1,17 +1,16 @@
 <?php
 
-namespace BH\Lib;
+namespace Bh\Lib;
 
 class Controller
 {
-    protected $setup    = array();
-    protected $pdo      = null;
-    protected $facebook = null;
+    protected $setup = array();
+    protected $pdo = null;
+    protected $request = null;
 
     // {{{ constructor
     public function __construct($request)
     {
-
         $this->setup = (new Setup())->setup;
         $this->handleRequest($request);
     }
@@ -20,7 +19,7 @@ class Controller
     // {{{ handleRequest
     protected function handleRequest($request)
     {
-        if ($request === null) {
+        if (is_null($request)) {
             $this->request = 'Home';
         } else {
             $this->request = $request;
@@ -31,31 +30,30 @@ class Controller
     // {{{ getPage
     public function getPage($request = null)
     {
-        if ($request === null) {
+        if (is_null($request)) {
             $request = $this->request;
         }
 
-        $path   = explode('/', $request);
+        $path = explode('/', $request);
         $params = array();
-        $page   = '';
+        $pageClass = array_shift($path);
 
-        while (!empty($path) && !class_exists($page)) {
-            $page = '\BH\Page\\' . implode('', $path);
-            array_unshift($params, array_pop($path));
+        if (class_exists($bhPage = '\Bh\Page\\' . $pageClass)) {
+            $page = $bhPage;
+        } elseif (class_exists($contentPage = '\Bh\Content\Page\\' . $pageClass)) {
+            $page = $contentPage;
         }
 
-        array_shift($params);
-
-        return new $page($this, $params);
+        return new $page($this, $path);
     }
     // }}}
     // {{{ getMapper
     public function getMapper($class)
     {
-        $classMapper = '\BH\Entity\\' . $class . 'Mapper';
+        $classMapper = '\Bh\Entity\\' . $class . 'Mapper';
 
         if (!class_exists($classMapper)) {
-            throw new \BH\Exceptions\InvalidClassException('Class ' . $class . ' doesn\'t have a mapper');
+            throw new \Bh\Exceptions\InvalidClassException('Class ' . $class . ' doesn\'t have a mapper');
         }
 
         return new $classMapper($this->getPdo());
@@ -77,12 +75,14 @@ class Controller
     // }}}
 
     // {{{ connectToFacebook
+    /* todo
     protected function connectToFacebook()
     {
-        $this->facebook = new BH\Lib\Facebook(
+        $this->facebook = new Bh\Lib\Facebook(
             $this->setup['FbClientId'],
             $this->setup['FbClientSecret']
         );
     }
+    */
     // }}}
 }

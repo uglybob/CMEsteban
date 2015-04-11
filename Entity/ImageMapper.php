@@ -1,6 +1,6 @@
 <?php
 
-namespace BH\Entity;
+namespace Bh\Entity;
 
 class ImageMapper extends Mapper
 {
@@ -30,7 +30,7 @@ class ImageMapper extends Mapper
             if (copy($object->tmp, $path)) {
                 $object->path = $path;
             } else {
-                throw new \BH\Exceptions\PermissionsException();
+                throw new \Bh\Exceptions\PermissionsException();
             }
 
         }

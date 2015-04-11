@@ -1,8 +1,8 @@
 <?php
 
-namespace BH\Page;
+namespace Bh\Page;
 
-use BH\Lib\HTML;
+use Bh\Lib\Html;
 
 abstract class Page {
     protected $title;
@@ -28,11 +28,11 @@ abstract class Page {
     // {{{ renderHead
     protected function renderHead() {
         // @todo content
-        $header = HTML::head('',
-            HTML::title('', $this->hookTitle()) .
-            HTML::link('rel="shortcut icon" href="/Content/Images/favicon.ico" type="image/vnd.microsoft.icon"') .
-            HTML::meta('http-equiv="Content-Type" content="text/html; charset=utf-8"') .
-            HTML::meta('name="description" content=\'The name "Brausehaus" stands for our underground music-collective.\'') .
+        $header = Html::head('',
+            Html::title('', $this->hookTitle()) .
+            Html::link('rel="shortcut icon" href="/Content/Images/favicon.ico" type="image/vnd.microsoft.icon"') .
+            Html::meta('http-equiv="Content-Type" content="text/html; charset=utf-8"') .
+            Html::meta('name="description" content=\'The name "Brausehaus" stands for our underground music-collective.\'') .
             $this->hookHeader() .
             $this->renderStylesheets()
         );
@@ -45,7 +45,7 @@ abstract class Page {
         $renderedStylesheets = '';
 
         foreach ($this->stylesheets as $stylesheet) {
-            $renderedStylesheets .= HTML::link('rel="stylesheet" href="' . $stylesheet . '"');
+            $renderedStylesheets .= Html::link('rel="stylesheet" href="' . $stylesheet . '"');
         }
 
         return $renderedStylesheets;
@@ -69,12 +69,12 @@ abstract class Page {
     public function __toString()
     {
         $string =   '<!DOCTYPE html>' .
-                    HTML::html('',
+                    Html::html('',
                         $this->renderHead() .
-                        HTML::body('',
+                        Html::body('',
                             /* @todo
-                            HTML::div('id="menubar"',
-                                HTML::div('id="menu"',
+                            Html::div('id="menubar"',
+                                Html::div('id="menu"',
                                     '<a href="/Was">Hä?</a>' .
                                     '<a href="/News">News</a>' .
                                     '<a href="/Kontakt">Kontakt</a>' .
@@ -82,9 +82,9 @@ abstract class Page {
                                 )
                             ) .
                             */
-                            HTML::div('id="main"',
+                            Html::div('id="main"',
                                 // @todo '<div id="header"><a href="/"><img src="images/brausehaus.jpg" alt="*BRAUSEHAUS" /></a></div>' .
-                                HTML::div('id="middle"',
+                                Html::div('id="middle"',
                                     // @todo     '<div class="linkList">' . $this->renderMenu() . '</div>';
                                     $this->renderContent() .
                                     $this->renderFooter()

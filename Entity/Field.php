@@ -1,6 +1,6 @@
 <?php
 
-namespace BH\Entity;
+namespace Bh\Entity;
 
 class Field
 {

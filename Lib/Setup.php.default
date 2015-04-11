@@ -1,6 +1,6 @@
 <?php
 
-namespace BH\Lib;
+namespace Bh\Lib;
 
 class Setup
 {

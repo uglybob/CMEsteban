@@ -1,8 +1,8 @@
 <?php
 
-namespace BH\Lib;
+namespace Bh\Lib;
 
-class HTML
+class Html
 {
     // {{{ tag
     static public function tag($name, $attributes = '', $content = '')
