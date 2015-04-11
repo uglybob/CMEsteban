@@ -2,10 +2,9 @@
 
 namespace Bh\Entity;
 
-class Entity
+class NamedEntity extends Entity
 {
     // {{{ variables
-    public $id;
-    public $timestamp;
+    public $name;
     // }}}
 }
