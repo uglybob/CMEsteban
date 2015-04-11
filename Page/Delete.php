@@ -1,6 +1,6 @@
 <?php
 
-namespace BH\Page;
+namespace Bh\Page;
 
 class Delete extends Backend
 {

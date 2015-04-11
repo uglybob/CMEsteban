@@ -1,8 +1,8 @@
 <?php
 
-namespace BH\Page;
+namespace Bh\Page;
 
-use BH\Lib\HTML;
+use Bh\Lib\Html;
 
 class EditImage extends Edit
 {

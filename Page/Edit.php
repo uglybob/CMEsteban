@@ -1,6 +1,6 @@
 <?php
 
-namespace BH\Page;
+namespace Bh\Page;
 
 use \depage\htmlform\htmlform;
 
