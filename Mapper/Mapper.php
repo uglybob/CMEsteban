@@ -1,6 +1,6 @@
 <?php
 
-namespace Bh\Entity;
+namespace Bh\Mapper;
 
 class Mapper
 {

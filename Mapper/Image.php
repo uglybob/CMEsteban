@@ -1,8 +1,8 @@
 <?php
 
-namespace Bh\Entity;
+namespace Bh\Mapper;
 
-class ImageMapper extends Mapper
+class Image extends Mapper
 {
     // {{{ constructor
     public function __construct($pdo)

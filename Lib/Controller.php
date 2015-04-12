@@ -4,14 +4,16 @@ namespace Bh\Lib;
 
 class Controller
 {
+    // {{{ variables
     protected $setup = array();
     protected $pdo = null;
     protected $request = null;
-
+    // }}}
     // {{{ constructor
     public function __construct($request)
     {
         $this->setup = (new Setup())->setup;
+        $this->logic = new \Bh\Content\Lib\Logic($this);
         $this->handleRequest($request);
     }
     // }}}
@@ -26,6 +28,21 @@ class Controller
         }
     }
     // }}}
+    // {{{ getClass
+    public function getClass($namespace, $class)
+    {
+        $resultClass = null;
+        $subClass = $namespace . '\\' . $class;
+
+        if (class_exists($bhClass = '\Bh\\' . $subClass)) {
+            $resultClass = $bhClass;
+        } elseif (class_exists($contentClass = '\Bh\Content\\' . $subClass)) {
+            $resultClass = $contentClass;
+        }
+
+        return $resultClass;
+    }
+    // }}}
 
     // {{{ getPage
     public function getPage($request = null)
@@ -37,12 +54,7 @@ class Controller
         $path = explode('/', $request);
         $params = array();
         $pageClass = array_shift($path);
-
-        if (class_exists($bhPage = '\Bh\Page\\' . $pageClass)) {
-            $page = $bhPage;
-        } elseif (class_exists($contentPage = '\Bh\Content\Page\\' . $pageClass)) {
-            $page = $contentPage;
-        }
+        $page = $this->getClass('Page', $pageClass);
 
         return new $page($this, $path);
     }
@@ -50,13 +62,15 @@ class Controller
     // {{{ getMapper
     public function getMapper($class)
     {
-        $classMapper = '\Bh\Entity\\' . $class . 'Mapper';
+        $mapper = $this->getClass('Mapper', $class);
 
-        if (!class_exists($classMapper)) {
-            throw new \Bh\Exceptions\InvalidClassException('Class ' . $class . ' doesn\'t have a mapper');
-        }
-
-        return new $classMapper($this->getPdo());
+        return new $mapper($this->getPdo());
+    }
+    // }}}
+    // {{{ getLogic
+    public function getLogic()
+    {
+        return $this->logic;
     }
     // }}}
     // {{{ getPdo
