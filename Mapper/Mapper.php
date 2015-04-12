@@ -2,6 +2,8 @@
 
 namespace Bh\Mapper;
 
+use \Bh\Exceptions\DataException;
+
 abstract class Mapper
 {
     // {{{ variables
@@ -71,8 +73,7 @@ abstract class Mapper
             }
 
             if (!$statement->execute()) {
-                // @todo data exception
-                throw new \Exception(implode($statement->errorInfo()));
+                throw new DataException(implode($statement->errorInfo()));
             }
         } else {
             $sql = 'INSERT INTO ' . $this->class . ' (' . implode(', ', $columns) . ') VALUES (:' . implode(', :', $columns) . ')';
@@ -83,8 +84,7 @@ abstract class Mapper
             }
 
             if (!$statement->execute()) {
-                // @todo data exception
-                throw new \Exception(implode($statement->errorInfo()));
+                throw new DataException(implode($statement->errorInfo()));
             }
 
             $object->id = $this->pdo->lastInsertId();
@@ -154,6 +154,9 @@ abstract class Mapper
     protected function queryClass($query)
     {
         $statement = $this->pdo->query($query);
+        if (!$statement) {
+            throw new DataException();
+        }
         $results = $statement->fetchAll(\PDO::FETCH_CLASS, $this->class);
 
         return $results;
