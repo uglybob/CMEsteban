@@ -9,7 +9,6 @@ class Image extends Mapper
     {
         parent::__construct($pdo);
 
-        $this->class = 'BH\Entity\Image';
         $this->table = 'Image';
 
         $this->addField(new Field('name',   'Text',         'Name',         array('required' => true)));

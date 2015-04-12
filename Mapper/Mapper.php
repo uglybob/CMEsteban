@@ -2,7 +2,7 @@
 
 namespace Bh\Mapper;
 
-class Mapper
+abstract class Mapper
 {
     // {{{ variables
     protected $pdo = null;
@@ -14,6 +14,7 @@ class Mapper
     public function __construct($pdo)
     {
         $this->pdo = $pdo;
+        $this->class = $this->getClass();
     }
     // }}}
 
@@ -21,6 +22,14 @@ class Mapper
     public function addField($field)
     {
         $this->fields[] = $field;
+    }
+    // }}}
+
+    // {{{ getClass
+    public function getClass()
+    {
+        $classNameArray = explode('\\', get_class($this));
+        return end($classNameArray);
     }
     // }}}
     // {{{ getFields
