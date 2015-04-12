@@ -7,6 +7,7 @@ use \Bh\Exceptions\DataException;
 abstract class Mapper
 {
     // {{{ variables
+    protected $controller = null;
     protected $pdo = null;
     protected $class = null;
     protected $fields = array();
@@ -90,6 +91,8 @@ abstract class Mapper
 
             $object->id = $this->pdo->lastInsertId();
         }
+
+        return $object->id;
     }
     // }}}
     // {{{ delete

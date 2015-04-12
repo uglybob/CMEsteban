@@ -2,16 +2,15 @@
 
 namespace Bh\Mapper;
 
-class Image extends Mapper
+class Image extends NamedEntity
 {
     // {{{ constructor
-    public function __construct($pdo)
+    public function __construct($controller)
     {
-        parent::__construct($pdo);
-
-        $this->addField(new Field('name',   'Text',         'Name',         array('required' => true)));
         $this->addField(new Field('alt',    'TextArea',     'Beschreibung'));
         $this->addField(new Field('path',   'File',         'Bild',         array('required' => true)));
+
+        parent::__construct($controller);
     }
     // }}}
     // {{{ save

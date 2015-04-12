@@ -5,7 +5,7 @@ namespace Bh\Entity;
 class Entity
 {
     // {{{ variables
-    public $id;
-    public $timestamp;
+    protected $id;
+    protected $timestamp;
     // }}}
 }

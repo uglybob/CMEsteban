@@ -5,11 +5,11 @@ namespace Bh\Mapper;
 class NamedEntity extends Mapper
 {
     // {{{ constructor
-    public function __construct($pdo)
+    public function __construct($controller)
     {
         $this->addField(new Field('name', 'Text', 'Name', array('required' => true)));
 
-        parent::__construct($pdo);
+        parent::__construct($controller);
     }
     // }}}
 }
