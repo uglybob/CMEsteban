@@ -9,8 +9,6 @@ class Image extends Mapper
     {
         parent::__construct($pdo);
 
-        $this->table = 'Image';
-
         $this->addField(new Field('name',   'Text',         'Name',         array('required' => true)));
         $this->addField(new Field('alt',    'TextArea',     'Beschreibung'));
         $this->addField(new Field('path',   'File',         'Bild',         array('required' => true)));

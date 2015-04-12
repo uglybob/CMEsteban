@@ -7,7 +7,6 @@ abstract class Mapper
     // {{{ variables
     protected $pdo = null;
     protected $class = null;
-    protected $table = null;
     protected $fields = array();
     // }}}
     // {{{ constructor
@@ -62,7 +61,7 @@ abstract class Mapper
             }
 
             $setString = substr($setString, 0, -2 ) . ' ';
-            $sql = 'UPDATE ' . $this->table . ' SET ' . $setString . 'WHERE id = :id';
+            $sql = 'UPDATE ' . $this->class . ' SET ' . $setString . 'WHERE id = :id';
             $statement = $this->pdo->prepare($sql);
 
             $statement->bindParam('id', $object->id);
@@ -76,7 +75,7 @@ abstract class Mapper
                 throw new \Exception(implode($statement->errorInfo()));
             }
         } else {
-            $sql = 'INSERT INTO ' . $this->table . ' (' . implode(', ', $columns) . ') VALUES (:' . implode(', :', $columns) . ')';
+            $sql = 'INSERT INTO ' . $this->class . ' (' . implode(', ', $columns) . ') VALUES (:' . implode(', :', $columns) . ')';
             $statement = $this->pdo->prepare($sql);
 
             foreach($columns as $column) {
@@ -95,7 +94,7 @@ abstract class Mapper
     // {{{ delete
     public function delete($object)
     {
-        $sql = ('DELETE FROM ' . $this->table . ' WHERE id = :id');
+        $sql = ('DELETE FROM ' . $this->class . ' WHERE id = :id');
         $statement = $this->pdo->prepare($sql);
 
         $statement->bindParam('id', $object->id);
@@ -131,7 +130,7 @@ abstract class Mapper
 
         $whereString = substr($whereString, 0, -5 );
 
-        $sql = 'SELECT id,timestamp,' . implode(',', $this->getColumns()) . ' FROM ' . $this->table . ' WHERE ' . $whereString;
+        $sql = 'SELECT id,timestamp,' . implode(',', $this->getColumns()) . ' FROM ' . $this->class . ' WHERE ' . $whereString;
         $statement = $this->pdo->prepare($sql);
 
         foreach($conditions as $column => $value) {
@@ -147,7 +146,7 @@ abstract class Mapper
     // {{{ getAll
     public function getAll()
     {
-        return $this->queryClass('SELECT id,timestamp,' . implode(',', $this->getColumns()) . ' FROM ' . $this->table);
+        return $this->queryClass('SELECT id,timestamp,' . implode(',', $this->getColumns()) . ' FROM ' . $this->class);
     }
     // }}}
 
