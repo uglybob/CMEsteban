@@ -12,9 +12,10 @@ abstract class Mapper
     protected $fields = array();
     // }}}
     // {{{ constructor
-    public function __construct($pdo)
+    public function __construct($controller)
     {
-        $this->pdo = $pdo;
+        $this->controller = $controller;
+        $this->pdo = $this->controller->getPdo();
         $this->class = $this->getClass();
     }
     // }}}
@@ -124,21 +125,22 @@ abstract class Mapper
     {
         $whereString = '';
 
-        foreach ($conditions as $column => $value) {
-            $whereString .= $column . ' = :' . $column . ' AND ';
+        if (!empty($conditions)) {
+            foreach ($conditions as $column => $value) {
+                $whereString .= $column . ' = :' . $column . ' AND ';
+            }
+            $whereString = ' WHERE ' . substr($whereString, 0, -5 );
         }
 
-        $whereString = substr($whereString, 0, -5 );
-
-        $sql = 'SELECT id,timestamp,' . implode(',', $this->getColumns()) . ' FROM ' . $this->class . ' WHERE ' . $whereString;
-        $statement = $this->pdo->prepare($sql);
+        $query = 'SELECT id,timestamp,' . implode(',', $this->getColumns()) . ' FROM ' . $this->class . $whereString;
+        $statement = $this->pdo->prepare($query);
 
         foreach($conditions as $column => $value) {
             $statement->bindParam($column, $value);
         }
 
         $statement->execute();
-        $results = $statement->fetchAll(\PDO::FETCH_CLASS, $this->class);
+        $results = $statement->fetchAll(\PDO::FETCH_CLASS, $this->controller->getClass('Entity', $this->class));
 
         return $results;
     }
@@ -146,20 +148,7 @@ abstract class Mapper
     // {{{ getAll
     public function getAll()
     {
-        return $this->queryClass('SELECT id,timestamp,' . implode(',', $this->getColumns()) . ' FROM ' . $this->class);
-    }
-    // }}}
-
-    // {{{ queryClass
-    protected function queryClass($query)
-    {
-        $statement = $this->pdo->query($query);
-        if (!$statement) {
-            throw new DataException();
-        }
-        $results = $statement->fetchAll(\PDO::FETCH_CLASS, $this->class);
-
-        return $results;
+        return $this->getAllWhere();
     }
     // }}}
 }

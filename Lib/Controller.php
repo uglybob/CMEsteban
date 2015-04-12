@@ -64,7 +64,7 @@ class Controller
     {
         $mapper = $this->getClass('Mapper', $class);
 
-        return new $mapper($this->getPdo());
+        return new $mapper($this);
     }
     // }}}
     // {{{ getLogic
@@ -74,7 +74,7 @@ class Controller
     }
     // }}}
     // {{{ getPdo
-    protected function getPdo()
+    public function getPdo()
     {
         if (!$this->pdo) {
             $this->pdo = new \PDO(
