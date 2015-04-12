@@ -27,7 +27,7 @@ class Image extends Mapper
             if (copy($object->tmp, $path)) {
                 $object->path = $path;
             } else {
-                throw new \Bh\Exceptions\PermissionsException();
+                throw new \Bh\Exceptions\FileSystemException();
             }
 
         }
