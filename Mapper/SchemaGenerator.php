@@ -39,6 +39,8 @@ class SchemaGenerator
         if (!array_key_exists($mapperName, $this->mappers)) {
             throw new DataException($mapperName . ' doesn\'t exist');
         }
+
+        return $this->mappers[$mapperName];
     }
     // }}}
     // {{{ generate
@@ -57,6 +59,9 @@ class SchemaGenerator
                 if ($field->getType() === 'Oto') {
                     $this->getMapper($field->getClass());
                     $alter .= 'ALTER TABLE `' . $mapper->getClass() . '` ADD FOREIGN KEY (`' . $field->getName() . '`) REFERENCES `' . $field->getClass() . '` (`id`);' . "\n";
+                } elseif ($field->getType() === 'Otm') {
+                    $foreign = $this->getMapper($field->getClass());
+                    $alter .= 'ALTER TABLE `' . $foreign->getClass() . '` ADD FOREIGN KEY (`' . strtolower($mapper->getClass()) . '`) REFERENCES `' . $mapper->getClass() . '` (`id`);' . "\n";
                 }
             }
 
