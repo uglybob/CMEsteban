@@ -22,9 +22,9 @@ abstract class Mapper
     // }}}
 
     // {{{ addField
-    public function addField($field)
+    public function addField($name, $type, $params = array())
     {
-        $this->fields[] = $field;
+        $this->fields[] = new Field($name, $type, $params);
     }
     // }}}
 

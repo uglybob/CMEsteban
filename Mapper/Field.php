@@ -12,11 +12,10 @@ class Field
     // }}}
 
     // {{{ constructor
-    public function __construct($name, $type, $label = null, $params = array())
+    public function __construct($name, $type, $params = array())
     {
         $this->name = lcfirst($name);
         $this->type = $type;
-        $this->label = ($label === null) ? ucfirst($this->name) : $label;
         $this->params = $params;
     }
     // }}}
@@ -43,12 +42,6 @@ class Field
     public function getType()
     {
         return $this->type;
-    }
-    // }}}
-    // {{{ getLabel
-    public function getLabel()
-    {
-        return $this->label;
     }
     // }}}
     // {{{ getParams
