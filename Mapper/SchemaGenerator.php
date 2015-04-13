@@ -83,7 +83,10 @@ class SchemaGenerator
             'Password'  => 'TEXT',
             'Tel'       => 'TEXT',
             'Text'      => 'TEXT',
+            'TextArea'  => 'TEXT',
+            'File'      => 'TEXT',
             'Url'       => 'TEXT',
+            'Date'      => 'TIMESTAMP',
             'Oto'       => 'INT',
             'Mto'       => 'INT',
         ];

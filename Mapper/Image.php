@@ -7,8 +7,8 @@ class Image extends NamedEntity
     // {{{ constructor
     public function __construct($controller)
     {
-        $this->addField(new Field('alt',    'TextArea',     'Beschreibung'));
-        $this->addField(new Field('path',   'File',         'Bild',         array('required' => true)));
+        $this->addField(new Field('alt',    'TextArea'));
+        $this->addField(new Field('path',   'File', 'Bild', array('required' => true)));
 
         parent::__construct($controller);
     }
