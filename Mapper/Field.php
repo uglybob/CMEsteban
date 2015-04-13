@@ -14,9 +14,9 @@ class Field
     // {{{ constructor
     public function __construct($name, $type, $label = null, $params = array())
     {
-        $this->name = strtolower($name);
+        $this->name = lcfirst($name);
         $this->type = $type;
-        $this->label = ($label === null) ? $this->class : $label;
+        $this->label = ($label === null) ? ucfirst($this->name) : $label;
         $this->params = $params;
     }
     // }}}

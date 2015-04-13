@@ -61,7 +61,7 @@ class SchemaGenerator
                     $alter .= 'ALTER TABLE `' . $mapper->getClass() . '` ADD FOREIGN KEY (`' . $field->getName() . '`) REFERENCES `' . $field->getClass() . '` (`id`);' . "\n";
                 } elseif ($field->getType() === 'Otm') {
                     $foreign = $this->getMapper($field->getClass());
-                    $alter .= 'ALTER TABLE `' . $foreign->getClass() . '` ADD FOREIGN KEY (`' . strtolower($mapper->getClass()) . '`) REFERENCES `' . $mapper->getClass() . '` (`id`);' . "\n";
+                    $alter .= 'ALTER TABLE `' . $foreign->getClass() . '` ADD FOREIGN KEY (`' . lcfirst($mapper->getClass()) . '`) REFERENCES `' . $mapper->getClass() . '` (`id`);' . "\n";
                 }
             }
 
