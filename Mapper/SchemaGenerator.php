@@ -56,12 +56,12 @@ class SchemaGenerator
             foreach ($mapper->getFields() as $field) {
                 $create .= '    `' . $field->getName() . '` ' . $this->translateType($field->getType()) . ' ' . $this->translateAttributes($field) . ',' . "\n";
 
-                if ($field->getType() === 'Oto') {
+                if (
+                    $field->getType() === 'Oto'
+                    || $field->getType() === 'Mto'
+                ) {
                     $this->getMapper($field->getClass());
                     $alter .= 'ALTER TABLE `' . $mapper->getClass() . '` ADD FOREIGN KEY (`' . $field->getName() . '`) REFERENCES `' . $field->getClass() . '` (`id`);' . "\n";
-                } elseif ($field->getType() === 'Otm') {
-                    $foreign = $this->getMapper($field->getClass());
-                    $alter .= 'ALTER TABLE `' . $foreign->getClass() . '` ADD FOREIGN KEY (`' . lcfirst($mapper->getClass()) . '`) REFERENCES `' . $mapper->getClass() . '` (`id`);' . "\n";
                 }
             }
 
@@ -85,8 +85,12 @@ class SchemaGenerator
             'Text'      => 'TEXT',
             'Url'       => 'TEXT',
             'Oto'       => 'INT',
-            'Otm'       => 'INT',
+            'Mto'       => 'INT',
         ];
+
+        if (!array_key_exists($type, $matrix)) {
+            throw new DataException('Type "' . $type . '" doesn\'t exist');
+        }
 
         return $matrix[$type];
     }
@@ -105,8 +109,8 @@ class SchemaGenerator
         $noNull = ['Oto', 'Otm'];
 
         return !in_array($field->getType(), $noNull)
-            && !array_key_exists('required', $field->getParams());
+            && array_key_exists('required', $field->getParams())
+            && $field->getParams()['required'] === true;
     }
     // }}}
-
 }
