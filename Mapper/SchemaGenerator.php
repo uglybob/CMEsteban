@@ -43,33 +43,50 @@ class SchemaGenerator
         return $this->mappers[$mapperName];
     }
     // }}}
-    // {{{ generate
-    public function generate()
+    // {{{ schemaGenerate
+    public function schemaGenerate()
     {
-        $create = '';
-        $alter = '';
+        $creates = [];
+        $alters = [];
+
         foreach ($this->mappers as $mapper) {
-            $create .= 'CREATE TABLE IF NOT EXISTS `' . $mapper->getClass() . '` (' . "\n" .
-                '    `id` INT AUTO_INCREMENT NOT NULL, ' . "\n" .
-                '    `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, ' . "\n";
+            $create = 'CREATE TABLE IF NOT EXISTS `' . $mapper->getClass() . '` (' .
+                '`id` INT AUTO_INCREMENT NOT NULL, ' .
+                '`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, ';
 
             foreach ($mapper->getFields() as $field) {
-                $create .= '    `' . $field->getName() . '` ' . $this->translateType($field->getType()) . ' ' . $this->translateAttributes($field) . ',' . "\n";
+                $create .= '`' . $field->getName() . '` ' . $this->translateType($field->getType()) . ' ' . $this->translateAttributes($field) . ',';
 
                 if (
                     $field->getType() === 'Oto'
                     || $field->getType() === 'Mto'
                 ) {
                     $this->getMapper($field->getClass());
-                    $alter .= 'ALTER TABLE `' . $mapper->getClass() . '` ADD FOREIGN KEY (`' . $field->getName() . '`) REFERENCES `' . $field->getClass() . '` (`id`);' . "\n";
+                    $alter = 'ALTER TABLE `' . $mapper->getClass() . '` ADD FOREIGN KEY (`' . $field->getName() . '`) REFERENCES `' . $field->getClass() . '` (`id`);';
                 }
             }
 
-            $create .= '    PRIMARY KEY(`id`)' . "\n" .
-                ') ENGINE = InnoDB;' . "\n\n";
+            $create .= 'PRIMARY KEY(`id`)' .
+                ') CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;';
+
+            $creates[] = $create;
+            $alters[] = $alter;
         }
 
-        return $create . $alter;
+        $this->sql = array_merge($creates, $alters);
+    }
+    // }}}
+    // {{{ schemaApply
+    public function schemaApply()
+    {
+        foreach ($this->sql as $query) {
+            var_dump($query);
+            try {
+                $this->pdo->exec($query);
+            } catch(\PDOException $e) {
+                echo $e->getMessage();
+            }
+        }
     }
     // }}}
 
@@ -102,6 +119,7 @@ class SchemaGenerator
     protected function translateAttributes($field)
     {
         $attributes = ($this->isNullAllowed($field)) ? 'DEFAULT NULL' : 'NOT NULL';
+
         return $attributes;
     }
     // }}}
@@ -109,11 +127,13 @@ class SchemaGenerator
     // {{{ isNullAllowed
     protected function isNullAllowed($field)
     {
-        $noNull = ['Oto', 'Otm'];
+        $noNull = ['Oto', 'Mto'];
 
         return !in_array($field->getType(), $noNull)
-            && array_key_exists('required', $field->getParams())
-            && $field->getParams()['required'] === true;
+            && !(
+                array_key_exists('required', $field->getParams())
+                && $field->getParams()['required'] === true
+            );
     }
     // }}}
 }
