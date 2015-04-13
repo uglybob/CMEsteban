@@ -5,7 +5,7 @@ namespace Bh\Lib;
 class Controller
 {
     // {{{ variables
-    protected $setup = array();
+    protected $setup = [];
     protected $pdo = null;
     protected $request = null;
     // }}}
@@ -52,7 +52,7 @@ class Controller
         }
 
         $path = explode('/', $request);
-        $params = array();
+        $params = [];
         $pageClass = array_shift($path);
         $page = $this->getClass('Page', $pageClass);
 

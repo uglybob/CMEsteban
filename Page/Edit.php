@@ -13,7 +13,7 @@ class Edit extends Backend
         parent::__construct($controller, $path);
 
         $this->stylesheets[]    = '/Lib/css/depage-forms.css';
-        $this->form             = new htmlform('edit' . $this->class, array('label' => 'speichern'));
+        $this->form             = new htmlform('edit' . $this->class, ['label' => 'speichern']);
         $this->mapper           = $this->controller->getMapper($this->class);
         $this->fields           = $this->mapper->getFields();
         $this->createForm();
@@ -51,12 +51,12 @@ class Edit extends Backend
         foreach($this->fields as $field) {
             if ($field->getType() == 'Connection') {
                 $objects = $this->controller->getMapper($field->getClass())->getAll();
-                $list = array('null' => 'auswählen');
+                $list = ['null' => 'auswählen'];
                 foreach($objects as $object) {
                     $list[$object->id] = $object->name;
                 }
                 // @todo merge with params
-                $this->form->addSingle($field->getLabel(), array('skin' => 'select', 'list' => $list));
+                $this->form->addSingle($field->getLabel(), ['skin' => 'select', 'list' => $list]);
             } else {
                 $addInput = 'add' . $field->getType();
                 $this->form->$addInput($field->getLabel(), $field->getParams());
@@ -67,7 +67,7 @@ class Edit extends Backend
     // {{{ populateForm
     protected function populateForm()
     {
-        $data = array();
+        $data = [];
         foreach($this->fields as $field) {
             $data[$field->getLabel()] = $this->object->{$field->getName()};
         }

@@ -8,13 +8,13 @@ class Setup
 
     public function __construct()
     {
-        $this->setup = array(
+        $this->setup = [
             'FbClientId'        => '',
             'FbClientSecret'    => '',
             'DbHost'            => 'localhost',
             'DbName'            => '',
             'DbUser'            => '',
             'DbPass'            => '',
-        );
+        ];
     }
 }

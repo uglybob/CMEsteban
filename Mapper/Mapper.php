@@ -10,7 +10,7 @@ abstract class Mapper
     protected $controller = null;
     protected $pdo = null;
     protected $class = null;
-    protected $fields = array();
+    protected $fields = [];
     // }}}
     // {{{ constructor
     public function __construct($controller)
@@ -22,7 +22,7 @@ abstract class Mapper
     // }}}
 
     // {{{ addField
-    public function addField($name, $type, $params = array())
+    public function addField($name, $type, $params = [])
     {
         $this->fields[] = new Field($name, $type, $params);
     }
@@ -44,7 +44,7 @@ abstract class Mapper
     // {{{ getColumns
     public function getColumns()
     {
-        $columns = array();
+        $columns = [];
         foreach ($this->getFields() as $field) {
             $columns[] = $field->getColumn();
         }
@@ -108,7 +108,7 @@ abstract class Mapper
     // {{{ load
     public function load($id)
     {
-        $objects = $this->getAllWhere(array('id' => $id));
+        $objects = $this->getAllWhere(['id' => $id]);
 
         if (
             count($objects) === 1
@@ -124,7 +124,7 @@ abstract class Mapper
     }
     // }}}
     // {{{ getAllWhere
-    public function getAllWhere($conditions = array())
+    public function getAllWhere($conditions = [])
     {
         $whereString = '';
 

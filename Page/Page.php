@@ -6,10 +6,10 @@ use Bh\Lib\Html;
 
 abstract class Page {
     protected $title;
-    protected $stylesheets = array();
+    protected $stylesheets = [];
 
     // {{{ constructor
-    public function __construct($controller, $path = array())
+    public function __construct($controller, $path = [])
     {
         $this->controller = $controller;
     }

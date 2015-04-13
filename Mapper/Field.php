@@ -12,7 +12,7 @@ class Field
     // }}}
 
     // {{{ constructor
-    public function __construct($name, $type, $params = array())
+    public function __construct($name, $type, $params = [])
     {
         $this->name = lcfirst($name);
         $this->type = $type;
