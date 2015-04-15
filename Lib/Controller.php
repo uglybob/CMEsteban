@@ -62,9 +62,7 @@ class Controller
     // {{{ getMapper
     public static function getMapper($class)
     {
-        $mapper = self::getClass('Mapper', $class);
-
-        return new $mapper($this);
+        return new \Bh\Mapper\Mapper($this->getPdo());
     }
     // }}}
     // {{{ getLogic

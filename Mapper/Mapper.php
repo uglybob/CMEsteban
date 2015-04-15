@@ -7,55 +7,19 @@ use \Bh\Exceptions\DataException;
 abstract class Mapper
 {
     // {{{ variables
-    protected $controller = null;
     protected $pdo = null;
-    protected $class = null;
-    protected $fields = [];
     // }}}
     // {{{ constructor
-    public function __construct($controller)
+    public function __construct($pdo)
     {
-        $this->controller = $controller;
-        $this->pdo = $this->controller->getPdo();
-        $this->class = $this->getClass();
-    }
-    // }}}
-
-    // {{{ addField
-    public function addField($name, $type, $params = [])
-    {
-        $this->fields[] = new Field($name, $type, $params);
-    }
-    // }}}
-
-    // {{{ getClass
-    public function getClass()
-    {
-        $classNameArray = explode('\\', get_class($this));
-        return end($classNameArray);
-    }
-    // }}}
-    // {{{ getFields
-    public function getFields()
-    {
-        return $this->fields;
-    }
-    // }}}
-    // {{{ getColumns
-    public function getColumns()
-    {
-        $columns = [];
-        foreach ($this->getFields() as $field) {
-            $columns[] = $field->getColumn();
-        }
-        return $columns;
+        $this->pdo = $pdo;
     }
     // }}}
 
     // {{{ save
     public function save($object)
     {
-        $columns = $this->getColumns();
+        $columns = $object->getColumns();
 
         if ($object->id) {
             $setString = '';
@@ -98,7 +62,7 @@ abstract class Mapper
     // {{{ delete
     public function delete($object)
     {
-        $sql = ('DELETE FROM ' . $this->class . ' WHERE id = :id');
+        $sql = ('DELETE FROM ' . $object->getClass() . ' WHERE id = :id');
         $statement = $this->pdo->prepare($sql);
 
         $statement->bindParam('id', $object->id);
@@ -106,9 +70,9 @@ abstract class Mapper
     }
     // }}}
     // {{{ load
-    public function load($id)
+    public function load($class, $id)
     {
-        $objects = $this->getAllWhere(['id' => $id]);
+        $objects = $this->getAllWhere($class, ['id' => $id]);
 
         if (
             count($objects) === 1
@@ -124,7 +88,7 @@ abstract class Mapper
     }
     // }}}
     // {{{ getAllWhere
-    public function getAllWhere($conditions = [])
+    public function getAllWhere($class, $conditions = [])
     {
         $whereString = '';
 
@@ -135,7 +99,10 @@ abstract class Mapper
             $whereString = ' WHERE ' . substr($whereString, 0, -5 );
         }
 
-        $query = 'SELECT id,timestamp,' . implode(',', $this->getColumns()) . ' FROM ' . $this->class . $whereString;
+        $namespaceClass = \Bh\Lib\Controller::getClass('Entity', $class);
+        $columns = (new $namespaceClass())->getColumns();
+
+        $query = 'SELECT id,timestamp,' . implode(',', $columns) . ' FROM ' . $class . $whereString;
         $statement = $this->pdo->prepare($query);
 
         foreach($conditions as $column => $value) {
@@ -143,15 +110,15 @@ abstract class Mapper
         }
 
         $statement->execute();
-        $results = $statement->fetchAll(\PDO::FETCH_CLASS, $this->controller->getClass('Entity', $this->class));
+        $results = $statement->fetchAll(\PDO::FETCH_CLASS, $namespaceClass);
 
         return $results;
     }
     // }}}
     // {{{ getAll
-    public function getAll()
+    public function getAll($class)
     {
-        return $this->getAllWhere();
+        return $this->getAllWhere($class);
     }
     // }}}
 }

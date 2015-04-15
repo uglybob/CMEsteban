@@ -2,20 +2,12 @@
 
 namespace Bh\Entity;
 
-class NamedEntity extends Entity
+class NamedEntity extends Dao
 {
-    // {{{ variables
-    protected $name;
-    // }}}
-
-    // {{{ setName
-    public function setName($name) {
-        $this->name = $name;
-    }
-    // }}}
-    // {{{ getName
-    public function getName() {
-        return $this->name;
+    // {{{ constructor
+    public function __construct()
+    {
+        $this->addField('name', 'Text', ['required' => true]);
     }
     // }}}
 }
