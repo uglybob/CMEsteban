@@ -4,11 +4,13 @@ namespace Bh\Entity;
 
 class Image extends NamedEntity
 {
-    // {{{ constructor
-    public function __construct()
+    // {{{ daoFields
+    public function daoFields()
     {
-        $this->addField('alt',  'TextArea');
-        $this->addField('path', 'File',     ['required' => true]);
+        return [
+            ['alt',  'TextArea'],
+            ['path', 'File',     ['required' => true]],
+        ];
     }
     // }}}
     // {{{ save

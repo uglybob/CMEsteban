@@ -25,18 +25,6 @@ class Dao
     }
     // }}}
 
-    // {{{ addField
-    public function addField($name, $type, $params = [])
-    {
-        $this->fields[] = new Field($name, $type, $params);
-    }
-    // }}}
-    // {{{ getFields
-    public function getFields()
-    {
-        return $this->fields;
-    }
-    // }}}
     // {{{ getClass
     public function getClass()
     {
@@ -48,10 +36,19 @@ class Dao
     public function getColumns()
     {
         $columns = [];
-        foreach ($this->getFields() as $field) {
+        foreach ($this->getFieldObjects() as $field) {
             $columns[] = $field->getColumn();
         }
         return $columns;
+    }
+    // }}}
+    // {{{ getFields
+    public function getFields()
+    {
+        foreach ($this->daoFields() as $field) {
+            $fieldObjects = new Field($field);
+        }
+        return $fieldObjects;
     }
     // }}}
 }

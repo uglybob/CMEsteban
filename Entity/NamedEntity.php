@@ -4,10 +4,12 @@ namespace Bh\Entity;
 
 class NamedEntity extends Dao
 {
-    // {{{ constructor
-    public function __construct()
+    // {{{ daoFields
+    public function daoFields()
     {
-        $this->addField('name', 'Text', ['required' => true]);
+        return [
+            ['name', 'Text', ['required' => true]],
+        ];
     }
     // }}}
 }

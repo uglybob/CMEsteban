@@ -8,7 +8,7 @@ class SchemaGenerator
 {
     // {{{ variables
     protected $pdo = null;
-    protected $mappers = [];
+    protected $daos = [];
     // }}}
     // {{{ constructor
     public function __construct($pdo)
@@ -20,27 +20,24 @@ class SchemaGenerator
     }
     // }}}
 
-    // {{{ addMapper
-    public function addMapper($mapper)
+    // {{{ addDao
+    public function addDao($dao)
     {
-        if (
-            !array_key_exists($mapper->getClass(), $this->mappers)
-            && $mapper instanceof Mapper
-        ) {
-            $this->mappers[$mapper->getClass()] = $mapper;
+        if ($dao instanceof Dao) {
+            $this->dao[$dao->getClass()] = $dao;
         } else {
             throw new DataException('Duplicate or invalid mapper');
         }
     }
     // }}}
-    // {{{ getMapper
-    public function getMapper($mapperName)
+    // {{{ getDao
+    public function getDao($daoName)
     {
-        if (!array_key_exists($mapperName, $this->mappers)) {
-            throw new DataException($mapperName . ' doesn\'t exist');
+        if (!array_key_exists($daoName, $this->daos)) {
+            throw new DataException($daoName . ' doesn\'t exist');
         }
 
-        return $this->mappers[$mapperName];
+        return $this->daos[$daoName];
     }
     // }}}
     // {{{ schemaGenerate
@@ -49,20 +46,20 @@ class SchemaGenerator
         $creates = [];
         $alters = [];
 
-        foreach ($this->mappers as $mapper) {
-            $create = 'CREATE TABLE IF NOT EXISTS `' . $mapper->getClass() . '` (' .
+        foreach ($this->dao as $dao) {
+            $create = 'CREATE TABLE IF NOT EXISTS `' . $dao->getClass() . '` (' .
                 '`id` INT AUTO_INCREMENT NOT NULL, ' .
                 '`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, ';
 
-            foreach ($mapper->getFields() as $field) {
+            foreach ($dao->getFields() as $field) {
                 $create .= '`' . $field->getName() . '` ' . $this->translateType($field->getType()) . ' ' . $this->translateAttributes($field) . ',';
 
                 if (
                     $field->getType() === 'Oto'
                     || $field->getType() === 'Mto'
                 ) {
-                    $this->getMapper($field->getClass());
-                    $alter = 'ALTER TABLE `' . $mapper->getClass() . '` ADD FOREIGN KEY (`' . $field->getName() . '`) REFERENCES `' . $field->getClass() . '` (`id`);';
+                    $this->getDao($field->getClass());
+                    $alter = 'ALTER TABLE `' . $dao->getClass() . '` ADD FOREIGN KEY (`' . $field->getName() . '`) REFERENCES `' . $field->getClass() . '` (`id`);';
                 }
             }
 
@@ -82,7 +79,7 @@ class SchemaGenerator
         foreach ($this->sql as $query) {
             var_dump($query);
             try {
-                $this->pdo->exec($query);
+                //$this->pdo->exec($query);
             } catch(\PDOException $e) {
                 echo $e->getMessage();
             }

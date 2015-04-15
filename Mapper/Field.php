@@ -7,16 +7,15 @@ class Field
     // {{{ variables
     protected $name;
     protected $type;
-    protected $label;
     protected $params;
     // }}}
 
     // {{{ constructor
-    public function __construct($name, $type, $params = [])
+    public function __construct($params = [])
     {
-        $this->name = lcfirst($name);
-        $this->type = $type;
-        $this->params = $params;
+        $this->name = lcfirst($params[0]);
+        $this->type = $params[1];
+        $this->params = isset($params[2]) ? $params[2] : [];
     }
     // }}}
 
