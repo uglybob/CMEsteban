@@ -6,11 +6,6 @@ use \Bh\Exceptions\DataException;
 
 class Dao
 {
-    // {{{ variables
-    protected $fields = [];
-    protected $class = null;
-    // }}}
-
     // {{{ call
     public function __call($name, $arguments)
     {
@@ -33,10 +28,10 @@ class Dao
     }
     // }}}
     // {{{ getColumns
-    public function getColumns()
+    public function getColumns($daoClass)
     {
         $columns = [];
-        foreach ($this->getFieldObjects() as $field) {
+        foreach ($daoClass::getFields() as $field) {
             $columns[] = $field->getColumn();
         }
         return $columns;
@@ -46,8 +41,8 @@ class Dao
     public static function getFields($daoClass)
     {
         $fieldObjects = [];
-        foreach ($daoClass::daoFields() as $field) {
-            $fieldObjects[] = new Field($field);
+        foreach ($daoClass::daoFields() as $fieldParams) {
+            $fieldObjects[] = new Field($fieldParams);
         }
         return $fieldObjects;
     }
