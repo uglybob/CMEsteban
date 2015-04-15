@@ -23,11 +23,7 @@ class SchemaGenerator
     // {{{ addDao
     public function addDao($dao)
     {
-        if ($dao instanceof Dao) {
-            $this->dao[$dao->getClass()] = $dao;
-        } else {
-            throw new DataException('Duplicate or invalid mapper');
-        }
+        $this->daos[$dao] = \Bh\Lib\Controller::getClass('Entity', $dao);
     }
     // }}}
     // {{{ getDao
@@ -46,12 +42,12 @@ class SchemaGenerator
         $creates = [];
         $alters = [];
 
-        foreach ($this->dao as $dao) {
-            $create = 'CREATE TABLE IF NOT EXISTS `' . $dao->getClass() . '` (' .
+        foreach ($this->daos as $dao => $daoClass) {
+            $create = 'CREATE TABLE IF NOT EXISTS `' . $dao . '` (' .
                 '`id` INT AUTO_INCREMENT NOT NULL, ' .
                 '`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, ';
 
-            foreach ($dao->getFields() as $field) {
+            foreach (\Bh\Mapper\Dao::getFields($daoClass) as $field) {
                 $create .= '`' . $field->getName() . '` ' . $this->translateType($field->getType()) . ' ' . $this->translateAttributes($field) . ',';
 
                 if (
@@ -59,7 +55,7 @@ class SchemaGenerator
                     || $field->getType() === 'Mto'
                 ) {
                     $this->getDao($field->getClass());
-                    $alter = 'ALTER TABLE `' . $dao->getClass() . '` ADD FOREIGN KEY (`' . $field->getName() . '`) REFERENCES `' . $field->getClass() . '` (`id`);';
+                    $alter = 'ALTER TABLE `' . $dao . '` ADD FOREIGN KEY (`' . $field->getName() . '`) REFERENCES `' . $field->getClass() . '` (`id`);';
                 }
             }
 

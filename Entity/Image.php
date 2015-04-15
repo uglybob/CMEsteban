@@ -5,7 +5,7 @@ namespace Bh\Entity;
 class Image extends NamedEntity
 {
     // {{{ daoFields
-    public function daoFields()
+    public static function daoFields()
     {
         return [
             ['alt',  'TextArea'],

@@ -18,7 +18,7 @@ class Dao
         $attribute = lcfirst(substr($name, 3, strlen($name) - 3));
 
         if ($xet === 'get') {
-            return $this->$attribute};
+            return $this->$attribute;
         } elseif ($xet === 'set') {
             $this->$attribute = $arguments[0];
         }
@@ -43,10 +43,11 @@ class Dao
     }
     // }}}
     // {{{ getFields
-    public function getFields()
+    public static function getFields($daoClass)
     {
-        foreach ($this->daoFields() as $field) {
-            $fieldObjects = new Field($field);
+        $fieldObjects = [];
+        foreach ($daoClass::daoFields() as $field) {
+            $fieldObjects[] = new Field($field);
         }
         return $fieldObjects;
     }

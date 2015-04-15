@@ -2,10 +2,10 @@
 
 namespace Bh\Entity;
 
-class NamedEntity extends Dao
+class NamedEntity extends \Bh\Mapper\Dao
 {
     // {{{ daoFields
-    public function daoFields()
+    public static function daoFields()
     {
         return [
             ['name', 'Text', ['required' => true]],

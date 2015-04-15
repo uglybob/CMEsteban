@@ -38,6 +38,8 @@ class Controller
             $resultClass = $bhClass;
         } elseif (class_exists($contentClass = '\Bh\Content\\' . $subClass)) {
             $resultClass = $contentClass;
+        } else {
+            throw new \Bh\Exceptions\BhException('Class "' . $class . '" doesn\'t exists.');
         }
 
         return $resultClass;
