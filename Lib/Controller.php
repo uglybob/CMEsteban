@@ -29,7 +29,7 @@ class Controller
     }
     // }}}
     // {{{ getClass
-    public function getClass($namespace, $class)
+    public static function getClass($namespace, $class)
     {
         $resultClass = null;
         $subClass = $namespace . '\\' . $class;
@@ -60,9 +60,9 @@ class Controller
     }
     // }}}
     // {{{ getMapper
-    public function getMapper($class)
+    public static function getMapper($class)
     {
-        $mapper = $this->getClass('Mapper', $class);
+        $mapper = self::getClass('Mapper', $class);
 
         return new $mapper($this);
     }

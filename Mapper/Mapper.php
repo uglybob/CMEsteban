@@ -145,10 +145,6 @@ abstract class Mapper
         $statement->execute();
         $results = $statement->fetchAll(\PDO::FETCH_CLASS, $this->controller->getClass('Entity', $this->class));
 
-        foreach ($results as $result) {
-            $this->loadParents($result);
-        }
-
         return $results;
     }
     // }}}
@@ -156,23 +152,6 @@ abstract class Mapper
     public function getAll()
     {
         return $this->getAllWhere();
-    }
-    // }}}
-
-    // {{{ loadParents
-    public function loadParents($object)
-    {
-        foreach ($this->getFields() as $field) {
-            if ($field->getType() == 'Parent') {
-                $parentMapper = $this->controller->getMapper($field->getClass());
-                $parentColumns = $parentMapper->getColumns();
-
-                $parent = $parentMapper->load($object->{'get' . $field->getClass()}());
-                foreach ($parentColumns as $parentColumn) {
-                    $object->{'set' . ucfirst($parentColumn)}($parent->{'get' . ucfirst($parentColumn)}());
-                }
-            }
-        }
     }
     // }}}
 }
