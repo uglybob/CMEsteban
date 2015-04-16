@@ -41,7 +41,7 @@ class SchemaGenerator
 
         foreach ($this->daos as $dao => $daoClass) {
             $create = 'CREATE TABLE IF NOT EXISTS `' . $dao . '` (' .
-                '`id` INT AUTO_INCREMENT NOT NULL, ' .
+                '`id` INT UNSIGNED AUTO_INCREMENT NOT NULL, ' .
                 '`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, ';
 
             foreach (\Bh\Mapper\Dao::getFields($daoClass) as $field) {
@@ -52,7 +52,7 @@ class SchemaGenerator
                     || $field->getType() === 'Mto'
                 ) {
                     $this->getDao($field->getClass());
-                    $alter = 'ALTER TABLE `' . $dao . '` ADD FOREIGN KEY (`' . $field->getName() . '`) REFERENCES `' . $field->getClass() . '` (`id`);';
+                    $alters[] = 'ALTER TABLE `' . $dao . '` ADD FOREIGN KEY (`' . $field->getName() . '`) REFERENCES `' . $field->getClass() . '` (`id`);';
                 }
             }
 
@@ -60,7 +60,6 @@ class SchemaGenerator
                 ') CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;';
 
             $creates[] = $create;
-            $alters[] = $alter;
         }
 
         $this->sql = array_merge($creates, $alters);
@@ -104,8 +103,8 @@ class SchemaGenerator
             'File'      => 'TEXT',
             'Url'       => 'TEXT',
             'Date'      => 'TIMESTAMP',
-            'Oto'       => 'INT',
-            'Mto'       => 'INT',
+            'Oto'       => 'INT UNSIGNED',
+            'Mto'       => 'INT UNSIGNED',
         ];
 
         if (!array_key_exists($type, $matrix)) {
