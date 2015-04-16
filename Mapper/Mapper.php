@@ -4,15 +4,31 @@ namespace Bh\Mapper;
 
 use \Bh\Exceptions\DataException;
 
-abstract class Mapper
+class Mapper
 {
     // {{{ variables
-    protected $pdo = null;
+    protected static $db;
+    protected $pdo;
     // }}}
     // {{{ constructor
-    public function __construct($pdo)
+    protected function __construct()
     {
-        $this->pdo = $pdo;
+        $settings = \Bh\Lib\Setup::getSettings();
+        $this->pdo = $this->pdo = new \PDO(
+            'mysql:host=' . $settings['DbHost'] . ';dbname=' . $settings['DbName'],
+            $settings['DbUser'],
+            $settings['DbPass']
+        );
+    }
+    // }}}
+
+    // {{{ getPdo
+    public static function getPdo()
+    {
+        if (is_null(self::$db)) {
+            self::$db = new Mapper();
+        }
+        return self::$db->pdo;
     }
     // }}}
 

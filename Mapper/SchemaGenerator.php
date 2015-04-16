@@ -11,12 +11,9 @@ class SchemaGenerator
     protected $daos = [];
     // }}}
     // {{{ constructor
-    public function __construct($pdo)
+    public function __construct()
     {
-        if (!($pdo instanceof \PDO)) {
-            throw new DataException('PDO required');
-        }
-        $this->pdo = $pdo;
+        $this->pdo = Mapper::getPdo();
     }
     // }}}
 
@@ -69,17 +66,27 @@ class SchemaGenerator
         $this->sql = array_merge($creates, $alters);
     }
     // }}}
-    // {{{ schemaApply
-    public function schemaApply()
+    // {{{ schemaRun
+    public function schemaRun()
     {
         foreach ($this->sql as $query) {
-            var_dump($query);
             try {
-                //$this->pdo->exec($query);
+                $this->pdo->exec($query);
             } catch(\PDOException $e) {
                 echo $e->getMessage();
             }
         }
+    }
+    // }}}
+    // {{{ schemaApply
+    public function schemaApply($entities)
+    {
+        foreach ($entities as $entity) {
+            $this->addDao($entity);
+        }
+
+        $this->schemaGenerate();
+        $this->schemaRun();
     }
     // }}}
 

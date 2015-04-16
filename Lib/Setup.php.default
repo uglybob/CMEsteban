@@ -4,17 +4,17 @@ namespace Bh\Lib;
 
 class Setup
 {
-    public $setup;
+    protected static $settings = [
+        'FbClientId'        => '',
+        'FbClientSecret'    => '',
+        'DbHost'            => 'localhost',
+        'DbName'            => '',
+        'DbUser'            => '',
+        'DbPass'            => '',
+    ];
 
-    public function __construct()
+    public static function getSettings()
     {
-        $this->setup = [
-            'FbClientId'        => '',
-            'FbClientSecret'    => '',
-            'DbHost'            => 'localhost',
-            'DbName'            => '',
-            'DbUser'            => '',
-            'DbPass'            => '',
-        ];
+        return self::$settings;
     }
 }

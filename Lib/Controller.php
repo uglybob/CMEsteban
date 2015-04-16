@@ -5,14 +5,11 @@ namespace Bh\Lib;
 class Controller
 {
     // {{{ variables
-    protected $setup = [];
-    protected $pdo = null;
     protected $request = null;
     // }}}
     // {{{ constructor
     public function __construct($request)
     {
-        $this->setup = (new Setup())->setup;
         $this->logic = new \Bh\Content\Lib\Logic($this);
         $this->handleRequest($request);
     }
@@ -61,30 +58,10 @@ class Controller
         return new $page($this, $path);
     }
     // }}}
-    // {{{ getMapper
-    public static function getMapper($class)
-    {
-        return new \Bh\Mapper\Mapper($this->getPdo());
-    }
-    // }}}
     // {{{ getLogic
     public function getLogic()
     {
         return $this->logic;
-    }
-    // }}}
-    // {{{ getPdo
-    public function getPdo()
-    {
-        if (!$this->pdo) {
-            $this->pdo = new \PDO(
-                'mysql:host=' . $this->setup['DbHost'] . ';dbname=' . $this->setup['DbName'],
-                $this->setup['DbUser'],
-                $this->setup['DbPass']
-            );
-        }
-
-        return $this->pdo;
     }
     // }}}
 
