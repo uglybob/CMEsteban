@@ -31,12 +31,6 @@ class Field
         return ucfirst($this->name);
     }
     // }}}
-    // {{{ getColumn
-    public function getColumn()
-    {
-        return $this->name;
-    }
-    // }}}
     // {{{ getType
     public function getType()
     {

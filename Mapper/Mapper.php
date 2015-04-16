@@ -33,11 +33,11 @@ class Mapper
     // }}}
 
     // {{{ save
-    public function save($object)
+    public static function save($object)
     {
         $columns = $object->getColumns();
 
-        if ($object->id) {
+        if ($object->getId()) {
             $setString = '';
 
             foreach ($columns as $column) {
@@ -45,50 +45,50 @@ class Mapper
             }
 
             $setString = substr($setString, 0, -2 ) . ' ';
-            $sql = 'UPDATE ' . $this->class . ' SET ' . $setString . 'WHERE id = :id';
-            $statement = $this->pdo->prepare($sql);
+            $sql = 'UPDATE ' . $object->getClass() . ' SET ' . $setString . 'WHERE id = :id';
+            $statement = self::getPdo()->prepare($sql);
 
-            $statement->bindParam('id', $object->id);
+            $statement->bindParam('id', $object->getId());
 
             foreach($columns as $column) {
-                $statement->bindParam($column, $object->$column);
+                $statement->bindParam($column, $object->{'get' . ucfirst($column)});
             }
 
             if (!$statement->execute()) {
                 throw new DataException(implode($statement->errorInfo()));
             }
         } else {
-            $sql = 'INSERT INTO ' . $this->class . ' (' . implode(', ', $columns) . ') VALUES (:' . implode(', :', $columns) . ')';
-            $statement = $this->pdo->prepare($sql);
+            $sql = 'INSERT INTO ' . $object->getClass()  . ' (' . implode(', ', $columns) . ') VALUES (:' . implode(', :', $columns) . ')';
+            $statement = self::getPdo()->prepare($sql);
 
             foreach($columns as $column) {
-                $statement->bindParam($column, $object->$column);
+                $statement->bindParam($column, $object->{'get' . ucfirst($column)});
             }
 
             if (!$statement->execute()) {
                 throw new DataException(implode($statement->errorInfo()));
             }
 
-            $object->id = $this->pdo->lastInsertId();
+            $object->setId(self::getPdo()->lastInsertId());
         }
 
         return $object->id;
     }
     // }}}
     // {{{ delete
-    public function delete($object)
+    public static function delete($object)
     {
         $sql = ('DELETE FROM ' . $object->getClass() . ' WHERE id = :id');
-        $statement = $this->pdo->prepare($sql);
+        $statement = self::getPdo()->prepare($sql);
 
-        $statement->bindParam('id', $object->id);
+        $statement->bindParam('id', $object->getId());
         $statement->execute();
     }
     // }}}
     // {{{ load
-    public function load($class, $id)
+    public static function load($class, $id)
     {
-        $objects = $this->getAllWhere($class, ['id' => $id]);
+        $objects = self::getAllWhere($class, ['id' => $id]);
 
         if (
             count($objects) === 1
@@ -104,7 +104,7 @@ class Mapper
     }
     // }}}
     // {{{ getAllWhere
-    public function getAllWhere($class, $conditions = [])
+    public static function getAllWhere($class, $conditions = [])
     {
         $whereString = '';
 
@@ -119,7 +119,7 @@ class Mapper
         $columns = (new $namespaceClass())->getColumns();
 
         $query = 'SELECT id,timestamp,' . implode(',', $columns) . ' FROM ' . $class . $whereString;
-        $statement = $this->pdo->prepare($query);
+        $statement = self::getPdo()->prepare($query);
 
         foreach($conditions as $column => $value) {
             $statement->bindParam($column, $value);
@@ -132,9 +132,9 @@ class Mapper
     }
     // }}}
     // {{{ getAll
-    public function getAll($class)
+    public static function getAll($class)
     {
-        return $this->getAllWhere($class);
+        return self::getAllWhere($class);
     }
     // }}}
 }
