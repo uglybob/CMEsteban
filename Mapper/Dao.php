@@ -12,19 +12,35 @@ class Dao
         $xet = substr($name, 0, 3);
         $attribute = lcfirst(substr($name, 3, strlen($name) - 3));
 
-        if ($xet === 'get') {
-            $length = strlen($attribute);
-            if (substr($attribute, -4, $length) === 'List') {
-                $target = \Bh\Lib\Controller::getClass('Entity', ucfirst(substr($attribute, 0, -4)));
-                // @todo test if field exists
-
-                return \Bh\Mapper\Mapper::getAllWhere(ucfirst(substr($attribute, 0, -4)), ['id' => $this->getId()]);
-            } else {
-                return $this->$attribute;
-            }
-        } elseif ($xet === 'set') {
-            $this->$attribute = $arguments[0];
+        if ($xet === 'get' || $xet === 'set') {
+            return $this->$xet($attribute, $arguments);
         }
+    }
+    // }}}
+
+    // {{{ get
+    private function get($attribute, $arguments)
+    {
+        $length = strlen($attribute);
+        if (substr($attribute, -4, $length) === 'List') {
+            return $this->getList(ucfirst(substr($attribute, 0, -4)), $arguments);
+        } else {
+            return $this->$attribute;
+        }
+    }
+    // }}}
+    // {{{ set
+    private function set($attribute, $arguments)
+    {
+        $this->$attribute = $arguments[0];
+    }
+    // }}}
+    // {{{ getList
+    private function getList($attribute, $arguments)
+    {
+        $target = \Bh\Lib\Controller::getClass('Entity', $attribute);
+        // @todo test if field exists
+        return \Bh\Mapper\Mapper::getAllWhere($attribute, ['id' => $this->getId()]);
     }
     // }}}
 
