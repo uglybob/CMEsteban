@@ -13,7 +13,15 @@ class Dao
         $attribute = lcfirst(substr($name, 3, strlen($name) - 3));
 
         if ($xet === 'get') {
-            return $this->$attribute;
+            $length = strlen($attribute);
+            if (substr($attribute, -4, $length) === 'List') {
+                $target = \Bh\Lib\Controller::getClass('Entity', ucfirst(substr($attribute, 0, -4)));
+                // @todo test if field exists
+
+                return \Bh\Mapper\Mapper::getAllWhere(ucfirst(substr($attribute, 0, -4)), ['id' => $this->getId()]);
+            } else {
+                return $this->$attribute;
+            }
         } elseif ($xet === 'set') {
             $this->$attribute = $arguments[0];
         }
@@ -28,11 +36,11 @@ class Dao
     }
     // }}}
     // {{{ getColumns
-    public function getColumns($daoClass)
+    public static function getColumns($daoClass)
     {
         $columns = [];
-        foreach ($daoClass::getFields() as $field) {
-            $columns[] = $field->getColumn();
+        foreach ($daoClass::getFields($daoClass) as $field) {
+            $columns[] = $field->getName();
         }
         return $columns;
     }

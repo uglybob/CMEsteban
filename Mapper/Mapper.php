@@ -116,7 +116,7 @@ class Mapper
         }
 
         $namespaceClass = \Bh\Lib\Controller::getClass('Entity', $class);
-        $columns = (new $namespaceClass())->getColumns();
+        $columns = \Bh\Mapper\Dao::getColumns($namespaceClass);
 
         $query = 'SELECT id,timestamp,' . implode(',', $columns) . ' FROM ' . $class . $whereString;
         $statement = self::getPdo()->prepare($query);
