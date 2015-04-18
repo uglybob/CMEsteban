@@ -105,6 +105,7 @@ class SchemaGenerator
             'Date'      => 'TIMESTAMP',
             'Oto'       => 'INT UNSIGNED',
             'Mto'       => 'INT UNSIGNED',
+            'Otp'       => 'INT UNSIGNED',
         ];
 
         if (!array_key_exists($type, $matrix)) {

@@ -14,8 +14,6 @@ class Edit extends Backend
 
         $this->stylesheets[]    = '/Lib/css/depage-forms.css';
         $this->form             = new htmlform('edit' . $this->class, ['label' => 'speichern']);
-        $this->mapper           = $this->controller->getMapper($this->class);
-        $this->fields           = $this->mapper->getFields();
         $this->createForm();
 
         $object = $this->mapper->load($this->id);
