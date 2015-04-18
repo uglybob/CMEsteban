@@ -56,7 +56,7 @@ class Mapper
             foreach($fields as $column => $field) {
                 if (!self::isAssociation($field)) {
                     $value = $object->{'get' . ucfirst($column)}();
-                    $statement->bindParam($column, $value);
+                    $statement->bindValue($column, $value);
                 }
             }
 
@@ -70,7 +70,7 @@ class Mapper
 
             foreach($fields as $column => $field) {
                 $value = $object->{'get' . ucfirst($column)}();
-                $statement->bindParam($column, $value);
+                $statement->bindValue($column, $value);
             }
 
             if (!$statement->execute()) {
