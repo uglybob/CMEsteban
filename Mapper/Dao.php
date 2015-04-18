@@ -49,7 +49,13 @@ class Dao
     // {{{ getClass
     public function getClass()
     {
-        $classNameArray = explode('\\', get_class($this));
+        return get_class($this);;
+    }
+    // }}}
+    // {{{ getType
+    public function getType()
+    {
+        $classNameArray = explode('\\', $this->getClass());
         return end($classNameArray);
     }
     // }}}
@@ -71,7 +77,7 @@ class Dao
     }
     // }}}
 
-    // {{{ hasField
+    // {{{ isValidField
     public static function isValidField($daoClass, $fieldName)
     {
         if (

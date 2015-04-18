@@ -35,33 +35,40 @@ class Mapper
     // {{{ save
     public static function save($object)
     {
-        $columns = $object->getColumns();
+        $fields = \Bh\Mapper\Dao::getFields($object->getClass());
 
         if ($object->getId()) {
             $setString = '';
 
-            foreach ($columns as $column) {
-                $setString .= $column . ' = :' . $column . ', ';
+            foreach ($fields as $column => $field) {
+                if (!self::isAssociation($field)) {
+                    $setString .= $column . ' = :' . $column . ', ';
+                }
             }
 
             $setString = substr($setString, 0, -2 ) . ' ';
-            $sql = 'UPDATE ' . $object->getClass() . ' SET ' . $setString . 'WHERE id = :id';
+            $sql = 'UPDATE ' . $object->getType() . ' SET ' . $setString . 'WHERE id = :id';
             $statement = self::getPdo()->prepare($sql);
 
-            $statement->bindParam('id', $object->getId());
+            $id = $object->getId();
+            $statement->bindParam('id', $id);
 
-            foreach($columns as $column) {
-                $statement->bindParam($column, $object->{'get' . ucfirst($column)});
+            foreach($fields as $column => $field) {
+                if (!self::isAssociation($field)) {
+                    $value = $object->{'get' . ucfirst($column)}();
+                    $statement->bindParam($column, $value);
+                }
             }
 
             if (!$statement->execute()) {
                 throw new DataException(implode($statement->errorInfo()));
             }
         } else {
-            $sql = 'INSERT INTO ' . $object->getClass()  . ' (' . implode(', ', $columns) . ') VALUES (:' . implode(', :', $columns) . ')';
+            $columns = array_keys($fields);
+            $sql = 'INSERT INTO ' . $object->getType()  . ' (' . implode(', ', $columns) . ') VALUES (:' . implode(', :', $columns) . ')';
             $statement = self::getPdo()->prepare($sql);
 
-            foreach($columns as $column) {
+            foreach($fields as $column => $field) {
                 $statement->bindParam($column, $object->{'get' . ucfirst($column)});
             }
 
@@ -135,6 +142,18 @@ class Mapper
     public static function getAll($class)
     {
         return self::getAllWhere($class);
+    }
+    // }}}
+
+    // {{{ isAssociation
+    public static function isAssociation($field)
+    {
+        $type = $field->getType();
+
+        return (
+            'Oto' === $type ||
+            'Mto' === $type
+        );
     }
     // }}}
 }
