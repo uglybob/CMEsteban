@@ -21,10 +21,10 @@ class Dao
     // {{{ get
     private function get($attribute, $arguments)
     {
-        $length = strlen($attribute);
-        if (substr($attribute, -4, $length) === 'List') {
+        if ('List' === substr($attribute, -4, strlen($attribute))) {
             return $this->getList(ucfirst(substr($attribute, 0, -4)), $arguments);
         } else {
+            self::isValidField(get_class($this), $attribute);
             return $this->$attribute;
         }
     }
@@ -32,6 +32,7 @@ class Dao
     // {{{ set
     private function set($attribute, $arguments)
     {
+        self::isValidField(get_class($this), $attribute);
         $this->$attribute = $arguments[0];
     }
     // }}}
@@ -39,7 +40,8 @@ class Dao
     private function getList($attribute, $arguments)
     {
         $target = \Bh\Lib\Controller::getClass('Entity', $attribute);
-        // @todo test if field exists
+        self::isValidField($target, lcfirst($attribute));
+
         return \Bh\Mapper\Mapper::getAllWhere($attribute, ['id' => $this->getId()]);
     }
     // }}}
@@ -54,11 +56,7 @@ class Dao
     // {{{ getColumns
     public static function getColumns($daoClass)
     {
-        $columns = [];
-        foreach ($daoClass::getFields($daoClass) as $field) {
-            $columns[] = $field->getName();
-        }
-        return $columns;
+        return array_keys($daoClass::getFields($daoClass));
     }
     // }}}
     // {{{ getFields
@@ -66,9 +64,24 @@ class Dao
     {
         $fieldObjects = [];
         foreach ($daoClass::daoFields() as $fieldParams) {
-            $fieldObjects[] = new Field($fieldParams);
+            $field = new Field($fieldParams);
+            $fieldObjects[$field->getName()] = $field;
         }
         return $fieldObjects;
+    }
+    // }}}
+
+    // {{{ hasField
+    public static function isValidField($daoClass, $fieldName)
+    {
+        if (
+            'id' !== $fieldName &&
+            'timestamp' != $fieldName &&
+            !array_key_exists($fieldName, self::getFields($daoClass))
+        ) {
+            throw new DataException('Invalid field "' . $fieldName . '" for Class "' . $daoClass . '".');
+        }
+        return true;
     }
     // }}}
 }
