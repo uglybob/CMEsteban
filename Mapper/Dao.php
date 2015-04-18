@@ -9,15 +9,13 @@ class Dao
     // {{{ call
     public function __call($name, $arguments)
     {
-        $method = substr($name, 0, 3);
-        $attribute = lcfirst(substr($name, 3, strlen($name) - 3));
+        $methods = ['get', 'set', 'add'];
 
-        if (
-            $method === 'get' ||
-            $method === 'set' ||
-            $method === 'add'
-        ) {
-            return $this->$method($attribute, $arguments);
+        foreach ($methods as $method) {
+            $rest = $this->startsWith($name, $method);
+            if ($rest) {
+                return $this->$method(lcfirst($rest), $arguments);
+            }
         }
     }
     // }}}
@@ -25,12 +23,14 @@ class Dao
     // {{{ get
     private function get($attribute, $arguments)
     {
-        if ('List' === substr($attribute, -4, strlen($attribute))) {
-            return $this->getList(ucfirst(substr($attribute, 0, -4)), $arguments);
+        if ($rest = $this->endsWith($attribute, 'List')) {
+            return $this->getList(ucfirst($rest), $arguments);
         } else {
-            self::isValidField(get_class($this), $attribute);
+            self::isValidField($this->getClass(), $attribute);
             if (isset($this->$attribute)) {
                 return $this->$attribute;
+            } elseif ($this->isAssociationField($this->getClass(), $attribute . 'Id')) {
+                return \Bh\Mapper\Mapper::load(ucfirst($attribute), $this->{$attribute . 'Id'});
             } else {
                 return null;
             }
@@ -48,9 +48,11 @@ class Dao
     private function getList($attribute, $arguments)
     {
         $target = \Bh\Lib\Controller::getClass('Entity', $attribute);
-        self::isValidField($target, lcfirst($attribute));
+        $reference = lcfirst($this->getType()) . 'Id';
 
-        return \Bh\Mapper\Mapper::getAllWhere($attribute, [lcfirst($this->getType()) => $this->getId()]);
+        self::isValidField($target, $reference);
+
+        return \Bh\Mapper\Mapper::getAllWhere($attribute, [$reference => $this->getId()]);
     }
     // }}}
     // {{{ add
@@ -100,13 +102,54 @@ class Dao
     public static function isValidField($daoClass, $fieldName)
     {
         if (
-            'id' !== $fieldName &&
-            'timestamp' != $fieldName &&
-            !array_key_exists($fieldName, self::getFields($daoClass))
+            'id' === $fieldName ||
+            'timestamp' === $fieldName ||
+            array_key_exists($fieldName, self::getFields($daoClass)) ||
+            array_key_exists($fieldName . 'Id', self::getFields($daoClass))
         ) {
+            return true;
+        } else {
             throw new DataException('Invalid field "' . $fieldName . '" for Class "' . $daoClass . '".');
         }
-        return true;
+    }
+    // }}}
+    // {{{ isAssociationField
+    public static function isAssociationField($daoClass, $fieldName)
+    {
+        $fields = self::getFields($daoClass);
+        $type = $fields[$fieldName]->getType();
+
+        if (
+            'Oto' === $type ||
+            'Otp' === $type
+        ) {
+            $result = true;
+        } else {
+            $result = false;
+        }
+
+        return $result;
+    }
+    // }}}
+
+    // {{{ startsWith
+    private function startsWith($haystack, $needle)
+    {
+        if (substr($haystack, 0, strlen($needle)) === $needle) {
+            return substr($haystack, strlen($needle), strlen($haystack) - strlen($needle));
+        } else {
+            return false;
+        }
+    }
+    // }}}
+    // {{{ endsWith
+    private function endsWith($haystack, $needle)
+    {
+        if (substr($haystack, - strlen($needle), strlen($haystack)) === $needle) {
+           return substr($haystack, 0, -strlen($needle));
+        } else {
+            return false;
+        }
     }
     // }}}
 }
