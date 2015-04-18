@@ -69,7 +69,8 @@ class Mapper
             $statement = self::getPdo()->prepare($sql);
 
             foreach($fields as $column => $field) {
-                $statement->bindParam($column, $object->{'get' . ucfirst($column)});
+                $value = $object->{'get' . ucfirst($column)}();
+                $statement->bindParam($column, $value);
             }
 
             if (!$statement->execute()) {

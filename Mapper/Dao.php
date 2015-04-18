@@ -9,11 +9,15 @@ class Dao
     // {{{ call
     public function __call($name, $arguments)
     {
-        $xet = substr($name, 0, 3);
+        $method = substr($name, 0, 3);
         $attribute = lcfirst(substr($name, 3, strlen($name) - 3));
 
-        if ($xet === 'get' || $xet === 'set') {
-            return $this->$xet($attribute, $arguments);
+        if (
+            $method === 'get' ||
+            $method === 'set' ||
+            $method === 'add'
+        ) {
+            return $this->$method($attribute, $arguments);
         }
     }
     // }}}
@@ -25,7 +29,11 @@ class Dao
             return $this->getList(ucfirst(substr($attribute, 0, -4)), $arguments);
         } else {
             self::isValidField(get_class($this), $attribute);
-            return $this->$attribute;
+            if (isset($this->$attribute)) {
+                return $this->$attribute;
+            } else {
+                return null;
+            }
         }
     }
     // }}}
@@ -42,7 +50,18 @@ class Dao
         $target = \Bh\Lib\Controller::getClass('Entity', $attribute);
         self::isValidField($target, lcfirst($attribute));
 
-        return \Bh\Mapper\Mapper::getAllWhere($attribute, ['id' => $this->getId()]);
+        return \Bh\Mapper\Mapper::getAllWhere($attribute, [lcfirst($this->getType()) => $this->getId()]);
+    }
+    // }}}
+    // {{{ add
+    private function add($attribute, $arguments)
+    {
+        $target = \Bh\Lib\Controller::getClass('Entity', $attribute);
+        self::isValidField($target, lcfirst($attribute));
+        $object = $arguments[0];
+        $object->{'set' . $this->getType()}($this->getId());
+
+        return \Bh\Mapper\Mapper::save($object);
     }
     // }}}
 
