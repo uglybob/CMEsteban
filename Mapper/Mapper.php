@@ -80,7 +80,7 @@ class Mapper
             $object->setId(self::getPdo()->lastInsertId());
         }
 
-        return $object->id;
+        return $object->getId();
     }
     // }}}
     // {{{ delete

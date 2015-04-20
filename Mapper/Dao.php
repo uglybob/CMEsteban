@@ -67,6 +67,13 @@ class Dao
     }
     // }}}
 
+    // {{{ save
+    public function save()
+    {
+        return \Bh\Mapper\Mapper::save($this);
+    }
+    // }}}
+
     // {{{ getClass
     public function getClass()
     {
@@ -117,7 +124,7 @@ class Dao
     public static function isAssociationField($daoClass, $fieldName)
     {
         $fields = self::getFields($daoClass);
-        $type = $fields[$fieldName]->getType();
+        $type = (isset($fields[$fieldName])) ? $fields[$fieldName]->getType() : null;
 
         if (
             'Oto' === $type ||
