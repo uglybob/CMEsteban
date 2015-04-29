@@ -28,7 +28,7 @@ class Field
     // {{{ getClass
     public function getClass()
     {
-        return ucfirst(substr($this->name, 0, -2));
+        return ucfirst($this->name);
     }
     // }}}
     // {{{ getType

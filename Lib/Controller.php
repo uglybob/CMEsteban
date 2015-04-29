@@ -8,23 +8,12 @@ class Controller
     protected $request = null;
     // }}}
     // {{{ constructor
-    public function __construct($request)
+    public function __construct()
     {
         $this->logic = new \Bh\Content\Lib\Logic($this);
-        $this->handleRequest($request);
     }
     // }}}
 
-    // {{{ handleRequest
-    protected function handleRequest($request)
-    {
-        if (is_null($request)) {
-            $this->request = 'Home';
-        } else {
-            $this->request = $request;
-        }
-    }
-    // }}}
     // {{{ getClass
     public static function getClass($namespace, $class)
     {
@@ -42,18 +31,18 @@ class Controller
         return $resultClass;
     }
     // }}}
-
     // {{{ getPage
-    public function getPage($request = null)
+    public function getPage($request)
     {
-        if (is_null($request)) {
-            $request = $this->request;
-        }
-
+        $page = '\Bh\Page\Home';
         $path = explode('/', $request);
-        $params = [];
-        $pageClass = array_shift($path);
-        $page = $this->getClass('Page', $pageClass);
+
+        $handlers = \Bh\Mapper\Mapper::getAllWhere('Page', ['request' => $path[0]]);
+        if (isset($handlers[0])) {
+            try {
+                $page = $this->getClass('Page', $handlers[0]->page);
+            } catch (\Bh\Exceptions\BhException $e) {}
+        }
 
         return new $page($this, $path);
     }

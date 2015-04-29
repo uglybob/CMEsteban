@@ -20,7 +20,7 @@ class SchemaGenerator
     // {{{ addDao
     public function addDao($dao)
     {
-        $this->daos[$dao] = \Bh\Lib\Controller::getClass('Entity', $dao);
+        $this->daos[$dao] = \Bh\Lib\Controller::getClass('Mapper', $dao);
     }
     // }}}
     // {{{ getDao

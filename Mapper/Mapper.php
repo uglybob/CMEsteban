@@ -123,7 +123,7 @@ class Mapper
             $whereString = ' WHERE ' . substr($whereString, 0, -5 );
         }
 
-        $namespaceClass = \Bh\Lib\Controller::getClass('Entity', $class);
+        $namespaceClass = \Bh\Lib\Controller::getClass('Mapper', $class);
         $columns = \Bh\Mapper\Dao::getColumns($namespaceClass);
 
         $query = 'SELECT id,timestamp,' . implode(',', $columns) . ' FROM ' . $class . $whereString;
