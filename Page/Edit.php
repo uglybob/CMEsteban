@@ -9,78 +9,36 @@ class Edit extends Backend
     // {{{ constructor
     public function __construct($controller, $path)
     {
-        $this->handlePath($path);
-        parent::__construct($controller, $path);
+        $this->controller = $controller;
 
-        $this->stylesheets[]    = '/Lib/css/depage-forms.css';
-        $this->form             = new htmlform('edit' . $this->class, ['label' => 'speichern']);
-        $this->createForm();
+        $this->id = (isset($path[2])) ? $path[2] : null;
+        $this->stylesheets[] = '/Page/css/depage-forms.css';
+        $this->class = ucfirst($path[1]);
+        $this->editString = $this->controller->getClass('Page', 'Edit' . ucfirst($this->class));
 
-        $object = $this->mapper->load($this->id);
+        $this->form = new htmlform('edit' . $this->class, ['label' => 'speichern']);
+
+        $editString = $this->editString;
+        $editString::createForm($this->form);
+
+        $object = $controller->getLogic()->{'get' . $this->class}($this->id);
         if ($object) {
-            $this->title    = $this->class . ' editieren';
-            $this->object   = $object;
-            $this->populateForm();
+            $this->title = ucfirst($this->class) . ' editieren';
+            $editString::populateForm($this->form, $object);
         } else {
-            $this->title    = $this->class . ' erstellen';
-            $classString    = '\BH\Entity\\' . $this->class;
-            $this->object   = new $classString();
+            $this->title = ucfirst($this->class) . ' erstellen';
+            $classString = '\Bh\Content\Entity\\' . $this->class;
+            $this->object = new $classString;
         }
 
         $this->form->process();
 
         if ($this->form->validate()) {
-            $this->saveForm();
+            $editString::saveForm($this->form, $object);
+            $object->save();
+            $this->form->clearSession();
             $this->redirect('/Directory/' . $this->class);
         }
-    }
-    // }}}
-    // {{{ handlePath
-    protected function handlePath($path)
-    {
-        $this->class = array_shift($path);
-        $this->id = array_shift($path);
-    }
-    // }}}
-
-    // {{{ createForm
-    protected function createForm()
-    {
-        foreach($this->fields as $field) {
-            if ($field->getType() == 'Connection') {
-                $objects = $this->controller->getMapper($field->getClass())->getAll();
-                $list = ['null' => 'auswählen'];
-                foreach($objects as $object) {
-                    $list[$object->id] = $object->name;
-                }
-                // @todo merge with params
-                $this->form->addSingle($field->getLabel(), ['skin' => 'select', 'list' => $list]);
-            } else {
-                $addInput = 'add' . $field->getType();
-                $this->form->$addInput($field->getLabel(), $field->getParams());
-            }
-        }
-    }
-    // }}}
-    // {{{ populateForm
-    protected function populateForm()
-    {
-        $data = [];
-        foreach($this->fields as $field) {
-            $data[$field->getLabel()] = $this->object->{$field->getName()};
-        }
-
-        $this->form->populate($data);
-    }
-    // }}}
-    // {{{ saveForm
-    protected function saveForm()
-    {
-        foreach($this->fields as $field) {
-            $this->object->{$field->getName()} = $this->form->getValues()[$field->getLabel()];
-        }
-        $this->mapper->save($this->object);
-        $this->form->clearSession();
     }
     // }}}
 

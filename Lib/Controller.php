@@ -34,7 +34,7 @@ class Controller
     // {{{ getPage
     public function getPage($request)
     {
-        $page = '\Bh\Page\Home';
+        $page = '\Bh\Content\Page\Home';
         $path = explode('/', $request);
 
         $handlers = \Bh\Mapper\Mapper::getAllWhere('Page', ['request' => $path[0]]);
