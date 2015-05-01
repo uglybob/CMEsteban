@@ -6,49 +6,38 @@ use \Bh\Exceptions\DataException;
 
 class Dao
 {
-    // {{{ call
-    public function __call($name, $arguments)
+    // {{{ __get
+    public function __get($attribute)
     {
-        $methods = ['get', 'set', 'add'];
+        $result = null;
 
-        foreach ($methods as $method) {
-            $rest = $this->startsWith($name, $method);
-            if ($rest) {
-                return $this->$method(lcfirst($rest), $arguments);
-            }
-        }
-    }
-    // }}}
-
-    // {{{ get
-    private function get($attribute, $arguments)
-    {
-        if ($rest = $this->endsWith($attribute, 'List')) {
-            return $this->getList(ucfirst($rest), $arguments);
-        } else {
-            self::isValidField($this->getClass(), $attribute);
+        if (self::isValidField($this->getClass(), $attribute)) {
             if (isset($this->$attribute)) {
-                return $this->$attribute;
-            } elseif ($this->isAssociationField($this->getClass(), $attribute . 'Id')) {
-                return \Bh\Mapper\Mapper::load(ucfirst($attribute), $this->{$attribute . 'Id'});
-            } else {
-                return null;
+                $result = $this->$attribute;
             }
+        } else {
+            throw new DataException('Invalid field "' . $fieldName . '" for Class "' . $daoClass . '".');
+        }
+
+        return $result;
+    }
+    // }}}
+    // {{{ __set
+    public function __set($attribute, $value)
+    {
+        if (self::isValidField($this->getClass(), $attribute)) {
+            $this->$attribute = $value;
+        } else {
+            throw new DataException('Invalid field "' . $fieldName . '" for Class "' . $daoClass . '".');
         }
     }
     // }}}
-    // {{{ set
-    private function set($attribute, $arguments)
-    {
-        self::isValidField(get_class($this), $attribute);
-        $this->$attribute = $arguments[0];
-    }
-    // }}}
+
     // {{{ getList
     private function getList($attribute, $arguments)
     {
         $target = \Bh\Lib\Controller::getClass('Entity', $attribute);
-        $reference = lcfirst($this->getType()) . 'Id';
+        $reference = lcfirst($this->getType());
 
         self::isValidField($target, $reference);
 
@@ -111,13 +100,14 @@ class Dao
         if (
             'id' === $fieldName ||
             'timestamp' === $fieldName ||
-            array_key_exists($fieldName, self::getFields($daoClass)) ||
-            array_key_exists($fieldName . 'Id', self::getFields($daoClass))
+            array_key_exists($fieldName, self::getFields($daoClass))
         ) {
-            return true;
+            $result = true;
         } else {
-            throw new DataException('Invalid field "' . $fieldName . '" for Class "' . $daoClass . '".');
+            $result = false;
         }
+
+        return $result;
     }
     // }}}
     // {{{ isAssociationField
@@ -136,27 +126,6 @@ class Dao
         }
 
         return $result;
-    }
-    // }}}
-
-    // {{{ startsWith
-    private function startsWith($haystack, $needle)
-    {
-        if (substr($haystack, 0, strlen($needle)) === $needle) {
-            return substr($haystack, strlen($needle), strlen($haystack) - strlen($needle));
-        } else {
-            return false;
-        }
-    }
-    // }}}
-    // {{{ endsWith
-    private function endsWith($haystack, $needle)
-    {
-        if (substr($haystack, - strlen($needle), strlen($haystack)) === $needle) {
-           return substr($haystack, 0, -strlen($needle));
-        } else {
-            return false;
-        }
     }
     // }}}
 }

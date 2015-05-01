@@ -35,9 +35,10 @@ class Mapper
     // {{{ save
     public static function save($object)
     {
+        print_r($object);
         $fields = \Bh\Mapper\Dao::getFields($object->getClass());
 
-        if ($object->getId()) {
+        if ($object->id) {
             $setString = '';
 
             foreach ($fields as $column => $field) {
@@ -55,7 +56,7 @@ class Mapper
 
             foreach($fields as $column => $field) {
                 if (!self::isAssociation($field)) {
-                    $value = $object->{'get' . ucfirst($column)}();
+                    $value = $object->$column;
                     $statement->bindValue($column, $value);
                 }
             }
@@ -69,7 +70,7 @@ class Mapper
             $statement = self::getPdo()->prepare($sql);
 
             foreach($fields as $column => $field) {
-                $value = $object->{'get' . ucfirst($column)}();
+                $value = $object->$column;
                 $statement->bindValue($column, $value);
             }
 
@@ -77,10 +78,10 @@ class Mapper
                 throw new DataException(implode($statement->errorInfo()));
             }
 
-            $object->setId(self::getPdo()->lastInsertId());
+            $object->id = self::getPdo()->lastInsertId();
         }
 
-        return $object->getId();
+        return $object->id;
     }
     // }}}
     // {{{ delete
@@ -89,7 +90,7 @@ class Mapper
         $sql = ('DELETE FROM ' . $object->getClass() . ' WHERE id = :id');
         $statement = self::getPdo()->prepare($sql);
 
-        $statement->bindParam('id', $object->getId());
+        $statement->bindParam('id', $object->id);
         $statement->execute();
     }
     // }}}

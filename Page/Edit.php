@@ -28,7 +28,7 @@ class Edit extends Backend
         } else {
             $this->title = ucfirst($this->class) . ' erstellen';
             $classString = '\Bh\Content\Entity\\' . $this->class;
-            $this->object = new $classString;
+            $object = new $classString();
         }
 
         $this->form->process();
