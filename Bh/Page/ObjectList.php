@@ -23,7 +23,6 @@ class ObjectList extends Backend
 
         try {
             $objects = $this->controller->getLogic()->getProjects();
-            var_dump($objects);
 
             foreach ($objects as $object) {
                 $content .= HTML::div('',

@@ -57,10 +57,10 @@ class Controller
         $page = '\Bh\Content\Page\Home';
         $path = explode('/', $request);
 
-        $handlers = \Bh\Mapper\Mapper::getAllWhere('Page', ['request' => $path[0]]);
-        if (isset($handlers[0])) {
+        $handler = $this->mapper->getRepository('Bh\Entity\Page')->findOneBy(['request' => $path[0]]);
+        if ($handler) {
             try {
-                $page = $this->getClass('Page', $handlers[0]->page);
+                $page = $this->getClass('Page', $handler->getPage());
             } catch (\Bh\Exceptions\BhException $e) {}
         }
 
