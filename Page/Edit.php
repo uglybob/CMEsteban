@@ -37,7 +37,7 @@ class Edit extends Backend
             $editString::saveForm($this->form, $object);
             $object->save();
             $this->form->clearSession();
-            $this->redirect('/Directory/' . $this->class);
+            $this->redirect('/list/' . $this->class);
         }
     }
     // }}}
