@@ -12,7 +12,13 @@ class Controller
     public function __construct()
     {
         $isDevMode = true;
-        $config = \Doctrine\ORM\Tools\Setup::createXMLMetadataConfiguration(array(__DIR__.'/../Content/Mapper'), $isDevMode);
+        $config = \Doctrine\ORM\Tools\Setup::createXMLMetadataConfiguration(
+            [
+                __DIR__.'/../Content/Mapper',
+                __DIR__.'/../Mapper',
+            ],
+            $isDevMode
+        );
 
         $settings = \Bh\Lib\Setup::getSettings();
         $conn = array(
