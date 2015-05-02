@@ -6,11 +6,25 @@ class Controller
 {
     // {{{ variables
     protected $request = null;
+    protected $mapper = null;
     // }}}
     // {{{ constructor
     public function __construct()
     {
+        $isDevMode = true;
+        $config = \Doctrine\ORM\Tools\Setup::createXMLMetadataConfiguration(array(__DIR__.'/../Content/Mapper'), $isDevMode);
+
+        $settings = \Bh\Lib\Setup::getSettings();
+        $conn = array(
+            'driver'   => 'pdo_mysql',
+            'user'     => $settings['DbUser'],
+            'password' => $settings['DbPass'],
+            'dbname'   => $settings['DbName'],
+        );
+        $this->mapper = \Doctrine\ORM\EntityManager::create($conn, $config);
+
         $this->logic = new \Bh\Content\Lib\Logic($this);
+        
     }
     // }}}
 
@@ -51,6 +65,12 @@ class Controller
     public function getLogic()
     {
         return $this->logic;
+    }
+    // }}}
+    // {{{ getMapper
+    public function getMapper()
+    {
+        return $this->mapper;
     }
     // }}}
 
