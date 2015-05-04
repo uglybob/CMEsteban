@@ -39,7 +39,7 @@ class Controller
         $page = '\Bh\Content\Page\Home';
         $path = explode('/', $request);
 
-        $handler = $this->mapper->getRepository('Bh\Entity\Page')->findOneBy(['request' => $path[0]]);
+        $handler = $this->mapper->getEntityManager()->getRepository('Bh\Entity\Page')->findOneBy(['request' => $path[0]]);
         if ($handler) {
             try {
                 $page = $this->getClass('Page', $handler->getPage());

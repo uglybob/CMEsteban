@@ -48,7 +48,7 @@ class Mapper
     // }}}
 
     // {{{ save
-    public function persist($object)
+    public function save($object)
     {
         $this->entityManager->persist($object);
     }
@@ -57,6 +57,13 @@ class Mapper
     public function commit()
     {
         $this->entityManager->flush();
+    }
+    // }}}
+
+    // {{{ getEntityManager
+    public function getEntityManager()
+    {
+        return $this->entityManager;
     }
     // }}}
 }
