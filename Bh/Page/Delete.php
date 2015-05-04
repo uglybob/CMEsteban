@@ -7,31 +7,31 @@ class Delete extends Backend
     // {{{ constructor
     public function __construct($controller, $path)
     {
-        parent::__construct($controller);
-        $this->class            = array_shift($path);
-        $this->id               = array_shift($path);
+        $this->class = ucfirst($path[1]);
+        $this->id = $path[2];
 
-        $this->title            = $this->class . ' löschen';
-        $this->stylesheets[]    = '/Lib/css/depage-forms.css';
-        $this->mapper           = $this->controller->getMapper($this->class);
+        $this->controller = $controller;
+        $this->logic = $controller->getLogic();
 
-        $object = $this->mapper->load($this->id);
+        $this->title = $this->class . ' löschen';
+        $this->stylesheets[] = '/Bh/Page/css/depage-forms.css';
 
-        if ($object) {
-            $this->object = $object;
-        } else {
-            $this->redirect('/Directory/' . $this->class);
+        $object = $this->logic->{'get' . $this->class}($this->id);
+
+        if (!$object) {
+            $this->redirect('/list/' . lcfirst($this->class));
         }
 
         $this->deleteForm = new \depage\htmlform\htmlform('delete' . $this->class, ['label' => 'löschen']);
-        $this->deleteForm->addBoolean('sure', ['label' => $this->object->name . ' wirklich löschen?'])->setRequired();
+        $this->deleteForm->addBoolean('sure', ['label' => $object->getName() . ' wirklich löschen?'])->setRequired();
         $this->deleteForm->process();
 
         if ($this->deleteForm->validate()) {
-            $this->mapper->delete($this->object);
+            $object->delete();
+            $this->logic->commit();
             $this->deleteForm->clearSession();
 
-            $this->redirect('/Directory/' . $this->class);
+            $this->redirect('/list/' . lcfirst($this->class));
         }
     }
     // }}}

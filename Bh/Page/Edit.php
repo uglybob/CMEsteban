@@ -16,19 +16,18 @@ class Edit extends Backend
         // @todo hard coded
         $this->stylesheets[] = '/Bh/Page/css/depage-forms.css';
         $this->class = ucfirst($path[1]);
-        $this->editString = $this->controller->getClass('Page', 'Edit' . ucfirst($this->class));
+        $editString = $this->controller->getClass('Page', 'Edit' . $this->class);
 
         $this->form = new htmlform('edit' . $this->class, ['label' => 'speichern']);
 
-        $editString = $this->editString;
         $editString::createForm($this->form);
 
         $object = $this->logic->{'get' . $this->class}($this->id);
         if ($object) {
-            $this->title = ucfirst($this->class) . ' editieren';
+            $this->title = $this->class . ' editieren';
             $editString::populateForm($this->form, $object);
         } else {
-            $this->title = ucfirst($this->class) . ' erstellen';
+            $this->title = $this->class . ' erstellen';
             // @todo hard coded
             $classString = '\Bh\Content\Entity\\' . $this->class;
             $object = new $classString();
@@ -39,8 +38,9 @@ class Edit extends Backend
         if ($this->form->validate()) {
             $editString::saveForm($this->form, $object);
             $this->logic->save($object);
+            $this->logic->commit();
             $this->form->clearSession();
-            $this->redirect('/list/' . $this->class);
+            $this->redirect('/list/' . lcfirst($this->class));
         }
     }
     // }}}
