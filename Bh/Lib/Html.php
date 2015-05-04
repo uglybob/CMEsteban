@@ -77,6 +77,18 @@ class Html
         return self::tag('a', $attributes, $content);
     }
     // }}}
+    // {{{ p
+    static public function p($attributes = '', $content = '')
+    {
+        return self::tag('p', $attributes, $content);
+    }
+    // }}}
+    // {{{ label
+    static public function label($attributes = '', $content = '')
+    {
+        return self::tag('label', $attributes, $content);
+    }
+    // }}}
     // {{{ img
     static public function img($attributes = '', $content = '')
     {

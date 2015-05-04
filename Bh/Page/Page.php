@@ -16,12 +16,14 @@ abstract class Page {
     // }}}
 
     // {{{ hookTitle
-    protected function hookTitle() {
+    protected function hookTitle()
+    {
         return $this->title;
     }
     // }}}
     // {{{ hookHeader
-    protected function hookHeader() {
+    protected function hookHeader()
+    {
     }
     // }}}
 
