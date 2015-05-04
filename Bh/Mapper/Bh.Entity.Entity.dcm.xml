@@ -8,5 +8,6 @@
             <generator strategy="AUTO" />
         </id>
         <field name="timestamp" type="datetime" />
+        <field name="deleted" type="boolean" />
     </mapped-superclass>
 </doctrine-mapping>

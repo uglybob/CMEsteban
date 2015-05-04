@@ -6,10 +6,12 @@ class Entity
 {
     protected $id;
     protected $timestamp;
+    protected $deleted;
 
     // {{{ constructor
     public function __construct()
     {
+        $this->deleted = false;
         $this->timestamp = new \DateTime('now');
     }
     // }}}
@@ -34,7 +36,22 @@ class Entity
         $result = null;
 
         if (property_exists($this, $attribute)) {
-            $result = $this->$attribute;
+            if (
+                // @todo more abstract collection?
+                $this->$attribute instanceOf \Doctrine\ORM\PersistentCollection
+                && (
+                    !isset($arguments[0])
+                    || $arguments[0] == false
+                )
+            ) {
+                $result = $this->$attribute->filter(
+                    function($entity) {
+                        return !$entity->getDeleted();
+                    }
+                );
+            } else {
+                $result = $this->$attribute;
+            }
         } else {
             // @todo exception?
         }
@@ -60,6 +77,13 @@ class Entity
         } else {
             return false;
         }
+    }
+    // }}}
+
+    // {{{ delete
+    public function delete()
+    {
+        $this->deleted = true;
     }
     // }}}
 }

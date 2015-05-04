@@ -11,26 +11,8 @@ class Controller
     // {{{ constructor
     public function __construct()
     {
-        $isDevMode = true;
-        $config = \Doctrine\ORM\Tools\Setup::createXMLMetadataConfiguration(
-            [
-                __DIR__.'/../Content/Mapper',
-                __DIR__.'/../Mapper',
-            ],
-            $isDevMode
-        );
-
-        $settings = \Bh\Lib\Setup::getSettings();
-        $conn = array(
-            'driver'   => 'pdo_mysql',
-            'user'     => $settings['DbUser'],
-            'password' => $settings['DbPass'],
-            'dbname'   => $settings['DbName'],
-        );
-        $this->mapper = \Doctrine\ORM\EntityManager::create($conn, $config);
-
+        $this->mapper = new \Bh\Lib\Mapper();
         $this->logic = new \Bh\Content\Lib\Logic($this);
-        
     }
     // }}}
 
