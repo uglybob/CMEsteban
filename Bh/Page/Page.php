@@ -100,7 +100,7 @@ abstract class Page {
     // }}}
 
     // {{{ redirect
-    protected function redirect($url)
+    public static function redirect($url)
     {
         header('Location: ' . $url);
         die();

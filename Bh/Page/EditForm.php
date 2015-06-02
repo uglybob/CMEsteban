@@ -20,11 +20,11 @@ class EditForm
         $this->form = new htmlform('edit' . $this->class, ['label' => 'speichern']);
         $object = $this->logic->{'get' . $this->class}($this->id);
 
-        $editString::createForm($this->form, $object);
+        $this->createForm($object);
 
         if ($object) {
             $this->title = $this->class . ' editieren';
-            $editString::populateForm($this->form, $object);
+            $this->populateForm($object);
         } else {
             $this->title = $this->class . ' erstellen';
             // @todo hard coded
@@ -35,11 +35,11 @@ class EditForm
         $this->form->process();
 
         if ($this->form->validate()) {
-            $editString::saveForm($this->form, $object, $this->logic);
+            $this->saveForm($object);
             $this->logic->save($object);
             $this->logic->commit();
             $this->form->clearSession();
-            $this->redirect('/list/' . lcfirst($this->class));
+            Page::redirect('/list/' . lcfirst($this->class));
         }
     }
     // }}}
