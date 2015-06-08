@@ -2,8 +2,6 @@
 
 namespace Bh\Page;
 
-use \depage\htmlform\htmlform;
-
 class EditForm
 {
     // {{{ constructor
@@ -14,7 +12,8 @@ class EditForm
         $this->id = $id;
         $this->class = $class;
 
-        $this->form = new htmlform('edit' . $this->class, ['label' => 'speichern']);
+        $this->form = new \Depage\HtmlForm\HtmlForm('edit' . $this->class, ['label' => 'speichern']);
+        $this->form->registerNamespace('\\Bh\\Content\\Page');
         $this->object = $this->logic->{'get' . $this->class}($this->id);
 
         $this->create();

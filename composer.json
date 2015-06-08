@@ -4,10 +4,10 @@
     },
     "require" : {
         "facebook/php-sdk-v4" : "4.0.*",
-        "depage/htmlform": "~1.4",
         "doctrine/orm": "2.4.*"
     },
     "autoload": {
-        "psr-0": {"Bh\\": "./"}
+        "psr-0": {"Bh\\": "./"},
+        "psr-4": {"Depage\\": "./Depage"}
     }
 }
