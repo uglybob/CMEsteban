@@ -2,12 +2,18 @@
     "config": {
         "preferred-install" : "dist"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/uglybob/depage-forms"
+        }
+    ],
     "require" : {
+        "depage/htmlform": "dev-master",
         "facebook/php-sdk-v4" : "4.0.*",
         "doctrine/orm": "2.4.*"
     },
     "autoload": {
-        "psr-0": {"Bh\\": "./"},
-        "psr-4": {"Depage\\": "./Depage"}
+        "psr-0": {"Bh\\": "./"}
     }
 }
