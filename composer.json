@@ -1,4 +1,14 @@
 {
+    "name": "uglybob/bh.net",
+    "description": "Small framework for data based web services",
+    "license": "GPL2",
+    "authors": [
+    {
+        "name": "Sebastian Reinhold",
+        "email": "sebastian@bitbernd.de",
+        "role": "Developer"
+    }
+    ],
     "config": {
         "preferred-install" : "dist"
     },
@@ -10,7 +20,6 @@
     ],
     "require" : {
         "depage/htmlform": "dev-master",
-        "facebook/php-sdk-v4" : "4.0.*",
         "doctrine/orm": "2.4.*"
     },
     "autoload": {
