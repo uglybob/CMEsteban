@@ -7,32 +7,45 @@ class Controller
     // {{{ variables
     protected $request = null;
     protected $mapper = null;
+    protected $namespaces = [];
     // }}}
     // {{{ constructor
     public function __construct()
     {
+        $this->$namespaces[] = 'Bh';
+
         $this->mapper = new \Bh\Lib\Mapper();
         $this->logic = new \Bh\Content\Lib\Logic($this);
     }
     // }}}
 
+    // {{{ registerNamespace
+    public function registerNamespace($namespace)
+    {
+        $this->namespaces[] = $namespace;
+    }
+    // }}}
     // {{{ getClass
-    public static function getClass($namespace, $class)
+    public function getClass($subNamespace, $class)
     {
         $resultClass = null;
-        $subClass = $namespace . '\\' . $class;
+        $subClass = $subNamespace . '\\' . $class;
 
-        if (class_exists($bhClass = '\Bh\\' . $subClass)) {
-            $resultClass = $bhClass;
-        } elseif (class_exists($contentClass = '\Bh\Content\\' . $subClass)) {
-            $resultClass = $contentClass;
-        } else {
+        foreach($this->namespaces as $namspace) {
+            if (class_exists($candidateClass = '\\' . $namespace . '\\' . $subClass)) {
+                $resultClass = $candidateClass;
+                break;
+            }
+        }
+
+        if (is_null($resultClass)) {
             throw new \Bh\Exceptions\BhException('Class "' . $class . '" doesn\'t exists.');
         }
 
         return $resultClass;
     }
     // }}}
+
     // {{{ getPage
     public function getPage($request)
     {
@@ -60,17 +73,5 @@ class Controller
     {
         return $this->mapper;
     }
-    // }}}
-
-    // {{{ connectToFacebook
-    /* todo
-    protected function connectToFacebook()
-    {
-        $this->facebook = new Bh\Lib\Facebook(
-            $this->setup['FbClientId'],
-            $this->setup['FbClientSecret']
-        );
-    }
-    */
     // }}}
 }
