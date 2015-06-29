@@ -6,20 +6,25 @@ class Mapper
 {
     // {{{ variables
     protected $entityManager;
+    protected $controller;
     // }}}
     // {{{ constructor
-    public function __construct()
+    public function __construct($controller)
     {
+        $this->controller = $controller;
+
+        // @todo handle
         $isDevMode = true;
+        $settings = $this->controller->getSettings();
+
         $config = \Doctrine\ORM\Tools\Setup::createXMLMetadataConfiguration(
             [
-                __DIR__.'/../Content/Mapper',
                 __DIR__.'/../Mapper',
+                $settings['MapperPath'],
             ],
             $isDevMode
         );
 
-        $settings = \Bh\Lib\Setup::getSettings();
         $conn = array(
             'driver'   => 'pdo_mysql',
             'user'     => $settings['DbUser'],
@@ -33,7 +38,9 @@ class Mapper
     // {{{ find
     public function find($class, $id, $showHidden = false)
     {
-        return $this->entityManager->find('Bh\Content\Entity\\' . $class, $id);
+        $entityClass = $this->controller->getClass('Entity', $class);
+
+        return $this->entityManager->find($entityClass, $id);
     }
     // }}}
     // {{{ findAll

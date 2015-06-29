@@ -10,28 +10,25 @@ class Controller
     protected $namespaces = [];
     // }}}
     // {{{ constructor
-    public function __construct()
+    public function __construct($contentNamespace)
     {
-        $this->$namespaces[] = 'Bh';
+        $this->namespaces[] = 'Bh';
+        $this->namespaces[] = $contentNamespace;
 
-        $this->mapper = new \Bh\Lib\Mapper();
-        $this->logic = new \Bh\Content\Lib\Logic($this);
+        $this->mapper = new \Bh\Lib\Mapper($this);
+
+        $logicClass = $this->getClass('Lib', 'Logic');
+        $this->logic =  new $logicClass($this);
     }
     // }}}
 
-    // {{{ registerNamespace
-    public function registerNamespace($namespace)
-    {
-        $this->namespaces[] = $namespace;
-    }
-    // }}}
     // {{{ getClass
     public function getClass($subNamespace, $class)
     {
         $resultClass = null;
         $subClass = $subNamespace . '\\' . $class;
 
-        foreach($this->namespaces as $namspace) {
+        foreach($this->namespaces as $namespace) {
             if (class_exists($candidateClass = '\\' . $namespace . '\\' . $subClass)) {
                 $resultClass = $candidateClass;
                 break;
@@ -72,6 +69,14 @@ class Controller
     public function getMapper()
     {
         return $this->mapper;
+    }
+    // }}}
+    // {{{ getSettings
+    public function getSettings()
+    {
+        $setupClass = $this->getClass('Lib', 'Setup');
+
+        return $setupClass::getSettings();
     }
     // }}}
 }
