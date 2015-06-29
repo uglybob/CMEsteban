@@ -22,7 +22,7 @@ class Delete extends Backend
             $this->redirect('/list/' . lcfirst($this->class));
         }
 
-        $this->deleteForm = new \depage\htmlform\htmlform('delete' . $this->class, ['label' => 'löschen']);
+        $this->deleteForm = new \Depage\HtmlForm\HtmlForm('delete' . $this->class, ['label' => 'löschen']);
         $this->deleteForm->addBoolean('sure', ['label' => $object->getName() . ' wirklich löschen?'])->setRequired();
         $this->deleteForm->process();
 
