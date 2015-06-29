@@ -46,10 +46,12 @@ class Mapper
     // {{{ findAll
     public function findAll($class, $showHidden = false)
     {
+        $entityClass = $this->controller->getClass('Entity', $class);
+
         if ($showHidden) {
-            return $this->entityManager->getRepository('Bh\Content\Entity\\' . $class)->findAll();
+            return $this->entityManager->getRepository($entityClass)->findAll();
         } else {
-            return $this->entityManager->getRepository('Bh\Content\Entity\\' . $class)->findBy(['deleted' => 'false']);
+            return $this->entityManager->getRepository($entityClass)->findBy(['deleted' => 'false']);
         }
     }
     // }}}
