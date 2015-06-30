@@ -7,53 +7,28 @@ class Controller
     // {{{ variables
     protected $request = null;
     protected $mapper = null;
-    protected $namespaces = [];
     // }}}
     // {{{ constructor
-    public function __construct($contentNamespace)
+    public function __construct()
     {
-        $this->namespaces[] = 'Bh';
-        $this->namespaces[] = $contentNamespace;
-
-        $this->mapper = new \Bh\Lib\Mapper($this);
-
-        $logicClass = $this->getClass('Lib', 'Logic');
-        $this->logic =  new $logicClass($this);
-    }
-    // }}}
-
-    // {{{ getClass
-    public function getClass($subNamespace, $class)
-    {
-        $resultClass = null;
-        $subClass = $subNamespace . '\\' . $class;
-
-        foreach($this->namespaces as $namespace) {
-            if (class_exists($candidateClass = '\\' . $namespace . '\\' . $subClass)) {
-                $resultClass = $candidateClass;
-                break;
-            }
-        }
-
-        if (is_null($resultClass)) {
-            throw new \Bh\Exceptions\BhException('Class "' . $class . '" doesn\'t exists.');
-        }
-
-        return $resultClass;
+        $this->mapper = new Mapper($this);
+        $this->logic = new Logic($this);
     }
     // }}}
 
     // {{{ getPage
     public function getPage($request)
     {
-        $page = '\Bh\Content\Page\Home';
+        $page = 'Bh\Page\Home';
         $path = explode('/', $request);
 
         $handler = $this->mapper->getEntityManager()->getRepository('Bh\Entity\Page')->findOneBy(['request' => $path[0]]);
+
         if ($handler) {
-            try {
-                $page = $this->getClass('Page', $handler->getPage());
-            } catch (\Bh\Exceptions\BhException $e) {}
+            $class = 'Bh\Page\\' . $handler->getPage();
+            if (class_exists($class)) {
+                $page = $class;
+            }
         }
 
         return new $page($this, $path);
@@ -74,9 +49,7 @@ class Controller
     // {{{ getSettings
     public function getSettings()
     {
-        $setupClass = $this->getClass('Lib', 'Setup');
-
-        return $setupClass::getSettings();
+        return \Bh\Lib\Setup::getSettings();
     }
     // }}}
 }

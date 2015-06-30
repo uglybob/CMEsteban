@@ -13,7 +13,7 @@ class EditForm
         $this->class = $class;
 
         $this->form = new \Depage\HtmlForm\HtmlForm('edit' . $this->class . $this->id, ['label' => 'speichern']);
-        $this->form->registerNamespace('\\Bh\\Content\\Page');
+        $this->form->registerNamespace('\\Bh\\Page');
         $this->object = $this->logic->{'get' . $this->class}($this->id);
 
         $this->create();

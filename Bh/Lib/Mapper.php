@@ -38,15 +38,13 @@ class Mapper
     // {{{ find
     public function find($class, $id, $showHidden = false)
     {
-        $entityClass = $this->controller->getClass('Entity', $class);
-
-        return $this->entityManager->find($entityClass, $id);
+        return $this->entityManager->find('Bh\Entity\\' . $class, $id);
     }
     // }}}
     // {{{ findAll
     public function findAll($class, $showHidden = false)
     {
-        $entityClass = $this->controller->getClass('Entity', $class);
+        $entityClass = 'Bh\Entity\\' . $class;
 
         if ($showHidden) {
             return $this->entityManager->getRepository($entityClass)->findAll();
