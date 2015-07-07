@@ -5,8 +5,6 @@ namespace Bh\Lib;
 class Setup
 {
     protected static $settings = [
-        'FbClientId'        => '',
-        'FbClientSecret'    => '',
         'DbHost'            => 'localhost',
         'DbName'            => '',
         'DbUser'            => '',
