@@ -7,6 +7,7 @@ class Controller
     // {{{ variables
     protected $request = null;
     protected $mapper = null;
+    protected $user = null;
     // }}}
     // {{{ constructor
     public function __construct()
@@ -50,6 +51,23 @@ class Controller
     public function getSettings()
     {
         return \Bh\Lib\Setup::getSettings();
+    }
+    // }}}
+
+    // {{{ login
+    public function login($email, $pass)
+    {
+        $user = $this->mapper->getEntityManager()->getRepository('Bh\Entity\User')->findOneBy(['email' => $email]);
+
+        if ($user->authenticate($pass)) {
+            $this->user = $user;
+        }
+    }
+    // }}}
+    // {{{ getUser
+    public function getUser()
+    {
+        return $this->user;
     }
     // }}}
 }
