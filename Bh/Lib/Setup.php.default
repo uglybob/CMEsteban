@@ -5,10 +5,11 @@ namespace Bh\Lib;
 class Setup
 {
     protected static $settings = [
-        'DbHost'            => 'localhost',
-        'DbName'            => '',
-        'DbUser'            => '',
-        'DbPass'            => '',
+        'MapperPath' => 'Bh/Mapper',
+        'DbHost' => 'localhost',
+        'DbName' => '',
+        'DbUser' => '',
+        'DbPass' => '',
     ];
 
     public static function getSettings()

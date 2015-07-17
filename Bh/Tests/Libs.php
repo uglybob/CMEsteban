@@ -7,11 +7,11 @@ class Setup
     public static function getSettings()
     {
         return [
-            'MapperPath'    => __DIR__ . '/../Mapper/',
-            'DbHost'        => 'localhost',
-            'DbName'        => 'bh_test',
-            'DbUser'        => 'bh_test',
-            'DbPass'        => 'bh_test_pass',
+            'MapperPath' => __DIR__ . '/../Mapper/',
+            'DbHost' => 'localhost',
+            'DbName' => $GLOBALS['DB_NAME'],
+            'DbUser' => $GLOBALS['DB_USER'],
+            'DbPass' => $GLOBALS['DB_PASS'],
         ];
     }
 }

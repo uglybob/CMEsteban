@@ -12,7 +12,7 @@ class User extends Entity
     {
     }
 
-    protected function authenticate($pass)
+    public function authenticate($pass)
     {
         return sha1($pass) == $this->pass;
     }
