@@ -12,9 +12,16 @@ class EditForm
         $this->id = $id;
         $this->class = $class;
 
+        $this->buildForm();
+    }
+    // }}}
+
+    // {{{ buildForm
+    protected function buildForm()
+    {
         $this->form = new \Depage\HtmlForm\HtmlForm('edit' . $this->class . $this->id, ['label' => 'speichern']);
         $this->form->registerNamespace('\\Bh\\Page');
-        $this->object = $this->logic->{'get' . $this->class}($this->id);
+        $this->object = $this->loadObject();
 
         $this->create();
 
@@ -37,8 +44,13 @@ class EditForm
             Page::redirect('/list/' . lcfirst($this->class));
         }
     }
-    // }}}
 
+    // {{{ loadObject
+    protected function loadObject()
+    {
+        return $this->logic->{'get' . $this->class}($this->id);
+    }
+ 
     // {{{ renderContent
     public function renderContent()
     {

@@ -6,10 +6,4 @@
         <var name="DB_PASS" value="bh_test_pass" />
         <var name="DB_NAME" value="bh_test_database" />
     </php>
-    <logging>
-        <log
-        type="coverage-html"
-        target="Report"
-        />
-    </logging>
 </phpunit>
