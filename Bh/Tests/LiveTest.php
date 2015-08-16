@@ -17,7 +17,7 @@ class LiveTest extends DatabaseTestCase
     public function testLogin()
     {
         $this->controller->login('user@bh.net', 'bh_test_pass');
-        $this->assertEquals('user@bh.net', $this->controller->getUser()->getEmail());
+        $this->assertEquals('user@bh.net', $this->controller->getCurrentUser()->getEmail());
     }
     // }}}
 }

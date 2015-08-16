@@ -41,6 +41,12 @@ class Mapper
         return $this->entityManager->find('Bh\Entity\\' . $class, $id);
     }
     // }}}
+    // {{{ findOneBy
+    public function findOneBy($class, array $conditions, $showHidden = false)
+    {
+        return $this->entityManager->getRepository('Bh\Entity\\' . $class)->findOneBy($conditions);
+    }
+    // }}}
     // {{{ findAll
     public function findAll($class, $showHidden = false)
     {

@@ -8,20 +8,27 @@ class EditForm
     public function __construct($controller, $class, $id)
     {
         $this->controller = $controller;
-        $this->logic = $controller->getLogic();
         $this->id = $id;
         $this->class = $class;
 
+        $this->setLogic();
         $this->buildForm();
     }
     // }}}
 
+    // {{{ setLogic
+    protected function setLogic()
+    {
+        $this->logic = $this->controller->getLogic();
+    }
+    // }}}
     // {{{ buildForm
     protected function buildForm()
     {
         $this->form = new \Depage\HtmlForm\HtmlForm('edit' . $this->class . $this->id, ['label' => 'speichern']);
         $this->form->registerNamespace('\\Bh\\Page');
-        $this->object = $this->loadObject();
+
+        $this->object = $this->logic->{'get' . $this->class}($this->id);
 
         $this->create();
 
@@ -30,7 +37,7 @@ class EditForm
             $this->populate();
         } else {
             $this->title = $this->class . ' erstellen';
-            $classString = $this->controller->getClass('Entity', $this->class);
+            $classString = '\\Bh\\Entity\\' . $this->class;
             $this->object = new $classString();
         }
 
@@ -44,13 +51,8 @@ class EditForm
             Page::redirect('/list/' . lcfirst($this->class));
         }
     }
+    // }}}
 
-    // {{{ loadObject
-    protected function loadObject()
-    {
-        return $this->logic->{'get' . $this->class}($this->id);
-    }
- 
     // {{{ renderContent
     public function renderContent()
     {

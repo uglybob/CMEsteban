@@ -22,7 +22,8 @@ class ObjectList extends Backend
         $objects = [];
 
         try {
-            $objects = $this->controller->getLogic()->getProjects();
+            $getter = 'get' . ucfirst($this->class) . 's';
+            $objects = $this->controller->$getter();
 
             foreach ($objects as $object) {
                 $content .= HTML::div('',

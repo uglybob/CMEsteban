@@ -23,7 +23,7 @@ class Controller
         $page = 'Bh\Page\Home';
         $path = explode('/', $request);
 
-        $handler = $this->mapper->getEntityManager()->getRepository('Bh\Entity\Page')->findOneBy(['request' => $path[0]]);
+        $handler = $this->mapper->findOneBy('Page', ['request' => $path[0]]);
 
         if ($handler) {
             $class = 'Bh\Page\\' . $handler->getPage();
@@ -64,10 +64,41 @@ class Controller
         }
     }
     // }}}
-    // {{{ getUser
-    public function getUser()
+    // {{{ getCurrentUser
+    public function getCurrentUser()
     {
         return $this->user;
+    }
+    // }}}
+    // {{{ getUser
+    public function getUser($id)
+    {
+        if (is_null($id)) {
+            $user = null;
+        } else { 
+            $user = $this->mapper->find('User', $id);
+        }
+
+        return $user;
+    }
+    // }}}
+    // {{{ getUsers
+    public function getUsers()
+    {
+        return $this->mapper->findAll('User');
+    }
+    // }}}
+
+    // {{{ save
+    public function save($object)
+    {
+        $this->mapper->save($object);
+    }
+    // }}}
+    // {{{ commit
+    public function commit()
+    {
+        $this->mapper->commit();
     }
     // }}}
 }
