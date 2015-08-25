@@ -13,7 +13,6 @@ class Controller
     public function __construct()
     {
         $this->mapper = new Mapper($this);
-        $this->logic = new Logic($this);
     }
     // }}}
 
@@ -33,12 +32,6 @@ class Controller
         }
 
         return new $page($this, $path);
-    }
-    // }}}
-    // {{{ getLogic
-    public function getLogic()
-    {
-        return $this->logic;
     }
     // }}}
     // {{{ getMapper

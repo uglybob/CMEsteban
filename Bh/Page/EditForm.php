@@ -11,24 +11,17 @@ class EditForm
         $this->id = $id;
         $this->class = $class;
 
-        $this->setLogic();
         $this->buildForm();
     }
     // }}}
 
-    // {{{ setLogic
-    protected function setLogic()
-    {
-        $this->logic = $this->controller->getLogic();
-    }
-    // }}}
     // {{{ buildForm
     protected function buildForm()
     {
         $this->form = new \Depage\HtmlForm\HtmlForm('edit' . $this->class . $this->id, ['label' => 'speichern']);
         $this->form->registerNamespace('\\Bh\\Page');
 
-        $this->object = $this->logic->{'get' . $this->class}($this->id);
+        $this->object = $this->controller->{'get' . $this->class}($this->id);
 
         $this->create();
 
@@ -45,8 +38,8 @@ class EditForm
 
         if ($this->form->validate()) {
             $this->save();
-            $this->logic->save($this->object);
-            $this->logic->commit();
+            $this->controller->save($this->object);
+            $this->controller->commit();
             $this->form->clearSession();
             Page::redirect('/list/' . lcfirst($this->class));
         }

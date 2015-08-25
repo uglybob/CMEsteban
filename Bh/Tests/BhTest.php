@@ -18,6 +18,16 @@ class BhTest extends PhpUnit_Framework_TestCase
         $bh = new \Bh\Bh();
     }
     // }}}
+    // {{{ testBhCustomController
+    public function testBhCustomController()
+    {
+        $customController = new \Bh\Lib\CustomController();
+
+        $this->expectOutputString('This is a home mockup');
+        $bh = new \Bh\Bh($customController);
+    }
+    // }}}
+ 
     // {{{ testGetPage
     public function testGetPage()
     {

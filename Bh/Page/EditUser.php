@@ -4,13 +4,6 @@ namespace Bh\Page;
 
 class EditUser extends EditForm
 {
-    // {{{ setLogic
-    protected function setLogic()
-    {
-        $this->logic = $this->controller;
-    }
-    // }}}
-
     // {{{ create
     protected function create()
     {

@@ -15,7 +15,3 @@ class Setup
         ];
     }
 }
-
-class Logic
-{
-}

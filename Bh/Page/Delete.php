@@ -11,12 +11,11 @@ class Delete extends Backend
         $this->id = $path[2];
 
         $this->controller = $controller;
-        $this->logic = $controller->getLogic();
 
         $this->title = $this->class . ' löschen';
         $this->stylesheets[] = '/Bh/Page/css/depage-forms.css';
 
-        $object = $this->logic->{'get' . $this->class}($this->id);
+        $object = $this->controller->{'get' . $this->class}($this->id);
 
         if (!$object) {
             $this->redirect('/list/' . lcfirst($this->class));
@@ -28,7 +27,7 @@ class Delete extends Backend
 
         if ($this->deleteForm->validate()) {
             $object->delete();
-            $this->logic->commit();
+            $this->controller->commit();
             $this->deleteForm->clearSession();
 
             $this->redirect('/list/' . lcfirst($this->class));
