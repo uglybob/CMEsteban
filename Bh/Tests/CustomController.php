@@ -4,9 +4,9 @@ namespace Bh\Lib;
 
 class CustomController extends Controller
 {
-    // {{{ doCustomStuff
-    public function doCustomStuff()
+    // {{{ getPage
+    public function getPage()
     {
-        return 'done';
+        return 'This is a custom controller page.';
     }
 }

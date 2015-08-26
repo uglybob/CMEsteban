@@ -23,11 +23,11 @@ class BhTest extends PhpUnit_Framework_TestCase
     {
         $customController = new \Bh\Lib\CustomController();
 
-        $this->expectOutputString('This is a home mockup');
+        $this->expectOutputString('This is a custom controller page.');
         $bh = new \Bh\Bh($customController);
     }
     // }}}
- 
+
     // {{{ testGetPage
     public function testGetPage()
     {
