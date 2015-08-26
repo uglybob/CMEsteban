@@ -6,6 +6,8 @@ class Bh
 {
     public function __construct($controller = null)
     {
+        session_start();
+
         $request = isset($_GET['page']) ? $_GET['page'] : null;
 
         if (is_null($controller)) {

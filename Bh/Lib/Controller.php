@@ -50,17 +50,33 @@ class Controller
     // {{{ login
     public function login($email, $pass)
     {
+        $result = false;
         $user = $this->mapper->getEntityManager()->getRepository('Bh\Entity\User')->findOneBy(['email' => $email]);
 
         if ($user->authenticate($pass)) {
-            $this->user = $user;
+            $_SESSION['userId'] = $user->getId();
+            $result = true;
         }
+
+        return $result;
+    }
+    // }}}
+    // {{{ logoff
+    public function logoff()
+    {
+        unset($_SESSION['userId']);
     }
     // }}}
     // {{{ getCurrentUser
     public function getCurrentUser()
     {
-        return $this->user;
+        $user = null;
+
+        if (isset($_SESSION['userId'])) {
+            $user = $this->getUser($_SESSION['userId']);
+        }
+
+        return $user;
     }
     // }}}
     // {{{ getUser
