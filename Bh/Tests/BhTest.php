@@ -5,6 +5,7 @@ class BhTest extends PhpUnit_Framework_TestCase
     // {{{ setUp
     protected function setUp()
     {
+        @session_start();
         $this->controller = new Bh\Lib\Controller();
  
         parent::setUp();
