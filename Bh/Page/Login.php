@@ -17,14 +17,9 @@ class Login extends Backend
         $user = $controller->getCurrentUser();
 
         if ($user) {
-            $label = 'logoff';
+            $this->form = new \Depage\HtmlForm\HtmlForm('login', ['label' => 'logoff']);
         } else {
-            $label = 'login';
-        }
-
-        $this->form = new \Depage\HtmlForm\HtmlForm('login', ['label' => $label]);
-
-        if (!$user) {
+            $this->form = new \Depage\HtmlForm\HtmlForm('login', ['label' => 'login']);
             $this->form->addEmail('Email');
             $this->form->addPassword('Pass');
         }
@@ -38,7 +33,9 @@ class Login extends Backend
                 $values = $this->form->getValues();
                 $this->controller->login($values['Email'], $values['Pass']);
             }
+
             $this->form->clearSession();
+            Page::redirect('/');
         }
     }
     // }}}
