@@ -17,7 +17,20 @@ class EditUser extends EditForm
         $values = $this->form->getValues();
 
         $this->object->setEmail($values['Email']);
-        $this->object->setPass($values['Pass']);
+
+        if (!empty($values['Pass'])) {
+            $this->object->setPass($values['Pass']);
+        }
+    }
+    // }}}
+    // {{{ populate
+    protected function populate()
+    {
+        $values = [
+            'Email' => $this->object->getEmail(),
+        ];
+
+        $this->form->populate($values);
     }
     // }}}
 }
