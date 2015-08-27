@@ -5,17 +5,14 @@ namespace Bh\Lib;
 class Mapper
 {
     // {{{ variables
-    protected $entityManager;
-    protected $controller;
+    protected static $entityManager;
     // }}}
     // {{{ constructor
-    public function __construct($controller)
+    private function __construct()
     {
-        $this->controller = $controller;
-
         // @todo handle
         $isDevMode = true;
-        $settings = $this->controller->getSettings();
+        $settings = Setup::getSettings();
 
         $config = \Doctrine\ORM\Tools\Setup::createXMLMetadataConfiguration(
             [
@@ -31,58 +28,62 @@ class Mapper
             'password' => $settings['DbPass'],
             'dbname'   => $settings['DbName'],
         );
-        $this->entityManager = \Doctrine\ORM\EntityManager::create($conn, $config);
+        self::$entityManager = \Doctrine\ORM\EntityManager::create($conn, $config);
     }
     // }}}
 
     // {{{ find
-    public function find($class, $id, $showHidden = false)
+    public static function find($class, $id, $showHidden = false)
     {
-        return $this->entityManager->find('Bh\Entity\\' . $class, $id);
+        return self::getEntityManager()->find('Bh\Entity\\' . $class, $id);
     }
     // }}}
     // {{{ findOneBy
-    public function findOneBy($class, array $conditions, $showHidden = false)
+    public static function findOneBy($class, array $conditions, $showHidden = false)
     {
-        return $this->entityManager->getRepository('Bh\Entity\\' . $class)->findOneBy($conditions);
+        return self::getEntityManager()->getRepository('Bh\Entity\\' . $class)->findOneBy($conditions);
     }
     // }}}
     // {{{ findBy
-    public function findBy($class, array $conditions, $showHidden = false)
+    public static function findBy($class, array $conditions, $showHidden = false)
     {
-        return $this->entityManager->getRepository('Bh\Entity\\' . $class)->findBy($conditions);
+        return self::getEntityManager()->getRepository('Bh\Entity\\' . $class)->findBy($conditions);
     }
     // }}}
     // {{{ findAll
-    public function findAll($class, $showHidden = false)
+    public static function findAll($class, $showHidden = false)
     {
         $entityClass = 'Bh\Entity\\' . $class;
 
         if ($showHidden) {
-            return $this->entityManager->getRepository($entityClass)->findAll();
+            return self::getEntityManager()->getRepository($entityClass)->findAll();
         } else {
-            return $this->entityManager->getRepository($entityClass)->findBy(['deleted' => 'false']);
+            return self::getEntityManager()->getRepository($entityClass)->findBy(['deleted' => 'false']);
         }
     }
     // }}}
 
     // {{{ save
-    public function save($object)
+    public static function save($object)
     {
-        $this->entityManager->persist($object);
+        self::getEntityManager()->persist($object);
     }
     // }}}
     // {{{ commit
-    public function commit()
+    public static function commit()
     {
-        $this->entityManager->flush();
+        self::getEntityManager()->flush();
     }
     // }}}
 
     // {{{ getEntityManager
-    public function getEntityManager()
+    public static function getEntityManager()
     {
-        return $this->entityManager;
+        if (!self::$entityManager) {
+            new Mapper();
+        }
+
+        return self::$entityManager;
     }
     // }}}
 }

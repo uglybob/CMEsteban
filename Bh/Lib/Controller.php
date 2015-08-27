@@ -9,12 +9,6 @@ class Controller
     protected $mapper = null;
     protected $user = null;
     // }}}
-    // {{{ constructor
-    public function __construct()
-    {
-        $this->mapper = new Mapper($this);
-    }
-    // }}}
 
     // {{{ getPage
     public function getPage($request)
@@ -34,24 +28,12 @@ class Controller
         return new $page($this, $path);
     }
     // }}}
-    // {{{ getMapper
-    public function getMapper()
-    {
-        return $this->mapper;
-    }
-    // }}}
-    // {{{ getSettings
-    public function getSettings()
-    {
-        return \Bh\Lib\Setup::getSettings();
-    }
-    // }}}
 
     // {{{ login
     public function login($email, $pass)
     {
         $result = false;
-        $user = $this->mapper->getEntityManager()->getRepository('Bh\Entity\User')->findOneBy(['email' => $email]);
+        $user = Mapper::findOneBy('User', ['email' => $email]);
 
         if ($user->authenticate($pass)) {
             $_SESSION['userId'] = $user->getId();
@@ -85,7 +67,7 @@ class Controller
         if (is_null($id)) {
             $user = null;
         } else { 
-            $user = $this->mapper->find('User', $id);
+            $user = Mapper::find('User', $id);
         }
 
         return $user;
@@ -94,7 +76,7 @@ class Controller
     // {{{ getUsers
     public function getUsers()
     {
-        return $this->mapper->findAll('User');
+        return Mapper::findAll('User');
     }
     // }}}
 
