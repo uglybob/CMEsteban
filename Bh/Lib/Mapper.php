@@ -10,8 +10,6 @@ class Mapper
     // {{{ constructor
     private function __construct()
     {
-        // @todo handle
-        $isDevMode = true;
         $settings = Setup::getSettings();
 
         $config = \Doctrine\ORM\Tools\Setup::createXMLMetadataConfiguration(
@@ -19,7 +17,7 @@ class Mapper
                 __DIR__.'/../Mapper',
                 $settings['MapperPath'],
             ],
-            $isDevMode
+            $settings['DevMode']
         );
 
         $conn = array(

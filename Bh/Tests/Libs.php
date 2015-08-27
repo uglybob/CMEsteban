@@ -7,6 +7,7 @@ class Setup
     public static function getSettings()
     {
         return [
+            'DevMode' => true,
             'MapperPath' => __DIR__ . '/../Mapper/',
             'DbHost' => 'localhost',
             'DbName' => $GLOBALS['DB_NAME'],

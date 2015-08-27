@@ -21,21 +21,19 @@ class ObjectList extends Backend
         $content = '';
         $objects = [];
 
-        try {
-            $getter = 'get' . ucfirst($this->class) . 's';
-            $objects = $this->controller->$getter();
+        $getter = 'get' . ucfirst($this->class) . 's';
+        $objects = $this->controller->$getter();
 
-            foreach ($objects as $object) {
-                $content .= HTML::div('',
-                    HTML::span('',
-                        HTML::a('href=/edit/' . $this->class . '/' . $object->getId(), $object->getName())
-                    ) .
-                    HTML::span('',
-                        HTML::a('href=/delete/' . $this->class . '/' . $object->getId(), 'löschen')
-                    )
-                );
-            }
-        } catch (\Exception $e) {}
+        foreach ($objects as $object) {
+            $content .= HTML::div('',
+                HTML::span('',
+                    HTML::a('href=/edit/' . $this->class . '/' . $object->getId(), $object->getName())
+                ) .
+                HTML::span('',
+                    HTML::a('href=/delete/' . $this->class . '/' . $object->getId(), 'löschen')
+                )
+            );
+        }
 
         $content .= HTML::div('',
             HTML::span('',

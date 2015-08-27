@@ -16,7 +16,7 @@ class Controller
         $page = 'Bh\Page\Home';
         $path = explode('/', $request);
 
-        $handler = $this->mapper->findOneBy('Page', ['request' => $path[0]]);
+        $handler = Mapper::findOneBy('Page', ['request' => $path[0]]);
 
         if ($handler) {
             $class = 'Bh\Page\\' . $handler->getPage();
