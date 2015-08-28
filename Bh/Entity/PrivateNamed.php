@@ -7,7 +7,7 @@ class PrivateNamed extends PrivateEntity
     protected $name;
 
     // {{{ constructor
-    public function __construct($user, $name)
+    public function __construct(User $user, $name)
     {
         parent::__construct($user);
 

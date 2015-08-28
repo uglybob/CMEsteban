@@ -30,8 +30,6 @@ class EditForm
             $this->populate();
         } else {
             $this->title = $this->class . ' erstellen';
-            $classString = '\\Bh\\Entity\\' . $this->class;
-            $this->object = new $classString();
         }
 
         $this->form->process();
