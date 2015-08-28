@@ -6,6 +6,11 @@ use Bh\Lib\Html;
 
 class ObjectList extends Page
 {
+    // {{{ renderContent
+    protected function renderContent()
+    {
+    }
+    // }}}
     // {{{ renderList
     protected function renderList(array $objects, $edit = false)
     {

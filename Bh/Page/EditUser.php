@@ -21,6 +21,8 @@ class EditUser extends EditForm
         if (!empty($values['Pass'])) {
             $this->object->setPass($values['Pass']);
         }
+        \Bh\Lib\Mapper::commit();
+        Page::redirect('/');
     }
     // }}}
     // {{{ populate
@@ -31,6 +33,13 @@ class EditUser extends EditForm
         ];
 
         $this->form->populate($values);
+    }
+    // }}}
+    // {{{ instantiateObject
+    protected function instantiateObject()
+    {
+        $this->object = new \Bh\Entity\User();
+        \Bh\Lib\Mapper::save($this->object);
     }
     // }}}
 }

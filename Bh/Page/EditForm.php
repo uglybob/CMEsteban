@@ -30,6 +30,7 @@ class EditForm
             $this->populate();
         } else {
             $this->title = $this->class . ' erstellen';
+            $this->instantiateObject();
         }
 
         $this->form->process();
@@ -42,6 +43,11 @@ class EditForm
     }
     // }}}
 
+    // {{{ instantiateObject
+    protected function instantiateObject()
+    {
+    }
+    // }}}
     // {{{ redirect
     protected function redirect()
     {
