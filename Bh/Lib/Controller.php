@@ -6,7 +6,6 @@ class Controller
 {
     // {{{ variables
     protected $request = null;
-    protected $mapper = null;
     protected $user = null;
     // }}}
 

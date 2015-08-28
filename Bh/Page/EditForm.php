@@ -38,11 +38,16 @@ class EditForm
 
         if ($this->form->validate()) {
             $this->save();
-            $this->controller->save($this->object);
-            $this->controller->commit();
             $this->form->clearSession();
-            Page::redirect('/list/' . lcfirst($this->class));
+            $this->redirect();
         }
+    }
+    // }}}
+
+    // {{{ redirect
+    protected function redirect()
+    {
+        Page::redirect('/list/' . lcfirst($this->class));
     }
     // }}}
 
