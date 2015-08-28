@@ -14,4 +14,7 @@ class PrivateEntity extends Entity
         $this->user = $user;
     }
     // }}}
+    // {{{ setUser
+    private function setUser() {}
+    // }}}
 }
