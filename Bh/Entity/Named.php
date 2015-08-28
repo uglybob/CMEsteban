@@ -14,4 +14,10 @@ class Named extends Entity
         $this->name = $name;
     }
     // }}}
+    // {{{ toString
+    public function __toString()
+    {
+        return $this->name;
+    }
+    // }}}
 }

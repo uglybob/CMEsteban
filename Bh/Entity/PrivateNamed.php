@@ -14,4 +14,10 @@ class PrivateNamed extends PrivateEntity
         $this->name = $name;
     }
     // }}}
+    // {{{ toString
+    public function __toString()
+    {
+        return $this->name;
+    }
+    // }}}
 }
