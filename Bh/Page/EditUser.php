@@ -9,6 +9,10 @@ class EditUser extends EditForm
     {
         $this->form->addEmail('Email');
         $this->form->addPassword('Pass');
+
+        if ($user = $this->controller->getCurrentUser()) {
+            $this->object = $user;
+        }
     }
     // }}}
     // {{{ save
@@ -21,7 +25,8 @@ class EditUser extends EditForm
         if (!empty($values['Pass'])) {
             $this->object->setPass($values['Pass']);
         }
-        \Bh\Lib\Mapper::commit();
+
+        $this->controller->editUser($this->object);
         Page::redirect('/');
     }
     // }}}
@@ -35,11 +40,11 @@ class EditUser extends EditForm
         $this->form->populate($values);
     }
     // }}}
-    // {{{ instantiateObject
-    protected function instantiateObject()
+
+    // {{{ loadObject
+    protected function loadObject()
     {
-        $this->object = new \Bh\Entity\User();
-        \Bh\Lib\Mapper::save($this->object);
+        $this->object = $this->controller->getCurrentUser();
     }
     // }}}
 }

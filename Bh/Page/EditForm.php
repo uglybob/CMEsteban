@@ -21,7 +21,7 @@ class EditForm
         $this->form = new \Depage\HtmlForm\HtmlForm('edit' . $this->class . $this->id, ['label' => 'speichern']);
         $this->form->registerNamespace('\\Bh\\Page');
 
-        $this->object = $this->controller->{'get' . $this->class}($this->id);
+        $this->loadObject();
 
         $this->create();
 
@@ -42,10 +42,18 @@ class EditForm
         }
     }
     // }}}
-
+    // {{{ loadObject
+    protected function loadObject()
+    {
+        $getter = 'get' . ucfirst($this->class);
+        $this->object = $this->controller->$getter($this->id);
+    }
+    // }}}
     // {{{ instantiateObject
     protected function instantiateObject()
     {
+        $classString = 'Bh\\Entity\\' . $this->class;
+        $this->object = new $classString();
     }
     // }}}
     // {{{ redirect

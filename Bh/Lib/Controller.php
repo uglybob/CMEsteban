@@ -60,6 +60,7 @@ class Controller
         return $user;
     }
     // }}}
+
     // {{{ getUser
     public function getUser($id)
     {
@@ -72,10 +73,27 @@ class Controller
         return $user;
     }
     // }}}
-    // {{{ getUsers
-    public function getUsers()
+    // {{{ editUser
+    public function editUser(User $user)
     {
-        return Mapper::findAll('User');
+        $id = $user->getId();
+        $currentUser = $this->getCurrentUser();
+
+        if (is_null($id)) {
+            $newUser = new User();
+            $newUser->setPass($user->getPass());
+            $this->save($newUser);
+        } elseif (
+            $currentUser
+            && $id === $currentUser()->getId()
+        ) {
+            $newUser = $currentUser();
+            if ($user->getPass()) {
+                $newUser->setPass($user->getPass);
+            }
+        }
+
+        $this->commit();
     }
     // }}}
 
