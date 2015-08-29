@@ -13,7 +13,7 @@ class User extends Entity
     {
         parent::__construct();
 
-        $this->level = 0;
+        $this->level = 1;
     }
     // }}}
 

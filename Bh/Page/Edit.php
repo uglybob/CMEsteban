@@ -9,6 +9,8 @@ class Edit extends Backend
     // {{{ constructor
     public function __construct(Controller $controller, array $path)
     {
+        parent::__construct($controller, $path);
+
         $this->stylesheets[] = '/vendor/depage/htmlform/lib/css/depage-forms.css';
 
         $class = ucfirst($path[1]);

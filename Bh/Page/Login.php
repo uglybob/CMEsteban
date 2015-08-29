@@ -4,14 +4,15 @@ namespace Bh\Page;
 
 use Bh\Lib\Controller;
 
-class Login extends Backend
+class Login extends Page
 {
     // {{{ constructor
     public function __construct(Controller $controller, array $path)
     {
+        parent::__construct($controller, $path);
+
         $this->stylesheets[] = '/vendor/depage/htmlform/lib/css/depage-forms.css';
 
-        $this->controller = $controller;
         $this->title = 'login';
 
         $user = $controller->getCurrentUser();

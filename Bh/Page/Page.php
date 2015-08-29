@@ -7,6 +7,7 @@ use Bh\Lib\Html;
 abstract class Page {
     protected $title;
     protected $stylesheets = [];
+    protected $accessLevel = 0;
 
     // {{{ constructor
     public function __construct($controller, $path = [])
@@ -70,39 +71,51 @@ abstract class Page {
     // {{{ toString
     public function __toString()
     {
-        try {
-            $string =   '<!DOCTYPE html>' .
-                        Html::html('',
-                            $this->renderHead() .
-                            Html::body('',
-                                /* @todo
-                                Html::div('id="menubar"',
-                                    Html::div('id="menu"',
-                                        '<a href="/Was">Hä?</a>' .
-                                        '<a href="/News">News</a>' .
-                                        '<a href="/Kontakt">Kontakt</a>' .
-                                        '<a href="/Impressum">Impressum</a>' .
-                                    )
-                                ) .
-                                */
-                                Html::div('id="main"',
-                                    // @todo '<div id="header"><a href="/"><img src="images/brausehaus.jpg" alt="*BRAUSEHAUS" /></a></div>' .
-                                    Html::div('id="middle"',
-                                        // @todo     '<div class="linkList">' . $this->renderMenu() . '</div>';
-                                        $this->renderContent() .
-                                        $this->renderFooter()
+        $userLevel = 0;
+
+        if ($currentUser = $this->controller->getCurrentUser()) {
+            $userLevel = $currentUser->getLevel();
+        }
+ 
+        if (
+            $userLevel >= $this->accessLevel
+        ) {
+            try {
+                $string =   '<!DOCTYPE html>' .
+                            Html::html('',
+                                $this->renderHead() .
+                                Html::body('',
+                                    /* @todo
+                                    Html::div('id="menubar"',
+                                        Html::div('id="menu"',
+                                            '<a href="/Was">Hä?</a>' .
+                                            '<a href="/News">News</a>' .
+                                            '<a href="/Kontakt">Kontakt</a>' .
+                                            '<a href="/Impressum">Impressum</a>' .
+                                        )
+                                    ) .
+                                    */
+                                    Html::div('id="main"',
+                                        // @todo '<div id="header"><a href="/"><img src="images/brausehaus.jpg" alt="*BRAUSEHAUS" /></a></div>' .
+                                        Html::div('id="middle"',
+                                            // @todo     '<div class="linkList">' . $this->renderMenu() . '</div>';
+                                            $this->renderContent() .
+                                            $this->renderFooter()
+                                        )
                                     )
                                 )
-                            )
-                        );
+                            );
 
-            return $string;
-        } catch (\Exception $e) {
-            $settings = \Bh\Lib\Setup::getSettings();
+                return $string;
+            } catch (\Exception $e) {
+                $settings = \Bh\Lib\Setup::getSettings();
 
-            if ($settings['DevMode'] === true) {
-                echo($e);
+                if ($settings['DevMode'] === true) {
+                    echo($e);
+                }
             }
+        } else {
+            return 'Access denied';
         }
     }
     // }}}
