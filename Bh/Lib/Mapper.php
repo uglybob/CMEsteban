@@ -43,9 +43,9 @@ class Mapper
     }
     // }}}
     // {{{ findBy
-    public static function findBy($class, array $conditions, $showHidden = false)
+    public static function findBy($class, array $conditions, $showHidden = false, array $order = [])
     {
-        return self::getEntityManager()->getRepository('Bh\Entity\\' . $class)->findBy($conditions);
+        return self::getEntityManager()->getRepository('Bh\Entity\\' . $class)->findBy($conditions, $order);
     }
     // }}}
     // {{{ findAll
