@@ -63,10 +63,10 @@ class EditForm
     }
     // }}}
 
-    // {{{ renderContent
-    public function renderContent()
+    // {{{ toString
+    public function __toString()
     {
-        return $this->form;
+        return $this->form->__toString();
     }
     // }}}
 }

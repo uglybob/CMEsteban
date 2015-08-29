@@ -22,7 +22,7 @@ class Edit extends Backend
     // {{{ renderContent
     protected function renderContent()
     {
-        return $this->editForm->renderContent();
+        return $this->editForm;
     }
     // }}}
 }
