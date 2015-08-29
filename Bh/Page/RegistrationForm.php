@@ -2,7 +2,7 @@
 
 namespace Bh\Page;
 
-class EditUser extends EditForm
+class RegistrationForm extends EditForm
 {
     // {{{ create
     protected function create()
