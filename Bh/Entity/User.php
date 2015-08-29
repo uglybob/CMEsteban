@@ -28,6 +28,12 @@ class User extends Entity
         $this->pass = $this->hash($pass);
     }
     // }}}
+    // {{{ copyPass
+    public function copyPass($pass)
+    {
+        $this->pass = $pass;
+    }
+    // }}}
 
     // {{{ hash
     protected function hash($pass)

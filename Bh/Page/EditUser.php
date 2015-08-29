@@ -27,7 +27,6 @@ class EditUser extends EditForm
         }
 
         $this->controller->editUser($this->object);
-        Page::redirect('/');
     }
     // }}}
     // {{{ populate
@@ -45,6 +44,12 @@ class EditUser extends EditForm
     protected function loadObject()
     {
         $this->object = $this->controller->getCurrentUser();
+    }
+    // }}}
+    // {{{ redirect
+    protected function redirect()
+    {
+        Page::redirect('/');
     }
     // }}}
 }

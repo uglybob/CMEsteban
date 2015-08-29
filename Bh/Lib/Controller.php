@@ -2,6 +2,8 @@
 
 namespace Bh\Lib;
 
+use Bh\Entity\User;
+
 class Controller
 {
     // {{{ variables
@@ -81,32 +83,21 @@ class Controller
 
         if (is_null($id)) {
             $newUser = new User();
-            $newUser->setPass($user->getPass());
-            $this->save($newUser);
+            $newUser->copyPass($user->getPass());
+            Mapper::save($newUser);
         } elseif (
             $currentUser
             && $id === $currentUser()->getId()
         ) {
             $newUser = $currentUser();
             if ($user->getPass()) {
-                $newUser->setPass($user->getPass);
+                $newUser->copyPass($user->getPass);
             }
         }
 
-        $this->commit();
-    }
-    // }}}
+        $newUser->setEmail($user->getEmail());
 
-    // {{{ save
-    public function save($object)
-    {
-        $this->mapper->save($object);
-    }
-    // }}}
-    // {{{ commit
-    public function commit()
-    {
-        $this->mapper->commit();
+        Mapper::commit();
     }
     // }}}
 }
