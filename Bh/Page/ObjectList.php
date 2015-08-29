@@ -4,20 +4,15 @@ namespace Bh\Page;
 
 use Bh\Lib\Html;
 
-class ObjectList extends Page
+class ObjectList
 {
-    // {{{ renderContent
-    protected function renderContent()
+    // {{{ constructor
+    public function __construct(array $objects, $edit = null)
     {
-    }
-    // }}}
-    // {{{ renderList
-    protected function renderList(array $objects, $edit = false)
-    {
-        $list = '';
+        $this->list = '';
 
         foreach ($objects as $object) {
-            $properties = $this->loadProperties($object);
+            $properties = $object->getRow();
 
             $propertyList = '';
             foreach ($properties as $property) {
@@ -25,7 +20,7 @@ class ObjectList extends Page
             }
 
             if ($edit) {
-               $list .= HTML::div('',
+               $this->list .= HTML::div('',
                     HTML::span('',
                         HTML::a('href=/edit/' . $edit . '/' . $object->getId(), $propertyList)
                     ) .
@@ -34,26 +29,26 @@ class ObjectList extends Page
                     )
                 );
             } else {
-               $list .= HTML::div('',
+               $this->list .= HTML::div('',
                     HTML::span('', $propertyList)
                 );
             }
         }
 
         if ($edit) {
-            $list .= HTML::div('',
+            $this->list .= HTML::div('',
                 HTML::span('',
                     HTML::a('href=/edit/' . $edit . '/', $edit . ' hinzufügen')
                 )
             );
         }
-        return $list;
     }
     // }}}
-    // {{{ loadProperties
-    protected function loadProperties($object)
+
+    // {{{
+    public function __toString()
     {
-        return [$object->getName()];
+        return $this->list;
     }
     // }}}
 }
