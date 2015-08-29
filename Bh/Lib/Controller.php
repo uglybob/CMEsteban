@@ -75,29 +75,43 @@ class Controller
         return $user;
     }
     // }}}
+    // {{{ getUserByEmail
+    public function getUserByEmail($email)
+    {
+        $user = Mapper::findOneBy(
+            'User',
+            [
+                'email' => $email,
+            ]
+        );
+
+        return $user;
+    }
+    // }}}
     // {{{ editUser
     public function editUser(User $user)
     {
-        $id = $user->getId();
-        $currentUser = $this->getCurrentUser();
+        if (!$this->getUserByEmail($user->getEmail())) {
+            $id = $user->getId();
+            $currentUser = $this->getCurrentUser();
 
-        if (is_null($id)) {
-            $newUser = new User();
-            $newUser->copyPass($user->getPass());
-            Mapper::save($newUser);
-        } elseif (
-            $currentUser
-            && $id === $currentUser()->getId()
-        ) {
-            $newUser = $currentUser();
-            if ($user->getPass()) {
-                $newUser->copyPass($user->getPass);
+            if (is_null($id)) {
+                $newUser = new User();
+                $newUser->copyPass($user->getPass());
+                Mapper::save($newUser);
+            } elseif (
+                $currentUser && $id === $currentUser()->getId()
+            ) {
+                $newUser = $currentUser();
+                if ($user->getPass()) {
+                    $newUser->copyPass($user->getPass);
+                }
             }
+
+            $newUser->setEmail($user->getEmail());
+
+            Mapper::commit();
         }
-
-        $newUser->setEmail($user->getEmail());
-
-        Mapper::commit();
     }
     // }}}
 }
