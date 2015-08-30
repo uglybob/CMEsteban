@@ -120,4 +120,16 @@ class Html
         return self::noEndTag('link', $attributes);
     }
     // }}}
+
+    // {{{ menu
+    static public function menu($links)
+    {
+        $menu = '';
+        foreach ($links as $title => $link) {
+            $menu .= Html::a('href="' . $link . '"', $title);
+        }
+
+        return Html::div('id="menu"', $menu);
+    }
+    // }}}
 }
