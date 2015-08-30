@@ -85,20 +85,8 @@ abstract class Page {
                             Html::html('',
                                 $this->renderHead() .
                                 Html::body('',
-                                    /* @todo
-                                    Html::div('id="menubar"',
-                                        Html::div('id="menu"',
-                                            '<a href="/Was">Hä?</a>' .
-                                            '<a href="/News">News</a>' .
-                                            '<a href="/Kontakt">Kontakt</a>' .
-                                            '<a href="/Impressum">Impressum</a>' .
-                                        )
-                                    ) .
-                                    */
                                     Html::div('id="main"',
-                                        // @todo '<div id="header"><a href="/"><img src="images/brausehaus.jpg" alt="*BRAUSEHAUS" /></a></div>' .
                                         Html::div('id="middle"',
-                                            // @todo     '<div class="linkList">' . $this->renderMenu() . '</div>';
                                             $this->renderContent() .
                                             $this->renderFooter()
                                         )
