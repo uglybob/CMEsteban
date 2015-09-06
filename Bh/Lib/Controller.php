@@ -36,7 +36,7 @@ class Controller
         $result = false;
         $user = Mapper::findOneBy('User', ['email' => $email]);
 
-        if ($user->authenticate($pass)) {
+        if ($user && $user->authenticate($pass)) {
             $_SESSION['userId'] = $user->getId();
             $result = true;
         }
