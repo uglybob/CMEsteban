@@ -27,12 +27,12 @@ class EditForm
 
         if ($this->object) {
             $this->title = $this->class . ' editieren';
-            $this->populate();
         } else {
             $this->title = $this->class . ' erstellen';
             $this->instantiateObject();
         }
 
+        $this->populate();
         $this->form->process();
 
         if ($this->form->validate()) {
