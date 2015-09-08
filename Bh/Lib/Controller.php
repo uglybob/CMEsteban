@@ -34,7 +34,7 @@ class Controller
     public function login($email, $pass)
     {
         $result = false;
-        $user = Mapper::findOneBy('User', ['email' => $email]);
+        $user = Mapper::findOneBy('User', ['email' => strtolower($email)]);
 
         if ($user && $user->authenticate($pass)) {
             $_SESSION['userId'] = $user->getId();

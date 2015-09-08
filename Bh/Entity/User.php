@@ -17,6 +17,13 @@ class User extends Entity
     }
     // }}}
 
+    // {{{ setEmail
+    public function setEmail($email)
+    {
+        $this->email = strtolower($email);
+    }
+    // }}}
+
     // {{{ getPass
     protected function getPass()
     {
