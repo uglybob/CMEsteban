@@ -1,6 +1,6 @@
 <?php
 
-namespace Bh\Lib;
+namespace Bh\Page;
 
 class Html
 {

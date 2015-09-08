@@ -2,8 +2,6 @@
 
 namespace Bh\Page;
 
-use Bh\Lib\Html;
-
 abstract class Page {
     protected $title;
     protected $stylesheets = [];

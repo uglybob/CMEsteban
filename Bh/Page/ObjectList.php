@@ -2,8 +2,6 @@
 
 namespace Bh\Page;
 
-use Bh\Lib\Html;
-
 class ObjectList
 {
     // {{{ constructor
