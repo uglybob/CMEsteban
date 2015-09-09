@@ -3,7 +3,7 @@
 namespace Bh\Page;
 
 abstract class Page {
-    protected $title;
+    protected $title = '*';
     protected $stylesheets = [];
     protected $accessLevel = 0;
 
@@ -29,11 +29,21 @@ abstract class Page {
     // {{{ renderHead
     protected function renderHead() {
         // @todo content
-        $header = Html::head('',
-            Html::title('', $this->hookTitle()) .
-            Html::link('rel="shortcut icon" href="/Content/Images/favicon.ico" type="image/vnd.microsoft.icon"') .
-            Html::meta('http-equiv="Content-Type" content="text/html; charset=utf-8"') .
-            Html::meta('name="description" content=\'The name "Brausehaus" stands for our underground music-collective.\'') .
+        $header = HTML::head(
+            HTML::title($this->hookTitle()) .
+            HTML::link([
+                'rel' => 'shortcut icon',
+                'href' => '/Content/Images/favicon.ico',
+                'type' => 'image/vnd.microsoft.icon',
+            ]) .
+            HTML::meta([
+                'http-equiv' => 'Content-Type',
+                'content' => 'text/html; charset=utf-8',
+            ]) .
+            HTML::meta([
+                'name' => 'description',
+                'content' => 'The name \'Brausehaus\' stands for our underground music-collective.'
+            ]) .
             $this->hookHeader() .
             $this->renderStylesheets()
         );
@@ -46,7 +56,10 @@ abstract class Page {
         $renderedStylesheets = '';
 
         foreach ($this->stylesheets as $stylesheet) {
-            $renderedStylesheets .= Html::link('rel="stylesheet" href="' . $stylesheet . '"');
+            $renderedStylesheets .= HTML::link([
+                'rel' => 'stylesheet',
+                'href' => $stylesheet,
+            ]);
         }
 
         return $renderedStylesheets;
@@ -74,17 +87,17 @@ abstract class Page {
         if ($currentUser = $this->controller->getCurrentUser()) {
             $userLevel = $currentUser->getLevel();
         }
- 
+
         if (
             $userLevel >= $this->accessLevel
         ) {
             try {
                 $string =   '<!DOCTYPE html>' .
-                            Html::html('',
+                            HTML::html(
                                 $this->renderHead() .
-                                Html::body('',
-                                    Html::div('id="main"',
-                                        Html::div('id="middle"',
+                                HTML::body(
+                                    HTML::div(['id' => 'main'],
+                                        HTML::div(['id' => 'middle'],
                                             $this->renderContent() .
                                             $this->renderFooter()
                                         )

@@ -12,6 +12,9 @@ class HTML
             throw new \Exception('unnamed html tag');
         }
 
+        $first = self::formatArgument($first);
+        $escond = self::formatArgument($second);
+
         if (is_array($first) && (is_string($second) || is_null($second))) {
             $attributes = $first;
             $content = $second;
@@ -57,6 +60,23 @@ class HTML
         }
 
         return $renderedAttributes;
+    }
+    // }}}
+    // {{{ formatArgument
+    static protected function formatArgument($argument) {
+        if (is_object($argument)) {
+            $result = $argument->__toString();
+        } else if (
+            is_string($argument)
+            || is_array($argument)
+            || is_null($argument)
+        ) {
+            $result = $argument;
+        } else {
+            $result = (string) $argument;
+        }
+
+        return $result;
     }
     // }}}
 
@@ -139,10 +159,10 @@ class HTML
     {
         $menu = '';
         foreach ($links as $title => $link) {
-            $menu .= Html::a('href="' . $link . '"', $title);
+            $menu .= Html::a(['href' => $link], $title);
         }
 
-        return Html::div('id="menu"', $menu);
+        return Html::div(['id' => 'menu'], $menu);
     }
     // }}}
 }

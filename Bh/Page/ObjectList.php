@@ -14,29 +14,29 @@ class ObjectList
 
             $propertyList = '';
             foreach ($properties as $property) {
-                $propertyList .= HTML::span('', $property);
+                $propertyList .= HTML::span($property);
             }
 
             if ($edit) {
-               $this->list .= HTML::div('',
-                    HTML::span('',
-                        HTML::a('href=/edit/' . $edit . '/' . $object->getId(), $propertyList)
+               $this->list .= HTML::div(
+                    HTML::span(
+                        HTML::a(['href' => '/edit/' . $edit . '/' . $object->getId()], $propertyList)
                     ) .
-                    HTML::span('',
-                        HTML::a('href=/delete/' . $edit . '/' . $object->getId(), 'x')
+                    HTML::span(
+                        HTML::a(['href' => '/delete/' . $edit . '/' . $object->getId()], 'x')
                     )
                 );
             } else {
-               $this->list .= HTML::div('',
-                    HTML::span('', $propertyList)
+               $this->list .= HTML::div(
+                    HTML::span($propertyList)
                 );
             }
         }
 
         if ($edit) {
-            $this->list .= HTML::div('',
-                HTML::span('',
-                    HTML::a('href=/edit/' . $edit . '/', $edit . ' hinzufügen')
+            $this->list .= HTML::div(
+                HTML::span(
+                    HTML::a(['href' => '/edit/' . $edit . '/'], $edit . ' hinzufügen')
                 )
             );
         }
