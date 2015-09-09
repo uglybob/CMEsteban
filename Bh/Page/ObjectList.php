@@ -5,7 +5,7 @@ namespace Bh\Page;
 class ObjectList
 {
     // {{{ constructor
-    public function __construct(array $objects, $edit = null, $add = true)
+    public function __construct(array $objects, $edit = null, $add = true, $delete = true)
     {
         $this->list = '';
 
@@ -13,25 +13,29 @@ class ObjectList
             $properties = $this->getProperties($object);
 
             $propertyList = '';
-            foreach ($properties as $property) {
-                $propertyList .= HTML::span($property);
+            foreach ($properties as $class => $property) {
+                $propertyList .= HTML::span(['class' => $class], $property);
             }
 
+            $id = $object->getId();
+
             if ($edit) {
-               $id = $object->getId();
-               $this->list .= HTML::div(
-                    HTML::span(['class' => 'properties'],
-                        HTML::a(['href' => "/edit/$edit/$id"], $propertyList)
-                    ) .
-                    HTML::span(['class' => 'delete'],
-                        HTML::a(['href' => "/delete/$edit/$id"], 'x')
-                    )
+                $properties = HTML::span(['class' => 'properties'],
+                    HTML::a(['href' => "/edit/$edit/$id"], $propertyList)
                 );
             } else {
-                $this->list .= HTML::div(
-                    HTML::span(['class' => 'properties'], $propertyList)
-                );
+                $properties = HTML::span(['class' => 'properties'], $propertyList);
             }
+
+            if ($delete) {
+                $deleteLink = HTML::span(['class' => 'delete'],
+                    HTML::a(['href' => "/delete/$edit/$id"], 'x')
+                );
+            } else {
+                $deleteLink = '';
+            }
+
+            $this->list .= HTML::div($properties . $deleteLink);
         }
 
         if ($add && $edit) {
@@ -49,7 +53,7 @@ class ObjectList
     // {{{ getProperties
     public function getProperties($object)
     {
-        return [$object];
+        return ['name' => $object];
     }
     // }}}
 
