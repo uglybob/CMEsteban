@@ -10,7 +10,7 @@ class ObjectList
         $this->list = '';
 
         foreach ($objects as $object) {
-            $properties = $object->getRow();
+            $properties = $this->getProperties($object);
 
             $propertyList = '';
             foreach ($properties as $property) {
@@ -18,12 +18,13 @@ class ObjectList
             }
 
             if ($edit) {
+               $id = $object->getId();
                $this->list .= HTML::div(
                     HTML::span(
-                        HTML::a(['href' => "/edit/$edit/{$object->getId()}"], $propertyList)
+                        HTML::a(['href' => "/edit/$edit/$id"], $propertyList)
                     ) .
                     HTML::span(
-                        HTML::a(['href' => "/delete/$edit/{$object->getId()}"], 'x')
+                        HTML::a(['href' => "/delete/$edit/$id"], 'x')
                     )
                 );
             } else {
@@ -40,6 +41,13 @@ class ObjectList
                 )
             );
         }
+    }
+    // }}}
+
+    // {{{ getProperties
+    public function getProperties($object)
+    {
+        return [$object];
     }
     // }}}
 
