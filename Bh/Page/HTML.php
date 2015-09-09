@@ -35,19 +35,6 @@ class HTML
         return $markup;
     }
     // }}}
-    // {{{ noEndTag
-    static public function noEndTag($name, $attributes = [])
-    {
-        if (empty($name)) {
-            // @todo clean
-            throw new \Exception('unnamed html tag');
-        }
-
-        $markup = '<' . $name . self::renderAttributes($attributes) . '>';
-
-        return $markup;
-    }
-    // }}}
 
     // {{{ renderAttributes
     static protected function renderAttributes($attributes) {
@@ -144,13 +131,13 @@ class HTML
     // {{{ meta
     static public function meta($attributes = null)
     {
-        return self::noEndTag('meta', true, $attributes);
+        return self::tag('meta', true, $attributes);
     }
     // }}}
     // {{{ link
     static public function link($attributes = null)
     {
-        return self::noEndTag('link', true, $attributes);
+        return self::tag('link', true, $attributes);
     }
     // }}}
 
