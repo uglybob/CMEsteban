@@ -5,7 +5,7 @@ namespace Bh\Page;
 class HTML
 {
     // {{{ tag
-    static public function tag($name, $first = null, $second = null)
+    static public function tag($name, $void, $first = null, $second = null)
     {
         if (empty($name)) {
             // @todo clean
@@ -26,8 +26,8 @@ class HTML
             throw new \Exception('invalid tag signature');
         }
 
-        if (empty($content)) {
-            $markup = '<' . $name . self::renderAttributes($attributes) . '/>';
+        if (empty($content) && $void) {
+            $markup = '<' . $name . self::renderAttributes($attributes) . ' />';
         } else {
             $markup = '<' . $name . self::renderAttributes($attributes) . '>' . $content . '</' . $name . '>';
         }
@@ -83,74 +83,74 @@ class HTML
     // {{{ html
     static public function html($first = null, $second = null)
     {
-        return self::tag('html', $first, $second);
+        return self::tag('html', false, $first, $second);
     }
     // }}}
     // {{{ title
     static public function title($first = null, $second = null)
     {
-        return self::tag('title', $first, $second);
+        return self::tag('title', false, $first, $second);
     }
     // }}}
     // {{{ head
     static public function head($first = null, $second = null)
     {
-        return self::tag('head', $first, $second);
+        return self::tag('head', false, $first, $second);
     }
     // }}}
     // {{{ body
     static public function body($first = null, $second = null)
     {
-        return self::tag('body', $first, $second);
+        return self::tag('body', false, $first, $second);
     }
     // }}}
     // {{{ a
     static public function a($first = null, $second = null)
     {
-        return self::tag('a', $first, $second);
+        return self::tag('a', false, $first, $second);
     }
     // }}}
     // {{{ p
     static public function p($first = null, $second = null)
     {
-        return self::tag('p', $first, $second);
+        return self::tag('p', false, $first, $second);
     }
     // }}}
     // {{{ label
     static public function label($first = null, $second = null)
     {
-        return self::tag('label', $first, $second);
-    }
-    // }}}
-    // {{{ img
-    static public function img($first = null, $second = null)
-    {
-        return self::tag('img', $first, $second);
+        return self::tag('label', false, $first, $second);
     }
     // }}}
     // {{{ div
     static public function div($first = null, $second = null)
     {
-        return self::tag('div', $first, $second);
+        return self::tag('div', false, $first, $second);
     }
     // }}}
     // {{{ span
     static public function span($first = null, $second = null)
     {
-        return self::tag('span', $first, $second);
+        return self::tag('span', false, $first, $second);
     }
     // }}}
 
+    // {{{ img
+    static public function img($first = null, $second = null)
+    {
+        return self::tag('img', true, $first, $second);
+    }
+    // }}}
     // {{{ meta
     static public function meta($attributes = null)
     {
-        return self::noEndTag('meta', $attributes);
+        return self::noEndTag('meta', true, $attributes);
     }
     // }}}
     // {{{ link
     static public function link($attributes = null)
     {
-        return self::noEndTag('link', $attributes);
+        return self::noEndTag('link', true, $attributes);
     }
     // }}}
 

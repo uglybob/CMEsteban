@@ -5,7 +5,7 @@ namespace Bh\Page;
 class ObjectList
 {
     // {{{ constructor
-    public function __construct(array $objects, $edit = null)
+    public function __construct(array $objects, $edit = null, $add = true)
     {
         $this->list = '';
 
@@ -20,21 +20,21 @@ class ObjectList
             if ($edit) {
                $id = $object->getId();
                $this->list .= HTML::div(
-                    HTML::span(
+                    HTML::span(['class' => 'properties'],
                         HTML::a(['href' => "/edit/$edit/$id"], $propertyList)
                     ) .
-                    HTML::span(
+                    HTML::span(['class' => 'delete'],
                         HTML::a(['href' => "/delete/$edit/$id"], 'x')
                     )
                 );
             } else {
                 $this->list .= HTML::div(
-                    HTML::span($propertyList)
+                    HTML::span(['class' => 'properties'], $propertyList)
                 );
             }
         }
 
-        if ($edit) {
+        if ($add && $edit) {
             $this->list .= HTML::div(
                 HTML::span(
                     HTML::a(['href' => "/edit/$edit/"], $edit . ' hinzufügen')

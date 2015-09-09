@@ -65,17 +65,14 @@ abstract class Page {
         return $renderedStylesheets;
     }
     // }}}
+    // {{{ renderHeader
+    protected function renderHeader() {
+        return '';
+    }
+    // }}}
     // {{{ renderFooter
     protected function renderFooter() {
-        $footer =   '';
-                    /* @todo loadScripts
-                    '<script src="lib/jquery/jquery-2.0.3.min.js"></script>' .
-                    '<script src="lib/eventlist.js"></script>' .
-                    '<script src="lib/piwik.js"></script>' .
-                    '<noscript><p><img src="http://piwik.bitbernd.de/piwik.php?idsite=1" style="border:0" alt="" /></p></noscript>' .
-                    */
-
-        return $footer;
+        return '';
     }
     // }}}
 
@@ -97,9 +94,16 @@ abstract class Page {
                                 $this->renderHead() .
                                 HTML::body(
                                     HTML::div(['id' => 'main'],
-                                        HTML::div(['id' => 'middle'],
-                                            $this->renderContent() .
-                                            $this->renderFooter()
+                                        HTML::div(['id' => 'wrapper'],
+                                            HTML::div(['id' => 'header'],
+                                                $this->renderHeader()
+                                            ) .
+                                            HTML::div(['id' => 'middle'],
+                                                $this->renderContent()
+                                            ) .
+                                            HTML::div(['id' => 'footer'],
+                                                $this->renderFooter()
+                                            )
                                         )
                                     )
                                 )
