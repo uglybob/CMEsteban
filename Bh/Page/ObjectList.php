@@ -35,7 +35,7 @@ class ObjectList
                 $deleteLink = '';
             }
 
-            $this->list .= HTML::div($properties . $deleteLink);
+            $this->list .= HTML::div(['class' => 'objectRow'], $properties . $deleteLink);
         }
 
         if ($add && $edit) {
