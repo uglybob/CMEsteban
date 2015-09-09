@@ -31,7 +31,7 @@ class User extends Page
     // {{{ renderContent
     protected function renderContent()
     {
-        return $this->registrationForm;
+        return $this->registrationForm->__toString();
     }
     // }}}
 }

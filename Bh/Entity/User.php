@@ -54,4 +54,11 @@ class User extends Entity
         return $this->hash($pass) == $this->pass;
     }
     // }}}
+
+    // {{{ toString
+    public function __toString()
+    {
+        return $this->email;
+    }
+    // }}}
 }

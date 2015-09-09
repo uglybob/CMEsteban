@@ -3,7 +3,7 @@
 namespace Bh\Page;
 
 abstract class Page {
-    protected $title = '*';
+    protected $title = '';
     protected $stylesheets = [];
     protected $accessLevel = 0;
 
