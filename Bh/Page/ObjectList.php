@@ -20,14 +20,14 @@ class ObjectList
             if ($edit) {
                $this->list .= HTML::div(
                     HTML::span(
-                        HTML::a(['href' => '/edit/' . $edit . '/' . $object->getId()], $propertyList)
+                        HTML::a(['href' => "/edit/$edit/{$object->getId()}"], $propertyList)
                     ) .
                     HTML::span(
-                        HTML::a(['href' => '/delete/' . $edit . '/' . $object->getId()], 'x')
+                        HTML::a(['href' => "/delete/$edit/{$object->getId()}"], 'x')
                     )
                 );
             } else {
-               $this->list .= HTML::div(
+                $this->list .= HTML::div(
                     HTML::span($propertyList)
                 );
             }
@@ -36,14 +36,14 @@ class ObjectList
         if ($edit) {
             $this->list .= HTML::div(
                 HTML::span(
-                    HTML::a(['href' => '/edit/' . $edit . '/'], $edit . ' hinzufügen')
+                    HTML::a(['href' => "/edit/$edit/"], $edit . ' hinzufügen')
                 )
             );
         }
     }
     // }}}
 
-    // {{{
+    // {{{ toString
     public function __toString()
     {
         return $this->list;
