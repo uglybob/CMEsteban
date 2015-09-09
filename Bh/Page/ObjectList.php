@@ -41,6 +41,8 @@ class ObjectList
                 )
             );
         }
+
+        $this->list = HTML::div(['class' => 'objectList'], $this->list);
     }
     // }}}
 
