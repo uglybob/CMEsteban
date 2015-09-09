@@ -149,7 +149,7 @@ class HTML
             $menu .= Html::a(['href' => $link], $title);
         }
 
-        return Html::div(['id' => 'menu'], $menu);
+        return Html::div(['class' => 'menu'], $menu);
     }
     // }}}
 }
