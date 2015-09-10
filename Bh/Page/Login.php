@@ -15,29 +15,7 @@ class Login extends Page
 
         $this->title = 'login';
 
-        $user = $controller->getCurrentUser();
-
-        if ($user) {
-            $this->form = new \Depage\HtmlForm\HtmlForm('login', ['label' => 'logoff']);
-        } else {
-            $this->form = new \Depage\HtmlForm\HtmlForm('login', ['label' => 'login']);
-            $this->form->addEmail('Email');
-            $this->form->addPassword('Pass');
-        }
-
-        $this->form->process();
-
-        if ($this->form->validate()) {
-            if ($user) {
-                $this->controller->logoff();
-            } else {
-                $values = $this->form->getValues();
-                $this->controller->login($values['Email'], $values['Pass']);
-            }
-
-            $this->form->clearSession();
-            Page::redirect('/');
-        }
+        $this->form = new LoginForm($this->controller);
     }
     // }}}
 
