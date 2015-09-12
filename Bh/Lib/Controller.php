@@ -12,7 +12,19 @@ class Controller
     // }}}
 
     // {{{ getPage
-    public function getPage($request)
+    public function getPage($id)
+    {
+        if (is_null($id)) {
+            $page = null;
+        } else {
+            $page = Mapper::find('Page', $id);
+        }
+
+        return $page;
+    }
+    // }}}
+    // {{{ getPageByRequest
+    public function getPageByRequest($request)
     {
         $page = 'Bh\Page\Home';
         $path = explode('/', $request);
@@ -27,6 +39,32 @@ class Controller
         }
 
         return new $page($this, $path);
+    }
+    // }}}
+    // {{{ getPages
+    public function getPages()
+    {
+        $pages = null;
+        $user = $this->getCurrentUser();
+
+        if ($user && $user->getLevel() >= 5) {
+            $pages = Mapper::findAll('Page');
+        }
+
+        return $pages;
+    }
+    // }}}
+    // {{{ editPage
+    public function editPage($page)
+    {
+        $user = $this->getCurrentUser();
+
+        if ($user && $user->getLevel() >= 5) {
+            if (is_null($page->getId())) {
+                Mapper::save($page);
+            }
+            Mapper::commit();
+        }
     }
     // }}}
 
