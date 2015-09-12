@@ -51,13 +51,7 @@ class HTML
     // }}}
     // {{{ formatArgument
     static protected function formatArgument($argument) {
-        if (is_object($argument)) {
-            $result = $argument->__toString();
-        } else if (
-            is_string($argument)
-            || is_array($argument)
-            || is_null($argument)
-        ) {
+        if (is_array($argument) || is_null($argument)) {
             $result = $argument;
         } else {
             $result = (string) $argument;
