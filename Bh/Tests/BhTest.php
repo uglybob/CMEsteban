@@ -32,7 +32,7 @@ class BhTest extends PhpUnit_Framework_TestCase
     // {{{ testGetPage
     public function testGetPage()
     {
-        $this->assertEquals('This is a home mockup', $this->controller->getPage(null)->__toString());
+        $this->assertEquals('This is a home mockup', $this->controller->getPageByRequest(null)->__toString());
     }
     // }}}
 }
