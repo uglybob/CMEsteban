@@ -5,7 +5,7 @@ namespace Bh\Page;
 class HTML
 {
     // {{{ tag
-    static public function tag($name, $void, $first = null, $second = null)
+    static protected function tag($name, $void, $first = null, $second = null)
     {
         if (empty($name)) {
             // @todo clean
@@ -13,7 +13,7 @@ class HTML
         }
 
         $first = self::formatArgument($first);
-        $escond = self::formatArgument($second);
+        $second = self::formatArgument($second);
 
         if (is_array($first) && (is_string($second) || is_null($second))) {
             $attributes = $first;
