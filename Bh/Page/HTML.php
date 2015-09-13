@@ -8,11 +8,32 @@ class HTML
     protected static $voidTags = ['img', 'meta', 'link'];
     protected static $nonVoidTags = ['html', 'title', 'head', 'body', 'a', 'p', 'label', 'div', 'span'];
     // }}}
+
+    // {{{ callStatic
+    public static function __callStatic($name, $arguments)
+    {
+        $result = null;
+        $first = (isset($arguments[0])) ? $arguments[0] : null;
+        $second = (isset($arguments[1])) ? $arguments[1] : null;
+
+        if (in_array($name, self::$nonVoidTags)) {
+            $result = self::tag($name, false, $first, $second);
+        } else if (in_array($name, self::$voidTags)) {
+            $result = self::tag($name, true, $first, $second);
+        } else {
+            // @todo custom exception
+            throw new \Exception("Call to undefined method Bh\Page\HTML::$name()");
+        }
+
+        return $result;
+    }
+    // }}}
+
     // {{{ tag
     static protected function tag($name, $void, $first = null, $second = null)
     {
         if (empty($name)) {
-            // @todo clean
+            // @todo custom exception
             throw new \Exception('unnamed html tag');
         }
 
@@ -26,7 +47,7 @@ class HTML
             $content = $first;
             $attributes = $second;
         } else {
-            // @todo clean
+            // @todo custom exception
             throw new \Exception('invalid tag signature');
         }
 
@@ -39,7 +60,6 @@ class HTML
         return $markup;
     }
     // }}}
-
     // {{{ renderAttributes
     static protected function renderAttributes($attributes) {
         $renderedAttributes = '';
@@ -65,24 +85,6 @@ class HTML
     }
     // }}}
 
-    // {{{ callStatic
-    public static function __callStatic($name, $arguments)
-    {
-        $result = null;
-        $first = (isset($arguments[0])) ? $arguments[0] : null;
-        $second = (isset($arguments[1])) ? $arguments[1] : null;
-
-        if (in_array($name, self::$nonVoidTags)) {
-            $result = self::tag($name, false, $first, $second);
-        } else if (in_array($name, self::$voidTags)) {
-            $result = self::tag($name, true, $first, $second);
-        } else {
-            throw new \Exception("Call to undefined method Bh\Page\HTML::$name()");
-        }
-
-        return $result;
-    }
-    // }}}
     // {{{ menu
     static public function menu($links)
     {
