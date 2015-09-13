@@ -4,13 +4,13 @@ use Bh\Page\HTML;
 
 class HTMLTest extends PhpUnit_Framework_TestCase
 {
-    protected $voidTags = ['img'];
-    protected $tags = ['html', 'title', 'head', 'body', 'a', 'p', 'label', 'div', 'span'];
+    protected $nonVoidTags = ['html', 'title', 'head', 'body', 'a', 'p', 'label', 'div', 'span'];
+    protected $voidTags = ['img', 'meta', 'link'];
 
-    // {{{ testTags
-    public function testTags()
+    // {{{ testNonVoidTags
+    public function testNonVoidTags()
     {
-        foreach ($this->tags as $tag) {
+        foreach ($this->nonVoidTags as $tag) {
             $this->assertEquals("<$tag></$tag>", HTML::$tag());
             $this->assertEquals("<$tag></$tag>", HTML::$tag(''));
             $this->assertEquals("<$tag></$tag>", HTML::$tag(null));
