@@ -4,6 +4,14 @@ namespace Bh\Page;
 
 class HTML
 {
+    // {{{ variables
+    protected static $voidTags = [
+        'img', 'meta', 'link'
+    ];
+    protected static $nonVoidTags = [
+        'html', 'title', 'head', 'body', 'a', 'p', 'label', 'div', 'span'
+    ];
+    // }}}
     // {{{ tag
     static protected function tag($name, $void, $first = null, $second = null)
     {
@@ -61,80 +69,24 @@ class HTML
     }
     // }}}
 
-    // {{{ html
-    static public function html($first = null, $second = null)
+    // {{{ callStatic
+    public static function __callStatic($name, $arguments)
     {
-        return self::tag('html', false, $first, $second);
-    }
-    // }}}
-    // {{{ title
-    static public function title($first = null, $second = null)
-    {
-        return self::tag('title', false, $first, $second);
-    }
-    // }}}
-    // {{{ head
-    static public function head($first = null, $second = null)
-    {
-        return self::tag('head', false, $first, $second);
-    }
-    // }}}
-    // {{{ body
-    static public function body($first = null, $second = null)
-    {
-        return self::tag('body', false, $first, $second);
-    }
-    // }}}
-    // {{{ a
-    static public function a($first = null, $second = null)
-    {
-        return self::tag('a', false, $first, $second);
-    }
-    // }}}
-    // {{{ p
-    static public function p($first = null, $second = null)
-    {
-        return self::tag('p', false, $first, $second);
-    }
-    // }}}
-    // {{{ label
-    static public function label($first = null, $second = null)
-    {
-        return self::tag('label', false, $first, $second);
-    }
-    // }}}
-    // {{{ div
-    static public function div($first = null, $second = null)
-    {
-        return self::tag('div', false, $first, $second);
-    }
-    // }}}
-    // {{{ span
-    static public function span($first = null, $second = null)
-    {
-        return self::tag('span', false, $first, $second);
-    }
-    // }}}
+        $result = null;
+        $first = (isset($arguments[0])) ? $arguments[0] : null;
+        $second = (isset($arguments[1])) ? $arguments[1] : null;
 
-    // {{{ img
-    static public function img($first = null, $second = null)
-    {
-        return self::tag('img', true, $first, $second);
-    }
-    // }}}
-    // {{{ meta
-    static public function meta($attributes = null)
-    {
-        return self::tag('meta', true, $attributes);
-    }
-    // }}}
-    // {{{ link
-    static public function link($attributes = null)
-    {
-        return self::tag('link', true, $attributes);
-    }
-    // }}}
+        if (in_array($name, self::$nonVoidTags)) {
+            $result = self::tag($name, false, $first, $second);
+        } else if (in_array($name, self::$voidTags)) {
+            $result = self::tag($name, true, $first, $second);
+        } else {
+            throw new \Exception('invalid method');
+        }
 
+        return $result;
+    }
+    // }}}
     // {{{ menu
     static public function menu($links)
     {
