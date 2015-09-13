@@ -5,12 +5,8 @@ namespace Bh\Page;
 class HTML
 {
     // {{{ variables
-    protected static $voidTags = [
-        'img', 'meta', 'link'
-    ];
-    protected static $nonVoidTags = [
-        'html', 'title', 'head', 'body', 'a', 'p', 'label', 'div', 'span'
-    ];
+    protected static $voidTags = ['img', 'meta', 'link'];
+    protected static $nonVoidTags = ['html', 'title', 'head', 'body', 'a', 'p', 'label', 'div', 'span'];
     // }}}
     // {{{ tag
     static protected function tag($name, $void, $first = null, $second = null)
@@ -81,7 +77,7 @@ class HTML
         } else if (in_array($name, self::$voidTags)) {
             $result = self::tag($name, true, $first, $second);
         } else {
-            throw new \Exception('invalid method');
+            throw new \Exception("Call to undefined method Bh\Page\HTML::$name()");
         }
 
         return $result;

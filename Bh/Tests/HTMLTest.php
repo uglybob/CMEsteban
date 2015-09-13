@@ -4,25 +4,11 @@ use Bh\Page\HTML;
 
 class HTMLTest extends PhpUnit_Framework_TestCase
 {
-    protected $nonVoidTags = ['html', 'title', 'head', 'body', 'a', 'p', 'label', 'div', 'span'];
+    // {{{ variables
     protected $voidTags = ['img', 'meta', 'link'];
-
-    // {{{ testNonVoidTags
-    public function testNonVoidTags()
-    {
-        foreach ($this->nonVoidTags as $tag) {
-            $this->assertEquals("<$tag></$tag>", HTML::$tag());
-            $this->assertEquals("<$tag></$tag>", HTML::$tag(''));
-            $this->assertEquals("<$tag></$tag>", HTML::$tag(null));
-            $this->assertEquals("<$tag>content</$tag>", HTML::$tag('content'));
-            $this->assertEquals("<$tag name=\"value\"></$tag>", HTML::$tag(['name' => 'value']));
-            $this->assertEquals("<$tag name=\"value\" anotherName=\"anotherValue\"></$tag>", HTML::$tag(['name' => 'value', 'anotherName' => 'anotherValue']));
-            $this->assertEquals("<$tag name=\"value\"></$tag>", HTML::$tag(['name' => 'value']), '');
-            $this->assertEquals("<$tag name=\"value\"></$tag>", HTML::$tag(['name' => 'value']), null);
-            $this->assertEquals("<$tag name=\"value\" anotherName=\"anotherValue\">content</$tag>", HTML::$tag(['name' => 'value', 'anotherName' => 'anotherValue'], 'content'));
-        }
-    }
+    protected $nonVoidTags = ['html', 'title', 'head', 'body', 'a', 'p', 'label', 'div', 'span'];
     // }}}
+
     // {{{ testVoidTags
     public function testVoidTags()
     {
@@ -39,6 +25,22 @@ class HTMLTest extends PhpUnit_Framework_TestCase
         }
     }
     // }}}
+    // {{{ testNonVoidTags
+    public function testNonVoidTags()
+    {
+        foreach ($this->nonVoidTags as $tag) {
+            $this->assertEquals("<$tag></$tag>", HTML::$tag());
+            $this->assertEquals("<$tag></$tag>", HTML::$tag(''));
+            $this->assertEquals("<$tag></$tag>", HTML::$tag(null));
+            $this->assertEquals("<$tag>content</$tag>", HTML::$tag('content'));
+            $this->assertEquals("<$tag name=\"value\"></$tag>", HTML::$tag(['name' => 'value']));
+            $this->assertEquals("<$tag name=\"value\" anotherName=\"anotherValue\"></$tag>", HTML::$tag(['name' => 'value', 'anotherName' => 'anotherValue']));
+            $this->assertEquals("<$tag name=\"value\"></$tag>", HTML::$tag(['name' => 'value']), '');
+            $this->assertEquals("<$tag name=\"value\"></$tag>", HTML::$tag(['name' => 'value']), null);
+            $this->assertEquals("<$tag name=\"value\" anotherName=\"anotherValue\">content</$tag>", HTML::$tag(['name' => 'value', 'anotherName' => 'anotherValue'], 'content'));
+        }
+    }
+    // }}}
     // {{{ testSignatureException
     /**
      * @expectedException           Exception
@@ -47,6 +49,16 @@ class HTMLTest extends PhpUnit_Framework_TestCase
     public function testSignatureException()
     {
         HTML::html('content', 'content');
+    }
+    // }}}
+    // {{{ testUndefinedMethodException
+    /**
+     * @expectedException           Exception
+     * @expectedExceptionMessage    Call to undefined method Bh\Page\HTML::iDontExist()
+     */
+    public function testUndefinedMethodException()
+    {
+        HTML::iDontExist();
     }
     // }}}
 }
