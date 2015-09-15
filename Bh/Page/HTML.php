@@ -62,12 +62,30 @@ class HTML
     // }}}
     // {{{ renderAttributes
     static protected function renderAttributes($attributes) {
-        $renderedAttributes = '';
+        $list = [];
 
         if (!empty($attributes)) {
             foreach ($attributes as $name => $value) {
-                $renderedAttributes .= " $name=\"$value\"";
+                if (is_int($name) && strlen($value) > 1) {
+                    if ($value[0] == '.') {
+                        $list['class'][] = substr($value, 1);
+                    } else if ($value[0] == '#') {
+                        $list['id'][] = substr($value, 1);
+                    } else {
+                        throw new \Exception('unknown selector');
+                    }
+                } else if (is_string($name) && is_string($value)) {
+                    $list[$name][] = $value;
+                } else {
+                    throw new \Exception('invalid attributes');
+                }
             }
+        }
+
+        $renderedAttributes = '';
+
+        foreach ($list as $name => $attributes) {
+            $renderedAttributes .= ' ' . $name . '="' . implode(' ', $attributes) . '"';
         }
 
         return $renderedAttributes;

@@ -41,6 +41,15 @@ class HTMLTest extends PhpUnit_Framework_TestCase
         }
     }
     // }}}
+    // {{{ testSelectors
+    public function testSelectors()
+    {
+        $this->assertEquals('<div class="testClass">content</div>', HTML::div(['.testClass'], 'content'));
+        $this->assertEquals('<div class="testClass testClass2">content</div>', HTML::div(['.testClass', '.testClass2'], 'content'));
+        $this->assertEquals('<div class="testClass testClass2 testClass3">content</div>', HTML::div(['.testClass', '.testClass2', 'class' => 'testClass3'], 'content'));
+    }
+    // }}}
+
     // {{{ testSignatureException
     /**
      * @expectedException           Exception
@@ -59,6 +68,26 @@ class HTMLTest extends PhpUnit_Framework_TestCase
     public function testUndefinedMethodException()
     {
         HTML::iDontExist();
+    }
+    // }}}
+    // {{{ testInvalidAttributeException
+    /**
+     * @expectedException           Exception
+     * @expectedExceptionMessage    invalid attributes
+     */
+    public function testInvalidAttributeException()
+    {
+        HTML::div(['.'], 'content');
+    }
+    // }}}
+    // {{{ testUnknownSelectorException
+    /**
+     * @expectedException           Exception
+     * @expectedExceptionMessage    unknown selector
+     */
+    public function testUnknownSelectorException()
+    {
+        HTML::div(['$name'], 'content');
     }
     // }}}
 }
