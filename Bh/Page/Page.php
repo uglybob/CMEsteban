@@ -11,6 +11,7 @@ abstract class Page {
     public function __construct($controller, $path = [])
     {
         $this->controller = $controller;
+        $this->path = $path;
     }
     // }}}
 
@@ -42,7 +43,8 @@ abstract class Page {
             ]) .
             HTML::meta([
                 'name' => 'description',
-                'content' => 'The name \'Brausehaus\' stands for our underground music-collective.'
+                // @todo description hook
+                'content' => ''
             ]) .
             $this->hookHeader() .
             $this->renderStylesheets()

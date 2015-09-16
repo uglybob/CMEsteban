@@ -12,7 +12,7 @@ class Delete extends Backend
 
         $this->controller = $controller;
 
-        $this->title = $this->class . ' löschen';
+        $this->title = 'delete ' . $this->class;
         $this->stylesheets[] = '/Bh/Page/css/depage-forms.css';
 
         $object = $this->controller->{'get' . $this->class}($this->id);
@@ -21,8 +21,8 @@ class Delete extends Backend
             $this->redirect('/list/' . lcfirst($this->class));
         }
 
-        $this->deleteForm = new \Depage\HtmlForm\HtmlForm('delete' . $this->class, ['label' => 'löschen']);
-        $this->deleteForm->addBoolean('sure', ['label' => $object->getName() . ' wirklich löschen?'])->setRequired();
+        $this->deleteForm = new \Depage\HtmlForm\HtmlForm('delete' . $this->class, ['label' => 'delete']);
+        $this->deleteForm->addBoolean('sure', ['label' => $object->getName() . ' delete?'])->setRequired();
         $this->deleteForm->process();
 
         if ($this->deleteForm->validate()) {

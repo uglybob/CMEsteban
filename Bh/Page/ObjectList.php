@@ -41,7 +41,7 @@ class ObjectList
         if ($add && $edit) {
             $this->list .= HTML::div(
                 HTML::span(
-                    HTML::a(['href' => "/edit/$edit/"], $edit . ' hinzufügen')
+                    HTML::a(['href' => "/edit/$edit/"], 'add ' . $edit)
                 )
             );
         }

@@ -18,7 +18,7 @@ class EditForm
     // {{{ buildForm
     protected function buildForm()
     {
-        $this->form = new \Depage\HtmlForm\HtmlForm('edit' . $this->class . $this->id, ['label' => 'speichern']);
+        $this->form = new \Depage\HtmlForm\HtmlForm('edit' . $this->class . $this->id, ['label' => 'save']);
         $this->form->registerNamespace('\\Bh\\Page');
 
         $this->loadObject();
@@ -26,9 +26,9 @@ class EditForm
         $this->create();
 
         if ($this->object) {
-            $this->title = $this->class . ' editieren';
+            $this->title = 'edit ' . $this->class;
         } else {
-            $this->title = $this->class . ' erstellen';
+            $this->title = 'create ' . $this->class;
             $this->instantiateObject();
         }
 

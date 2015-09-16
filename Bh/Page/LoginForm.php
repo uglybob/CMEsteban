@@ -12,7 +12,7 @@ class LoginForm
         $user = $controller->getCurrentUser();
 
         if ($user) {
-            $this->form = new \Depage\HtmlForm\HtmlForm('login', ['label' => 'logoff']);
+            $this->form = new \Depage\HtmlForm\HtmlForm('login', ['label' => 'logout']);
         } else {
             $this->form = new \Depage\HtmlForm\HtmlForm('login', ['label' => 'login']);
             $this->form->addEmail('Email');
