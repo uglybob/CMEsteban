@@ -53,7 +53,7 @@ class ObjectList
     // {{{ getProperties
     public function getProperties($object)
     {
-        return ['name' => $object->__toString()];
+        return ['name' => $object];
     }
     // }}}
 

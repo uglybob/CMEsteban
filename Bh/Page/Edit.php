@@ -24,7 +24,7 @@ class Edit extends Backend
     // {{{ renderContent
     protected function renderContent()
     {
-        return $this->editForm->__toString();
+        return $this->editForm;
     }
     // }}}
 }
