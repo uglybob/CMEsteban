@@ -45,7 +45,9 @@ class User extends Entity
     // {{{ hash
     protected function hash($pass)
     {
-        return sha1($pass);
+        $settings = \Bh\Lib\Setup::getSettings();
+        $salt = $settings['Salt'];
+        return sha1($salt . $this->email . $pass);
     }
     // }}}
     // {{{ authenticate
