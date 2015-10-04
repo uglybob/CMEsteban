@@ -42,6 +42,11 @@ class EditForm
         }
     }
     // }}}
+    // {{{ populate
+    protected function populate()
+    {
+    }
+    // }}}
     // {{{ loadObject
     protected function loadObject()
     {
