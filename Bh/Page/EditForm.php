@@ -19,7 +19,6 @@ class EditForm
     protected function buildForm()
     {
         $this->form = new \Depage\HtmlForm\HtmlForm('edit' . $this->class . $this->id, ['label' => 'save']);
-        $this->form->registerNamespace('\\Bh\\Page');
 
         $this->loadObject();
 
