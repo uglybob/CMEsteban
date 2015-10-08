@@ -12,10 +12,10 @@ class BhTest extends PhpUnit_Framework_TestCase
     }
     // }}}
 
-    // {{{ testBh
-    public function testBh()
+    // {{{ testBhDefault
+    public function testBhDefault()
     {
-        $this->expectOutputString('This is a home mockup');
+        $this->expectOutputString('Page not found: home');
         $bh = new \Bh\Bh();
     }
     // }}}
@@ -26,13 +26,6 @@ class BhTest extends PhpUnit_Framework_TestCase
 
         $this->expectOutputString('This is a custom controller page.');
         $bh = new \Bh\Bh($customController);
-    }
-    // }}}
-
-    // {{{ testGetPage
-    public function testGetPage()
-    {
-        $this->assertEquals('This is a home mockup', $this->controller->getPageByRequest(null)->render());
     }
     // }}}
 }
