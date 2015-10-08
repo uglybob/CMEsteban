@@ -16,6 +16,7 @@ class Bh
             $controller = new Lib\Controller();
         }
 
-        echo $controller->getPageByRequest($request);
+        $page = $controller->getPageByRequest($request);
+        echo $page->render();
     }
 }

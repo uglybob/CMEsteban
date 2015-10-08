@@ -109,40 +109,28 @@ abstract class Page {
     }
     // }}}
 
-    // {{{ toString
-    public function __toString()
+    // {{{ render
+    public function render()
     {
-        $userLevel = 0;
+        $string = '';
 
-        if ($currentUser = $this->controller->getCurrentUser()) {
-            $userLevel = $currentUser->getLevel();
-        }
-
-        if (
-            $userLevel >= $this->accessLevel
-        ) {
+        if ($this->controller->access($this->accessLevel)) {
             try {
-                $string =   '<!DOCTYPE html>' .
-                            HTML::html(
-                                $this->renderHead() .
-                                HTML::body(
-                                    HTML::div(['id' => 'main'],
-                                        HTML::div(['id' => 'wrapper'],
-                                            HTML::div(['id' => 'header'],
-                                                $this->renderHeader()
-                                            ) .
-                                            HTML::div(['id' => 'middle'],
-                                                $this->renderContent()
-                                            ) .
-                                            HTML::div(['id' => 'footer'],
-                                                $this->renderFooter()
-                                            )
-                                        )
-                                    )
+                $string =
+                    '<!DOCTYPE html>' .
+                    HTML::html(
+                        $this->renderHead() .
+                        HTML::body(
+                            HTML::div(['#main'],
+                                HTML::div(['#wrapper'],
+                                    HTML::div(['#header'], $this->renderHeader()) .
+                                    HTML::div(['#middle'], $this->renderContent()) .
+                                    HTML::div(['#footer'], $this->renderFooter())
                                 )
-                            );
+                            )
+                        )
+                    );
 
-                return $string;
             } catch (\Exception $e) {
                 $settings = \Bh\Lib\Setup::getSettings();
 
@@ -150,9 +138,9 @@ abstract class Page {
                     echo($e);
                 }
             }
-        } else {
-            return 'Access denied';
         }
+
+        return $string;
     }
     // }}}
 

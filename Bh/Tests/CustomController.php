@@ -7,7 +7,7 @@ class CustomController extends Controller
     // {{{ getPage
     public function getPageByRequest()
     {
-        return 'This is a custom controller page.';
+        return new \Bh\Page\CustomControllerPage();
     }
     // }}}
 }

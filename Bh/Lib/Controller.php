@@ -44,10 +44,9 @@ class Controller
     // {{{ getPages
     public function getPages()
     {
-        $pages = null;
-        $user = $this->getCurrentUser();
+        $pages = [];
 
-        if ($user && $user->getLevel() >= 5) {
+        if ($this->access(5)) {
             $pages = Mapper::findAll('Page');
         }
 
@@ -57,12 +56,11 @@ class Controller
     // {{{ editPage
     public function editPage($page)
     {
-        $user = $this->getCurrentUser();
-
-        if ($user && $user->getLevel() >= 5) {
+        if ($this->access(5)) {
             if (is_null($page->getId())) {
                 Mapper::save($page);
             }
+
             Mapper::commit();
         }
     }
@@ -98,6 +96,24 @@ class Controller
         }
 
         return $user;
+    }
+    // }}}
+    // {{{ access
+    public function access($level)
+    {
+        $result = false;
+        $user = $this->getCurrentUser();
+
+        if (
+            ($level === 0)
+            || ($user && $user->getLevel() >= $level))
+        {
+            $result = true;
+        } else {
+            throw new \Bh\Exception\AccessException("Access denied. Minimum access level: $level.");
+        }
+
+        return $result;
     }
     // }}}
 
