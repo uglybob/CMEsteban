@@ -6,11 +6,9 @@ use Bh\Lib\Controller;
 
 class Login extends Page
 {
-    // {{{ constructor
-    public function __construct(Controller $controller, array $path)
+    // {{{ hookConstructor
+    protected function hookConstructor()
     {
-        parent::__construct($controller, $path);
-
         $this->stylesheets[] = '/vendor/depage/htmlform/lib/css/depage-forms.css';
 
         $this->title = 'login';

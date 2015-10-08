@@ -15,6 +15,8 @@ abstract class Page {
     {
         $this->controller = $controller;
         $this->path = $path;
+
+        $this->hookConstructor();
     }
     // }}}
 
@@ -33,6 +35,11 @@ abstract class Page {
     }
     // }}}
 
+    // {{{ hookConstructor
+    protected function hookConstructor()
+    {
+    }
+    // }}}
     // {{{ hookTitle
     protected function hookTitle()
     {
@@ -47,7 +54,6 @@ abstract class Page {
 
     // {{{ renderHead
     protected function renderHead() {
-        // @todo content
         $header = HTML::head(
             HTML::title($this->hookTitle()) .
             HTML::link([

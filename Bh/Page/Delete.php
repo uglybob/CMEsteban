@@ -4,11 +4,9 @@ namespace Bh\Page;
 
 class Delete extends Backend
 {
-    // {{{ constructor
-    public function __construct($controller, $path)
+    // {{{ hookConstructor
+    protected function hookConstructor()
     {
-        parent::__construct($controller, $path);
-
         $this->class = ucfirst($this->getPath(1));
         $this->id = $this->getPath(2);
 
