@@ -13,7 +13,7 @@ class User extends Page
 
         $this->stylesheets[] = '/vendor/depage/htmlform/lib/css/depage-forms.css';
 
-        $id = isset($path[1]) ? $path[1] : null;
+        $id = $this->getPath(1);
 
         $settings = \Bh\Lib\Setup::getSettings();
 

@@ -7,10 +7,10 @@ class Delete extends Backend
     // {{{ constructor
     public function __construct($controller, $path)
     {
-        $this->class = ucfirst($path[1]);
-        $this->id = $path[2];
+        parent::__construct($controller, $path);
 
-        $this->controller = $controller;
+        $this->class = ucfirst($this->getPath(1));
+        $this->id = $this->getPath(2);
 
         $this->title = 'delete ' . $this->class;
         $this->stylesheets[] = '/Bh/Page/css/depage-forms.css';

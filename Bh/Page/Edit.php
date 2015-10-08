@@ -13,11 +13,10 @@ class Edit extends Backend
 
         $this->stylesheets[] = '/vendor/depage/htmlform/lib/css/depage-forms.css';
 
-        $class = ucfirst($path[1]);
+        $class = ucfirst($this->getPath(1));
         $formType = 'Bh\Page\Edit' . $class;
 
-        $id = isset($path[2]) ? $path[2] : null;
-        $this->editForm = new $formType($controller, $class, $id);
+        $this->editForm = new $formType($controller, $class, $this->getPath(2));
     }
     // }}}
 
