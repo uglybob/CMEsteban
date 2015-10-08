@@ -16,6 +16,7 @@ abstract class Page {
     {
         $this->controller = $controller;
         $this->path = $path;
+        $this->controller->access($this->accessLevel);
 
         $this->hookConstructor();
     }
@@ -112,26 +113,20 @@ abstract class Page {
     // {{{ render
     public function render()
     {
-        $string = '';
-
-        if ($this->controller->access($this->accessLevel)) {
-            $string =
-                '<!DOCTYPE html>' .
-                HTML::html(
-                    $this->renderHead() .
-                    HTML::body(
-                        HTML::div(['#main'],
-                            HTML::div(['#wrapper'],
-                                HTML::div(['#header'], $this->renderHeader()) .
-                                HTML::div(['#middle'], $this->renderContent()) .
-                                HTML::div(['#footer'], $this->renderFooter())
-                            )
+        return
+            '<!DOCTYPE html>' .
+            HTML::html(
+                $this->renderHead() .
+                HTML::body(
+                    HTML::div(['#main'],
+                        HTML::div(['#wrapper'],
+                            HTML::div(['#header'], $this->renderHeader()) .
+                            HTML::div(['#middle'], $this->renderContent()) .
+                            HTML::div(['#footer'], $this->renderFooter())
                         )
                     )
-                );
-        }
-
-        return $string;
+                )
+            );
     }
     // }}}
 
