@@ -10,7 +10,7 @@ class Bh
             session_start();
         }
 
-        $request = isset($_GET['page']) ? $_GET['page'] : null;
+        $request = isset($_GET['page']) ? $_GET['page'] : 'home';
 
         if (is_null($controller)) {
             $controller = new Lib\Controller();
