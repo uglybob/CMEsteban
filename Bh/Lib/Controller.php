@@ -26,19 +26,24 @@ class Controller
     // {{{ getPageByRequest
     public function getPageByRequest($request)
     {
-        $page = 'Bh\Page\Home';
+        $page = null;
         $path = explode('/', $request);
+        $request = $path[0];
 
-        $handler = Mapper::findOneBy('Page', ['request' => $path[0]]);
+        $handler = Mapper::findOneBy('Page', ['request' => $request]);
 
         if ($handler) {
-            $class = 'Bh\Page\\' . $handler->getPage();
-            if (class_exists($class)) {
-                $page = $class;
+            $pageClass = 'Bh\Page\\' . $handler->getPage();
+            if (class_exists($pageClass)) {
+                $page = new $pageClass($this, $path);
+            } else {
+                throw new \Bh\Exception\NotFoundException("Class does not exist: $pageClass");
             }
+        } else {
+            throw new \Bh\Exception\NotFoundException("Page not found: $request");
         }
 
-        return new $page($this, $path);
+        return $page;
     }
     // }}}
     // {{{ getPages

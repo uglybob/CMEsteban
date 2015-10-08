@@ -16,16 +16,30 @@ class Bh
             $controller = new Lib\Controller();
         }
 
-        $page = $controller->getPageByRequest($request);
+        $output = '';
 
         try {
-            echo($page->render());
+            $output = $controller->getPageByRequest($request)->render();
+        } catch (Exception\NotFoundException $e) {
+            try {
+                $output = $controller->getPageByRequest('404')->render();
+            } catch (\Exception $se) {
+                $output = $e->getMessage();
+            }
+        } catch (Exception\AccessException $e) {
+            try {
+                $output = $controller->getPageByRequest('403')->render();
+            } catch (\Exception $se) {
+                $output = $e->getMessage();
+            }
         } catch (\Exception $e) {
             $settings = \Bh\Lib\Setup::getSettings();
 
             if ($settings['DevMode'] === true) {
-               echo($e);
+               $output = $e;
             }
         }
+
+        echo($output);
     }
 }
