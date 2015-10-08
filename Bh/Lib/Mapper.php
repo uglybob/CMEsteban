@@ -13,10 +13,7 @@ class Mapper
         $settings = Setup::getSettings();
 
         $config = \Doctrine\ORM\Tools\Setup::createXMLMetadataConfiguration(
-            [
-                __DIR__.'/../Mapper',
-                $settings['MapperPath'],
-            ],
+            [__DIR__.'/../Mapper'],
             $settings['DevMode']
         );
 
