@@ -1,6 +1,6 @@
 <?php
 
-namespace Bh\Exceptions;
+namespace Bh\Exception;
 
 class DataException extends BhException
 {

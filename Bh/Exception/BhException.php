@@ -1,6 +1,6 @@
 <?php
 
-namespace Bh\Exceptions;
+namespace Bh\Exception;
 
 class BhException extends \Exception
 {
