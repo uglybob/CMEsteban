@@ -13,7 +13,7 @@ class Delete extends Backend
         $this->id = $this->getPath(2);
 
         $this->title = 'delete ' . $this->class;
-        $this->stylesheets[] = '/Bh/Page/css/depage-forms.css';
+        $this->stylesheets[] = '/vendor/depage/htmlform/lib/css/depage-forms.css';
 
         $object = $this->controller->{'get' . $this->class}($this->id);
 
