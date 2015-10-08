@@ -10,19 +10,7 @@ class User extends Page
     protected function hookConstructor()
     {
         $this->stylesheets[] = '/vendor/depage/htmlform/lib/css/depage-forms.css';
-
-        $id = $this->getPath(1);
-
-        $settings = \Bh\Lib\Setup::getSettings();
-
-        if (
-            $settings['EnableRegistration']
-            || $this->controller->getCurrentUser()
-        ) {
-            $this->registrationForm = new RegistrationForm($controller, $id);
-        } else {
-            $this->registrationForm = 'Registration disabled';
-        }
+        $this->registrationForm = new RegistrationForm($this->controller, $this->getPath(1));
     }
     // }}}
 

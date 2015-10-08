@@ -70,7 +70,7 @@ class EditForm
     // {{{ toString
     public function __toString()
     {
-        return $this->form->__toString();
+        return (string) $this->form;
     }
     // }}}
 }

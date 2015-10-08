@@ -7,7 +7,16 @@ class RegistrationForm extends EditForm
     // {{{ constructor
     public function __construct($controller, $id)
     {
-        parent::__construct($controller, 'User', $id);
+        $settings = \Bh\Lib\Setup::getSettings();
+
+        if (
+            $settings['EnableRegistration']
+            || $controller->getCurrentUser()
+        ) {
+            parent::__construct($controller, 'User', $id);
+        } else {
+            $this->form = 'Registration disabled';
+        }
     }
     // }}}
 
