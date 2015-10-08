@@ -3,15 +3,33 @@
 namespace Bh\Page;
 
 abstract class Page {
+    // {{{ variables
     protected $title = '';
     protected $stylesheets = [];
     protected $accessLevel = 0;
+    protected $path;
+    // }}}
 
     // {{{ constructor
     public function __construct($controller, $path = [])
     {
         $this->controller = $controller;
         $this->path = $path;
+    }
+    // }}}
+
+    // {{{ getPath
+    protected function getPath($offset = null)
+    {
+        $path = null;
+
+        if (is_null($offset)) {
+            $path = $this->path;
+        } else {
+            $path = (isset($this->path[$offset])) ? $this->path[$offset] : null;
+        }
+
+        return $path;
     }
     // }}}
 
