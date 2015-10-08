@@ -1,6 +1,6 @@
 <?php
 
-namespace Bh\Tests;
+namespace Bh\Test;
 
 class PageTest extends \PhpUnit_Framework_TestCase
 {

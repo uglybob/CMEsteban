@@ -1,6 +1,6 @@
 <?php
 
-namespace Bh\Tests;
+namespace Bh\Test;
 
 class DatabaseTestCase extends \PHPUnit_Extensions_Database_TestCase
 {

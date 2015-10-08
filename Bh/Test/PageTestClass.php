@@ -1,6 +1,6 @@
 <?php
 
-namespace Bh\Tests;
+namespace Bh\Test;
 
 class PageTestClass extends \Bh\Page\Page
 {
