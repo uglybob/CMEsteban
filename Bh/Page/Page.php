@@ -115,29 +115,20 @@ abstract class Page {
         $string = '';
 
         if ($this->controller->access($this->accessLevel)) {
-            try {
-                $string =
-                    '<!DOCTYPE html>' .
-                    HTML::html(
-                        $this->renderHead() .
-                        HTML::body(
-                            HTML::div(['#main'],
-                                HTML::div(['#wrapper'],
-                                    HTML::div(['#header'], $this->renderHeader()) .
-                                    HTML::div(['#middle'], $this->renderContent()) .
-                                    HTML::div(['#footer'], $this->renderFooter())
-                                )
+            $string =
+                '<!DOCTYPE html>' .
+                HTML::html(
+                    $this->renderHead() .
+                    HTML::body(
+                        HTML::div(['#main'],
+                            HTML::div(['#wrapper'],
+                                HTML::div(['#header'], $this->renderHeader()) .
+                                HTML::div(['#middle'], $this->renderContent()) .
+                                HTML::div(['#footer'], $this->renderFooter())
                             )
                         )
-                    );
-
-            } catch (\Exception $e) {
-                $settings = \Bh\Lib\Setup::getSettings();
-
-                if ($settings['DevMode'] === true) {
-                    echo($e);
-                }
-            }
+                    )
+                );
         }
 
         return $string;

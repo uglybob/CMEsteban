@@ -17,6 +17,15 @@ class Bh
         }
 
         $page = $controller->getPageByRequest($request);
-        echo $page->render();
+
+        try {
+            echo($page->render());
+        } catch (\Exception $e) {
+            $settings = \Bh\Lib\Setup::getSettings();
+
+            if ($settings['DevMode'] === true) {
+               echo($e);
+            }
+        }
     }
 }
