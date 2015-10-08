@@ -4,6 +4,13 @@ namespace Bh\Page;
 
 class RegistrationForm extends EditForm
 {
+    // {{{ constructor
+    public function __construct($controller, $id)
+    {
+        parent::__construct($controller, 'User', $id);
+    }
+    // }}}
+
     // {{{ create
     protected function create()
     {

@@ -19,7 +19,7 @@ class User extends Page
             $settings['EnableRegistration']
             || $this->controller->getCurrentUser()
         ) {
-            $this->registrationForm = new RegistrationForm($controller, 'User', $id);
+            $this->registrationForm = new RegistrationForm($controller, $id);
         } else {
             $this->registrationForm = 'Registration disabled';
         }
