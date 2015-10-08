@@ -4,15 +4,24 @@ namespace Bh\Entity;
 
 class Entity
 {
+    // {{{ variables
     protected $id;
     protected $timestamp;
     protected $deleted;
+    // }}}
 
     // {{{ constructor
     public function __construct()
     {
         $this->deleted = false;
         $this->timestamp = new \DateTime('now');
+    }
+    // }}}
+
+    // {{{ toString
+    public function __toString()
+    {
+        return (string) $this->id;
     }
     // }}}
 
