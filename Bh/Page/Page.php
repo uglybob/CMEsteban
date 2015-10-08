@@ -5,6 +5,7 @@ namespace Bh\Page;
 abstract class Page {
     // {{{ variables
     protected $title = '';
+    protected $description = '';
     protected $stylesheets = [];
     protected $accessLevel = 0;
     protected $path;
@@ -44,6 +45,12 @@ abstract class Page {
     protected function hookTitle()
     {
         return $this->title;
+    }
+    // }}}
+    // {{{ hookDescripton
+    protected function hookDescription()
+    {
+        return $this->description;
     }
     // }}}
     // {{{ hookHeader
