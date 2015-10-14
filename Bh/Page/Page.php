@@ -2,8 +2,10 @@
 
 namespace Bh\Page;
 
-abstract class Page {
+abstract class Page
+{
     // {{{ variables
+    protected $controller;
     protected $title = '';
     protected $description = '';
     protected $stylesheets = [];
@@ -18,6 +20,7 @@ abstract class Page {
         $this->path = $path;
         $this->controller->access($this->accessLevel);
 
+        $this->hookTemplate();
         $this->hookConstructor();
     }
     // }}}
@@ -59,9 +62,33 @@ abstract class Page {
     {
     }
     // }}}
+    // {{{ hookTemplate
+    protected function hookTemplate()
+    {
+        $this->template = new Template($this->controller);
+    }
+    // }}}
+
+    // {{{ renderStylesheets
+    protected function renderStylesheets()
+    {
+        $renderedStylesheets = '';
+        $stylesheets = array_merge($this->template->getStylesheets(), $this->stylesheets);
+
+        foreach ($stylesheets as $stylesheet) {
+            $renderedStylesheets .= HTML::link([
+                'rel' => 'stylesheet',
+                'href' => $stylesheet,
+            ]);
+        }
+
+        return $renderedStylesheets;
+    }
+    // }}}
 
     // {{{ renderHead
-    protected function renderHead() {
+    protected function renderHead()
+    {
         $header = HTML::head(
             HTML::title($this->hookTitle()) .
             HTML::link([
@@ -85,27 +112,21 @@ abstract class Page {
         return $header;
     }
     // }}}
-    // {{{ renderStylesheets
-    protected function renderStylesheets() {
-        $renderedStylesheets = '';
-
-        foreach ($this->stylesheets as $stylesheet) {
-            $renderedStylesheets .= HTML::link([
-                'rel' => 'stylesheet',
-                'href' => $stylesheet,
-            ]);
-        }
-
-        return $renderedStylesheets;
-    }
-    // }}}
     // {{{ renderHeader
-    protected function renderHeader() {
+    protected function renderHeader()
+    {
         return '';
     }
     // }}}
     // {{{ renderFooter
-    protected function renderFooter() {
+    protected function renderFooter()
+    {
+        return '';
+    }
+    // }}}
+    // {{{ renderContent
+    protected function renderContent()
+    {
         return '';
     }
     // }}}
@@ -116,13 +137,13 @@ abstract class Page {
         return
             '<!DOCTYPE html>' .
             HTML::html(
-                $this->renderHead() .
+                $this->template->head($this->renderHead()) .
                 HTML::body(
                     HTML::div(['#main'],
                         HTML::div(['#wrapper'],
-                            HTML::div(['#header'], $this->renderHeader()) .
-                            HTML::div(['#middle'], $this->renderContent()) .
-                            HTML::div(['#footer'], $this->renderFooter())
+                            HTML::div(['#header'], $this->template->header($this->renderHeader())) .
+                            HTML::div(['#middle'], $this->template->content($this->renderContent())) .
+                            HTML::div(['#footer'], $this->template->footer($this->renderFooter()))
                         )
                     )
                 )
