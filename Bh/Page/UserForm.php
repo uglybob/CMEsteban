@@ -2,7 +2,7 @@
 
 namespace Bh\Page;
 
-class RegistrationForm extends EditForm
+class UserForm extends EditForm
 {
     // {{{ constructor
     public function __construct($controller, $id)
