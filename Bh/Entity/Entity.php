@@ -36,7 +36,7 @@ class Entity
             }
         }
 
-        // @todo exception
+        $this->undefinedMethodException($name);
     }
     // }}}
     // {{{ get
@@ -46,7 +46,6 @@ class Entity
 
         if (property_exists($this, $attribute)) {
             if (
-                // @todo more abstract collection?
                 $this->$attribute instanceOf \Doctrine\ORM\PersistentCollection
                 && (
                     !isset($arguments[0])
@@ -62,7 +61,7 @@ class Entity
                 $result = $this->$attribute;
             }
         } else {
-            // @todo exception?
+            $this->undefinedMethodException('get' . ucfirst($attribute));
         }
 
         return $result;
@@ -74,7 +73,7 @@ class Entity
         if (property_exists($this, $attribute)) {
             $this->$attribute = $arguments[0];
         } else {
-            // @todo exception?
+            $this->undefinedMethodException('set' . ucfirst($attribute));
         }
     }
     // }}}
@@ -93,6 +92,12 @@ class Entity
     public function delete()
     {
         $this->deleted = true;
+    }
+    // }}}
+    // {{{ undefinedMethodException
+    public function undefinedMethodException($name)
+    {
+        throw new \Bh\Exception\EntityException('Call to undefined method ' . get_class($this) . '::' . $name);
     }
     // }}}
 }
