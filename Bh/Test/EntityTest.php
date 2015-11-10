@@ -63,4 +63,14 @@ class EntityTest extends \PhpUnit_Framework_TestCase
         $this->entity->setUndefinedAttribute('test');
     }
     // }}}
+    // {{{ testSetIdFail
+    /**
+     * @expectedException Bh\Exception\EntityException
+     * @expectedExceptionMessage Call to undefined method Bh\Test\EntityTestClass::setId
+     */
+    public function testSetIdFail()
+    {
+        $this->entity->setId(42);
+    }
+    // }}}
 }

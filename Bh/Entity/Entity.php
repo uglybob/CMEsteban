@@ -70,7 +70,10 @@ abstract class Entity
     // {{{ set
     private function set($attribute, $arguments)
     {
-        if (property_exists($this, $attribute)) {
+        if (
+            property_exists($this, $attribute)
+            && strtolower($attribute) != 'id'
+        ) {
             $this->$attribute = $arguments[0];
         } else {
             $this->undefinedMethodException('set' . ucfirst($attribute));
