@@ -2,7 +2,7 @@
 
 namespace Bh\Entity;
 
-class Entity
+abstract class Entity
 {
     // {{{ variables
     protected $id;
