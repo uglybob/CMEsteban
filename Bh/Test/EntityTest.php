@@ -17,6 +17,7 @@ class EntityTest extends \PhpUnit_Framework_TestCase
     public function testGet()
     {
         $this->assertInstanceOf('DateTime', $this->entity->getTimestamp());
+        $this->assertFalse($this->entity->isDeleted());
         $this->assertFalse($this->entity->getDeleted());
     }
     // }}}

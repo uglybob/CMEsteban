@@ -54,7 +54,7 @@ abstract class Entity
             ) {
                 $result = $this->$attribute->filter(
                     function($entity) {
-                        return !$entity->getDeleted();
+                        return !$entity->isDeleted();
                     }
                 );
             } else {
@@ -94,6 +94,13 @@ abstract class Entity
         $this->deleted = true;
     }
     // }}}
+    // {{{ isDeleted
+    public function isDeleted()
+    {
+        return $this->deleted;
+    }
+    // }}}
+
     // {{{ undefinedMethodException
     public function undefinedMethodException($name)
     {
