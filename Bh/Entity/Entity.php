@@ -6,7 +6,8 @@ abstract class Entity
 {
     // {{{ variables
     protected $id;
-    protected $timestamp;
+    protected $created;
+    protected $modified;
     protected $deleted;
     // }}}
 
@@ -14,7 +15,10 @@ abstract class Entity
     public function __construct()
     {
         $this->deleted = false;
-        $this->timestamp = new \DateTime('now');
+
+        $now = new \DateTime('now');
+        $this->created = $now;
+        $this->modified = $now;
     }
     // }}}
 
@@ -75,6 +79,7 @@ abstract class Entity
             && strtolower($attribute) != 'id'
         ) {
             $this->$attribute = $arguments[0];
+            $this->modified = new \DateTime('now');
         } else {
             $this->undefinedMethodException('set' . ucfirst($attribute));
         }

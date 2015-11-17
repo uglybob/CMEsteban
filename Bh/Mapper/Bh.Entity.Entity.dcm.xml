@@ -7,7 +7,8 @@
         <id name="id" type="integer">
             <generator strategy="AUTO" />
         </id>
-        <field name="timestamp" type="datetime" />
+        <field name="created" type="datetime" />
+        <field name="modified" type="datetime" />
         <field name="deleted" type="boolean" />
     </mapped-superclass>
 </doctrine-mapping>
