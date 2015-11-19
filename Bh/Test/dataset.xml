@@ -2,12 +2,14 @@
 <dataset>
   <table name="pages">
     <column>id</column>
-    <column>timestamp</column>
+    <column>created</column>
+    <column>modified</column>
     <column>deleted</column>
     <column>request</column>
     <column>page</column>
     <row>
       <value>1</value>
+      <value>0000-00-00 00:00:00</value>
       <value>0000-00-00 00:00:00</value>
       <value>0</value>
       <value>list</value>
@@ -16,12 +18,14 @@
     <row>
       <value>2</value>
       <value>0000-00-00 00:00:00</value>
+      <value>0000-00-00 00:00:00</value>
       <value>0</value>
       <value>edit</value>
       <value>Edit</value>
     </row>
     <row>
       <value>3</value>
+      <value>0000-00-00 00:00:00</value>
       <value>0000-00-00 00:00:00</value>
       <value>0</value>
       <value>delete</value>
@@ -30,13 +34,15 @@
   </table>
   <table name="users">
     <column>id</column>
-    <column>timestamp</column>
+    <column>created</column>
+    <column>modified</column>
     <column>deleted</column>
     <column>email</column>
     <column>pass</column>
     <column>level</column>
     <row>
       <value>1</value>
+      <value>0000-00-00 00:00:00</value>
       <value>0000-00-00 00:00:00</value>
       <value>0</value>
       <value>user@bh.net</value>

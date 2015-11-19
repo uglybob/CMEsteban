@@ -16,7 +16,7 @@ class EntityTest extends \PhpUnit_Framework_TestCase
     // {{{ testGet
     public function testGet()
     {
-        $this->assertInstanceOf('DateTime', $this->entity->getTimestamp());
+        $this->assertInstanceOf('DateTime', $this->entity->getCreated());
         $this->assertFalse($this->entity->isDeleted());
         $this->assertFalse($this->entity->getDeleted());
     }
@@ -48,9 +48,9 @@ class EntityTest extends \PhpUnit_Framework_TestCase
     {
         $now = new \DateTime('now');
 
-        $this->entity->setTimestamp($now);
+        $this->entity->setCreated($now);
 
-        $this->assertEquals($now, $this->entity->getTimestamp());
+        $this->assertEquals($now, $this->entity->getCreated());
     }
     // }}}
     // {{{ testSetUndefined
