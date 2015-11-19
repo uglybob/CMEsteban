@@ -46,11 +46,11 @@ class EntityTest extends \PhpUnit_Framework_TestCase
     // {{{ testSet
     public function testSet()
     {
-        $now = new \DateTime('now');
+        $this->assertFalse($this->entity->isDeleted());
 
-        $this->entity->setCreated($now);
+        $this->entity->setDeleted(true);
 
-        $this->assertEquals($now, $this->entity->getCreated());
+        $this->assertTrue($this->entity->isDeleted());
     }
     // }}}
     // {{{ testSetUndefined
@@ -71,6 +71,53 @@ class EntityTest extends \PhpUnit_Framework_TestCase
     public function testSetIdFail()
     {
         $this->entity->setId(42);
+    }
+    // }}}
+
+    // {{{ testTimestampCreated
+    public function testTimestampCreated()
+    {
+        $start = new \DateTime('now');
+        sleep(1);
+        $entity = new EntityTestClass();
+        sleep(1);
+        $end = new \DateTime('now');
+
+        $created = $entity->getCreated();
+
+        $this->assertInstanceOf('DateTime', $created);
+        $this->assertTrue($start < $created);
+        $this->assertTrue($created < $end);
+    }
+    // }}}
+    // {{{ testTimestampModified
+    public function testTimestampModified()
+    {
+        $created = $this->entity->getCreated();
+        $modifiedBefore = $this->entity->getModified();
+
+        sleep(1);
+        $this->entity->setDeleted(true);
+
+        $modifiedAfter = $this->entity->getModified();
+
+        $this->assertInstanceOf('DateTime', $created);
+        $this->assertInstanceOf('DateTime', $modifiedBefore);
+        $this->assertInstanceOf('DateTime', $modifiedAfter);
+
+        $this->assertTrue($created == $modifiedBefore);
+        $this->assertTrue($modifiedBefore < $modifiedAfter);
+    }
+    // }}}
+
+    // {{{ testDelete
+    public function testDelete()
+    {
+        $this->assertFalse($this->entity->isDeleted());
+
+        $this->entity->delete();
+
+        $this->assertTrue($this->entity->isDeleted());
     }
     // }}}
 }
