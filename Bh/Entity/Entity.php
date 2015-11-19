@@ -5,10 +5,17 @@ namespace Bh\Entity;
 abstract class Entity
 {
     // {{{ variables
-    protected $id;
-    protected $created;
-    protected $modified;
-    protected $deleted;
+    private $id;
+    private $created;
+    private $modified;
+    private $deleted;
+
+    private $protected = [
+        'protected',
+        'id',
+        'created',
+        'modified',
+    ];
     // }}}
 
     // {{{ constructor
@@ -76,7 +83,7 @@ abstract class Entity
     {
         if (
             property_exists($this, $attribute)
-            && strtolower($attribute) != 'id'
+            && !in_array(strtolower($attribute), $this->protected)
         ) {
             $this->$attribute = $arguments[0];
             $this->modified = new \DateTime('now');

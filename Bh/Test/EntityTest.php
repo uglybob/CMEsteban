@@ -63,14 +63,44 @@ class EntityTest extends \PhpUnit_Framework_TestCase
         $this->entity->setUndefinedAttribute('test');
     }
     // }}}
-    // {{{ testSetIdFail
+    // {{{ testSetProtectedId
     /**
      * @expectedException Bh\Exception\EntityException
      * @expectedExceptionMessage Call to undefined method Bh\Test\EntityTestClass::setId
      */
-    public function testSetIdFail()
+    public function testSetProtectedId()
     {
         $this->entity->setId(42);
+    }
+    // }}}
+    // {{{ testSetProtectedCreated
+    /**
+     * @expectedException Bh\Exception\EntityException
+     * @expectedExceptionMessage Call to undefined method Bh\Test\EntityTestClass::setCreated
+     */
+    public function testSetProtectedCreated()
+    {
+        $this->entity->setCreated(new \DateTime('now'));
+    }
+    // }}}
+    // {{{ testSetProtectedModified
+    /**
+     * @expectedException Bh\Exception\EntityException
+     * @expectedExceptionMessage Call to undefined method Bh\Test\EntityTestClass::setModified
+     */
+    public function testSetProtectedModified()
+    {
+        $this->entity->setModified(new \DateTime('now'));
+    }
+    // }}}
+    // {{{ testSetProtectedProtected
+    /**
+     * @expectedException Bh\Exception\EntityException
+     * @expectedExceptionMessage Call to undefined method Bh\Test\EntityTestClass::setProtected
+     */
+    public function testSetProtectedProtected()
+    {
+        $this->entity->setProtected([]);
     }
     // }}}
 
