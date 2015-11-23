@@ -177,7 +177,7 @@ class Controller
                 $newUser->copyPass($currentUser->getPass());
             }
 
-            $currentUser = $newUser();
+            $currentUser = $newUser;
             Mapper::save($newUser);
             Mapper::commit();
             $result = true;
