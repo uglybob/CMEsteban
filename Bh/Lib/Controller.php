@@ -143,7 +143,7 @@ class Controller
     // {{{ getUserByEmail
     public function getUserByEmail($email)
     {
-        return Mapper::findOneBy('User', ['email' => $email]);
+        return Mapper::findOneBy('User', ['email' => strtolower($email)]);
     }
     // }}}
     // {{{ editUser
