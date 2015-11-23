@@ -15,7 +15,7 @@ class LoginForm
             $this->form = new \Depage\HtmlForm\HtmlForm('login', ['label' => 'logout']);
         } else {
             $this->form = new \Depage\HtmlForm\HtmlForm('login', ['label' => 'login']);
-            $this->form->addEmail('Email');
+            $this->form->addText('User');
             $this->form->addPassword('Pass');
         }
 
@@ -26,7 +26,7 @@ class LoginForm
                 $controller->logoff();
             } else {
                 $values = $this->form->getValues();
-                $controller->login($values['Email'], $values['Pass']);
+                $controller->login($values['User'], $values['Pass']);
             }
 
             $this->form->clearSession();

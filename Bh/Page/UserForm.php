@@ -23,6 +23,7 @@ class UserForm extends EditForm
     // {{{ create
     protected function create()
     {
+        $this->form->addText('Name');
         $this->form->addEmail('Email');
         $this->form->addPassword('Pass');
 
@@ -36,6 +37,7 @@ class UserForm extends EditForm
     {
         $values = $this->form->getValues();
 
+        $this->object->setName($values['Name']);
         $this->object->setEmail($values['Email']);
 
         if (!empty($values['Pass'])) {
@@ -49,6 +51,7 @@ class UserForm extends EditForm
     protected function populate()
     {
         $values = [
+            'Name' => $this->object->getName(),
             'Email' => $this->object->getEmail(),
         ];
 

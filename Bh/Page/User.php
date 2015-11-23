@@ -10,14 +10,14 @@ class User extends Page
     protected function hookConstructor()
     {
         $this->stylesheets[] = '/vendor/depage/htmlform/lib/css/depage-forms.css';
-        $this->registrationForm = new UserForm($this->controller, $this->getPath(1));
+        $this->userForm = new UserForm($this->controller, $this->getPath(1));
     }
     // }}}
 
     // {{{ renderContent
     protected function renderContent()
     {
-        return $this->registrationForm;
+        return $this->userForm;
     }
     // }}}
 }
