@@ -26,6 +26,26 @@ class AuthenticationTest extends DatabaseTestCase
         $this->assertEquals('newUserName', $this->controller->getCurrentUser()->getName());
     }
     // }}}
+    // {{{ testRegisterDuplicateName
+    public function testRegisterDuplicateName()
+    {
+        $user = new \Bh\Entity\User('userName');
+        $user->setEmail('email@email.com');
+        $user->setPass('newUserPass');
+
+        $this->assertFalse($this->controller->editUser($user));
+    }
+    // }}}
+    // {{{ testRegisterDuplicateEmail
+    public function testRegisterDuplicateEmail()
+    {
+        $user = new \Bh\Entity\User('newUserName');
+        $user->setEmail('user@bh.net');
+        $user->setPass('newUserPass');
+
+        $this->assertFalse($this->controller->editUser($user));
+    }
+    // }}}
 
     // {{{ testLogin
     public function testLogin()

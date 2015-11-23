@@ -164,7 +164,8 @@ class Controller
             Mapper::commit();
             $result = true;
         } elseif (
-            $currentUser->getId() === $newId
+            $currentUser
+            && $currentUser->getId() === $newId
             && (
                 !$newNameUser
                 || $newNameUser === $currentUser
