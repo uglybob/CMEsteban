@@ -34,6 +34,7 @@
   </table>
   <table name="users">
     <column>id</column>
+    <column>name</column>
     <column>created</column>
     <column>modified</column>
     <column>deleted</column>
@@ -42,6 +43,7 @@
     <column>level</column>
     <row>
       <value>1</value>
+      <value>userName</value>
       <value>0000-00-00 00:00:00</value>
       <value>0000-00-00 00:00:00</value>
       <value>0</value>

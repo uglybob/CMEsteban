@@ -2,16 +2,16 @@
 
 namespace Bh\Entity;
 
-class User extends Entity
+class User extends Named
 {
     protected $email;
     protected $pass;
     protected $level;
 
     // {{{ constructor
-    public function __construct()
+    public function __construct($name)
     {
-        parent::__construct();
+        parent::__construct($name);
 
         $this->level = 1;
     }
@@ -54,13 +54,6 @@ class User extends Entity
     public function authenticate($pass)
     {
         return $this->hash($pass) == $this->pass;
-    }
-    // }}}
-
-    // {{{ toString
-    public function __toString()
-    {
-        return $this->email;
     }
     // }}}
 }

@@ -72,10 +72,10 @@ class Controller
     // }}}
 
     // {{{ login
-    public function login($email, $pass)
+    public function login($name, $pass)
     {
         $result = false;
-        $user = Mapper::findOneBy('User', ['email' => strtolower($email)]);
+        $user = $this->getUserByName($name);
 
         if ($user && $user->authenticate($pass)) {
             $_SESSION['userId'] = $user->getId();
@@ -134,41 +134,49 @@ class Controller
         return $user;
     }
     // }}}
+    // {{{ getUserByName
+    public function getUserByName($name)
+    {
+        return Mapper::findOneBy('User', ['name' => $name]);
+    }
+    // }}}
     // {{{ getUserByEmail
     public function getUserByEmail($email)
     {
-        $user = Mapper::findOneBy(
-            'User',
-            [
-                'email' => $email,
-            ]
-        );
-
-        return $user;
+        return Mapper::findOneBy('User', ['email' => $email]);
     }
     // }}}
     // {{{ editUser
-    public function editUser(User $user)
+    public function editUser(User $newUser)
     {
-        if (!$this->getUserByEmail($user->getEmail())) {
-            $id = $user->getId();
-            $currentUser = $this->getCurrentUser();
+        $newId = $newUser->getId();
+        $newNameUser = $this->getUserByName($newUser->getName());
+        $newEmailUser = $this->getUserByEmail($newUser->getEmail());
+        $currentUser = $this->getCurrentUser();
 
-            if (is_null($id)) {
-                $newUser = new User();
-                $newUser->copyPass($user->getPass());
-                Mapper::save($newUser);
-            } elseif (
-                $currentUser && $id === $currentUser()->getId()
-            ) {
-                $newUser = $currentUser();
-                if ($user->getPass()) {
-                    $newUser->copyPass($user->getPass);
-                }
+        if (
+            is_null($id)
+            && !$newNameUser
+            && !$newEmailUser
+        ) {
+            Mapper::save($newUser);
+            Mapper::commit();
+        } elseif (
+            $currentUser->getId() === $id
+            && (
+                !$newNameUser
+                || $newNameUser === $currentUser
+            ) && (
+                !$newEmailUser
+                || $newEmailUser === $currentUser
+            )
+        ) {
+            if (!$newUser->getPass()) {
+                $newUser->copyPass($currentUser->getPass());
             }
 
-            $newUser->setEmail($user->getEmail());
-
+            $currentUser = $newUser();
+            Mapper::save($newUser);
             Mapper::commit();
         }
     }
