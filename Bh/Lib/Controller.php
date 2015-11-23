@@ -149,20 +149,22 @@ class Controller
     // {{{ editUser
     public function editUser(User $newUser)
     {
+        $result = false;
         $newId = $newUser->getId();
         $newNameUser = $this->getUserByName($newUser->getName());
         $newEmailUser = $this->getUserByEmail($newUser->getEmail());
         $currentUser = $this->getCurrentUser();
 
         if (
-            is_null($id)
+            is_null($newId)
             && !$newNameUser
             && !$newEmailUser
         ) {
             Mapper::save($newUser);
             Mapper::commit();
+            $result = true;
         } elseif (
-            $currentUser->getId() === $id
+            $currentUser->getId() === $newId
             && (
                 !$newNameUser
                 || $newNameUser === $currentUser
@@ -178,7 +180,10 @@ class Controller
             $currentUser = $newUser();
             Mapper::save($newUser);
             Mapper::commit();
+            $result = true;
         }
+
+        return $result;
     }
     // }}}
 }

@@ -47,7 +47,7 @@ class User extends Named
     {
         $settings = \Bh\Lib\Setup::getSettings();
         $salt = $settings['Salt'];
-        return sha1($salt . $this->email . $pass);
+        return sha1($salt . $this->name . $pass);
     }
     // }}}
     // {{{ authenticate

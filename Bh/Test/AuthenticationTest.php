@@ -13,24 +13,38 @@ class AuthenticationTest extends DatabaseTestCase
     }
     // }}}
 
+    // {{{ testRegister
+    public function testRegister()
+    {
+        $user = new \Bh\Entity\User('newUserName');
+        $user->setEmail('email@email.com');
+        $user->setPass('newUserPass');
+
+        $this->assertTrue($this->controller->editUser($user));
+
+        $this->assertTrue($this->controller->login('newUserName', 'newUserPass'));
+        $this->assertEquals('newUserName', $this->controller->getCurrentUser()->getName());
+    }
+    // }}}
+
     // {{{ testLogin
     public function testLogin()
     {
-        $this->controller->login('userName', 'bh_test_pass');
+        $this->assertTrue($this->controller->login('userName', 'bh_test_pass'));
         $this->assertEquals('userName', $this->controller->getCurrentUser()->getName());
     }
     // }}}
     // {{{ testLoginFailUser
     public function testLoginFailUser()
     {
-        $this->controller->login('unknownuser', 'bh_test_pass');
+        $this->assertFalse($this->controller->login('unknownuser', 'bh_test_pass'));
         $this->assertNull($this->controller->getCurrentUser());
     }
     // }}}
     // {{{ testLoginFailPass
     public function testLoginFailPass()
     {
-        $this->controller->login('userName', 'wrong_pass');
+        $this->assertFalse($this->controller->login('userName', 'wrong_pass'));
         $this->assertNull($this->controller->getCurrentUser());
     }
     // }}}
