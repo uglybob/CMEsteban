@@ -7,9 +7,31 @@ class AuthenticationTest extends DatabaseTestCase
     // {{{ setUp
     protected function setUp()
     {
-        $this->controller = new \Bh\Lib\Controller();
- 
         parent::setUp();
+
+        $this->controller = new \Bh\Lib\Controller();
+    }
+    // }}}
+
+    // {{{ testLogin
+    public function testLogin()
+    {
+        $this->assertTrue($this->controller->login('userName', 'bh_test_pass'));
+        $this->assertEquals('userName', $this->controller->getCurrentUser()->getName());
+    }
+    // }}}
+    // {{{ testLoginFailUser
+    public function testLoginFailUser()
+    {
+        $this->assertFalse($this->controller->login('unknownuser', 'bh_test_pass'));
+        $this->assertNull($this->controller->getCurrentUser());
+    }
+    // }}}
+    // {{{ testLoginFailPass
+    public function testLoginFailPass()
+    {
+        $this->assertFalse($this->controller->login('userName', 'wrong_pass'));
+        $this->assertNull($this->controller->getCurrentUser());
     }
     // }}}
 
@@ -47,25 +69,50 @@ class AuthenticationTest extends DatabaseTestCase
     }
     // }}}
 
-    // {{{ testLogin
-    public function testLogin()
+    // {{{ testEditUser
+    public function testEditUser()
     {
         $this->assertTrue($this->controller->login('userName', 'bh_test_pass'));
-        $this->assertEquals('userName', $this->controller->getCurrentUser()->getName());
+
+        $user = $this->controller->getCurrentUser();
+
+        $user->setName('newUserName');
+        $user->setEmail('email@email.com');
+        $user->setPass('newUserPass');
+
+        $this->assertTrue($this->controller->editUser($user));
+        $this->controller->logoff();
+
+        $this->assertTrue($this->controller->login('newUserName', 'newUserPass'));
+        $this->assertEquals('newUserName', $this->controller->getCurrentUser()->getName());
     }
     // }}}
-    // {{{ testLoginFailUser
-    public function testLoginFailUser()
+    // {{{ testEditUserDuplicateName
+    public function testEditUserDuplicateName()
     {
-        $this->assertFalse($this->controller->login('unknownuser', 'bh_test_pass'));
-        $this->assertNull($this->controller->getCurrentUser());
+        $this->assertTrue($this->controller->login('userName', 'bh_test_pass'));
+
+        $user = $this->controller->getCurrentUser();
+
+        $user->setName('userName2');
+        $user->setEmail('email@email.com');
+        $user->setPass('newUserPass');
+
+        $this->assertFalse($this->controller->editUser($user));
     }
     // }}}
-    // {{{ testLoginFailPass
-    public function testLoginFailPass()
+    // {{{ testEditUserDuplicateEmail
+    public function testEditUserDuplicateEmail()
     {
-        $this->assertFalse($this->controller->login('userName', 'wrong_pass'));
-        $this->assertNull($this->controller->getCurrentUser());
+        $this->assertTrue($this->controller->login('userName', 'bh_test_pass'));
+
+        $user = $this->controller->getCurrentUser();
+
+        $user->setName('newUserName');
+        $user->setEmail('user2@bh.net');
+        $user->setPass('newUserPass');
+
+        $this->assertFalse($this->controller->editUser($user));
     }
     // }}}
 }

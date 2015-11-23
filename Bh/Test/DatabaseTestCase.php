@@ -11,6 +11,7 @@ class DatabaseTestCase extends \PHPUnit_Extensions_Database_TestCase
 
     // {{{ setUp
     protected function setUp() {
+        \Bh\Lib\Mapper::getEntityManager()->clear();
         $this->getConnection();
         $this->setForeignKeyChecks(false);
         parent::setUp();

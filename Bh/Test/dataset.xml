@@ -51,5 +51,16 @@
       <value>8e956afc59e6fb007df45749e32386a98a88d100</value>
       <value>1</value>
     </row>
+    <row>
+      <value>2</value>
+      <value>userName2</value>
+      <value>0000-00-00 00:00:00</value>
+      <value>0000-00-00 00:00:00</value>
+      <value>0</value>
+      <value>user2@bh.net</value>
+      <value>ba7f17a3ede3701c9b96a4165eede607c2ef7323</value>
+      <value>1</value>
+    </row>
+
   </table>
 </dataset>
