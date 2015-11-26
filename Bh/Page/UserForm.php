@@ -26,10 +26,6 @@ class UserForm extends EditForm
         $this->form->addText('Name');
         $this->form->addEmail('Email');
         $this->form->addPassword('Pass');
-
-        if ($user = $this->controller->getCurrentUser()) {
-            $this->object = $user;
-        }
     }
     // }}}
     // {{{ save
@@ -50,12 +46,21 @@ class UserForm extends EditForm
     // {{{ populate
     protected function populate()
     {
-        $values = [
-            'Name' => $this->object->getName(),
-            'Email' => $this->object->getEmail(),
-        ];
+        if ($this->object) {
+            $values = [
+                'Name' => $this->object->getName(),
+                'Email' => $this->object->getEmail(),
+            ];
 
-        $this->form->populate($values);
+            $this->form->populate($values);
+        }
+    }
+    // }}}
+
+    // {{{ instantiateObject
+    protected function instantiateObject()
+    {
+        return new \Bh\Entity\User('unnamed');
     }
     // }}}
 
