@@ -60,7 +60,7 @@ class UserForm extends EditForm
     // {{{ instantiateObject
     protected function instantiateObject()
     {
-        return new \Bh\Entity\User('unnamed');
+        $this->object = new \Bh\Entity\User('');
     }
     // }}}
 

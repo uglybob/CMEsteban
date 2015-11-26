@@ -49,8 +49,10 @@ class EditForm
     // {{{ loadObject
     protected function loadObject()
     {
-        $getter = 'get' . ucfirst($this->class);
-        $this->object = $this->controller->$getter($this->id);
+        if (!is_null($this->id)) {
+            $getter = 'get' . ucfirst($this->class);
+            $this->object = $this->controller->$getter($this->id);
+        }
     }
     // }}}
     // {{{ instantiateObject
