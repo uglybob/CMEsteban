@@ -3,6 +3,7 @@
 namespace Bh\Page;
 
 use Bh\Lib\Controller;
+use Bh\Page\Module\UserForm;
 
 class User extends Page
 {

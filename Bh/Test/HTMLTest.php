@@ -1,6 +1,6 @@
 <?php
 
-use Bh\Page\HTML;
+use Bh\Page\Module\HTML;
 
 class HTMLTest extends PhpUnit_Framework_TestCase
 {

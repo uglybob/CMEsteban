@@ -3,6 +3,7 @@
 namespace Bh\Page;
 
 use Bh\Lib\Controller;
+use Bh\Page\Module\LoginForm;
 
 class Login extends Page
 {

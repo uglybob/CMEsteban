@@ -1,7 +1,8 @@
 <?php
 
-namespace Bh\Page;
+namespace Bh\Page\Module;
 
+use Bh\Page\Page;
 use Bh\Lib\Controller;
 
 class LoginForm

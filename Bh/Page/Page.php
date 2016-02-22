@@ -2,6 +2,8 @@
 
 namespace Bh\Page;
 
+use Bh\Page\Module\HTML;
+
 abstract class Page
 {
     // {{{ variables
