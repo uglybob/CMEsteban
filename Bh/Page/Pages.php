@@ -3,8 +3,9 @@
 namespace Bh\Page;
 
 use Bh\Lib\Controller;
+use Bh\Page\Module\ObjectList;
 
-class PageList extends Backend
+class Pages extends Backend
 {
     // {{{ constructor
     public function __construct(Controller $controller, array $path)
