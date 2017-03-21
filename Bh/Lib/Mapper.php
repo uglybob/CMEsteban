@@ -25,6 +25,7 @@ class Mapper
             'user'     => $settings['DbUser'],
             'password' => $settings['DbPass'],
             'dbname'   => $settings['DbName'],
+            'host'     => $settings['DbHost'],
         );
         self::$entityManager = \Doctrine\ORM\EntityManager::create($conn, $config);
     }
