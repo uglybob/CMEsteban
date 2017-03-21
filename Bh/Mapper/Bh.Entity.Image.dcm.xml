@@ -5,6 +5,6 @@
 
     <entity name="Bh\Entity\Image" table="images">
         <field name="alt" type="string" nullable="true"/>
-        <field name="path" type="string"/>
+        <field name="src" type="string"/>
     </entity>
 </doctrine-mapping>
