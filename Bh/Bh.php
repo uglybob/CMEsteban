@@ -11,6 +11,7 @@ class Bh
         }
 
         $request = isset($_GET['page']) ? $_GET['page'] : 'home';
+        $request = ltrim($request, '/');
 
         if (is_null($controller)) {
             $controller = new Lib\Controller();
