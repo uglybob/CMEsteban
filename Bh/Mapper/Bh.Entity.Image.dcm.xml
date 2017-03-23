@@ -6,5 +6,6 @@
     <entity name="Bh\Entity\Image" table="images">
         <field name="alt" type="string" nullable="true"/>
         <field name="src" type="string"/>
+        <field name="level" type="integer"/>
     </entity>
 </doctrine-mapping>

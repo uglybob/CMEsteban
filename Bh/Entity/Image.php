@@ -8,14 +8,14 @@ class Image extends Named
 {
     protected $alt;
     protected $src;
-    protected $private;
+    protected $level;
 
     // {{{ constructor
-    public function __construct($name, $private = false, $src = null, $alt = null)
+    public function __construct($name, $level = 0, $src = null, $alt = null)
     {
         parent::__construct($name);
 
-        $this->private = $private;
+        $this->level = $level;
         $this->src = $src;
         $this->alt = $alt;
     }
@@ -24,16 +24,10 @@ class Image extends Named
     // {{{ toString
     public function __toString()
     {
-        if ($this->private) {
-            try {
-                //$image = imagecreatefromjpeg($this->src);
-                //header('Content-Type: image/jpeg');
-                //$src = imagejpeg($image);
-            } catch (\Exception $e) {
-                $src = '';
-            }
-        } else {
+        if ($this->level == 0) {
             $src = $this->src;
+        } else {
+            $src = '/image/' . $this->getId();
         }
 
         $attributes = ['src' => $src];
@@ -42,11 +36,7 @@ class Image extends Named
             $attributes['alt'] = $this->alt;
         }
 
-        try {
-            $image = HTML::img($attributes);
-        } catch (\Exception $e) {
-            $image = '';
-        }
+        return HTML::img($attributes);
     }
     // }}}
 }

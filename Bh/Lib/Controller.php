@@ -71,6 +71,21 @@ class Controller
     }
     // }}}
 
+    // {{{ getImage
+    public function getImage($id)
+    {
+        if (is_null($id)) {
+            $image = null;
+        } else {
+            $image = Mapper::find('Image', $id);
+        }
+
+        $this->access($image->getLevel());
+
+        return $image;
+    }
+    // }}}
+
     // {{{ login
     public function login($name, $pass)
     {
