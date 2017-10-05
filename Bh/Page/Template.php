@@ -2,18 +2,13 @@
 
 namespace Bh\Page;
 
+use Bh\Page\Module\HTML;
+
 class Template
 {
     // {{{ variables
-    protected $controller;
     protected $stylesheets = [];
-    // }}}
-
-    // {{{ constructor
-    public function __construct($controller)
-    {
-        $this->controller = $controller;
-    }
+    protected $favicon = null;
     // }}}
 
     // {{{ getStylesheets
@@ -27,6 +22,22 @@ class Template
     public function head($head)
     {
         return $head;
+    }
+    // }}}
+    // {{{ favicon
+    public function favicon()
+    {
+        if (!is_null($this->favicon)) {
+            $rendered = HTML::link([
+                'rel' => 'shortcut icon',
+                'href' => $this->favicon,
+                'type' => 'image/vnd.microsoft.icon',
+            ]);
+        } else {
+            $rendered = '';
+        }
+
+        return $rendered;
     }
     // }}}
     // {{{ header

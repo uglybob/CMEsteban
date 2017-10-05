@@ -67,7 +67,7 @@ abstract class Page
     // {{{ hookTemplate
     protected function hookTemplate()
     {
-        $this->template = new Template($this->controller);
+        $this->template = new Template();
     }
     // }}}
 
@@ -91,13 +91,9 @@ abstract class Page
     // {{{ renderHead
     protected function renderHead()
     {
-        $header = HTML::head(
+        $head = HTML::head(
             HTML::title($this->hookTitle()) .
-            HTML::link([
-                'rel' => 'shortcut icon',
-                'href' => '/Content/Images/favicon.ico',
-                'type' => 'image/vnd.microsoft.icon',
-            ]) .
+            $this->template->favicon() .
             HTML::meta([
                 'http-equiv' => 'Content-Type',
                 'content' => 'text/html; charset=utf-8',
@@ -111,7 +107,7 @@ abstract class Page
             $this->renderStylesheets()
         );
 
-        return $header;
+        return $head;
     }
     // }}}
     // {{{ renderHeader
