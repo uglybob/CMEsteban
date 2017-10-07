@@ -40,22 +40,10 @@ class Template
         return $rendered;
     }
     // }}}
-    // {{{ header
-    public function header($header)
-    {
-        return $header;
-    }
-    // }}}
     // {{{ content
     public function content($content)
     {
         return $content;
-    }
-    // }}}
-    // {{{ footer
-    public function footer($footer)
-    {
-        return $footer;
     }
     // }}}
 }

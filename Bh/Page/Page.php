@@ -59,11 +59,6 @@ abstract class Page
         return $this->description;
     }
     // }}}
-    // {{{ hookHeader
-    protected function hookHeader()
-    {
-    }
-    // }}}
     // {{{ hookTemplate
     protected function hookTemplate()
     {
@@ -103,23 +98,10 @@ abstract class Page
                 // @todo description hook
                 'content' => ''
             ]) .
-            $this->hookHeader() .
             $this->renderStylesheets()
         );
 
         return $head;
-    }
-    // }}}
-    // {{{ renderHeader
-    protected function renderHeader()
-    {
-        return '';
-    }
-    // }}}
-    // {{{ renderFooter
-    protected function renderFooter()
-    {
-        return '';
     }
     // }}}
     // {{{ renderContent
@@ -138,11 +120,7 @@ abstract class Page
                 $this->template->head($this->renderHead()) .
                 HTML::body(
                     HTML::div(['#main'],
-                        HTML::div(['#wrapper'],
-                            HTML::div(['#header'], $this->template->header($this->renderHeader())) .
-                            HTML::div(['#middle'], $this->template->content($this->renderContent())) .
-                            HTML::div(['#footer'], $this->template->footer($this->renderFooter()))
-                        )
+                        HTML::div(['#content'], $this->template->content($this->renderContent()))
                     )
                 )
             );
