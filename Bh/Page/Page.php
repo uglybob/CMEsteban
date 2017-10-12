@@ -110,6 +110,12 @@ abstract class Page
         return '';
     }
     // }}}
+    // {{{ wrapContent
+    protected function wrapContent($content)
+    {
+        return HTML::div(['#content'], $content);
+    }
+    // }}}
 
     // {{{ render
     public function render()
@@ -120,7 +126,7 @@ abstract class Page
                 $this->template->head($this->renderHead()) .
                 HTML::body(
                     HTML::div(['#main'],
-                        HTML::div(['#content'], $this->template->content($this->renderContent()))
+                        $this->wrapContent($this->renderContent())
                     )
                 )
             );

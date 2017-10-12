@@ -40,10 +40,4 @@ class Template
         return $rendered;
     }
     // }}}
-    // {{{ content
-    public function content($content)
-    {
-        return $content;
-    }
-    // }}}
 }
