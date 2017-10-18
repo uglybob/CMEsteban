@@ -65,7 +65,7 @@ class Mapper
     // {{{ save
     public static function save($object)
     {
-        self::getEntityManager()->persist($object);
+        return self::getEntityManager()->persist($object);
     }
     // }}}
     // {{{ commit

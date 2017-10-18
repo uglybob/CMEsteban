@@ -2,6 +2,8 @@
 
 namespace Bh\Entity;
 
+use Bh\Lib\Mapper;
+
 abstract class Entity
 {
     // {{{ variables
@@ -103,6 +105,12 @@ abstract class Entity
     }
     // }}}
 
+    // {{{ save
+    public function save()
+    {
+        return Mapper::save($this);
+    }
+    // }}}
     // {{{ delete
     public function delete()
     {
