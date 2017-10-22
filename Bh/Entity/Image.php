@@ -24,14 +24,14 @@ class Image extends Named
     public function download($url)
     {
         $img = file_get_contents($url);
-        return file_put_contents($this->getSrc(), $img);
+        return file_put_contents($this->getSrc(true), $img);
     }
     // }}}
 
     // {{{ getSrc
-    public function getSrc()
+    public function getSrc($internal = false)
     {
-        $path = Setup::getSettings('Path');
+        $path = ($internal) ? Setup::getSettings('Path') : '/';
 
         if ($this->level == 0) {
             $src = $path . 'Bh/Images/' . $this->getName();
@@ -43,7 +43,6 @@ class Image extends Named
 
     }
     // }}}
-
 
     // {{{ toString
     public function __toString()
