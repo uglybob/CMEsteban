@@ -40,10 +40,18 @@ class Controller
                 throw new \Bh\Exception\NotFoundException("Class does not exist: $pageClass");
             }
         } else {
-            throw new \Bh\Exception\NotFoundException("Page not found: $request");
+            if (!($page = $this->hookGetPageByRequest($request, $path))) {
+                throw new \Bh\Exception\NotFoundException("Page not found: $request");
+            }
         }
 
         return $page;
+    }
+    // }}}
+    // {{{ hookGetPageByRequest
+    public function hookGetPageByRequest($request, $path)
+    {
+        return null;
     }
     // }}}
     // {{{ getPages
