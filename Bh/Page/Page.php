@@ -11,6 +11,7 @@ abstract class Page
     protected $title = '';
     protected $description = '';
     protected $stylesheets = [];
+    protected $scripts = [];
     protected $accessLevel = 0;
     protected $path;
     // }}}
@@ -69,17 +70,34 @@ abstract class Page
     // {{{ renderStylesheets
     protected function renderStylesheets()
     {
-        $renderedStylesheets = '';
+        $rendered = '';
         $stylesheets = array_merge($this->template->getStylesheets(), $this->stylesheets);
 
         foreach ($stylesheets as $stylesheet) {
-            $renderedStylesheets .= HTML::link([
+            $rendered .= HTML::link([
+                'type' => 'text/css',
                 'rel' => 'stylesheet',
                 'href' => $stylesheet,
             ]);
         }
 
-        return $renderedStylesheets;
+        return $rendered;
+    }
+    // }}}
+    // {{{ renderScripts
+    protected function renderScripts()
+    {
+        $rendered = '';
+        $scripts = array_merge($this->template->getScripts(), $this->scripts);
+
+        foreach ($scripts as $script) {
+            $rendered .= HTML::script([
+                'type' => 'text/javascript',
+                'src' => $script,
+            ]);
+        }
+
+        return $rendered;
     }
     // }}}
 
@@ -98,7 +116,8 @@ abstract class Page
                 // @todo description hook
                 'content' => ''
             ]) .
-            $this->renderStylesheets()
+            $this->renderStylesheets() .
+            $this->renderScripts()
         );
 
         return $head;

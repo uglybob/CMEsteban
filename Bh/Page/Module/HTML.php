@@ -6,7 +6,7 @@ class HTML
 {
     // {{{ variables
     protected static $voidTags = ['img', 'meta', 'link'];
-    protected static $nonVoidTags = ['html', 'title', 'head', 'body', 'a', 'p', 'label', 'div', 'span'];
+    protected static $nonVoidTags = ['html', 'title', 'head', 'body', 'a', 'p', 'label', 'div', 'span', 'script'];
     // }}}
 
     // {{{ callStatic

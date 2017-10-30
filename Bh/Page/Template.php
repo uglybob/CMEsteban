@@ -8,6 +8,7 @@ class Template
 {
     // {{{ variables
     protected $stylesheets = [];
+    protected $scripts = [];
     protected $favicon = null;
     // }}}
 
@@ -15,6 +16,12 @@ class Template
     public function getStylesheets()
     {
         return $this->stylesheets;
+    }
+    // }}}
+    // {{{ getScripts
+    public function getScripts()
+    {
+        return $this->scripts;
     }
     // }}}
 
