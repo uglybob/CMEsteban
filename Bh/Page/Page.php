@@ -66,6 +66,11 @@ abstract class Page
         $this->template = new Template();
     }
     // }}}
+    // {{{ hookHead
+    protected function hookHead()
+    {
+    }
+    // }}}
 
     // {{{ renderStylesheets
     protected function renderStylesheets()
@@ -105,6 +110,7 @@ abstract class Page
     protected function renderHead()
     {
         $head = HTML::head(
+            $this->hookHead() .
             HTML::title($this->hookTitle()) .
             $this->template->favicon() .
             HTML::meta([
