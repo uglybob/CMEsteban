@@ -3,6 +3,7 @@
 namespace Bh\Page;
 
 use Bh\Page\Module\HTML;
+use Bh\Lib\Setup;
 
 abstract class Page
 {
@@ -14,6 +15,7 @@ abstract class Page
     protected $scripts = [];
     protected $accessLevel = 0;
     protected $path;
+    protected $cacheable;
     // }}}
 
     // {{{ constructor
@@ -22,6 +24,8 @@ abstract class Page
         $this->controller = $controller;
         $this->path = $path;
         $this->controller->access($this->accessLevel);
+
+        $this->cacheable = true;
 
         $this->hookTemplate();
         $this->hookConstructor();
@@ -142,19 +146,57 @@ abstract class Page
     }
     // }}}
 
+    // {{{ getCacheFilename
+    protected function getCacheFilename()
+    {
+        return Setup::getSettings('Path') . 'Bh/Cache/' . implode('-', $this->getPath()) . '.html';
+    }
+    // }}}
+    // {{{ getCache
+    protected function getCache()
+    {
+        $cache = false;
+
+        if ($this->cacheable) {
+            $name = $this->getCacheFilename();
+
+            if (
+                is_file($name)
+                && ((time() - filemtime($name)) < Setup::getSettings('CacheTime'))
+            ) {
+                $cache = file_get_contents($name);
+            }
+        }
+
+        return $cache;
+    }
+    // }}}
+    // {{{ setCache
+    protected function setCache($data)
+    {
+        file_put_contents($this->getCacheFilename(), $data);
+    }
+    // }}}
+
     // {{{ render
     public function render()
     {
-        return
-            '<!DOCTYPE html>' .
-            HTML::html(
-                $this->template->head($this->renderHead()) .
-                HTML::body(
-                    HTML::div(['#main'],
-                        $this->wrapContent($this->renderContent())
+        if ($cached = $this->getCache()) {
+            $rendered = $cached;
+        } else {
+            $rendered = '<!DOCTYPE html>' .
+                HTML::html(
+                    $this->template->head($this->renderHead()) .
+                    HTML::body(
+                        HTML::div(['#main'],
+                            $this->wrapContent($this->renderContent())
+                        )
                     )
-                )
-            );
+                );
+            $this->setCache($rendered);
+        }
+
+        return $rendered;
     }
     // }}}
 
