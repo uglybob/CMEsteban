@@ -13,8 +13,8 @@ class Login extends Page
         $this->stylesheets[] = '/vendor/depage/htmlform/lib/css/depage-forms.css';
 
         $this->title = 'login';
-
         $this->form = new LoginForm($this->controller);
+        $this->cacheable = false;
     }
     // }}}
 
