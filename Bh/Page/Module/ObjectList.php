@@ -11,42 +11,37 @@ class ObjectList
 
         foreach ($objects as $object) {
             $properties = $this->getProperties($object);
+            $id = $object->getId();
 
             $propertyList = '';
             foreach ($properties as $class => $property) {
-                $propertyList .= HTML::span(['class' => $class], $property);
-            }
+                if ($edit) {
+                    $property = HTML::a(['href' => "/edit/$edit/$id"], $property);
+                }
 
-            $id = $object->getId();
-
-            if ($edit) {
-                $properties = HTML::span(['class' => 'properties'],
-                    HTML::a(['href' => "/edit/$edit/$id"], $propertyList)
-                );
-            } else {
-                $properties = HTML::span(['class' => 'properties'], $propertyList);
+                $propertyList .= HTML::div([".$class", '.bhtcell'], $property);
             }
 
             if ($delete) {
-                $deleteLink = HTML::span(['class' => 'delete'],
+                $deleteLink = HTML::div(['.delete', '.bhtcell'],
                     HTML::a(['href' => "/delete/$edit/$id"], 'x')
                 );
             } else {
                 $deleteLink = '';
             }
 
-            $this->list .= HTML::div(['class' => 'objectRow'], $properties . $deleteLink);
+            $this->list .= HTML::div(['.bhtrow'], $propertyList . $editLink . $deleteLink);
         }
 
         if ($add && $edit) {
             $this->list .= HTML::div(
-                HTML::span(
+                HTML::div(
                     HTML::a(['href' => "/edit/$edit/"], 'add ' . $edit)
                 )
             );
         }
 
-        $this->list = HTML::div(['class' => 'objectList'], $this->list);
+        $this->list = HTML::div(['.bhtable'], $this->list);
     }
     // }}}
 
