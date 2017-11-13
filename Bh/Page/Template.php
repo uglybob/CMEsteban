@@ -6,12 +6,6 @@ use Bh\Page\Module\HTML;
 
 class Template
 {
-    // {{{ variables
-    protected $stylesheets = [];
-    protected $scripts = [];
-    protected $favicon = null;
-    // }}}
-
     // {{{ getStylesheets
     public function getStylesheets()
     {
@@ -29,22 +23,6 @@ class Template
     public function head($head)
     {
         return $head;
-    }
-    // }}}
-    // {{{ favicon
-    public function favicon()
-    {
-        if (!is_null($this->favicon)) {
-            $rendered = HTML::link([
-                'rel' => 'shortcut icon',
-                'href' => $this->favicon,
-                'type' => 'image/vnd.microsoft.icon',
-            ]);
-        } else {
-            $rendered = '';
-        }
-
-        return $rendered;
     }
     // }}}
 }

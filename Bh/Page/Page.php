@@ -11,6 +11,7 @@ abstract class Page
     protected $controller;
     protected $title = '';
     protected $description = '';
+    protected $favicon = null;
     protected $stylesheets = [];
     protected $scripts = [];
     protected $accessLevel = 0;
@@ -25,7 +26,6 @@ abstract class Page
         $this->path = $path;
         $this->controller->access($this->accessLevel);
 
-        $this->hookTemplate();
         $this->hookConstructor();
     }
     // }}}
@@ -62,12 +62,6 @@ abstract class Page
         return $this->description;
     }
     // }}}
-    // {{{ hookTemplate
-    protected function hookTemplate()
-    {
-        $this->template = new Template();
-    }
-    // }}}
     // {{{ hookHead
     protected function hookHead()
     {
@@ -78,9 +72,8 @@ abstract class Page
     protected function renderStylesheets()
     {
         $rendered = '';
-        $stylesheets = array_merge($this->template->getStylesheets(), $this->stylesheets);
 
-        foreach ($stylesheets as $stylesheet) {
+        foreach ($this->stylesheets as $stylesheet) {
             $rendered .= HTML::link([
                 'type' => 'text/css',
                 'rel' => 'stylesheet',
@@ -95,13 +88,28 @@ abstract class Page
     protected function renderScripts()
     {
         $rendered = '';
-        $scripts = array_merge($this->template->getScripts(), $this->scripts);
 
-        foreach ($scripts as $script) {
+        foreach ($this->scripts as $script) {
             $rendered .= HTML::script([
                 'type' => 'text/javascript',
                 'src' => $script,
             ]);
+        }
+
+        return $rendered;
+    }
+    // }}}
+    // {{{ renderFavicon
+    public function renderFavicon()
+    {
+        if (!is_null($this->favicon)) {
+            $rendered = HTML::link([
+                'rel' => 'shortcut icon',
+                'href' => $this->favicon,
+                'type' => 'image/vnd.microsoft.icon',
+            ]);
+        } else {
+            $rendered = '';
         }
 
         return $rendered;
@@ -114,7 +122,7 @@ abstract class Page
         $head = HTML::head(
             $this->hookHead() .
             HTML::title($this->hookTitle()) .
-            $this->template->favicon() .
+            $this->renderFavicon() .
             HTML::meta([
                 'http-equiv' => 'Content-Type',
                 'content' => 'text/html; charset=utf-8',
@@ -156,7 +164,7 @@ abstract class Page
     {
         return '<!DOCTYPE html>' .
             HTML::html(
-                $this->template->head($this->renderHead()) .
+                $this->renderHead() .
                 HTML::body(
                     HTML::div(['#main'],
                         $this->wrapContent($this->renderContent())
