@@ -45,7 +45,25 @@ class Controller
             }
         }
 
-        return $page;
+        $rendered = '';
+
+        if ($page->isCacheable() && !$this->getCurrentUser()) {
+            $name = $this->getCacheFilename($path);
+
+            if (
+                is_file($name)
+                && ((time() - filemtime($name)) < Setup::getSettings('CacheTime'))
+            ) {
+                $rendered = file_get_contents($name);
+            } else {
+                $rendered = $page->render();
+                file_put_contents($name, $rendered);
+            }
+        } else {
+            $rendered = $page->render();
+        }
+
+        return $rendered;
     }
     // }}}
     // {{{ hookGetPageByRequest
@@ -208,6 +226,13 @@ class Controller
         }
 
         return $result;
+    }
+    // }}}
+
+    // {{{ getCacheFilename
+    protected function getCacheFilename($path)
+    {
+        return Setup::getSettings('Path') . 'Bh/Cache/' . implode('-', $path) . '.html';
     }
     // }}}
 }

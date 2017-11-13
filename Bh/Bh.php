@@ -20,16 +20,16 @@ class Bh
         $output = '';
 
         try {
-            $output = $controller->getPageByRequest($request)->render();
+            $output = $controller->getPageByRequest($request);
         } catch (Exception\NotFoundException $e) {
             try {
-                $output = $controller->getPageByRequest('404')->render();
+                $output = $controller->getPageByRequest('404');
             } catch (\Exception $se) {
                 $output = $e->getMessage();
             }
         } catch (Exception\AccessException $e) {
             try {
-                $output = $controller->getPageByRequest('403')->render();
+                $output = $controller->getPageByRequest('403');
             } catch (\Exception $se) {
                 $output = $e->getMessage();
             }
