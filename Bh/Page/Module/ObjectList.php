@@ -30,7 +30,7 @@ class ObjectList
                 $deleteLink = '';
             }
 
-            $this->list .= HTML::div(['.bhtrow'], $propertyList . $editLink . $deleteLink);
+            $this->list .= HTML::div(['.bhtrow'], $propertyList . $deleteLink);
         }
 
         if ($add && $edit) {
