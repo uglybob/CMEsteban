@@ -2,6 +2,8 @@
 
 namespace Bh\Page;
 
+use Bh\Lib\Mapper;
+
 class Delete extends Backend
 {
     // {{{ hookConstructor
@@ -19,16 +21,18 @@ class Delete extends Backend
             $this->redirect('/list/' . lcfirst($this->class));
         }
 
+        $name = method_exists($object, 'getName') ? $object->getName() : $object->getId();
+
         $this->deleteForm = new \Depage\HtmlForm\HtmlForm('delete' . $this->class, ['label' => 'delete']);
-        $this->deleteForm->addBoolean('sure', ['label' => $object->getName() . ' delete?'])->setRequired();
+        $this->deleteForm->addBoolean('sure', ['label' => $name . ' delete?'])->setRequired();
         $this->deleteForm->process();
 
         if ($this->deleteForm->validate()) {
             $object->delete();
-            $this->controller->commit();
+            Mapper::commit();
             $this->deleteForm->clearSession();
 
-            $this->redirect('/list/' . lcfirst($this->class));
+            $this->redirect('/' . lcfirst($this->class) . 's');
         }
     }
     // }}}

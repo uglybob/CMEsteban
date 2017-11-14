@@ -30,7 +30,10 @@ class Controller
         $path = explode('/', $request);
         $request = $path[0];
 
-        $handler = Mapper::findOneBy('Page', ['request' => $request]);
+        $handler = Mapper::findOneBy('Page', [
+            'request' => $request,
+            'deleted' => false
+        ]);
 
         if ($handler) {
             $pageClass = 'Bh\Page\\' . $handler->getPage();
