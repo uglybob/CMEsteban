@@ -31,7 +31,7 @@ abstract class Page
     // }}}
 
     // {{{ getPath
-    protected function getPath($offset = null)
+    public function getPath($offset = null)
     {
         $path = null;
 
@@ -68,6 +68,12 @@ abstract class Page
     }
     // }}}
 
+    // {{{ addStylesheet
+    public function addStylesheet($stylesheet)
+    {
+        $this->stylesheets[] = $stylesheet;
+    }
+    // }}}
     // {{{ renderStylesheets
     protected function renderStylesheets()
     {

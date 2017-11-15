@@ -2,7 +2,7 @@
 
 namespace Bh\Page\Module;
 
-class EditForm
+abstract class EditForm
 {
     // {{{ constructor
     public function __construct($controller, $class, $id)
