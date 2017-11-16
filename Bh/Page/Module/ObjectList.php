@@ -8,10 +8,25 @@ class ObjectList
     public function __construct(array $objects, $edit = null, $add = true, $delete = true)
     {
         $this->list = '';
+        $first = true;
 
         foreach ($objects as $object) {
             $properties = $this->getProperties($object);
             $id = $object->getId();
+
+            if ($first) {
+                $header = '';
+                foreach ($properties as $class => $property) {
+                    $header .= HTML::div(['.bhthead'], $class);
+                }
+
+                if ($delete) {
+                    $header .= HTML::div(['.bhthead'], 'Delete');
+                }
+
+                $this->list .= HTML::div(['.bhtheader'], HTML::div(['.bhtrow'], $header));
+                $first = false;
+            }
 
             $propertyList = '';
             foreach ($properties as $class => $property) {
