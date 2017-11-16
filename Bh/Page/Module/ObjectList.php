@@ -5,7 +5,7 @@ namespace Bh\Page\Module;
 class ObjectList
 {
     // {{{ constructor
-    public function __construct(array $objects, $edit = null, $add = true, $delete = true)
+    public function __construct(array $objects, $edit = null, $add = true, $delete = 'Delete')
     {
         $this->list = '';
         $first = true;
@@ -21,7 +21,7 @@ class ObjectList
                 }
 
                 if ($delete) {
-                    $header .= HTML::div(['.bhthead'], 'Delete');
+                    $header .= HTML::div(['.bhthead'], $delete);
                 }
 
                 $this->list .= HTML::div(['.bhtheader'], HTML::div(['.bhtrow'], $header));
