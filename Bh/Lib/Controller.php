@@ -238,4 +238,25 @@ class Controller
         return Setup::getSettings('Path') . 'Bh/Cache/' . implode('-', $path) . '.html';
     }
     // }}}
+    // {{{ clearCache
+    public function clearCache()
+    {
+        $success = true;
+
+        $path = Setup::getSettings('Path') . 'Bh/Cache';
+        $files = glob($path . '/*.html');
+
+        foreach ($files as $file) {
+            $success = unlink($file) && $success;
+        }
+
+        if ($success) {
+            $result = $files;
+        } else {
+            $result = false;
+        }
+
+        return $result;
+    }
+    // }}}
 }
