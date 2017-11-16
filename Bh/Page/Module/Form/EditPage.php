@@ -1,6 +1,8 @@
 <?php
 
-namespace Bh\Page\Module;
+namespace Bh\Page\Module\Form;
+
+use Bh\Page\Page;
 
 class EditPage extends EditForm
 {

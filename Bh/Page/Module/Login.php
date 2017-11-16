@@ -3,19 +3,21 @@
 namespace Bh\Page\Module;
 
 use Bh\Page\Page;
-use Bh\Lib\Controller;
+use Depage\HtmlForm\HtmlForm;
 
-class LoginForm
+class Login extends Form
 {
     // {{{ constructor
-    public function __construct($controller)
+    public function __construct($controller, $page)
     {
+        parent::__construct($controller, $page);
+
         $user = $controller->getCurrentUser();
 
         if ($user) {
-            $this->form = new \Depage\HtmlForm\HtmlForm('login', ['label' => 'logout']);
+            $this->form = new HtmlForm('login', ['label' => 'logout']);
         } else {
-            $this->form = new \Depage\HtmlForm\HtmlForm('login', ['label' => 'login']);
+            $this->form = new HtmlForm('login', ['label' => 'login']);
             $this->form->addText('User');
             $this->form->addPassword('Pass');
         }
@@ -33,13 +35,6 @@ class LoginForm
             $this->form->clearSession();
             Page::redirect('/');
         }
-    }
-    // }}}
-
-    // {{{ toString
-    public function __toString()
-    {
-        return $this->form->__toString();
     }
     // }}}
 }

@@ -2,7 +2,7 @@
 
 namespace Bh\Page\Module;
 
-abstract class FormModule
+abstract class Form
 {
     // {{{ constructor
     public function __construct($controller, $page)

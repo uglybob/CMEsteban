@@ -5,7 +5,7 @@ namespace Bh\Page\Module;
 use Bh\Lib\Mapper;
 use Bh\Page\Page;
 
-class DeleteObject extends FormModule
+class DeleteObject extends Form
 {
     // {{{ constructor
     public function __construct($controller, $page)

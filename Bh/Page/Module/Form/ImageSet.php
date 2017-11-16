@@ -1,6 +1,6 @@
 <?php
 
-namespace Bh\Page\Module;
+namespace Bh\Page\Module\Form;
 
 use Bh\Lib\Controller;
 
