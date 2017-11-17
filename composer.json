@@ -20,6 +20,7 @@
     ],
     "require" : {
         "depage/htmlform": "dev-master",
+        "phpmailer/phpmailer": "5.*",
         "doctrine/orm": "2.4.*"
     },
     "autoload": {
