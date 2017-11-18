@@ -130,18 +130,9 @@ abstract class Page
             $this->hookHead() .
             HTML::title($this->hookTitle()) .
             $this->renderFavicon() .
-            HTML::meta([
-                'http-equiv' => 'Content-Type',
-                'content' => 'text/html; charset=utf-8',
-            ]) .
-            HTML::meta([
-                'name' => 'description',
-                'content' => $this->description
-            ]) .
-            HTML::meta([
-                'name' => 'keywords',
-                'content' => implode(',', $this->keywords)
-            ]) .
+            HTML::meta(['http-equiv' => 'Content-Type', 'content' => 'text/html; charset=utf-8']) .
+            HTML::meta(['name' => 'description', 'content' => $this->description]) .
+            HTML::meta(['name' => 'keywords', 'content' => implode(',', $this->keywords)]) .
             $this->renderStylesheets() .
             $this->renderScripts()
         );
