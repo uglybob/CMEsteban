@@ -11,6 +11,7 @@ abstract class Page
     protected $controller;
     protected $title = '';
     protected $description = '';
+    protected $keywords = [];
     protected $favicon = null;
     protected $stylesheets = [];
     protected $scripts = [];
@@ -54,12 +55,6 @@ abstract class Page
     protected function hookTitle()
     {
         return $this->title;
-    }
-    // }}}
-    // {{{ hookDescripton
-    protected function hookDescription()
-    {
-        return $this->description;
     }
     // }}}
     // {{{ hookHead
@@ -122,6 +117,12 @@ abstract class Page
     }
     // }}}
 
+    // {{{ addKeywords
+    public function addKeywords($keywords)
+    {
+        $this->keywords = array_merge($this->keywords, $keywords);
+    }
+    // }}}
     // {{{ renderHead
     protected function renderHead()
     {
@@ -135,8 +136,11 @@ abstract class Page
             ]) .
             HTML::meta([
                 'name' => 'description',
-                // @todo description hook
-                'content' => ''
+                'content' => $this->description
+            ]) .
+            HTML::meta([
+                'name' => 'keywords',
+                'content' => implode(',', $this->keywords)
             ]) .
             $this->renderStylesheets() .
             $this->renderScripts()
