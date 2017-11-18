@@ -5,38 +5,52 @@ namespace Bh\Lib;
 class Mail
 {
     // {{{ constructor
-    public function __construct($src, $dst, $subject, $message)
+    public function __construct($dst, $subject, $message)
     {
-        $this->src = $src;
+        $this->src = Setup::getSettings('MailAddress');
         $this->dst = $dst;
         $this->subject = $subject;
         $this->message = $message;
+        $this->hostname = Setup::getSettings('MailHostname');
+        $this->host = Setup::getSettings('MailHost');
+        $this->pass = Setup::getSettings('MailPass');
     }
     // }}}
     // {{{ send
     public function send()
     {
-        $encoding = "utf-8";
+        $success = true;
 
-        $preferences = [
-            'input-charset' => $encoding,
-            'output-charset' => $encoding,
-            'line-length' => 76,
-            'line-break-chars' => "\r\n"
-        ];
+        try {
+            $mail = new \PHPMailer(true);
 
-        $header = "Content-type: text/html; charset=$encoding\r\n";
-        $header .= 'From: ' . $this->src . ' <' . $this->src . ">\r\n";
-        $header .= 'Reply-To: ' . $this->src . ' <' . $this->src . ">\r\n";
-        $header .= iconv_mime_encode('Subject', $this->subject, $preferences) . "\r\n";
-        $header .= "MIME-Version: 1.0\r\n";
-        $header .= "Content-Transfer-Encoding: 8bit\r\n";
-        $header .= "Date: " . date('r (T)') . "\r\n";
-        $header .= "X-Mailer: CMEsteban Mailer";
+            $mail->SMTPOptions = [
+                'ssl' => [
+                    'verify_peer' => true,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true,
+                ]
+            ];
+            $mail->isSMTP();
+            $mail->Host = $this->host;
+            $mail->SMTPAuth = true;
+            $mail->Username = $this->src;
+            $mail->Password = $this->pass;
+            $mail->SMTPSecure = 'ssl';
+            $mail->Port = 465;
+            $mail->Hostname = $this->hostname;
+            $mail->setFrom($this->src, $this->hostname);
+            $mail->addAddress($this->dst);
+            $mail->addReplyTo($this->src, $this->hostname);
+            $mail->Subject = $this->subject;
+            $mail->Body = $this->message;
 
-        $result = \mail($this->dst, $this->subject, $this->message, $header);
+            $mail->send();
+        } catch (\Exception $e) {
+            $success = false;
+        }
 
-        return $result;
+        return $success;
     }
     // }}}
 }
