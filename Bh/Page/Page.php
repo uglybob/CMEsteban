@@ -3,7 +3,6 @@
 namespace Bh\Page;
 
 use Bh\Page\Module\HTML;
-use Bh\Lib\Setup;
 
 abstract class Page
 {
