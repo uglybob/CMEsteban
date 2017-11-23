@@ -10,7 +10,7 @@ class Cache
         $name = self::getFilename($index);
         $result = false;
 
-        if (self::isValid($name)) {
+        if (self::validTime($name)) {
             $result = file_get_contents($name);
         }
 
@@ -33,7 +33,7 @@ class Cache
         $list = [];
 
         foreach ($files as $file) {
-            $list[$file] = self::isValid($file);
+            $list[$file] = self::validTime($file);
         }
 
         return $list;
@@ -53,10 +53,17 @@ class Cache
     }
     // }}}
 
-    // {{{ isValid
-    protected function isValid($file)
+    // {{{ validTime
+    protected function validTime($file)
     {
-        return is_file($file) && ((time() - filemtime($file)) < Setup::getSettings('CacheTime'));
+        $timeLeft = 0;
+
+        if (is_file($file)) {
+            $timeLeft = Setup::getSettings('CacheTime') - (time() - filemtime($file));
+            $timeLeft = ($timeLeft > 0) ? $timeLeft : 0;
+        }
+
+        return $timeLeft;
     }
     // }}}
     // {{{ getFilename

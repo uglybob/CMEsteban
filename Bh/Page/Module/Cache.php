@@ -12,7 +12,7 @@ class Cache
 
         if (is_array($list)) {
             foreach ($list as $file => $valid) {
-                $rendered .= HTML::div($file . (($valid) ? ' valid' : ' invalid'));
+                $rendered .= HTML::div($file . ' ' . $valid . 's');
             }
         }
 
