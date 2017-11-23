@@ -48,19 +48,13 @@ class Controller
             }
         }
 
-        $rendered = '';
-
         if ($page->isCacheable() && !$this->getCurrentUser()) {
-            $name = $this->getCacheFilename($path);
+            $index = implode('-', $path);
+            $rendered = Cache::get($index);
 
-            if (
-                is_file($name)
-                && ((time() - filemtime($name)) < Setup::getSettings('CacheTime'))
-            ) {
-                $rendered = file_get_contents($name);
-            } else {
+            if (!$rendered) {
                 $rendered = $page->render();
-                file_put_contents($name, $rendered);
+                Cache::set($index, $rendered);
             }
         } else {
             $rendered = $page->render();
@@ -226,34 +220,6 @@ class Controller
             Mapper::save($newUser);
             Mapper::commit();
             $result = true;
-        }
-
-        return $result;
-    }
-    // }}}
-
-    // {{{ getCacheFilename
-    protected function getCacheFilename($path)
-    {
-        return Setup::getSettings('Path') . 'Bh/Cache/' . implode('-', $path) . '.html';
-    }
-    // }}}
-    // {{{ clearCache
-    public function clearCache()
-    {
-        $success = true;
-
-        $path = Setup::getSettings('Path') . 'Bh/Cache';
-        $files = glob($path . '/*.html');
-
-        foreach ($files as $file) {
-            $success = unlink($file) && $success;
-        }
-
-        if ($success) {
-            $result = $files;
-        } else {
-            $result = false;
         }
 
         return $result;
