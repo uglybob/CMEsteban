@@ -28,8 +28,7 @@ class Cache
     // {{{ list
     public static function list()
     {
-        $path = Setup::getSettings('Path') . 'Bh/Cache';
-        $files = glob($path . '/*.html');
+        $files = glob(self::getDir() . '/*.html');
         $list = [];
 
         foreach ($files as $file) {
@@ -66,10 +65,16 @@ class Cache
         return $timeLeft;
     }
     // }}}
+    // {{{ getDir
+    protected function getDir()
+    {
+        return Setup::getSettings('Path') . 'Bh/Cache';
+    }
+    // }}}
     // {{{ getFilename
     protected function getFilename($index)
     {
-        return Setup::getSettings('Path') . "Bh/Cache/$index.html";
+        return self::getDir() . "/$index.html";
     }
     // }}}
 }
