@@ -130,6 +130,7 @@ abstract class Page
             HTML::title($this->hookTitle()) .
             $this->renderFavicon() .
             HTML::meta(['http-equiv' => 'Content-Type', 'content' => 'text/html; charset=utf-8']) .
+            HTML::meta(['name' => 'viewport', 'content' => 'width=device-width, initial-scale=1.0']) .
             (($this->description) ? HTML::meta(['name' => 'description', 'content' => $this->description]) : '') .
             (($this->keywords) ? HTML::meta(['name' => 'keywords', 'content' => implode(',', $this->keywords)]) : '') .
             $this->renderStylesheets() .
