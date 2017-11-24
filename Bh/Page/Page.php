@@ -75,7 +75,7 @@ abstract class Page
         $rendered = '';
 
         if ($this->stylesheets) {
-            $handle = $this->minify('css', $this->stylesheets);
+            $handle = Minify::minify('css', $this->stylesheets);
 
             $rendered = HTML::link([
                 'type' => 'text/css',
@@ -93,7 +93,7 @@ abstract class Page
         $rendered = '';
 
         if ($this->scripts) {
-            $handle = $this->minify('js', $this->scripts);
+            $handle = Minify::minify('js', $this->scripts);
 
             $rendered = HTML::script([
                 'type' => 'text/javascript',
@@ -102,19 +102,6 @@ abstract class Page
         }
 
         return $rendered;
-    }
-    // }}}
-    // {{{ minify
-    protected function minify($type, $files)
-    {
-        $index = md5(implode(' ', $files)) . ".$type";
-        $cached = \Bh\Lib\Cache::get($index);
-
-        if (!$cached) {
-            \Bh\Lib\Cache::set($index, Minify::minify($type, $files));
-        }
-
-        return "/Bh/Cache/$index";
     }
     // }}}
     // {{{ renderFavicon
