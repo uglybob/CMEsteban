@@ -28,7 +28,7 @@ class Cache
     // {{{ list
     public static function list()
     {
-        $files = glob(self::getDir() . '/*.html');
+        $files = glob(self::getDir() . '/*');
         $list = [];
 
         foreach ($files as $file) {
@@ -74,7 +74,7 @@ class Cache
     // {{{ getFilename
     protected function getFilename($index)
     {
-        return self::getDir() . "/$index.html";
+        return self::getDir() . "/$index";
     }
     // }}}
 }

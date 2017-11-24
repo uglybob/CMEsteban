@@ -3,6 +3,7 @@
 namespace Bh\Page;
 
 use Bh\Page\Module\HTML;
+use Bh\Lib\Minify;
 
 abstract class Page
 {
@@ -71,15 +72,13 @@ abstract class Page
     // {{{ renderStylesheets
     protected function renderStylesheets()
     {
-        $rendered = '';
+        $handle = $this->minify('css', $this->stylesheets);
 
-        foreach ($this->stylesheets as $stylesheet) {
-            $rendered .= HTML::link([
-                'type' => 'text/css',
-                'rel' => 'stylesheet',
-                'href' => $stylesheet,
-            ]);
-        }
+        $rendered = HTML::link([
+            'type' => 'text/css',
+            'rel' => 'stylesheet',
+            'href' => $handle,
+        ]);
 
         return $rendered;
     }
@@ -87,16 +86,27 @@ abstract class Page
     // {{{ renderScripts
     protected function renderScripts()
     {
-        $rendered = '';
+        $handle = $this->minify('js', $this->scripts);
 
-        foreach ($this->scripts as $script) {
-            $rendered .= HTML::script([
-                'type' => 'text/javascript',
-                'src' => $script,
-            ]);
-        }
+        $rendered .= HTML::script([
+            'type' => 'text/javascript',
+            'src' => $handle,
+        ]);
 
         return $rendered;
+    }
+    // }}}
+    // {{{ minify
+    protected function minify($type, $files)
+    {
+        $index = md5(implode(' ', $files)) . ".$type";
+        $cached = \Bh\Lib\Cache::get($index);
+
+        if (!$cached) {
+            \Bh\Lib\Cache::set($index, Minify::minify($type, $files));
+        }
+
+        return "/Bh/Cache/$index";
     }
     // }}}
     // {{{ renderFavicon
