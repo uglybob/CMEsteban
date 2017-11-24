@@ -133,6 +133,7 @@ abstract class Page
             HTML::meta(['name' => 'viewport', 'content' => 'width=device-width, initial-scale=1.0']) .
             (($this->description) ? HTML::meta(['name' => 'description', 'content' => $this->description]) : '') .
             (($this->keywords) ? HTML::meta(['name' => 'keywords', 'content' => implode(',', $this->keywords)]) : '') .
+            HTML::meta(['name' => 'date.rendered', 'content' => date('r')]) .
             $this->renderStylesheets() .
             $this->renderScripts()
         );
