@@ -88,7 +88,7 @@ abstract class Page
     {
         $handle = $this->minify('js', $this->scripts);
 
-        $rendered .= HTML::script([
+        $rendered = HTML::script([
             'type' => 'text/javascript',
             'src' => $handle,
         ]);
