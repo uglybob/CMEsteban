@@ -72,13 +72,17 @@ abstract class Page
     // {{{ renderStylesheets
     protected function renderStylesheets()
     {
-        $handle = $this->minify('css', $this->stylesheets);
+        $rendered = '';
 
-        $rendered = HTML::link([
-            'type' => 'text/css',
-            'rel' => 'stylesheet',
-            'href' => $handle,
-        ]);
+        if ($this->stylesheets) {
+            $handle = $this->minify('css', $this->stylesheets);
+
+            $rendered = HTML::link([
+                'type' => 'text/css',
+                'rel' => 'stylesheet',
+                'href' => $handle,
+            ]);
+        }
 
         return $rendered;
     }
@@ -86,12 +90,16 @@ abstract class Page
     // {{{ renderScripts
     protected function renderScripts()
     {
-        $handle = $this->minify('js', $this->scripts);
+        $rendered = '';
 
-        $rendered = HTML::script([
-            'type' => 'text/javascript',
-            'src' => $handle,
-        ]);
+        if ($this->scripts) {
+            $handle = $this->minify('js', $this->scripts);
+
+            $rendered = HTML::script([
+                'type' => 'text/javascript',
+                'src' => $handle,
+            ]);
+        }
 
         return $rendered;
     }
