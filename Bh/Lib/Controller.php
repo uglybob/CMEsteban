@@ -48,7 +48,11 @@ class Controller
             }
         }
 
-        if ($page->isCacheable() && !$this->getCurrentUser()) {
+        if (
+            $page
+            && $page->isCacheable()
+            && !$this->getCurrentUser()
+        ) {
             $index = implode('-', $path);
             $rendered = Cache::get($index);
 
