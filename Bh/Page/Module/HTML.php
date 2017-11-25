@@ -5,8 +5,29 @@ namespace Bh\Page\Module;
 class HTML
 {
     // {{{ variables
-    protected static $voidTags = ['img', 'meta', 'link'];
-    protected static $nonVoidTags = ['html', 'title', 'head', 'body', 'a', 'p', 'label', 'div', 'span', 'script'];
+    protected static $voidTags = [
+        'img',
+        'meta',
+        'link',
+    ];
+    protected static $nonVoidTags = [
+        'html',
+        'title',
+        'head',
+        'body',
+        'a',
+        'p',
+        'label',
+        'div',
+        'span',
+        'script',
+        'h1',
+        'h2',
+        'h3',
+        'h4',
+        'h5',
+        'h6',
+    ];
     // }}}
 
     // {{{ callStatic
@@ -30,7 +51,7 @@ class HTML
     // }}}
 
     // {{{ tag
-    static protected function tag($name, $void, $first = null, $second = null)
+    protected static function tag($name, $void, $first = null, $second = null)
     {
         if (empty($name)) {
             // @todo custom exception
@@ -61,7 +82,8 @@ class HTML
     }
     // }}}
     // {{{ renderAttributes
-    static protected function renderAttributes($attributes) {
+    protected static function renderAttributes($attributes)
+    {
         $list = [];
 
         if (!empty($attributes)) {
@@ -92,7 +114,8 @@ class HTML
     }
     // }}}
     // {{{ formatArgument
-    static protected function formatArgument($argument) {
+    protected static function formatArgument($argument)
+    {
         if (is_array($argument) || is_null($argument)) {
             $result = $argument;
         } else {
@@ -104,9 +127,10 @@ class HTML
     // }}}
 
     // {{{ menu
-    static public function menu($links)
+    public static function menu($links)
     {
         $menu = '';
+
         foreach ($links as $title => $link) {
             $menu .= Html::a(['href' => $link], $title);
         }
