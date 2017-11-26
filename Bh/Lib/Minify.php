@@ -6,7 +6,7 @@ abstract class Minify
 {
     public static function minify($type, $files) {
         $index = md5(implode(' ', $files)) . ".$type";
-        $cached = Cache::get($index);
+        $cached = Cache::load($index);
 
         if (!$cached) {
             $minifier = ($type == 'css') ? new \MatthiasMullie\Minify\CSS() : new \MatthiasMullie\Minify\JS();
@@ -15,7 +15,7 @@ abstract class Minify
                 $minifier->add(Setup::getSettings('Path') . $file);
             }
 
-            Cache::set($index, $minifier->minify());
+            Cache::store($index, $minifier->minify());
         }
 
         return "/Bh/Cache/$index";

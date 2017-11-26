@@ -53,7 +53,7 @@ class Controller
             && $page->isCacheable()
             && !$this->getCurrentUser()
         ) {
-            $index = implode('-', $path);
+            $index = implode('-', $path) . '.html';
             $rendered = Cache::get($index);
 
             if (!$rendered) {
