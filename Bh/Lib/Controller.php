@@ -14,13 +14,7 @@ class Controller
     // {{{ getPage
     public function getPage($id)
     {
-        if (is_null($id)) {
-            $page = null;
-        } else {
-            $page = Mapper::find('Page', $id);
-        }
-
-        return $page;
+        return (is_null($id)) ? null : Mapper::find('Page', $id);
     }
     // }}}
     // {{{ getPageByRequest
@@ -70,7 +64,6 @@ class Controller
     // {{{ hookGetPageByRequest
     public function hookGetPageByRequest($request, $path)
     {
-        return null;
     }
     // }}}
     // {{{ getPages
