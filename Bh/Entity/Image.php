@@ -24,6 +24,7 @@ class Image extends Named
     public function download($url)
     {
         $img = file_get_contents($url);
+
         return file_put_contents($this->getSrc(true), $img);
     }
     // }}}

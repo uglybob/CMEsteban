@@ -100,9 +100,19 @@ class Controller
             $image = Mapper::find('Image', $id);
         }
 
-        $this->access($image->getLevel());
-
         return $image;
+    }
+    // }}}
+    // {{{ getImages
+    public function getImages()
+    {
+        $pages = [];
+
+        if ($this->access(1)) {
+            $pages = Mapper::findAll('Image');
+        }
+
+        return $pages;
     }
     // }}}
 
