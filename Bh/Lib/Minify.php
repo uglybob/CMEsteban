@@ -5,19 +5,25 @@ namespace Bh\Lib;
 abstract class Minify
 {
     public static function minify($type, $files) {
-        $index = md5(implode(' ', $files)) . ".$type";
-        $cached = Cache::load($index);
+        $result = $files;
 
-        if (!$cached) {
-            $minifier = ($type == 'css') ? new \MatthiasMullie\Minify\CSS() : new \MatthiasMullie\Minify\JS();
+        if (!Setup::getSettings('DevMode')) {
+            $index = md5(implode(' ', $files)) . ".$type";
+            $cached = Cache::load($index);
 
-            foreach ($files as $file) {
-                $minifier->add(Setup::getSettings('Path') . $file);
+            if (!$cached) {
+                $minifier = ($type == 'css') ? new \MatthiasMullie\Minify\CSS() : new \MatthiasMullie\Minify\JS();
+
+                foreach ($files as $file) {
+                    $minifier->add(Setup::getSettings('Path') . $file);
+                }
+
+                Cache::store($index, $minifier->minify());
             }
 
-            Cache::store($index, $minifier->minify());
+            $result = ["/Bh/Cache/$index"];
         }
 
-        return "/Bh/Cache/$index";
+        return $result;
     }
 }

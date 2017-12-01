@@ -75,13 +75,15 @@ abstract class Page
         $rendered = '';
 
         if ($this->stylesheets) {
-            $handle = Minify::minify('css', $this->stylesheets);
+            $handles = Minify::minify('css', $this->stylesheets);
 
-            $rendered = HTML::link([
-                'type' => 'text/css',
-                'rel' => 'stylesheet',
-                'href' => $handle,
-            ]);
+            foreach ($handles as $handle) {
+                $rendered .= HTML::link([
+                    'type' => 'text/css',
+                    'rel' => 'stylesheet',
+                    'href' => $handle,
+                ]);
+            }
         }
 
         return $rendered;
@@ -93,12 +95,14 @@ abstract class Page
         $rendered = '';
 
         if ($this->scripts) {
-            $handle = Minify::minify('js', $this->scripts);
+            $handles = Minify::minify('js', $this->scripts);
 
-            $rendered = HTML::script([
-                'type' => 'text/javascript',
-                'src' => $handle,
-            ]);
+            foreach ($handles as $handle) {
+                $rendered .= HTML::script([
+                    'type' => 'text/javascript',
+                    'src' => $handle,
+                ]);
+            }
         }
 
         return $rendered;
