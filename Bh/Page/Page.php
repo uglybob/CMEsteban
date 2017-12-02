@@ -66,9 +66,20 @@ abstract class Page
     // {{{ addStylesheet
     public function addStylesheet($stylesheet)
     {
-        $this->stylesheets[] = $stylesheet;
+        if (!in_array($stylesheet, $this->stylesheets)) {
+            $this->stylesheets[] = $stylesheet;
+        }
     }
     // }}}
+    // {{{ addScript
+    public function addScript($script)
+    {
+        if (!in_array($script, $this->scripts)) {
+            $this->scripts[] = $script;
+        }
+    }
+    // }}}
+
     // {{{ renderStylesheets
     protected function renderStylesheets()
     {
@@ -173,13 +184,14 @@ abstract class Page
     // {{{ render
     public function render()
     {
+        // render content before head so module scrips are registered
+        $content = $this->wrapContent($this->renderContent());
+
         return '<!DOCTYPE html>' .
             HTML::html(
                 $this->renderHead() .
                 HTML::body(
-                    HTML::div(['#main'],
-                        $this->wrapContent($this->renderContent())
-                    )
+                    HTML::div(['#main'], $content)
                 )
             );
     }
