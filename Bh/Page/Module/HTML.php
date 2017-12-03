@@ -9,6 +9,7 @@ class HTML
         'img',
         'meta',
         'link',
+        'br',
     ];
     protected static $nonVoidTags = [
         'html',
