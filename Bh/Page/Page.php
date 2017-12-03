@@ -184,15 +184,12 @@ abstract class Page
     // {{{ render
     public function render()
     {
-        // render content before head so module scrips are registered
+        // render content before head so module scripts are registered
         $content = $this->wrapContent($this->renderContent());
 
         return '<!DOCTYPE html>' .
             HTML::html(
-                $this->renderHead() .
-                HTML::body(
-                    HTML::div(['#main'], $content)
-                )
+                $this->renderHead() . HTML::body($content)
             );
     }
     // }}}
