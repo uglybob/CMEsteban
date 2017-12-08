@@ -110,7 +110,6 @@ abstract class Page
 
             foreach ($handles as $handle) {
                 $rendered .= HTML::script([
-                    'type' => 'text/javascript',
                     'src' => $handle,
                 ]);
             }
