@@ -5,8 +5,10 @@ namespace Bh\Page\Module;
 class ObjectList
 {
     // {{{ constructor
-    public function __construct(array $objects, $edit = null, $add = true, $delete = 'Delete')
+    public function __construct($page, array $objects, $edit = null, $add = true, $delete = 'Delete')
     {
+        $page->addStylesheet('/Bh/Page/css/table.css');
+
         $this->list = '';
         $first = true;
 
