@@ -123,9 +123,9 @@ abstract class Page
     {
         if (!is_null($this->favicon)) {
             $rendered = HTML::link([
-                'rel' => 'shortcut icon',
+                'rel' => 'icon',
                 'href' => $this->favicon,
-                'type' => 'image/vnd.microsoft.icon',
+                'type' => 'image/x-icon',
             ]);
         } else {
             $rendered = '';
