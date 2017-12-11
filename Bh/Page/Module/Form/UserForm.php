@@ -2,6 +2,8 @@
 
 namespace Bh\Page\Module\Form;
 
+use Bh\Page\Page;
+
 class UserForm extends EditForm
 {
     // {{{ constructor
