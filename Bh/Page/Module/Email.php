@@ -10,7 +10,7 @@ class Email
         $this->email = $email;
         $this->page = $page;
 
-        $this->page->addScript('/Bh/Page/js/jquery-3.2.1.slim.min.js');
+        $this->page->addScript('/Bh/Page/js/lib.js');
         $this->page->addScript('/Bh/Page/js/mail.js');
     }
     // }}}
