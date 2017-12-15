@@ -200,4 +200,52 @@ abstract class Page
         die();
     }
     // }}}
+
+    // {{{ guessSite
+    public static function guessSite($link)
+    {
+        $sites = array('facebook', 'bandcamp', 'youtube', 'soundcloud', 'twitter', 'vimeo', 'reverbnation', 'myspace');
+
+        foreach($sites as $site) {
+            if (preg_match('/' . $site . '/i', $link)) return $site;
+        }
+
+        return $link;
+    }
+    // }}}
+    // {{{ cleanLinks
+    public static function cleanLinks($text)
+    {
+        $matches = [];
+        $links = [];
+
+        preg_match_all('@(\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))))@', $text, $matches);
+
+        foreach($matches[0] as $match) {
+            $cleanedUrl = (preg_match("~^(?:f|ht)tps?://~i", $match)) ? $match : 'http://' . $match;
+
+            $cleanedMatch = preg_replace('/(?:https?:\/\/)?(?:www\.)?(.*)\/?$/i', '$1', $cleanedUrl);
+            $cleanedMatch = preg_replace('@\/$@', '', $cleanedMatch);
+            $cleanedMatch = self::guessSite($cleanedMatch);
+            $cleanedMatch = (strlen($cleanedMatch) > 33) ? substr($cleanedMatch,0,30) . '...' : $cleanedMatch;
+
+            $links[$match] = HTML::a(['href' => $cleanedUrl],  ">$cleanedMatch");
+        }
+
+        foreach ($links as $url => $link) {
+            $text = str_replace($url, $link, $text);
+        }
+
+        return $text;
+    }
+    // }}}
+    // {{{ cleanText
+    public static function cleanText($input)
+    {
+        $output = preg_replace('/\\n/', HTML::br(), $input);
+        $output = self::cleanLinks($output);
+
+        return $output;
+    }
+    // }}}
 }
