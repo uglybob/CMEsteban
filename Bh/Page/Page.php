@@ -3,9 +3,10 @@
 namespace Bh\Page;
 
 use Bh\Page\Module\HTML;
+use Bh\Page\Module\Email;
 use Bh\Lib\Minify;
 
-abstract class Page
+class Page
 {
     // {{{ variables
     protected $controller;
@@ -202,7 +203,7 @@ abstract class Page
     // }}}
 
     // {{{ guessSite
-    public static function guessSite($link)
+    public function guessSite($link)
     {
         $sites = array('facebook', 'bandcamp', 'youtube', 'soundcloud', 'twitter', 'vimeo', 'reverbnation', 'myspace');
 
@@ -214,7 +215,7 @@ abstract class Page
     }
     // }}}
     // {{{ replaceUrl
-    public static function replaceUrl($match)
+    public function replaceUrl($match)
     {
         $url = $match[0];
 
@@ -228,12 +229,21 @@ abstract class Page
         return HTML::a(['href' => $cleanedUrl],  ">$cleanedMatch");
     }
     // }}}
+    // {{{ replaceEmail
+    public function replaceEmail($match)
+    {
+        $email = $match[0];
+
+        return new Email($email, $this);
+    }
+    // }}}
     // {{{ cleanText
-    public static function cleanText($input)
+    public function cleanText($input)
     {
         $cleanBreaks = preg_replace('/\\n/', HTML::br(), $input);
+        $cleanLinks = preg_replace_callback('@(\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))))@', [$this, 'replaceUrl'], htmlspecialchars($cleanBreaks));
 
-        return preg_replace_callback('@(\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))))@', ['Bh\Page\Page', 'replaceUrl'], htmlspecialchars($cleanBreaks));
+        return preg_replace_callback('/[a-z\d._%+-]+@[a-z\d.-]+\.[a-z]{2,4}\b/i', [$this, 'replaceEmail'], $cleanLinks);
     }
     // }}}
 }
