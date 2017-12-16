@@ -203,15 +203,16 @@ class Page
     // }}}
 
     // {{{ guessSite
-    public function guessSite($link)
+    public function guessSite($short, $url)
     {
-        $sites = array('facebook', 'bandcamp', 'youtube', 'soundcloud', 'twitter', 'vimeo', 'reverbnation', 'myspace');
+        $sites = array('facebook', 'bandcamp', 'youtube', 'soundcloud', 'mixcloud', 'twitter', 'vimeo', 'reverbnation', 'myspace');
+        $host = parse_url($url, PHP_URL_HOST);
 
         foreach($sites as $site) {
-            if (preg_match('/' . $site . '/i', $link)) return $site;
+            if (preg_match('/' . $site . '/i', $host)) return $site;
         }
 
-        return $link;
+        return $short;
     }
     // }}}
     // {{{ replaceUrl
@@ -223,7 +224,7 @@ class Page
 
         $cleanedMatch = preg_replace('/(?:https?:\/\/)?(?:www\.)?(.*)\/?$/i', '$1', $cleanedUrl);
         $cleanedMatch = preg_replace('@\/$@', '', $cleanedMatch);
-        $cleanedMatch = $this->guessSite($cleanedMatch);
+        $cleanedMatch = $this->guessSite($cleanedMatch, $cleanedUrl);
         $cleanedMatch = (strlen($cleanedMatch) > 33) ? substr($cleanedMatch, 0, 30) . '...' : $cleanedMatch;
 
         return HTML::a(['href' => $cleanedUrl],  ">$cleanedMatch");

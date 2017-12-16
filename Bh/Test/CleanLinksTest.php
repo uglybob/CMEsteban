@@ -72,6 +72,12 @@ class CleanLinksTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('<a href="https://www.twitter.com/account">>twitter</a>', $this->page->cleanText('www.twitter.com/account'));
     }
     // }}}
+    // {{{ testUrlKnownSiteInParams
+    public function testUrlKnownSiteInParams()
+    {
+        $this->assertEquals('<a href="https://www.url.com/twitter">>url.com/twitter</a>', $this->page->cleanText('www.url.com/twitter'));
+    }
+    // }}}
 
     // {{{ testEmail
     public function testEmail()
