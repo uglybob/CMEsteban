@@ -66,16 +66,22 @@ class CleanLinksTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('|<a href="https://www.url.com">>url.com</a>|', $this->page->cleanText('|www.url.com|'));
     }
     // }}}
-    // {{{ testUrlKnownSite
-    public function testUrlKnownSite()
+    // {{{ testUrlShortenKnown
+    public function testUrlShortenKnown()
     {
         $this->assertEquals('<a href="https://www.twitter.com/account">>twitter</a>', $this->page->cleanText('www.twitter.com/account'));
     }
     // }}}
-    // {{{ testUrlKnownSiteInParams
-    public function testUrlKnownSiteInParams()
+    // {{{ testUrlShortenKnownInParams
+    public function testUrlShortenKnownInParams()
     {
         $this->assertEquals('<a href="https://www.url.com/twitter">>url.com/twitter</a>', $this->page->cleanText('www.url.com/twitter'));
+    }
+    // }}}
+    // {{{ testUrlShortenUgly
+    public function testUrlShortenUgly()
+    {
+        $this->assertEquals('<a href="https://encrypted.google.com/search?hl=en&q=php%20url%20info">>encrypted.google.com/search?hl...</a>', $this->page->cleanText('https://encrypted.google.com/search?hl=en&q=php%20url%20info'));
     }
     // }}}
 

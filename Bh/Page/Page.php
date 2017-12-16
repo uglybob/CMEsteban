@@ -202,15 +202,28 @@ class Page
     }
     // }}}
 
-    // {{{ guessSite
-    public function guessSite($short, $url)
+    // {{{ shorten
+    public function shorten($url)
     {
-        $sites = array('facebook', 'bandcamp', 'youtube', 'soundcloud', 'mixcloud', 'twitter', 'vimeo', 'reverbnation', 'myspace');
+        $sites = [
+            'facebook',
+            'bandcamp',
+            'youtube',
+            'soundcloud',
+            'mixcloud',
+            'twitter',
+            'vimeo',
+            'myspace',
+        ];
+
         $host = parse_url($url, PHP_URL_HOST);
 
-        foreach($sites as $site) {
+        foreach ($sites as $site) {
             if (preg_match('/' . $site . '/i', $host)) return $site;
         }
+
+        $short = preg_replace('/(?:https?:\/\/)?(?:www\.)?(.*)\/?$/i', '$1', $url);
+        $short = preg_replace('@\/$@', '', $short);
 
         return $short;
     }
@@ -219,15 +232,12 @@ class Page
     public function replaceUrl($match)
     {
         $url = $match[0];
-
         $cleanedUrl = (preg_match("~^(?:f|ht)tps?://~i", $url)) ? $url : 'https://' . $url;
 
-        $cleanedMatch = preg_replace('/(?:https?:\/\/)?(?:www\.)?(.*)\/?$/i', '$1', $cleanedUrl);
-        $cleanedMatch = preg_replace('@\/$@', '', $cleanedMatch);
-        $cleanedMatch = $this->guessSite($cleanedMatch, $cleanedUrl);
-        $cleanedMatch = (strlen($cleanedMatch) > 33) ? substr($cleanedMatch, 0, 30) . '...' : $cleanedMatch;
+        $short = $this->shorten($cleanedUrl);
+        $trimmed = (strlen($short) > 33) ? substr($short, 0, 30) . '...' : $short;
 
-        return HTML::a(['href' => $cleanedUrl],  ">$cleanedMatch");
+        return HTML::a(['href' => $cleanedUrl],  ">$trimmed");
     }
     // }}}
     // {{{ replaceEmail
@@ -241,7 +251,7 @@ class Page
     // {{{ cleanText
     public function cleanText($input)
     {
-        $cleanLinks = preg_replace_callback('@(\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))))@', [$this, 'replaceUrl'], htmlspecialchars($input));
+        $cleanLinks = preg_replace_callback('@(\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))))@', [$this, 'replaceUrl'], $input);
         $cleanMails = preg_replace_callback('/[a-z\d._%+-]+@[a-z\d.-]+\.[a-z]{2,4}\b/i', [$this, 'replaceEmail'], $cleanLinks);
         $cleanRs = preg_replace("/\r/", '', $cleanMails);
         $cleanNs = preg_replace("/\n/", HTML::br(), $cleanRs);
