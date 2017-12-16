@@ -222,12 +222,12 @@ abstract class Page
         preg_match_all('@(\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))))@', $text, $matches);
 
         foreach($matches[0] as $match) {
-            $cleanedUrl = (preg_match("~^(?:f|ht)tps?://~i", $match)) ? $match : 'http://' . $match;
+            $cleanedUrl = (preg_match("~^(?:f|ht)tps?://~i", $match)) ? $match : 'https://' . $match;
 
             $cleanedMatch = preg_replace('/(?:https?:\/\/)?(?:www\.)?(.*)\/?$/i', '$1', $cleanedUrl);
             $cleanedMatch = preg_replace('@\/$@', '', $cleanedMatch);
             $cleanedMatch = self::guessSite($cleanedMatch);
-            $cleanedMatch = (strlen($cleanedMatch) > 33) ? substr($cleanedMatch,0,30) . '...' : $cleanedMatch;
+            $cleanedMatch = (strlen($cleanedMatch) > 33) ? substr($cleanedMatch, 0, 30) . '...' : $cleanedMatch;
 
             $links[$match] = HTML::a(['href' => $cleanedUrl],  ">$cleanedMatch");
         }
