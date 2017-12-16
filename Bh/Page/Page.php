@@ -213,14 +213,6 @@ abstract class Page
         return $link;
     }
     // }}}
-    // {{{ cleanLinks
-    public static function cleanLinks($text)
-    {
-        $newText = preg_replace_callback('@(\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))))@', ['Bh\Page\Page', 'replaceUrl'], htmlspecialchars($text));
-
-        return $newText;
-    }
-    // }}}
     // {{{ replaceUrl
     public static function replaceUrl($match)
     {
@@ -239,10 +231,9 @@ abstract class Page
     // {{{ cleanText
     public static function cleanText($input)
     {
-        $output = preg_replace('/\\n/', HTML::br(), $input);
-        $output = self::cleanLinks($output);
+        $cleanBreaks = preg_replace('/\\n/', HTML::br(), $input);
 
-        return $output;
+        return preg_replace_callback('@(\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))))@', ['Bh\Page\Page', 'replaceUrl'], htmlspecialchars($cleanBreaks));
     }
     // }}}
 }
