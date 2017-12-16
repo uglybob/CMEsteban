@@ -84,6 +84,12 @@ class CleanLinksTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('<a href="https://encrypted.google.com/search?hl=en&q=php%20url%20info">>encrypted.google.com/search?hl...</a>', $this->page->cleanText('https://encrypted.google.com/search?hl=en&q=php%20url%20info'));
     }
     // }}}
+    // {{{ testUrlShortenTrailingSlash
+    public function testUrlShortenTrailingSlash()
+    {
+        $this->assertEquals('<a href="http://www.url.com/">>url.com</a>', $this->page->cleanText('http://www.url.com/'));
+    }
+    // }}}
 
     // {{{ testEmail
     public function testEmail()
