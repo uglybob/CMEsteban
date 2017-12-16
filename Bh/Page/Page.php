@@ -240,10 +240,11 @@ class Page
     // {{{ cleanText
     public function cleanText($input)
     {
-        $cleanBreaks = preg_replace('/\\n/', HTML::br(), $input);
-        $cleanLinks = preg_replace_callback('@(\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))))@', [$this, 'replaceUrl'], htmlspecialchars($cleanBreaks));
+        $cleanLinks = preg_replace_callback('@(\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))))@', [$this, 'replaceUrl'], htmlspecialchars($input));
+        $cleanMails = preg_replace_callback('/[a-z\d._%+-]+@[a-z\d.-]+\.[a-z]{2,4}\b/i', [$this, 'replaceEmail'], $cleanLinks);
+        $cleanBreaks = preg_replace('/\\n/', HTML::br(), $cleanMails);
 
-        return preg_replace_callback('/[a-z\d._%+-]+@[a-z\d.-]+\.[a-z]{2,4}\b/i', [$this, 'replaceEmail'], $cleanLinks);
+        return $cleanBreaks;
     }
     // }}}
 }
