@@ -223,7 +223,7 @@ class Page
 
         $cleanedMatch = preg_replace('/(?:https?:\/\/)?(?:www\.)?(.*)\/?$/i', '$1', $cleanedUrl);
         $cleanedMatch = preg_replace('@\/$@', '', $cleanedMatch);
-        $cleanedMatch = self::guessSite($cleanedMatch);
+        $cleanedMatch = $this->guessSite($cleanedMatch);
         $cleanedMatch = (strlen($cleanedMatch) > 33) ? substr($cleanedMatch, 0, 30) . '...' : $cleanedMatch;
 
         return HTML::a(['href' => $cleanedUrl],  ">$cleanedMatch");
