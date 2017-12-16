@@ -18,6 +18,10 @@
             "url": "https://github.com/uglybob/depage-forms"
         }
     ],
+    "require-dev": {
+        "phpunit/phpunit": "*",
+        "phpunit/dbunit": "*"
+    },
     "require" : {
         "depage/htmlform": "dev-master",
         "matthiasmullie/minify": "*",

@@ -1,6 +1,6 @@
 <?php
 
-class BhTest extends PhpUnit_Framework_TestCase
+class BhTest extends \PHPUnit\Framework\TestCase
 {
     // {{{ setUp
     protected function setUp()

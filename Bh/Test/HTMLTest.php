@@ -2,7 +2,7 @@
 
 use Bh\Page\Module\HTML;
 
-class HTMLTest extends PhpUnit_Framework_TestCase
+class HTMLTest extends \PHPUnit\Framework\TestCase
 {
     // {{{ variables
     protected $voidTags = ['img', 'meta', 'link'];

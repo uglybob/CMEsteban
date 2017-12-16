@@ -2,7 +2,7 @@
 
 namespace Bh\Test;
 
-class EntityTest extends \PhpUnit_Framework_TestCase
+class EntityTest extends \PhpUnit\Framework\TestCase
 {
     // {{{ setUp
     protected function setUp()

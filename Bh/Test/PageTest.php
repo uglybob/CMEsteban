@@ -2,7 +2,7 @@
 
 namespace Bh\Test;
 
-class PageTest extends \PhpUnit_Framework_TestCase
+class PageTest extends \PhpUnit\Framework\TestCase
 {
     // {{{ setUp
     protected function setUp()
