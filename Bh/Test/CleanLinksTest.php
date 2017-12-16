@@ -85,8 +85,8 @@ class CleanLinksTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('<span class="shooo">nppbhag+ubfg,pbz</span> <span class="shooo">nppbhag2+ubfg,pbz</span>', $this->page->cleanText('account@host.com account2@host.com'));
     }
     // }}}
-    // {{{ testRecursive
-    public function testRecursive()
+    // {{{ testEmailRecursive
+    public function testEmailRecursive()
     {
         $this->assertEquals('<span class="shooo">nppbhag+ubfg,pbz</span> <span class="shooo">ppbhag+ubfg,pbz</span>', $this->page->cleanText('account@host.com ccount@host.com'));
     }
@@ -95,6 +95,13 @@ class CleanLinksTest extends \PHPUnit\Framework\TestCase
     public function testEnclosed()
     {
         $this->assertEquals('|<span class="shooo">nppbhag+ubfg,pbz</span>|', $this->page->cleanText('|account@host.com|'));
+    }
+    // }}}
+
+    // {{{ testMixed
+    public function testMixed()
+    {
+        $this->assertEquals('<span class="shooo">nppbhag+ubfg,pbz</span> <a href="https://www.url.com">>url.com</a>', $this->page->cleanText('account@host.com www.url.com'));
     }
     // }}}
 }
