@@ -216,27 +216,24 @@ abstract class Page
     // {{{ cleanLinks
     public static function cleanLinks($text)
     {
-        $matches = [];
-        $links = [];
+        $newText = preg_replace_callback('@(\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))))@', ['Bh\Page\Page', 'replaceUrl'], htmlspecialchars($text));
 
-        preg_match_all('@(\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))))@', $text, $matches);
+        return $newText;
+    }
+    // }}}
+    // {{{ replaceUrl
+    public static function replaceUrl($match)
+    {
+        $url = $match[0];
 
-        foreach($matches[0] as $match) {
-            $cleanedUrl = (preg_match("~^(?:f|ht)tps?://~i", $match)) ? $match : 'https://' . $match;
+        $cleanedUrl = (preg_match("~^(?:f|ht)tps?://~i", $url)) ? $url : 'https://' . $url;
 
-            $cleanedMatch = preg_replace('/(?:https?:\/\/)?(?:www\.)?(.*)\/?$/i', '$1', $cleanedUrl);
-            $cleanedMatch = preg_replace('@\/$@', '', $cleanedMatch);
-            $cleanedMatch = self::guessSite($cleanedMatch);
-            $cleanedMatch = (strlen($cleanedMatch) > 33) ? substr($cleanedMatch, 0, 30) . '...' : $cleanedMatch;
+        $cleanedMatch = preg_replace('/(?:https?:\/\/)?(?:www\.)?(.*)\/?$/i', '$1', $cleanedUrl);
+        $cleanedMatch = preg_replace('@\/$@', '', $cleanedMatch);
+        $cleanedMatch = self::guessSite($cleanedMatch);
+        $cleanedMatch = (strlen($cleanedMatch) > 33) ? substr($cleanedMatch, 0, 30) . '...' : $cleanedMatch;
 
-            $links[$match] = HTML::a(['href' => $cleanedUrl],  ">$cleanedMatch");
-        }
-
-        foreach ($links as $url => $link) {
-            $text = str_replace($url, $link, $text);
-        }
-
-        return $text;
+        return HTML::a(['href' => $cleanedUrl],  ">$cleanedMatch");
     }
     // }}}
     // {{{ cleanText
