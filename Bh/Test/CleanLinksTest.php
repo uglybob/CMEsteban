@@ -104,4 +104,11 @@ class CleanLinksTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('<span class="shooo">nppbhag+ubfg,pbz</span> <a href="https://www.url.com">>url.com</a>', $this->page->cleanText('account@host.com www.url.com'));
     }
     // }}}
+
+    // {{{ testLineBreak
+    public function testLineBreak()
+    {
+        $this->assertEquals('<br />', $this->page->cleanText("\n"));
+    }
+    // }}}
 }
