@@ -241,7 +241,7 @@ class Page
     }
     // }}}
     // {{{ replaceEmail
-    public function replaceEmail($match)
+    protected function replaceEmail($match)
     {
         $email = $match[0];
 
