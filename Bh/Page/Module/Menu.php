@@ -16,7 +16,9 @@ class Menu
         $menu = '';
 
         foreach ($this->links as $title => $link) {
-            $menu .= HTML::a(['href' => $link], $title);
+            $menu .= HTML::div(
+                HTML::a(['href' => $link], $title)
+            );
         }
 
         return Html::div(['class' => 'menu'], $menu);
