@@ -1,6 +1,6 @@
 <?php
 
-namespace Bh\Page\Module;
+namespace CMEsteban\Page\Module;
 
 class HTML
 {
@@ -45,7 +45,7 @@ class HTML
             $result = self::tag($name, true, $first, $second);
         } else {
             // @todo custom exception
-            throw new \Exception("Call to undefined method Bh\Page\HTML::$name()");
+            throw new \Exception("Call to undefined method CMEsteban\Page\HTML::$name()");
         }
 
         return $result;
