@@ -2,7 +2,7 @@
 
 namespace CMEsteban\Test;
 
-class DatabaseTestCase extends \PHPUnit_Extensions_Database_TestCase
+class DatabaseTestCase extends \PHPUnit\DbUnit\TestCase
 {
     // {{{ variables
     protected $pdo = null;
@@ -10,14 +10,15 @@ class DatabaseTestCase extends \PHPUnit_Extensions_Database_TestCase
     // }}}
 
     // {{{ setUp
-    protected function setUp() {
+    protected function setUp() : void
+    {
         \CMEsteban\Lib\Mapper::getEntityManager()->clear();
         $this->getConnection();
         $this->setForeignKeyChecks(false);
         parent::setUp();
         $this->setForeignKeyChecks(true);
     }
-// }}}
+    // }}}
     // {{{ getConnection
     final public function getConnection()
     {

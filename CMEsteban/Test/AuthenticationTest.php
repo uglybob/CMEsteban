@@ -5,7 +5,7 @@ namespace CMEsteban\Test;
 class AuthenticationTest extends DatabaseTestCase
 {
     // {{{ setUp
-    protected function setUp()
+    protected function setUp() : void
     {
         parent::setUp();
 
