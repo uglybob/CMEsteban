@@ -1,5 +1,5 @@
 {
-    "name": "uglybob/bh.net",
+    "name": "uglybob/cmesteban",
     "description": "Small framework for data based web services",
     "license": "GPL2",
     "authors": [
@@ -29,6 +29,6 @@
         "doctrine/orm": "2.4.*"
     },
     "autoload": {
-        "psr-0": {"Bh\\": "./"}
+        "psr-0": {"CMEsteban\\": "./"}
     }
 }

@@ -1,0 +1,21 @@
+<?php
+
+namespace CMEsteban\Lib;
+
+class Setup
+{
+    protected static $settings = [
+        'Salt' => 'salt',
+        'EnableRegistration' => true,
+        'DevMode' => true,
+        'DbHost' => 'localhost',
+        'DbName' => '',
+        'DbUser' => '',
+        'DbPass' => '',
+    ];
+
+    public static function getSettings()
+    {
+        return self::$settings;
+    }
+}

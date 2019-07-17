@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpunit bootstrap="Bootstrap.php">
+    <php>
+        <var name="DB_DSN" value="mysql:host=localhost;dbname=cmesteban_test_database" />
+        <var name="DB_USER" value="cmesteban_test_user" />
+        <var name="DB_PASS" value="cmesteban_test_pass" />
+        <var name="DB_NAME" value="cmesteban_test_database" />
+    </php>
+    <logging>
+        <log
+        type="coverage-html"
+        target="Report"
+        />
+    </logging>
+</phpunit>
