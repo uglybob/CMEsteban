@@ -53,7 +53,7 @@ class HTML
     // }}}
 
     // {{{ tag
-    protected static function tag($name, $void, $first = null, $second = null)
+    protected static function tag($name, bool $void, $first = null, $second = null)
     {
         if (empty($name)) {
             // @todo custom exception

@@ -19,8 +19,6 @@ class HTMLTest extends \PHPUnit\Framework\TestCase
             $this->assertEquals("<$tag>content</$tag>", HTML::$tag('content'));
             $this->assertEquals("<$tag name=\"value\" />", HTML::$tag(['name' => 'value']));
             $this->assertEquals("<$tag name=\"value\" anotherName=\"anotherValue\" />", HTML::$tag(['name' => 'value', 'anotherName' => 'anotherValue']));
-            $this->assertEquals("<$tag name=\"value\" />", HTML::$tag(['name' => 'value']), '');
-            $this->assertEquals("<$tag name=\"value\" />", HTML::$tag(['name' => 'value']), null);
             $this->assertEquals("<$tag name=\"value\" anotherName=\"anotherValue\">content</$tag>", HTML::$tag(['name' => 'value', 'anotherName' => 'anotherValue'], 'content'));
         }
     }
@@ -35,8 +33,6 @@ class HTMLTest extends \PHPUnit\Framework\TestCase
             $this->assertEquals("<$tag>content</$tag>", HTML::$tag('content'));
             $this->assertEquals("<$tag name=\"value\"></$tag>", HTML::$tag(['name' => 'value']));
             $this->assertEquals("<$tag name=\"value\" anotherName=\"anotherValue\"></$tag>", HTML::$tag(['name' => 'value', 'anotherName' => 'anotherValue']));
-            $this->assertEquals("<$tag name=\"value\"></$tag>", HTML::$tag(['name' => 'value']), '');
-            $this->assertEquals("<$tag name=\"value\"></$tag>", HTML::$tag(['name' => 'value']), null);
             $this->assertEquals("<$tag name=\"value\" anotherName=\"anotherValue\">content</$tag>", HTML::$tag(['name' => 'value', 'anotherName' => 'anotherValue'], 'content'));
         }
     }
