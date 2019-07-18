@@ -5,7 +5,7 @@ namespace CMEsteban\Test;
 class PageTest extends \PhpUnit\Framework\TestCase
 {
     // {{{ setUp
-    protected function setUp()
+    protected function setUp() : void
     {
         @session_start();
         $this->controller = new \CMEsteban\Lib\Controller();

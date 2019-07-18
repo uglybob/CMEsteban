@@ -5,7 +5,7 @@ namespace CMEsteban\Test;
 class EntityTest extends \PhpUnit\Framework\TestCase
 {
     // {{{ setUp
-    protected function setUp()
+    protected function setUp() : void
     {
         parent::setUp();
 

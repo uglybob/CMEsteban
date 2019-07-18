@@ -19,14 +19,13 @@
         }
     ],
     "require-dev": {
-        "phpunit/phpunit": "*",
-        "phpunit/dbunit": "4.0.0"
+        "phpunit/phpunit": "*"
     },
     "require" : {
         "depage/htmlform": "dev-master",
         "matthiasmullie/minify": "*",
-        "phpmailer/phpmailer": "5.*",
-        "doctrine/orm": "2.4.*"
+        "phpmailer/phpmailer": "*",
+        "doctrine/orm": "*"
     },
     "autoload": {
         "psr-0": {"CMEsteban\\": "./"}

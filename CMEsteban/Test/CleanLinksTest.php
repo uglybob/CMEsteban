@@ -7,7 +7,7 @@ use CMEsteban\Page\Page;
 class CleanLinksTest extends \PHPUnit\Framework\TestCase
 {
     // {{{ setUp
-    public function setUp()
+    public function setUp() : void
     {
         $this->controller = new \CMEsteban\Lib\CustomController();
         $this->page = new Page($this->controller);
