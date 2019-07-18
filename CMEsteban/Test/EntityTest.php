@@ -22,23 +22,21 @@ class EntityTest extends \PhpUnit\Framework\TestCase
     }
     // }}}
     // {{{ testGetUndefined
-    /**
-     * @expectedException CMEsteban\Exception\EntityException
-     * @expectedExceptionMessage Call to undefined method CMEsteban\Test\EntityTestClass::getUndefinedAttribute
-     */
     public function testGetUndefined()
     {
+        $this->expectException(\CMEsteban\Exception\EntityException::class);
+        $this->expectExceptionMessage('Call to undefined method CMEsteban\Test\EntityTestClass::getUndefinedAttribute');
+
         $this->entity->getUndefinedAttribute();
     }
     // }}}
 
     // {{{ testUndefinedMethod
-    /**
-     * @expectedException CMEsteban\Exception\EntityException
-     * @expectedExceptionMessage Call to undefined method CMEsteban\Test\EntityTestClass::thisIsNotAMethod
-     */
     public function testUndefinedMethod()
     {
+        $this->expectException(\CMEsteban\Exception\EntityException::class);
+        $this->expectExceptionMessage('Call to undefined method CMEsteban\Test\EntityTestClass::thisIsNotAMethod');
+
         $this->entity->thisIsNotAMethod();
     }
     // }}}
@@ -54,52 +52,47 @@ class EntityTest extends \PhpUnit\Framework\TestCase
     }
     // }}}
     // {{{ testSetUndefined
-    /**
-     * @expectedException CMEsteban\Exception\EntityException
-     * @expectedExceptionMessage Call to undefined method CMEsteban\Test\EntityTestClass::setUndefinedAttribute
-     */
     public function testSetUndefined()
     {
+        $this->expectException(\CMEsteban\Exception\EntityException::class);
+        $this->expectExceptionMessage('Call to undefined method CMEsteban\Test\EntityTestClass::setUndefinedAttribute');
+
         $this->entity->setUndefinedAttribute('test');
     }
     // }}}
     // {{{ testSetProtectedId
-    /**
-     * @expectedException CMEsteban\Exception\EntityException
-     * @expectedExceptionMessage Call to undefined method CMEsteban\Test\EntityTestClass::setId
-     */
     public function testSetProtectedId()
     {
+        $this->expectException(\CMEsteban\Exception\EntityException::class);
+        $this->expectExceptionMessage('Call to undefined method CMEsteban\Test\EntityTestClass::setId');
+
         $this->entity->setId(42);
     }
     // }}}
     // {{{ testSetProtectedCreated
-    /**
-     * @expectedException CMEsteban\Exception\EntityException
-     * @expectedExceptionMessage Call to undefined method CMEsteban\Test\EntityTestClass::setCreated
-     */
     public function testSetProtectedCreated()
     {
+        $this->expectException(\CMEsteban\Exception\EntityException::class);
+        $this->expectExceptionMessage('Call to undefined method CMEsteban\Test\EntityTestClass::setCreated');
+
         $this->entity->setCreated(new \DateTime('now'));
     }
     // }}}
     // {{{ testSetProtectedModified
-    /**
-     * @expectedException CMEsteban\Exception\EntityException
-     * @expectedExceptionMessage Call to undefined method CMEsteban\Test\EntityTestClass::setModified
-     */
     public function testSetProtectedModified()
     {
+        $this->expectException(\CMEsteban\Exception\EntityException::class);
+        $this->expectExceptionMessage('Call to undefined method CMEsteban\Test\EntityTestClass::setModified');
+
         $this->entity->setModified(new \DateTime('now'));
     }
     // }}}
     // {{{ testSetProtectedProtected
-    /**
-     * @expectedException CMEsteban\Exception\EntityException
-     * @expectedExceptionMessage Call to undefined method CMEsteban\Test\EntityTestClass::setProtected
-     */
     public function testSetProtectedProtected()
     {
+        $this->expectException(\CMEsteban\Exception\EntityException::class);
+        $this->expectExceptionMessage('Call to undefined method CMEsteban\Test\EntityTestClass::setProtected');
+
         $this->entity->setProtected([]);
     }
     // }}}

@@ -51,42 +51,38 @@ class HTMLTest extends \PHPUnit\Framework\TestCase
     // }}}
 
     // {{{ testSignatureException
-    /**
-     * @expectedException           Exception
-     * @expectedExceptionMessage    invalid tag signature
-     */
     public function testSignatureException()
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('invalid tag signature');
+
         HTML::html('content', 'content');
     }
     // }}}
     // {{{ testUndefinedMethodException
-    /**
-     * @expectedException           Exception
-     * @expectedExceptionMessage    Call to undefined method CMEsteban\Page\HTML::iDontExist()
-     */
     public function testUndefinedMethodException()
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Call to undefined method CMEsteban\Page\HTML::iDontExist()');
+
         HTML::iDontExist();
     }
     // }}}
     // {{{ testInvalidAttributeException
-    /**
-     * @expectedException           Exception
-     * @expectedExceptionMessage    invalid attributes
-     */
     public function testInvalidAttributeException()
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('invalid attributes');
+
         HTML::div(['.'], 'content');
     }
     // }}}
     // {{{ testUnknownSelectorException
-    /**
-     * @expectedException           Exception
-     * @expectedExceptionMessage    unknown selector
-     */
     public function testUnknownSelectorException()
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('unknown selector');
+
         HTML::div(['$name'], 'content');
     }
     // }}}
