@@ -12,11 +12,6 @@ class DatabaseTestCase extends \PHPUnit\Framework\TestCase
     // {{{ setUp
     protected function setUp() : void
     {
-        \CMEsteban\Lib\Mapper::getEntityManager()->clear();
-        $this->getConnection();
-        $this->setForeignKeyChecks(false);
-        parent::setUp();
-        $this->setForeignKeyChecks(true);
     }
     // }}}
     // {{{ getConnection
