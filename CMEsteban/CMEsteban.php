@@ -7,7 +7,7 @@ class CMEsteban
     public function __construct($controller = null)
     {
         if (!session_id()) {
-            session_start();
+            @session_start();
         }
 
         $request = isset($_GET['page']) ? $_GET['page'] : 'home';

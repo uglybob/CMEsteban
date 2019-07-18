@@ -5,7 +5,6 @@ class CMEstebanTest extends \PHPUnit\Framework\TestCase
     // {{{ setUp
     protected function setUp() : void
     {
-        @session_start();
         $this->controller = new CMEsteban\Lib\Controller();
  
         parent::setUp();
