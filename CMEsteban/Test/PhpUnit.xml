@@ -12,4 +12,9 @@
         target="Report"
         />
     </logging>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">../</directory>
+        </whitelist>
+    </filter>
 </phpunit>
