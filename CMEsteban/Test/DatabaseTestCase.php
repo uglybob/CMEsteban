@@ -2,7 +2,7 @@
 
 namespace CMEsteban\Test;
 
-class DatabaseTestCase
+class DatabaseTestCase extends \PHPUnit\Framework\TestCase
 {
     // {{{ variables
     protected $pdo = null;
