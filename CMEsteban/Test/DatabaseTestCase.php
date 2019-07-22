@@ -9,14 +9,15 @@ class DatabaseTestCase extends \PHPUnit\Framework\TestCase
     // {{{ setUp
     protected function setUp() : void
     {
-        Mapper::reset();
+        $em = Mapper::getEntityManager();
+        $em->beginTransaction();
     }
     // }}}
-
-    // {{{ insertData
-    protected function insertData($data)
+    // {{{ tearDown
+    protected function tearDown() : void
     {
-        Mapper::insertData($data);
+        $em = Mapper::getEntityManager();
+        $em->rollback();
     }
     // }}}
 }

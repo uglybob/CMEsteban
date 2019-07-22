@@ -20,7 +20,6 @@ class AuthenticationTest extends DatabaseTestCase
     {
         $user = new User('userName');
         $user->setPass('cmesteban_test_pass');
-
         $this->insertData($user);
 
         $this->assertTrue($this->controller->login('userName', 'cmesteban_test_pass'));
@@ -45,7 +44,7 @@ class AuthenticationTest extends DatabaseTestCase
     // {{{ testRegister
     public function testRegister()
     {
-        $user = new \CMEsteban\Entity\User('newUserName');
+        $user = new User('newUserName');
         $user->setEmail('email@email.com');
         $user->setPass('newUserPass');
 

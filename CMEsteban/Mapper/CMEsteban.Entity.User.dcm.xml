@@ -4,7 +4,7 @@
     http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
     <entity name="CMEsteban\Entity\User" table="users">
-        <field name="email" type="string" />
+        <field name="email" type="string" unique="true" />
         <field name="pass" type="string" />
         <field name="level" type="integer" />
     </entity>

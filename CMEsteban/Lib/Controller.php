@@ -196,29 +196,13 @@ class Controller
     {
         $result = false;
         $newId = $newUser->getId();
-        $newNameUser = $this->getUserByName($newUser->getName());
-        $newEmailUser = $this->getUserByEmail($newUser->getEmail());
         $currentUser = $this->getCurrentUser();
 
-        if (
-            is_null($newId)
-            && !$newNameUser
-            && !$newEmailUser
-        ) {
+        if (is_null($newId)) {
             Mapper::save($newUser);
             Mapper::commit();
             $result = true;
-        } elseif (
-            $currentUser
-            && $currentUser->getId() === $newId
-            && (
-                !$newNameUser
-                || $newNameUser === $currentUser
-            ) && (
-                !$newEmailUser
-                || $newEmailUser === $currentUser
-            )
-        ) {
+        } elseif ($currentUser && $currentUser->getId() === $newId) {
             if (!$newUser->getPass()) {
                 $newUser->copyPass($currentUser->getPass());
             }

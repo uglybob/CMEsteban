@@ -10,8 +10,14 @@ class Mapper
     // {{{ constructor
     private function __construct()
     {
-        $settings = Setup::getSettings();
+        self::connect(Setup::getSettings());
+    }
+    // }}}
 
+    // {{{ connect
+    protected function connect($settings)
+    {
+        $conn = $settings['DbConn'];
         $config = \Doctrine\ORM\Tools\Setup::createXMLMetadataConfiguration(
             [
                 __DIR__ . '/../Mapper',
@@ -20,14 +26,17 @@ class Mapper
             $settings['DevMode']
         );
 
-        $conn = array(
-            'driver'   => 'pdo_mysql',
-            'user'     => $settings['DbUser'],
-            'password' => $settings['DbPass'],
-            'dbname'   => $settings['DbName'],
-            'host'     => $settings['DbHost'],
-        );
         self::$entityManager = \Doctrine\ORM\EntityManager::create($conn, $config);
+    }
+    // }}}
+    // {{{ getEntityManager
+    public static function getEntityManager()
+    {
+        if (!self::$entityManager) {
+            new Mapper();
+        }
+
+        return self::$entityManager;
     }
     // }}}
 
@@ -72,17 +81,6 @@ class Mapper
     public static function commit()
     {
         self::getEntityManager()->flush();
-    }
-    // }}}
-
-    // {{{ getEntityManager
-    public static function getEntityManager()
-    {
-        if (!self::$entityManager) {
-            new Mapper();
-        }
-
-        return self::$entityManager;
     }
     // }}}
 }

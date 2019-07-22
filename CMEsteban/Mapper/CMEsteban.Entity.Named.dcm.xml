@@ -4,6 +4,6 @@
     http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
     <mapped-superclass name="CMEsteban\Entity\Named">
-        <field name="name" type="string" />
+        <field name="name" type="string" unique="true" />
     </mapped-superclass>
 </doctrine-mapping>
