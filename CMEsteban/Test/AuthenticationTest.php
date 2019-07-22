@@ -2,6 +2,8 @@
 
 namespace CMEsteban\Test;
 
+use CMEsteban\Entity\User;
+
 class AuthenticationTest extends DatabaseTestCase
 {
     // {{{ setUp
@@ -16,6 +18,11 @@ class AuthenticationTest extends DatabaseTestCase
     // {{{ testLogin
     public function testLogin()
     {
+        $user = new User('userName');
+        $user->setPass('cmesteban_test_pass');
+
+        $this->insertData($user);
+
         $this->assertTrue($this->controller->login('userName', 'cmesteban_test_pass'));
         $this->assertEquals('userName', $this->controller->getCurrentUser()->getName());
     }

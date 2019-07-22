@@ -9,10 +9,6 @@ class Setup
         return [
             'Salt' => 'testSalt',
             'DevMode' => true,
-            'DbHost' => 'localhost',
-            'DbName' => $GLOBALS['DB_NAME'],
-            'DbUser' => $GLOBALS['DB_USER'],
-            'DbPass' => $GLOBALS['DB_PASS'],
         ];
     }
 }
@@ -20,24 +16,64 @@ class Setup
 class Mapper
 {
     // {{{ variables
-    protected static $entityManager;
+    protected static $data;
     // }}}
-    // {{{ constructor
-    private function __construct()
+
+    // {{{ reset
+    public function reset()
     {
-        $settings = Setup::getSettings();
+        self::$data = [];
     }
     // }}}
+    // {{{ insertData
+    public function insertData($data)
+    {
+        $class = get_class($data);
+
+        self::$data[$class][] = $data;
+        $id = count(self::$data[$class]);
+
+        $reflection = new \ReflectionClass('CMEsteban\Entity\Entity');
+        $property = $reflection->getProperty('id');
+        $property->setAccessible(true);
+        $property->setValue($data, $id);
+    }
+    // }}}
+    // {{{ match
+    public static function match($conditions, $object)
+    {
+        foreach ($conditions as $attribute => $value) {
+            $getter = 'get' . $attribute;
+
+            if ($object->$getter() != $value) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+    // }}}
+
     // {{{ find
     public static function find($class, $id, $showHidden = false)
     {
-        //return self::getEntityManager()->find('CMEsteban\Entity\\' . $class, $id);
+        return self::findOneBy($class, ['id' => $id], $showHidden);
     }
     // }}}
     // {{{ findOneBy
     public static function findOneBy($class, array $conditions, $showHidden = false)
     {
-        //return self::getEntityManager()->getRepository('CMEsteban\Entity\\' . $class)->findOneBy($conditions);
+        $class = 'CMEsteban\\Entity\\' . $class;
+
+        if (array_key_exists($class, self::$data)) {
+            foreach (self::$data[$class] as $id => $object) {
+                if (self::match($conditions, $object)) {
+                    return $object;
+                }
+            }
+        }
+
+        return null;
     }
     // }}}
     // {{{ findBy
@@ -63,16 +99,6 @@ class Mapper
     public static function commit()
     {
         //self::getEntityManager()->flush();
-    }
-    // }}}
-    // {{{ getEntityManager
-    public static function getEntityManager()
-    {
-        if (!self::$entityManager) {
-            new Mapper();
-        }
-
-        return self::$entityManager;
     }
     // }}}
 }
