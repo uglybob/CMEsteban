@@ -11,6 +11,7 @@ class AuthenticationTest extends DatabaseTestCase
     {
         parent::setUp();
 
+        $_SESSION = [];
         $this->controller = new \CMEsteban\Lib\Controller();
     }
     // }}}
@@ -20,7 +21,8 @@ class AuthenticationTest extends DatabaseTestCase
     {
         $user = new User('userName');
         $user->setPass('cmesteban_test_pass');
-        $this->insertData($user);
+        $user->setEmail('cmesteban_test_pass');
+        $this->save($user);
 
         $this->assertTrue($this->controller->login('userName', 'cmesteban_test_pass'));
         $this->assertEquals('userName', $this->controller->getCurrentUser()->getName());
@@ -29,6 +31,11 @@ class AuthenticationTest extends DatabaseTestCase
     // {{{ testLoginFailUser
     public function testLoginFailUser()
     {
+        $user = new User('userName');
+        $user->setPass('cmesteban_test_pass');
+        $user->setEmail('cmesteban_test_pass');
+        $this->save($user);
+
         $this->assertFalse($this->controller->login('unknownuser', 'cmesteban_test_pass'));
         $this->assertNull($this->controller->getCurrentUser());
     }
@@ -36,6 +43,11 @@ class AuthenticationTest extends DatabaseTestCase
     // {{{ testLoginFailPass
     public function testLoginFailPass()
     {
+        $user = new User('userName');
+        $user->setPass('cmesteban_test_pass');
+        $user->setEmail('cmesteban_test_pass');
+        $this->save($user);
+
         $this->assertFalse($this->controller->login('userName', 'wrong_pass'));
         $this->assertNull($this->controller->getCurrentUser());
     }

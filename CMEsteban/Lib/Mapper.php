@@ -10,13 +10,15 @@ class Mapper
     // {{{ constructor
     private function __construct()
     {
-        self::connect(Setup::getSettings());
+        self::connect();
     }
     // }}}
 
     // {{{ connect
-    protected function connect($settings)
+    public function connect()
     {
+        $settings = Setup::getSettings();
+
         $conn = $settings['DbConn'];
         $config = \Doctrine\ORM\Tools\Setup::createXMLMetadataConfiguration(
             [

@@ -11,7 +11,7 @@ class Setup
             'DevMode' => true,
             'DbConn' => [
                 'driver' => 'pdo_sqlite',
-                'path' => __DIR__ . '/test.sqlite',
+                'memory' => true,
             ]
         ];
     }
