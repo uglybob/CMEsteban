@@ -16,13 +16,20 @@ class AuthenticationTest extends DatabaseTestCase
     }
     // }}}
 
-    // {{{ testLogin
-    public function testLogin()
+    // {{{ addTestUser
+    public function addTestUser()
     {
         $user = new User('userName');
         $user->setPass('cmesteban_test_pass');
         $user->setEmail('cmesteban_test_pass');
         $this->save($user);
+    }
+    // }}}
+
+    // {{{ testLogin
+    public function testLogin()
+    {
+        $this->addTestUser();
 
         $this->assertTrue($this->controller->login('userName', 'cmesteban_test_pass'));
         $this->assertEquals('userName', $this->controller->getCurrentUser()->getName());
@@ -31,10 +38,7 @@ class AuthenticationTest extends DatabaseTestCase
     // {{{ testLoginFailUser
     public function testLoginFailUser()
     {
-        $user = new User('userName');
-        $user->setPass('cmesteban_test_pass');
-        $user->setEmail('cmesteban_test_pass');
-        $this->save($user);
+        $this->addTestUser();
 
         $this->assertFalse($this->controller->login('unknownuser', 'cmesteban_test_pass'));
         $this->assertNull($this->controller->getCurrentUser());
@@ -43,10 +47,7 @@ class AuthenticationTest extends DatabaseTestCase
     // {{{ testLoginFailPass
     public function testLoginFailPass()
     {
-        $user = new User('userName');
-        $user->setPass('cmesteban_test_pass');
-        $user->setEmail('cmesteban_test_pass');
-        $this->save($user);
+        $this->addTestUser();
 
         $this->assertFalse($this->controller->login('userName', 'wrong_pass'));
         $this->assertNull($this->controller->getCurrentUser());
@@ -69,6 +70,8 @@ class AuthenticationTest extends DatabaseTestCase
     // {{{ testRegisterDuplicateName
     public function testRegisterDuplicateName()
     {
+        $this->addTestUser();
+
         $user = new \CMEsteban\Entity\User('userName');
         $user->setEmail('email@email.com');
         $user->setPass('newUserPass');
@@ -79,6 +82,8 @@ class AuthenticationTest extends DatabaseTestCase
     // {{{ testRegisterDuplicateEmail
     public function testRegisterDuplicateEmail()
     {
+        $this->addTestUser();
+
         $user = new \CMEsteban\Entity\User('newUserName');
         $user->setEmail('user@cmesteban.net');
         $user->setPass('newUserPass');
