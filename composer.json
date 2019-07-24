@@ -12,17 +12,11 @@
     "config": {
         "preferred-install" : "dist"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/uglybob/depage-forms"
-        }
-    ],
     "require-dev": {
         "phpunit/phpunit": "*"
     },
     "require" : {
-        "depage/htmlform": "dev-master",
+        "depage/htmlform": "*",
         "matthiasmullie/minify": "*",
         "phpmailer/phpmailer": "*",
         "doctrine/orm": "*"
