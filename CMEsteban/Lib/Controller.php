@@ -205,7 +205,7 @@ class Controller
                 $result = true;
             } elseif ($currentUser && $currentUser->getId() === $newId) {
                 if (!$newUser->getPass()) {
-                    $newUser->copyPass($currentUser->getPass());
+                    $newUser->setPassHash($currentUser->getPass());
                 }
 
                 $currentUser = $newUser;

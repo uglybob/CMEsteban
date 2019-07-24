@@ -32,13 +32,13 @@ class User extends Named
     // {{{ setPass
     public function setPass($pass)
     {
-        $this->pass = $this->hash($pass);
+        $this->setPassHash($this->hash($pass));
     }
     // }}}
-    // {{{ copyPass
-    public function copyPass($pass)
+    // {{{ setPassHash
+    public function setPassHash($hash)
     {
-        $this->pass = $pass;
+        $this->pass = $hash;
     }
     // }}}
 
