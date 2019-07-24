@@ -27,6 +27,7 @@ class User extends Named
     // {{{ getPass
     protected function getPass()
     {
+        return $this->pass;
     }
     // }}}
     // {{{ setPass
@@ -51,7 +52,7 @@ class User extends Named
     // {{{ authenticate
     public function authenticate($pass)
     {
-        return password_verify($pass, $this->pass);
+        return password_verify($pass, $this->getPass());
     }
     // }}}
 }
