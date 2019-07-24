@@ -5,7 +5,6 @@ namespace CMEsteban\Lib;
 class Setup
 {
     protected static $settings = [
-        'Salt' => 'salt',
         'EnableRegistration' => true,
         'DevMode' => true,
         'DbHost' => 'localhost',

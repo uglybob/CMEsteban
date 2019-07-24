@@ -7,7 +7,6 @@ class Setup
     public static function getSettings()
     {
         return [
-            'Salt' => 'testSalt',
             'DevMode' => true,
             'DbConn' => [
                 'driver' => 'pdo_sqlite',

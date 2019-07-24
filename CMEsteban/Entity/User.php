@@ -45,10 +45,7 @@ class User extends Named
     // {{{ hash
     protected function hash($pass)
     {
-        $settings = \CMEsteban\Lib\Setup::getSettings();
-        $options = ['salt' => sha1($settings['Salt'])];
-
-        return password_hash($pass, PASSWORD_DEFAULT, $options);
+        return password_hash($pass, PASSWORD_DEFAULT);
     }
     // }}}
     // {{{ authenticate
