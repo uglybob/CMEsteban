@@ -13,15 +13,10 @@ class AuthenticationTest extends DatabaseTestCase
 
         $_SESSION = [];
         $this->controller = new \CMEsteban\Lib\Controller();
-    }
-    // }}}
 
-    // {{{ addTestUser
-    public function addTestUser()
-    {
         $user = new User('userName');
         $user->setPass('cmesteban_test_pass');
-        $user->setEmail('cmesteban_test_pass');
+        $user->setEmail('user@cmesteban.net');
         $this->save($user);
     }
     // }}}
@@ -29,8 +24,6 @@ class AuthenticationTest extends DatabaseTestCase
     // {{{ testLogin
     public function testLogin()
     {
-        $this->addTestUser();
-
         $this->assertTrue($this->controller->login('userName', 'cmesteban_test_pass'));
         $this->assertEquals('userName', $this->controller->getCurrentUser()->getName());
     }
@@ -38,8 +31,6 @@ class AuthenticationTest extends DatabaseTestCase
     // {{{ testLoginFailUser
     public function testLoginFailUser()
     {
-        $this->addTestUser();
-
         $this->assertFalse($this->controller->login('unknownuser', 'cmesteban_test_pass'));
         $this->assertNull($this->controller->getCurrentUser());
     }
@@ -47,8 +38,6 @@ class AuthenticationTest extends DatabaseTestCase
     // {{{ testLoginFailPass
     public function testLoginFailPass()
     {
-        $this->addTestUser();
-
         $this->assertFalse($this->controller->login('userName', 'wrong_pass'));
         $this->assertNull($this->controller->getCurrentUser());
     }
@@ -70,8 +59,6 @@ class AuthenticationTest extends DatabaseTestCase
     // {{{ testRegisterDuplicateName
     public function testRegisterDuplicateName()
     {
-        $this->addTestUser();
-
         $user = new \CMEsteban\Entity\User('userName');
         $user->setEmail('email@email.com');
         $user->setPass('newUserPass');
@@ -82,8 +69,6 @@ class AuthenticationTest extends DatabaseTestCase
     // {{{ testRegisterDuplicateEmail
     public function testRegisterDuplicateEmail()
     {
-        $this->addTestUser();
-
         $user = new \CMEsteban\Entity\User('newUserName');
         $user->setEmail('user@cmesteban.net');
         $user->setPass('newUserPass');
@@ -113,6 +98,11 @@ class AuthenticationTest extends DatabaseTestCase
     // {{{ testEditUserDuplicateName
     public function testEditUserDuplicateName()
     {
+        $user = new User('userName2');
+        $user->setPass('cmesteban_test_pass');
+        $user->setEmail('user2@cmesteban.net');
+        $this->save($user);
+
         $this->assertTrue($this->controller->login('userName', 'cmesteban_test_pass'));
 
         $user = $this->controller->getCurrentUser();
@@ -127,6 +117,11 @@ class AuthenticationTest extends DatabaseTestCase
     // {{{ testEditUserDuplicateEmail
     public function testEditUserDuplicateEmail()
     {
+        $user = new User('userName2');
+        $user->setPass('cmesteban_test_pass');
+        $user->setEmail('user2@cmesteban.net');
+        $this->save($user);
+
         $this->assertTrue($this->controller->login('userName', 'cmesteban_test_pass'));
 
         $user = $this->controller->getCurrentUser();
