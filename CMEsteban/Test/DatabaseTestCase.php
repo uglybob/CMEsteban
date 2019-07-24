@@ -34,11 +34,16 @@ class DatabaseTestCase extends \PHPUnit\Framework\TestCase
     protected function setUp() : void
     {
         $em = Mapper::getEntityManager();
-        $conn = $em->getConnection();
-        $sm = $conn->getSchemaManager();
 
-        foreach($sm->listTableNames() as $tableName) {
-            $conn->prepare('DELETE FROM ' . $tableName)->execute();
+        if ($em->isOpen()) {
+            $conn = $em->getConnection();
+            $sm = $conn->getSchemaManager();
+
+            foreach($sm->listTableNames() as $tableName) {
+                $conn->prepare('DELETE FROM ' . $tableName)->execute();
+            }
+        } else {
+            $this->setUpBeforeClass();
         }
     }
     // }}}

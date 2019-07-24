@@ -198,20 +198,22 @@ class Controller
         $newId = $newUser->getId();
         $currentUser = $this->getCurrentUser();
 
-        if (is_null($newId)) {
-            Mapper::save($newUser);
-            Mapper::commit();
-            $result = true;
-        } elseif ($currentUser && $currentUser->getId() === $newId) {
-            if (!$newUser->getPass()) {
-                $newUser->copyPass($currentUser->getPass());
-            }
+        try {
+            if (is_null($newId)) {
+                Mapper::save($newUser);
+                Mapper::commit();
+                $result = true;
+            } elseif ($currentUser && $currentUser->getId() === $newId) {
+                if (!$newUser->getPass()) {
+                    $newUser->copyPass($currentUser->getPass());
+                }
 
-            $currentUser = $newUser;
-            Mapper::save($newUser);
-            Mapper::commit();
-            $result = true;
-        }
+                $currentUser = $newUser;
+                Mapper::save($newUser);
+                Mapper::commit();
+                $result = true;
+            }
+        } catch (\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {}
 
         return $result;
     }
