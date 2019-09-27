@@ -75,19 +75,40 @@ class Mapper
     // {{{ find
     public static function find($class, $id, $showHidden = false)
     {
-        return self::getEntityManager()->find('CMEsteban\Entity\\' . $class, $id);
+        try {
+            $result = self::getEntityManager()->find('CMEsteban\Entity\\' . $class, $id);
+        } catch (\Doctrine\DBAL\Exception\TableNotFoundException $e) {
+            self::init();
+            $result = self::getEntityManager()->find('CMEsteban\Entity\\' . $class, $id);
+        }
+
+        return $result;
     }
     // }}}
     // {{{ findOneBy
     public static function findOneBy($class, array $conditions, $showHidden = false)
     {
-        return self::getEntityManager()->getRepository('CMEsteban\Entity\\' . $class)->findOneBy($conditions);
+        try {
+            $result = self::getEntityManager()->getRepository('CMEsteban\Entity\\' . $class)->findOneBy($conditions);
+        } catch (\Doctrine\DBAL\Exception\TableNotFoundException $e) {
+            self::init();
+            $result = self::getEntityManager()->getRepository('CMEsteban\Entity\\' . $class)->findOneBy($conditions);
+        }
+
+        return $result;
     }
     // }}}
     // {{{ findBy
     public static function findBy($class, array $conditions, $showHidden = false, array $order = [])
     {
-        return self::getEntityManager()->getRepository('CMEsteban\Entity\\' . $class)->findBy($conditions, $order);
+        try {
+            $result = self::getEntityManager()->getRepository('CMEsteban\Entity\\' . $class)->findBy($conditions, $order);
+        } catch (\Doctrine\DBAL\Exception\TableNotFoundException $e) {
+            self::init();
+            $result = self::getEntityManager()->getRepository('CMEsteban\Entity\\' . $class)->findBy($conditions, $order);
+        }
+
+        return $result;
     }
     // }}}
     // {{{ findAll
@@ -96,10 +117,17 @@ class Mapper
         $entityClass = 'CMEsteban\Entity\\' . $class;
 
         if ($showHidden) {
-            return self::getEntityManager()->getRepository($entityClass)->findAll();
+            try {
+                $result = self::getEntityManager()->getRepository($entityClass)->findAll();
+            } catch (\Doctrine\DBAL\Exception\TableNotFoundException $e) {
+                self::init();
+                $result = self::getEntityManager()->getRepository($entityClass)->findAll();
+            }
         } else {
-            return self::getEntityManager()->getRepository($entityClass)->findBy(['deleted' => 'false']);
+            $result = self::findBy($class, ['deleted' => 'false'], $showHidden);
         }
+
+        return $result;
     }
     // }}}
 

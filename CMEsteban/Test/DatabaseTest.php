@@ -38,7 +38,23 @@ class DatabaseTest extends \PHPUnit\Framework\TestCase
 
         $em = Mapper::getEntityManager();
         $conn = $em->getConnection();
+        $sm = $conn->getSchemaManager();
 
+        $this->assertTrue($sm->tablesExist(['users']));
+        $this->assertTrue($sm->tablesExist(['pages']));
+        $this->assertTrue($sm->tablesExist(['logs']));
+        $this->assertFalse($sm->tablesExist(['notatable']));
+    }
+    // }}}
+    // {{{ testInitTrigger
+    public function testInitTrigger()
+    {
+        Mapper::connect();
+
+        Mapper::findAll('Page');
+
+        $em = Mapper::getEntityManager();
+        $conn = $em->getConnection();
         $sm = $conn->getSchemaManager();
 
         $this->assertTrue($sm->tablesExist(['users']));
