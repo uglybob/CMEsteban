@@ -5,12 +5,15 @@ namespace CMEsteban\Lib;
 class Setup
 {
     protected static $settings = [
-        'EnableRegistration' => true,
         'DevMode' => true,
-        'DbHost' => 'localhost',
-        'DbName' => '',
-        'DbUser' => '',
-        'DbPass' => '',
+        'EnableRegistration' => true,
+        'DbConn' => [
+            'driver' => 'pdo_mysql',
+            'host' => 'changehost',
+            'dbname' => 'changedbname',
+            'user' => 'changeuser',
+            'password' => 'changepassword',
+        ]
     ];
 
     public static function getSettings()
