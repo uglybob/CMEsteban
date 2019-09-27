@@ -14,6 +14,38 @@ class Mapper
     }
     // }}}
 
+    // {{{ init
+    public static function init()
+    {
+        $path = __DIR__ . '/../Entity/*.php';
+        $classes = [];
+
+        foreach (glob($path) as $file) {
+            $class = '\CMEsteban\Entity\\' . basename($file, '.php');
+            $reflectionClass = new \ReflectionClass($class);
+
+            if ($reflectionClass->isInstantiable()) {
+                $classes[] = $class;
+            }
+        }
+
+        $em = Mapper::getEntityManager();
+        $conn = $em->getConnection();
+        $conn->getConfiguration()->setSQLLogger(null);
+
+        $sm = $conn->getSchemaManager();
+
+        $metadata = [];
+        foreach ($classes as $class) {
+            array_push($metadata, $em->getClassMetadata($class));
+        }
+        $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($em);
+        $schemaTool->dropSchema($metadata);
+        $schemaTool->createSchema($metadata);
+
+        var_dump($metadata);
+    }
+    // }}}
     // {{{ connect
     public function connect()
     {

@@ -2,7 +2,7 @@
 
 namespace CMEsteban\Entity;
 
-class PrivateEntity extends Entity
+abstract class PrivateEntity extends Entity
 {
     protected $user;
 

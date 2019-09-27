@@ -2,7 +2,7 @@
 
 namespace CMEsteban\Entity;
 
-class Named extends Entity
+abstract class Named extends Entity
 {
     protected $name;
 

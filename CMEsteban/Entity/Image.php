@@ -5,7 +5,7 @@ namespace CMEsteban\Entity;
 use CMEsteban\Page\Module\HTML;
 use CMEsteban\Lib\Setup;
 
-class Image extends Named
+abstract class Image extends Named
 {
     protected $alt;
     protected $level;
