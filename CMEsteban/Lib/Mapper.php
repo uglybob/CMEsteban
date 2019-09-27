@@ -42,8 +42,6 @@ class Mapper
         $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($em);
         $schemaTool->dropSchema($metadata);
         $schemaTool->createSchema($metadata);
-
-        var_dump($metadata);
     }
     // }}}
     // {{{ connect

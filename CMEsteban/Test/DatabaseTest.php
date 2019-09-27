@@ -16,7 +16,6 @@ class DatabaseTest extends \PHPUnit\Framework\TestCase
         $em = Mapper::getEntityManager();
         $conn = $em->getConnection();
         $conn->getConfiguration()->setSQLLogger(null);
-
         $sm = $conn->getSchemaManager();
 
         $metadata = [];
@@ -25,6 +24,9 @@ class DatabaseTest extends \PHPUnit\Framework\TestCase
         }
         $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($em);
         $schemaTool->dropSchema($metadata);
+        $this->assertFalse($sm->tablesExist(['users']));
+        $this->assertFalse($sm->tablesExist(['pages']));
+        $this->assertFalse($sm->tablesExist(['logs']));
     }
     // }}}
 
@@ -33,6 +35,16 @@ class DatabaseTest extends \PHPUnit\Framework\TestCase
     {
         Mapper::connect();
         Mapper::init();
+
+        $em = Mapper::getEntityManager();
+        $conn = $em->getConnection();
+
+        $sm = $conn->getSchemaManager();
+
+        $this->assertTrue($sm->tablesExist(['users']));
+        $this->assertTrue($sm->tablesExist(['pages']));
+        $this->assertTrue($sm->tablesExist(['logs']));
+        $this->assertFalse($sm->tablesExist(['notatable']));
     }
     // }}}
 }
