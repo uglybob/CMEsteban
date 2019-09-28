@@ -40,7 +40,6 @@ class Mapper
             array_push($metadata, $em->getClassMetadata($class));
         }
         $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($em);
-        $schemaTool->dropSchema($metadata);
         $schemaTool->createSchema($metadata);
     }
     // }}}
