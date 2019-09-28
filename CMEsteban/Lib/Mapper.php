@@ -2,6 +2,9 @@
 
 namespace CMEsteban\Lib;
 
+use CMEsteban\Entity\User;
+use CMEsteban\Entity\Page;
+
 class Mapper
 {
     // {{{ variables
@@ -41,6 +44,22 @@ class Mapper
         }
         $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($em);
         $schemaTool->createSchema($metadata);
+
+        $admin = new User('sebastian');
+        $admin->setPass('itsreallyme');
+        $admin->setEmail('sebastian@cmesteban.test');
+        $admin->setLevel(5);
+        self::save($admin);
+
+        self::save(new Page('cache', 'Cache'));
+        self::save(new Page('delete', 'Delete'));
+        self::save(new Page('edit', 'Edit'));
+        self::save(new Page('home', 'Home'));
+        self::save(new Page('login', 'Login'));
+        self::save(new Page('pages', 'Pages'));
+        self::save(new Page('user', 'User'));
+
+        self::commit();
     }
     // }}}
     // {{{ connect

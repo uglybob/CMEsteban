@@ -44,6 +44,9 @@ class DatabaseTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($sm->tablesExist(['pages']));
         $this->assertTrue($sm->tablesExist(['logs']));
         $this->assertFalse($sm->tablesExist(['notatable']));
+
+        $this->controller = new \CMEsteban\Lib\Controller();
+        $this->assertTrue($this->controller->login('sebastian', 'itsreallyme'));
     }
     // }}}
     // {{{ testInitTrigger
