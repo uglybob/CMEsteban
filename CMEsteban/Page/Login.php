@@ -2,8 +2,6 @@
 
 namespace CMEsteban\Page;
 
-use CMEsteban\Page\Module\Login;
-
 class Login extends Page
 {
     // {{{ hookConstructor
@@ -11,7 +9,7 @@ class Login extends Page
     {
         parent::hookConstructor();
 
-        $this->loginModule = new Login($this->controller, $this);
+        $this->loginModule = new \CMEsteban\Page\Module\Login($this->controller, $this);
         $this->cacheable = false;
         $this->title = 'Login';
     }
