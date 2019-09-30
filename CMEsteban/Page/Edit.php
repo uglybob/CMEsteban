@@ -4,7 +4,7 @@ namespace CMEsteban\Page;
 
 use CMEsteban\Page\Module\EditObject;
 
-class CMEstebanEdit extends Backend
+class Edit extends Backend
 {
     // {{{ hookConstructor
     public function hookConstructor()

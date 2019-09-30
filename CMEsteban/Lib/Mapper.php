@@ -142,7 +142,7 @@ class Mapper
                 $result = self::getEntityManager()->getRepository($entityClass)->findAll();
             }
         } else {
-            $result = self::findBy($class, ['deleted' => 'false'], $showHidden);
+            $result = self::findBy($class, ['deleted' => false], $showHidden);
         }
 
         return $result;
