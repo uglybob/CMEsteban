@@ -13,7 +13,7 @@ abstract class Form
     // {{{ toString
     public function __toString()
     {
-        return $this->form->__toString();
+        return preg_replace('~>\\s+<~m', '><', $this->form->__toString());
     }
     // }}}
 }
