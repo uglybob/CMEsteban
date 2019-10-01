@@ -2,8 +2,6 @@
 
 namespace CMEsteban\Page;
 
-use CMEsteban\Page\Module\User;
-
 class User extends Page
 {
     // {{{ hookConstructor
@@ -11,7 +9,7 @@ class User extends Page
     {
         parent::hookConstructor();
 
-        $this->userModule = new User($this->controller, $this);
+        $this->userModule = new \CMEsteban\Page\Module\User($this->controller, $this);
         $this->cacheable = false;
 
         $user = $this->controller->getCurrentUser();

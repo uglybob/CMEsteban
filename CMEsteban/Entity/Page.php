@@ -8,7 +8,7 @@ class Page extends Entity
     protected $page;
 
     // {{{ constructor
-    public function __construct($request, $page)
+    public function __construct($request = null, $page = null)
     {
         parent::__construct();
 
