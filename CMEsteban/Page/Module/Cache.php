@@ -20,7 +20,7 @@ class Cache extends Form
 
         $this->form = new \Depage\HtmlForm\HtmlForm('clear' , ['label' => 'clear']);
         $this->form->addHTML($rendered);
-        $this->form->addBoolean('sure', ['label' => $name . ' sure?'])->setRequired();
+        $this->form->addBoolean('sure', ['label' => 'sure?'])->setRequired();
         $this->form->process();
 
         if ($this->form->validate()) {
