@@ -2,7 +2,7 @@
 
 namespace CMEsteban\Page;
 
-class User extends Page
+class User extends Home
 {
     // {{{ hookConstructor
     public function hookConstructor()

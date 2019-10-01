@@ -2,9 +2,6 @@
 
 namespace CMEsteban\Page;
 
-use CMEsteban\Page\Module\HTML;
-use CMEsteban\Lib\Mapper;
-
 class Image extends Page
 {
     // {{{ render
