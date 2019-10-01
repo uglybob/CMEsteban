@@ -16,7 +16,7 @@ class Home extends Page
 
         if ($user) {
             $links = [
-                'home' => '',
+                'home' => '/',
                 'pages' => 'pages',
                 'cache' => 'cache',
                 $user->getName() => 'user',
