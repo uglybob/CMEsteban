@@ -46,7 +46,7 @@ class Mapper
         $schemaTool->createSchema($metadata);
 
         $admin = new User('sebastian');
-        $admin->setPass('itsreallyme');
+        $admin->setPass('yesitsreallyme');
         $admin->setEmail('sebastian@cmesteban.test');
         $admin->setLevel(5);
         self::save($admin);
