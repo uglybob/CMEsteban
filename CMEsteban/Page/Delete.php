@@ -17,7 +17,7 @@ class Delete extends Backend
     // {{{ renderContent
     public function renderContent()
     {
-        return $this->deleteModule;
+        return parent::renderContent() . $this->deleteModule;
     }
     // }}}
 }

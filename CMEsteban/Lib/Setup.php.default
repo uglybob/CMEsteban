@@ -6,6 +6,7 @@ class Setup
 {
     protected static $settings = [
         'DevMode' => true,
+        'CacheTime' => 1800,
         'EnableRegistration' => true,
         'DbConn' => [
             'driver' => 'pdo_mysql',
@@ -16,8 +17,22 @@ class Setup
         ]
     ];
 
-    public static function getSettings()
+    public static function getSettings($setting = null)
     {
-        return self::$settings;
+        $result = null;
+        $settings = self::$settings;
+        $settings['Path'] = realpath(__DIR__ . "/../..") . '/';
+
+        if (!is_null($setting)) {
+            if (isset($settings[$setting])) {
+                $result = $settings[$setting];
+            } else {
+                throw new \CMEsteban\Exception\CMEstebanException("$setting unset");
+            }
+        } else {
+            $result = $settings;
+        }
+
+        return $result;
     }
 }

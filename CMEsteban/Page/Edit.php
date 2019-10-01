@@ -17,7 +17,7 @@ class Edit extends Backend
     // {{{ renderContent
     public function renderContent()
     {
-        return $this->editModule;
+        return parent::renderContent() . $this->editModule;
     }
     // }}}
 }

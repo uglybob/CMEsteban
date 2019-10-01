@@ -9,7 +9,7 @@ class Cache extends Backend
     // {{{ renderContent
     public function renderContent()
     {
-        $rendered = '';
+        $rendered = parent::renderContent();
 
         if ($this->getPath(1) == 'delete') {
             $result = (\CMEsteban\Lib\Cache::clear()) ? 'Success' : 'Error';

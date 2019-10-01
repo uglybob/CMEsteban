@@ -24,7 +24,7 @@ class User extends Page
     // {{{ renderContent
     public function renderContent()
     {
-        return $this->userModule;
+        return parent::renderContent() . $this->userModule;
     }
     // }}}
 }

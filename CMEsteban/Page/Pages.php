@@ -11,7 +11,7 @@ class Pages extends Backend
     // {{{ renderContent
     public function renderContent()
     {
-        return new ObjectList($this, $this->controller->getPages(), 'page', true, 'delete');
+        return parent::renderContent() . (new ObjectList($this, $this->controller->getPages(), 'page', true, 'delete'));
     }
     // }}}
 }

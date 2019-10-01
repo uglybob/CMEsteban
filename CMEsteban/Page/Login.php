@@ -17,7 +17,7 @@ class Login extends Page
     // {{{ renderContent
     public function renderContent()
     {
-        return $this->loginModule;
+        return parent::renderContent() . $this->loginModule;
     }
     // }}}
 }

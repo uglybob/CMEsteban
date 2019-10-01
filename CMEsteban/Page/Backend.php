@@ -2,6 +2,6 @@
 
 namespace CMEsteban\Page;
 
-abstract class Backend extends Page {
+abstract class Backend extends Home {
     protected $accessLevel = 1;
 }
