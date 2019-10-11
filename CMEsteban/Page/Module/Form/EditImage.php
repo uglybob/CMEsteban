@@ -21,16 +21,16 @@ class EditImage extends EditForm
     {
         $values = $this->form->getValues();
 
-        $this->controller->editImage($this->object);
+        $this->controller->editImage($this->entity);
     }
     // }}}
     // {{{ populate
     protected function populate()
     {
         $values = [
-            'Name' => $this->object->getName(),
-            'Alt' => $this->object->getAlt(),
-            'Level' => $this->object->getLevel(),
+            'Name' => $this->entity->getName(),
+            'Alt' => $this->entity->getAlt(),
+            'Level' => $this->entity->getLevel(),
         ];
 
         $this->form->populate($values);

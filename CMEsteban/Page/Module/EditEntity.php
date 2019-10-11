@@ -2,7 +2,7 @@
 
 namespace CMEsteban\Page\Module;
 
-class EditObject extends Form
+class EditEntity extends Form
 {
     // {{{ constructor
     public function __construct($controller, $page)

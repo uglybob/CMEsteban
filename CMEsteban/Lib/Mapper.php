@@ -150,9 +150,9 @@ class Mapper
     // }}}
 
     // {{{ save
-    public static function save($object)
+    public static function save($entity)
     {
-        return self::getEntityManager()->persist($object);
+        return self::getEntityManager()->persist($entity);
     }
     // }}}
     // {{{ commit

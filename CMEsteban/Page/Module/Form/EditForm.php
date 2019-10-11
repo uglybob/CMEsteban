@@ -20,15 +20,15 @@ abstract class EditForm
     {
         $this->form = new \Depage\HtmlForm\HtmlForm('edit' . $this->class . $this->id, ['label' => 'save']);
 
-        $this->loadObject();
+        $this->loadEntity();
 
         $this->create();
 
-        if ($this->object) {
+        if ($this->entity) {
             $this->title = 'edit ' . $this->class;
         } else {
             $this->title = 'create ' . $this->class;
-            $this->instantiateObject();
+            $this->instantiateEntity();
         }
 
         $this->populate();
@@ -46,20 +46,20 @@ abstract class EditForm
     {
     }
     // }}}
-    // {{{ loadObject
-    protected function loadObject()
+    // {{{ loadEntity
+    protected function loadEntity()
     {
         if (!is_null($this->id)) {
             $getter = 'get' . ucfirst($this->class);
-            $this->object = $this->controller->$getter($this->id);
+            $this->entity = $this->controller->$getter($this->id);
         }
     }
     // }}}
-    // {{{ instantiateObject
-    protected function instantiateObject()
+    // {{{ instantiateEntity
+    protected function instantiateEntity()
     {
         $classString = 'CMEsteban\\Entity\\' . $this->class;
-        $this->object = new $classString();
+        $this->entity = new $classString();
     }
     // }}}
     // {{{ redirect

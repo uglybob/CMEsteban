@@ -35,23 +35,23 @@ class UserForm extends EditForm
     {
         $values = $this->form->getValues();
 
-        $this->object->setName($values['Name']);
-        $this->object->setEmail($values['Email']);
+        $this->entity->setName($values['Name']);
+        $this->entity->setEmail($values['Email']);
 
         if (!empty($values['Pass'])) {
-            $this->object->setPass($values['Pass']);
+            $this->entity->setPass($values['Pass']);
         }
 
-        $this->controller->editUser($this->object);
+        $this->controller->editUser($this->entity);
     }
     // }}}
     // {{{ populate
     protected function populate()
     {
-        if ($this->object) {
+        if ($this->entity) {
             $values = [
-                'Name' => $this->object->getName(),
-                'Email' => $this->object->getEmail(),
+                'Name' => $this->entity->getName(),
+                'Email' => $this->entity->getEmail(),
             ];
 
             $this->form->populate($values);
@@ -59,17 +59,17 @@ class UserForm extends EditForm
     }
     // }}}
 
-    // {{{ instantiateObject
-    protected function instantiateObject()
+    // {{{ instantiateEntity
+    protected function instantiateEntity()
     {
-        $this->object = new \CMEsteban\Entity\User('');
+        $this->entity = new \CMEsteban\Entity\User('');
     }
     // }}}
 
-    // {{{ loadObject
-    protected function loadObject()
+    // {{{ loadEntity
+    protected function loadEntity()
     {
-        $this->object = $this->controller->getCurrentUser();
+        $this->entity = $this->controller->getCurrentUser();
     }
     // }}}
     // {{{ redirect

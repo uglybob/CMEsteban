@@ -18,18 +18,18 @@ class EditPage extends EditForm
     {
         $values = $this->form->getValues();
 
-        $this->object->setRequest($values['Request']);
-        $this->object->setPage($values['Page']);
+        $this->entity->setRequest($values['Request']);
+        $this->entity->setPage($values['Page']);
 
-        $this->controller->editPage($this->object);
+        $this->controller->editPage($this->entity);
     }
     // }}}
     // {{{ populate
     protected function populate()
     {
         $values = [
-            'Request' => $this->object->getRequest(),
-            'Page' => $this->object->getPage(),
+            'Request' => $this->entity->getRequest(),
+            'Page' => $this->entity->getPage(),
         ];
 
         $this->form->populate($values);

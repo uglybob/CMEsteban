@@ -49,9 +49,9 @@ class DatabaseTestCase extends \PHPUnit\Framework\TestCase
     // }}}
 
     // {{{ save
-    protected function save($object)
+    protected function save($entity)
     {
-        Mapper::save($object);
+        Mapper::save($entity);
         Mapper::commit();
     }
     // }}}

@@ -2,7 +2,7 @@
 
 namespace CMEsteban\Page;
 
-use CMEsteban\Page\Module\EditObject;
+use CMEsteban\Page\Module\EditEntity;
 
 class Edit extends Backend
 {
@@ -11,7 +11,7 @@ class Edit extends Backend
     {
         parent::hookConstructor();
 
-        $this->editModule = new EditObject($this->controller, $this);
+        $this->editModule = new EditEntity($this->controller, $this);
     }
     // }}}
     // {{{ renderContent

@@ -2,7 +2,7 @@
 
 namespace CMEsteban\Page;
 
-use CMEsteban\Page\Module\ObjectList;
+use CMEsteban\Page\Module\EntityList;
 
 class Pages extends Backend
 {
@@ -11,7 +11,7 @@ class Pages extends Backend
     // {{{ renderContent
     public function renderContent()
     {
-        return parent::renderContent() . (new ObjectList($this, $this->controller->getPages(), 'page', true, 'delete'));
+        return parent::renderContent() . (new EntityList($this, $this->controller->getPages(), 'page', true, 'delete'));
     }
     // }}}
 }

@@ -2,19 +2,19 @@
 
 namespace CMEsteban\Page\Module;
 
-class ObjectList
+class EntityList
 {
     // {{{ constructor
-    public function __construct($page, array $objects, $edit = null, $add = true, $delete = 'Delete')
+    public function __construct($page, array $entitys, $edit = null, $add = true, $delete = 'Delete')
     {
         $page->addStylesheet('/CMEsteban/Page/css/table.css');
 
         $this->list = '';
         $first = true;
 
-        foreach ($objects as $object) {
-            $properties = $this->getProperties($object);
-            $id = $object->getId();
+        foreach ($entitys as $entity) {
+            $properties = $this->getProperties($entity);
+            $id = $entity->getId();
 
             if ($first) {
                 $header = '';
@@ -63,9 +63,9 @@ class ObjectList
     // }}}
 
     // {{{ getProperties
-    public function getProperties($object)
+    public function getProperties($entity)
     {
-        return ['name' => $object];
+        return ['name' => $entity];
     }
     // }}}
 
