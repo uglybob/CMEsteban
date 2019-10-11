@@ -27,7 +27,7 @@ class Setup
             if (isset($settings[$setting])) {
                 $result = $settings[$setting];
             } else {
-                throw new \CMEsteban\Exception\CMEstebanException("$setting unset");
+                throw new \CMEsteban\Exception\CMEstebanException("unknown setting: $setting");
             }
         } else {
             $result = $settings;
