@@ -5,8 +5,10 @@ namespace CMEsteban\Page\Module;
 class Menu
 {
     // {{{ constructor
-    public function __construct($links = [])
+    public function __construct($page, $links = [])
     {
+        $page->addStylesheet('/vendor/uglybob/cmesteban/CMEsteban/Page/css/menu.css');
+
         $this->links = $links;
     }
     // }}}
@@ -21,7 +23,7 @@ class Menu
             );
         }
 
-        return Html::div(['class' => 'menu'], $menu);
+        return Html::div(['class' => 'cmenu'], $menu);
     }
     // }}}
 }

@@ -30,7 +30,7 @@ class Home extends Page
             ];
         }
 
-        return new Menu($links);
+        return new Menu($this, $links);
     }
     // }}}
 }
