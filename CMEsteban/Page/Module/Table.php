@@ -41,6 +41,18 @@ class Table
     }
     // }}}
 
+    // {{{ formatArray
+    public static function formatArray(array $input)
+    {
+        $result = [];
+
+        foreach ($input as $key => $value) {
+            $result[] = [$key, $value];
+        }
+
+        return $result;
+    }
+    // }}}
     // {{{ toString
     public function __toString()
     {

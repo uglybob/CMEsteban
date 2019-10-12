@@ -24,7 +24,7 @@ class Home extends Page
             ];
         } else {
             $links = [
-                'home' => '',
+                'home' => '/',
                 'register' => 'user',
                 'login' => 'login',
             ];

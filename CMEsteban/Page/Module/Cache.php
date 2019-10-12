@@ -9,18 +9,13 @@ class Cache extends Form
     {
         parent::__construct($controller, $page);
 
-        $list = \CMEsteban\Lib\Cache::list();
-        $rendered = '';
+        $list = Table::formatArray(\CMEsteban\Lib\Cache::list());
+        $attributes = [0 => 'file', 1 => 'valid'];
 
-        if (is_array($list)) {
-            foreach ($list as $file => $valid) {
-                $rendered .= HTML::div($file . ' ' . $valid . 's');
-            }
-        }
+        $rendered = new Table($page, $list, $attributes);
 
         $this->form = new \Depage\HtmlForm\HtmlForm('clear' , ['label' => 'clear']);
         $this->form->addHTML($rendered);
-        $this->form->addBoolean('sure', ['label' => 'sure?'])->setRequired();
         $this->form->process();
 
         if ($this->form->validate()) {
