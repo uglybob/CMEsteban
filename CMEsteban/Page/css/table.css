@@ -1,0 +1,20 @@
+.ctable {
+    display: table;
+}
+
+.ctheader {
+    display: table-header-group;
+}
+
+.ctrow {
+    display: table-row;
+}
+
+.cthead {
+    border-bottom: 1px solid #444;
+}
+
+.ctcell, .cthead {
+    display: table-cell;
+    padding: 0px 20px 0px 0px;
+}

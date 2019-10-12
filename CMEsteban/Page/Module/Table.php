@@ -7,7 +7,7 @@ class Table
     // {{{ constructor
     public function __construct($page, array $items, array $attributes = [])
     {
-        $page->addStylesheet('/CMEsteban/Page/css/table.css');
+        $page->addStylesheet('/vendor/uglybob/cmesteban/CMEsteban/Page/css/table.css');
         $this->list = '';
 
         if (empty($attributes)) {
