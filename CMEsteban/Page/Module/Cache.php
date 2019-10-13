@@ -10,7 +10,7 @@ class Cache extends Form
         parent::__construct($controller, $page);
 
         $list = Table::formatArray(\CMEsteban\Lib\Cache::list());
-        $attributes = [0 => 'file', 1 => 'valid'];
+        $attributes = [0 => 'file', 1 => 'valid (s)'];
 
         $rendered = new Table($page, $list, $attributes);
 

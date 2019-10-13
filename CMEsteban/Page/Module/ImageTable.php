@@ -2,7 +2,7 @@
 
 namespace CMEsteban\Page\Module;
 
-class ImageList extends EntityList
+class ImageTable extends EntityTable
 {
     // {{{ getProperties
     public function getProperties($image)
