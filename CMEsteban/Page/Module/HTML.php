@@ -6,29 +6,32 @@ class HTML
 {
     // {{{ variables
     protected static $voidTags = [
-        'img',
-        'meta',
-        'link',
         'br',
+        'img',
+        'link',
+        'meta',
     ];
     protected static $nonVoidTags = [
-        'html',
-        'title',
-        'head',
-        'body',
         'a',
-        'p',
-        'label',
+        'body',
         'div',
-        'span',
-        'script',
         'h1',
         'h2',
         'h3',
         'h4',
         'h5',
         'h6',
+        'head',
+        'html',
         'iframe',
+        'label',
+        'li',
+        'nav',
+        'p',
+        'script',
+        'span',
+        'title',
+        'ul',
     ];
     // }}}
 

@@ -1,4 +1,9 @@
-.cmenu div {
+.cmenu li {
     display: inline;
-    margin-right: 1em;
+    padding-right: 0.6em;
+}
+.cmenu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }

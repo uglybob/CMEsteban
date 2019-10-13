@@ -18,12 +18,12 @@ class Menu
         $menu = '';
 
         foreach ($this->links as $title => $link) {
-            $menu .= HTML::div(
+            $menu .= HTML::li(
                 HTML::a(['href' => $link], $title)
             );
         }
 
-        return Html::div(['class' => 'cmenu'], $menu);
+        return HTML::nav(['class' => 'cmenu'], HTML::ul($menu));
     }
     // }}}
 }
