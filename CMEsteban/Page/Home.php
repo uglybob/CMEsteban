@@ -17,16 +17,16 @@ class Home extends Page
         if ($user) {
             $links = [
                 'home' => '/',
-                'pages' => 'pages',
-                'cache' => 'cache',
-                $user->getName() => 'user',
-                'logout' => 'login',
+                'pages' => '/pages',
+                'cache' => '/cache',
+                $user->getName() => '/user',
+                'logout' => '/login',
             ];
         } else {
             $links = [
                 'home' => '/',
-                'register' => 'user',
-                'login' => 'login',
+                'register' => '/user',
+                'login' => '/login',
             ];
         }
 
