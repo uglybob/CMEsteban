@@ -2,12 +2,14 @@
 
 namespace CMEsteban\Page\Module;
 
-class Table
+class Table extends Module
 {
     // {{{ constructor
     public function __construct($page, array $items, array $attributes = [])
     {
-        $page->addStylesheet('/vendor/uglybob/cmesteban/CMEsteban/Page/css/table.css');
+        parent::__construct($page);
+
+        $this->page->addStylesheet('/vendor/uglybob/cmesteban/CMEsteban/Page/css/table.css');
         $this->list = '';
 
         if (empty($attributes)) {
@@ -27,14 +29,14 @@ class Table
         $this->list .= HTML::div(['.ctheader'], HTML::div(['.ctrow'], $header));
 
         foreach ($items as $item) {
-            $propertyList = '';
+            $properties = '';
 
             foreach ($attributes as $attribute => $caption) {
                 $class = preg_replace('/[^_\-a-z0-9]/i', '_', $caption);
-                $propertyList .= HTML::div([".$class", '.ctcell'], $item[$attribute]);
+                $properties .= HTML::div([".$class", '.ctcell'], $item[$attribute]);
             }
 
-            $this->list .= HTML::div(['.ctrow'], $propertyList);
+            $this->list .= HTML::div(['.ctrow'], $properties);
         }
 
         $this->list = HTML::div(['.ctable'], $this->list);

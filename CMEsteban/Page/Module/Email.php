@@ -2,13 +2,14 @@
 
 namespace CMEsteban\Page\Module;
 
-class Email
+class Email extends Module
 {
     // {{{ constructor
-    public function __construct($email, $page)
+    public function __construct($page, $email)
     {
+        parent::__construct($page);
+
         $this->email = $email;
-        $this->page = $page;
 
         $this->page->addScript('/CMEsteban/Page/js/lib.js');
         $this->page->addScript('/CMEsteban/Page/js/mail.js');

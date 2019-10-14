@@ -9,7 +9,7 @@ class Login extends Home
     {
         parent::hookConstructor();
 
-        $this->loginModule = new \CMEsteban\Page\Module\Login($this->controller, $this);
+        $this->loginModule = new \CMEsteban\Page\Module\Login($this, $this->controller);
         $this->cacheable = false;
         $this->title = 'Login';
     }

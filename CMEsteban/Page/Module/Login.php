@@ -8,9 +8,9 @@ use Depage\HtmlForm\HtmlForm;
 class Login extends Form
 {
     // {{{ constructor
-    public function __construct($controller, $page)
+    public function __construct($page, $controller)
     {
-        parent::__construct($controller, $page);
+        parent::__construct($page, $controller);
 
         $user = $controller->getCurrentUser();
 

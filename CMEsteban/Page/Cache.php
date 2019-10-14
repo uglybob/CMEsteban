@@ -16,7 +16,7 @@ class Cache extends Backend
             $rendered .= HTML::div($result);
         }
 
-        return $rendered . (new \CMEsteban\Page\Module\Cache($this->controller, $this));
+        return $rendered . (new \CMEsteban\Page\Module\Cache($this, $this->controller));
     }
     // }}}
 }

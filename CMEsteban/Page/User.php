@@ -9,7 +9,7 @@ class User extends Home
     {
         parent::hookConstructor();
 
-        $this->userModule = new \CMEsteban\Page\Module\User($this->controller, $this);
+        $this->userModule = new \CMEsteban\Page\Module\User($this, $this->controller);
         $this->cacheable = false;
 
         $user = $this->controller->getCurrentUser();

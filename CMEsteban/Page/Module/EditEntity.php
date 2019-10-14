@@ -5,9 +5,9 @@ namespace CMEsteban\Page\Module;
 class EditEntity extends Form
 {
     // {{{ constructor
-    public function __construct($controller, $page)
+    public function __construct($page, $controller)
     {
-        parent::__construct($controller, $page);
+        parent::__construct($page, $controller);
 
         $class = ucfirst($page->getPath(1));
         $formType = 'CMEsteban\Page\Module\Form\Edit' . $class;

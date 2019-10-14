@@ -11,7 +11,7 @@ class Delete extends Backend
     {
         parent::hookConstructor();
 
-        $this->deleteModule = new DeleteEntity($this->controller, $this);
+        $this->deleteModule = new DeleteEntity($this, $this->controller);
     }
     // }}}
     // {{{ renderContent

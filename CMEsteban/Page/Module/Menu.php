@@ -2,13 +2,14 @@
 
 namespace CMEsteban\Page\Module;
 
-class Menu
+class Menu extends Module
 {
     // {{{ constructor
     public function __construct($page, $links = [])
     {
-        $page->addStylesheet('/vendor/uglybob/cmesteban/CMEsteban/Page/css/menu.css');
+        parent::__construct($page);
 
+        $this->page->addStylesheet('/vendor/uglybob/cmesteban/CMEsteban/Page/css/menu.css');
         $this->links = $links;
     }
     // }}}

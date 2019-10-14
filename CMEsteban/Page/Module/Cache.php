@@ -5,9 +5,9 @@ namespace CMEsteban\Page\Module;
 class Cache extends Form
 {
     // {{{ constructor
-    public function __construct($controller, $page)
+    public function __construct($page, $controller)
     {
-        parent::__construct($controller, $page);
+        parent::__construct($page, $controller);
 
         $list = Table::formatArray(\CMEsteban\Lib\Cache::list());
         $attributes = [0 => 'file', 1 => 'valid (s)'];

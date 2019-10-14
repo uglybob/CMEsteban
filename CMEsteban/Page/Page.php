@@ -245,7 +245,7 @@ class Page
     {
         $email = $match[0];
 
-        return new Email($email, $this);
+        return new Email($this, $email);
     }
     // }}}
     // {{{ cleanText
