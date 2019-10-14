@@ -2,16 +2,14 @@
 
 namespace CMEsteban\Page;
 
-use CMEsteban\Page\Module\EntityTable;
+use CMEsteban\Page\Module\PageTable;
 
 class Pages extends Backend
 {
-    public $title = 'Pages';
-
     // {{{ renderContent
     public function renderContent()
     {
-        return parent::renderContent() . (new EntityTable($this, $this->controller->getPages(), 'page', true, 'delete'));
+        return parent::renderContent() . (new PageTable($this, $this->controller->getPages()));
     }
     // }}}
 }
