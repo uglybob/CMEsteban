@@ -11,8 +11,8 @@ class Email extends Module
 
         $this->email = $email;
 
-        $this->page->addScript('/CMEsteban/Page/js/lib.js');
-        $this->page->addScript('/CMEsteban/Page/js/mail.js');
+        $this->page->getTemplate()->addScript('/CMEsteban/Page/js/lib.js');
+        $this->page->getTemplate()->addScript('/CMEsteban/Page/js/mail.js');
     }
     // }}}
 

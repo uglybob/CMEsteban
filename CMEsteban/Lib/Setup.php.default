@@ -35,4 +35,8 @@ class Setup
 
         return $result;
     }
+
+    public static function getTemplate($page) {
+        return new \CMEsteban\Page\Template\CME();
+    }
 }

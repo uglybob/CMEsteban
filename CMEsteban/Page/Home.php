@@ -2,7 +2,6 @@
 
 namespace CMEsteban\Page;
 
-use CMEsteban\Page\Module\FilteredEventList;
 use CMEsteban\Page\Module\Menu;
 
 class Home extends Page
@@ -14,13 +13,6 @@ class Home extends Page
     {
         parent::hookConstructor();
 
-        $this->addStylesheet('/vendor/uglybob/cmesteban/CMEsteban/Page/css/cme.css');
-    }
-    // }}}
-
-    // {{{ renderContent
-    public function renderContent()
-    {
         $user = $this->controller->getCurrentUser();
 
         if ($user) {
@@ -39,7 +31,10 @@ class Home extends Page
             ];
         }
 
-        return new Menu($this, $links);
+        $menu = new Menu($this, $links);
+
+        $this->template->addContent('header', $menu);
+        $this->template->addContent('main', ':)');
     }
     // }}}
 }

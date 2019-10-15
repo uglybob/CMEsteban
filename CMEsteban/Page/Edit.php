@@ -11,13 +11,7 @@ class Edit extends Backend
     {
         parent::hookConstructor();
 
-        $this->editModule = new EditEntity($this, $this->controller);
-    }
-    // }}}
-    // {{{ renderContent
-    public function renderContent()
-    {
-        return parent::renderContent() . $this->editModule;
+        $this->template->addContent('main', new EditEntity($this, $this->controller));
     }
     // }}}
 }

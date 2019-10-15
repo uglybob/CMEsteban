@@ -9,7 +9,7 @@ class User extends Home
     {
         parent::hookConstructor();
 
-        $this->userModule = new \CMEsteban\Page\Module\User($this, $this->controller);
+        $this->template->addContent('main', new \CMEsteban\Page\Module\User($this, $this->controller));
         $this->cacheable = false;
 
         $user = $this->controller->getCurrentUser();
@@ -19,12 +19,6 @@ class User extends Home
         } else {
             $this->title = 'register';
         }
-    }
-    // }}}
-    // {{{ renderContent
-    public function renderContent()
-    {
-        return parent::renderContent() . $this->userModule;
     }
     // }}}
 }

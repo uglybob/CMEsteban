@@ -9,7 +9,7 @@ abstract class Form extends Module
     {
         parent::__construct($page);
 
-        $this->page->addStylesheet('/vendor/depage/htmlform/lib/css/depage-forms.css');
+        $this->page->getTemplate()->addStylesheet('/vendor/depage/htmlform/lib/css/depage-forms.css');
         $this->controller = $controller;
     }
     // }}}

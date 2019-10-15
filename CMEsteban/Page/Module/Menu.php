@@ -9,7 +9,7 @@ class Menu extends Module
     {
         parent::__construct($page);
 
-        $this->page->addStylesheet('/vendor/uglybob/cmesteban/CMEsteban/Page/css/menu.css');
+        $this->page->getTemplate()->addStylesheet('/vendor/uglybob/cmesteban/CMEsteban/Page/css/menu.css');
         $this->links = $links;
     }
     // }}}

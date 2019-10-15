@@ -6,10 +6,12 @@ use CMEsteban\Page\Module\HTML;
 
 class Cache extends Backend
 {
-    // {{{ renderContent
-    public function renderContent()
+    // {{{ hookConstructor
+    public function hookConstructor()
     {
-        return parent::renderContent() . (new \CMEsteban\Page\Module\Cache($this, $this->controller));
+        parent::hookConstructor();
+
+        $this->template->addContent('main', new \CMEsteban\Page\Module\Cache($this, $this->controller));
     }
     // }}}
 }

@@ -9,7 +9,7 @@ class Table extends Module
     {
         parent::__construct($page);
 
-        $this->page->addStylesheet('/vendor/uglybob/cmesteban/CMEsteban/Page/css/table.css');
+        $this->page->getTemplate()->addStylesheet('/vendor/uglybob/cmesteban/CMEsteban/Page/css/table.css');
         $this->list = '';
 
         if (empty($attributes)) {

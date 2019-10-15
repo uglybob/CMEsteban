@@ -6,10 +6,12 @@ use CMEsteban\Page\Module\PageTable;
 
 class Pages extends Backend
 {
-    // {{{ renderContent
-    public function renderContent()
+    // {{{ hookConstructor
+    public function hookConstructor()
     {
-        return parent::renderContent() . (new PageTable($this, $this->controller->getPages()));
+        parent::hookConstructor();
+
+        $this->template->addContent('main', new PageTable($this, $this->controller->getPages()));
     }
     // }}}
 }

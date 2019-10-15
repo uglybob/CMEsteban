@@ -5,6 +5,7 @@ namespace CMEsteban\Page;
 use CMEsteban\Page\Module\HTML;
 use CMEsteban\Page\Module\Email;
 use CMEsteban\Lib\Minify;
+use CMEsteban\Lib\Setup;
 
 class Page
 {
@@ -13,9 +14,6 @@ class Page
     protected $title = '';
     protected $description = '';
     protected $keywords = [];
-    protected $favicon = null;
-    protected $stylesheets = [];
-    protected $scripts = [];
     protected $accessLevel = 0;
     protected $path;
     protected $cacheable = false;
@@ -26,6 +24,7 @@ class Page
     {
         $this->controller = $controller;
         $this->path = $path;
+        $this->template = Setup::getTemplate($this);
         $this->controller->access($this->accessLevel);
 
         $this->hookConstructor();
@@ -64,20 +63,10 @@ class Page
     }
     // }}}
 
-    // {{{ addStylesheet
-    public function addStylesheet($stylesheet)
+    // {{{ getTemplate
+    public function getTemplate()
     {
-        if (!in_array($stylesheet, $this->stylesheets)) {
-            $this->stylesheets[] = $stylesheet;
-        }
-    }
-    // }}}
-    // {{{ addScript
-    public function addScript($script)
-    {
-        if (!in_array($script, $this->scripts)) {
-            $this->scripts[] = $script;
-        }
+        return $this->template;
     }
     // }}}
 
@@ -85,9 +74,10 @@ class Page
     protected function renderStylesheets()
     {
         $rendered = '';
+        $stylesheets = $this->template->getStylesheets();
 
-        if ($this->stylesheets) {
-            $handles = Minify::minify('css', $this->stylesheets);
+        if ($stylesheets) {
+            $handles = Minify::minify('css', $stylesheets);
 
             foreach ($handles as $handle) {
                 $rendered .= HTML::link([
@@ -105,9 +95,10 @@ class Page
     protected function renderScripts()
     {
         $rendered = '';
+        $scripts = $this->template->getScripts();
 
-        if ($this->scripts) {
-            $handles = Minify::minify('js', $this->scripts);
+        if ($scripts) {
+            $handles = Minify::minify('js', $scripts);
 
             foreach ($handles as $handle) {
                 $rendered .= HTML::script([
@@ -122,10 +113,12 @@ class Page
     // {{{ renderFavicon
     public function renderFavicon()
     {
-        if (!is_null($this->favicon)) {
+        $favicon = $this->template->getFavicon();
+
+        if (!is_null($favicon)) {
             $rendered = HTML::link([
                 'rel' => 'icon',
-                'href' => $this->favicon,
+                'href' => $favicon,
                 'type' => 'image/x-icon',
             ]);
         } else {
@@ -161,18 +154,6 @@ class Page
         return $head;
     }
     // }}}
-    // {{{ renderContent
-    protected function renderContent()
-    {
-        return '';
-    }
-    // }}}
-    // {{{ wrapContent
-    protected function wrapContent($content)
-    {
-        return HTML::div(['#content'], $content);
-    }
-    // }}}
 
     // {{{ isCacheable
     public function isCacheable()
@@ -185,11 +166,14 @@ class Page
     public function render()
     {
         // render content before head so module scripts are registered
-        $content = $this->wrapContent($this->renderContent());
+        $content = $this->template->render();
 
         return '<!DOCTYPE html>' .
             HTML::html(
-                $this->renderHead() . HTML::body($content)
+                $this->renderHead() .
+                HTML::body(
+                    HTML::div(['#content'], $content)
+                )
             );
     }
     // }}}
