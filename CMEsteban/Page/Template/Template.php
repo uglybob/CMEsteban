@@ -2,6 +2,8 @@
 
 namespace CMEsteban\Page\Template;
 
+use \CMEsteban\Page\Module\HTML;
+
 abstract class Template
 {
     // {{{ variables
@@ -56,9 +58,9 @@ abstract class Template
     // {{{ render
     public function render()
     {
-        $rendered  = (isset($this->content['header'])) ? $this->content['header'] : '';
-        $rendered .= (isset($this->content['main'])) ? $this->content['main'] : '';
-        $rendered .= (isset($this->content['footer'])) ? $this->content['footer'] : '';
+        $rendered  = (isset($this->content['header'])) ? HTML::div(['#header'], $this->content['header']) : '';
+        $rendered .= (isset($this->content['main'])) ? HTML::div(['#main'], $this->content['main']) : '';
+        $rendered .= (isset($this->content['footer'])) ? HTML::div(['#footer'], $this->content['footer']) : '';
 
         return $rendered;
     }
