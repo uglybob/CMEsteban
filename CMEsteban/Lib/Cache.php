@@ -87,7 +87,7 @@ class Cache
     }
     // }}}
     // {{{ getDir
-    protected function getDir()
+    public function getDir()
     {
         return Setup::getSettings('Path') . 'CMEsteban/Cache';
     }

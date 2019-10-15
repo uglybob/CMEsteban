@@ -9,7 +9,15 @@ class Cache extends Form
     {
         parent::__construct($page, $controller);
 
-        $list = Table::formatArray(\CMEsteban\Lib\Cache::list());
+        $cache = \CMEsteban\Lib\Cache::list();
+        $path = \CMEsteban\Lib\Cache::getDir();
+        $list = [];
+
+        foreach ($cache as $file => $valid) {
+            $list[str_replace("$path/", '', $file)] = $valid;
+        }
+
+        $list = Table::formatArray($list);
         $attributes = [0 => 'file', 1 => 'valid (s)'];
 
         $rendered = new Table($page, $list, $attributes);
