@@ -9,6 +9,15 @@ class Home extends Page
 {
     protected $cacheable = true;
 
+    // {{{ hookConstructor
+    public function hookConstructor()
+    {
+        parent::hookConstructor();
+
+        $this->addStylesheet('/vendor/uglybob/cmesteban/CMEsteban/Page/css/cme.css');
+    }
+    // }}}
+
     // {{{ renderContent
     public function renderContent()
     {
