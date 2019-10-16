@@ -34,7 +34,7 @@ class Home extends Page
         $menu = new Menu($this, $links);
 
         $this->template->addContent('header', $menu);
-        $this->template->addContent('main', ':)');
+        $this->template->addContent('main', 'hi :)');
     }
     // }}}
 }

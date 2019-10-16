@@ -1,4 +1,68 @@
+html, .ctrow:hover {
+    background-color: #eee;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
 html * {
-    font-family: Verdana, Tahoma, Arial, Helvetica, Sans-Serif;
-    font-size: 14px;
+    font-family: Arial, Helvetica, Sans-Serif;
+    font-size: 15px;
+    line-height: 22px;
+    text-decoration: none;
+    color: #333;
+}
+
+html a:hover {
+    color: #777;
+}
+
+body {
+    overflow-y: scroll;
+}
+
+#header {
+    padding-top: 50px;
+    padding-bottom: 40px;
+}
+
+.depage-form {
+    max-width: 100% !important;
+}
+
+#content {
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff;
+    max-width: 640px;
+    min-width: 160px;
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
+#content, body, html {
+    height: 100%;
+}
+
+.cmenu {
+    border-bottom: solid 1px #444;
+    text-transform: uppercase;
+}
+
+.ctable {
+    width: 100%;
+}
+
+.cthead {
+    border-bottom: 1px solid #ddd;
+}
+
+.ctrow:nth-child(2n) {
+    background-color: #fafafa;
+}
+
+.ctable, .cmenu {
+    padding-bottom: 30px;
 }
