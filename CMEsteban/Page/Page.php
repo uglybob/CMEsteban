@@ -165,14 +165,11 @@ class Page
     // {{{ render
     public function render()
     {
-        // render content before head so module scripts are registered
-        $content = $this->template->render();
-
         return '<!DOCTYPE html>' .
             HTML::html(
                 $this->renderHead() .
                 HTML::body(
-                    HTML::div(['#content'], $content)
+                    HTML::div(['#content'], $this->template->render())
                 )
             );
     }
