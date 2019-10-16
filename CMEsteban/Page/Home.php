@@ -3,6 +3,7 @@
 namespace CMEsteban\Page;
 
 use CMEsteban\Page\Module\Menu;
+use CMEsteban\Lib\Setup;
 
 class Home extends Page
 {
@@ -28,9 +29,12 @@ class Home extends Page
         } else {
             $links = [
                 'home' => '/',
-                'register' => '/user',
                 'login' => '/login',
             ];
+
+            if (Setup::getSettings('EnableRegistration')) {
+                $links['register'] = '/user';
+            }
         }
 
         $menu = new Menu($this, $links);

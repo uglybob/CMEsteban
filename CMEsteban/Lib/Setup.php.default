@@ -2,9 +2,10 @@
 
 namespace CMEsteban\Lib;
 
-class Setup
+class Setup extends Config
 {
     protected static $settings = [
+        'Path' => __DIR__,
         'DevMode' => true,
         'CacheTime' => 1800,
         'EnableRegistration' => true,
@@ -16,27 +17,4 @@ class Setup
             'password' => 'changepassword',
         ]
     ];
-
-    public static function getSettings($setting = null)
-    {
-        $result = null;
-        $settings = self::$settings;
-        $settings['Path'] = realpath(__DIR__ . "/../..") . '/';
-
-        if (!is_null($setting)) {
-            if (isset($settings[$setting])) {
-                $result = $settings[$setting];
-            } else {
-                throw new \CMEsteban\Exception\CMEstebanException("unknown setting: $setting");
-            }
-        } else {
-            $result = $settings;
-        }
-
-        return $result;
-    }
-
-    public static function getTemplate($page) {
-        return new \CMEsteban\Page\Template\CME();
-    }
 }
