@@ -14,13 +14,15 @@ class Home extends Page
         parent::hookConstructor();
 
         $user = $this->controller->getCurrentUser();
+        $name = '';
 
         if ($user) {
+            $name = $user->getName();
             $links = [
                 'home' => '/',
                 'pages' => '/pages',
                 'cache' => '/cache',
-                $user->getName() => '/user',
+                $name => '/user',
                 'logout' => '/login',
             ];
         } else {
@@ -34,7 +36,7 @@ class Home extends Page
         $menu = new Menu($this, $links);
 
         $this->template->addContent('header', $menu);
-        $this->template->addContent('main', 'hi :)');
+        $this->template->addContent('main', "hi $name :)");
     }
     // }}}
 }
