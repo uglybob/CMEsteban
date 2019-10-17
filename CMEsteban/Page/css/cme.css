@@ -21,7 +21,7 @@ body {
 
 #header {
     padding-top: 50px;
-    padding-bottom: 40px;
+    padding-bottom: 50px;
 }
 
 .depage-form {
@@ -70,6 +70,6 @@ html, .ctrow:hover {
     background-color: #eee;
 }
 
-.ctable, .cmenu {
-    padding-bottom: 30px;
+.cmenu {
+    padding-bottom: 13px;
 }
