@@ -2,20 +2,21 @@
 
 namespace CMEsteban\Page\Module;
 
+use CMEsteban\CMEsteban;
 use CMEsteban\Lib\Mapper;
 use CMEsteban\Page\Page;
 
 class DeleteEntity extends Form
 {
     // {{{ constructor
-    public function __construct($page, $controller)
+    public function __construct()
     {
-        parent::__construct($page, $controller);
+        parent::__construct();
 
-        $this->class = ucfirst($page->getPath(1));
-        $this->id = $page->getPath(2);
+        $this->class = ucfirst(CMEsteban::$page->getPath(1));
+        $this->id = CMEsteban::$page->getPath(2);
 
-        $entity = $controller->{'get' . $this->class}($this->id);
+        $entity = CMEsteban::$controller->{'get' . $this->class}($this->id);
 
         if (!$entity) {
             Page::redirect('/' . lcfirst($this->class) . 's');

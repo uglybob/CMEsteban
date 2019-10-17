@@ -2,16 +2,17 @@
 
 namespace CMEsteban\Page\Module;
 
+use CMEsteban\CMEsteban;
 use CMEsteban\Page\Module\Form\UserForm;
 
 class User extends Form
 {
     // {{{ constructor
-    public function __construct($page, $controller)
+    public function __construct()
     {
-        parent::__construct($page, $controller);
+        parent::__construct();
 
-        $this->form = new UserForm($controller, $page->getPath(1));
+        $this->form = new UserForm(CMEsteban::$page->getPath(1));
     }
     // }}}
 }

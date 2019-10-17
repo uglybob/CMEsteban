@@ -2,6 +2,7 @@
 
 namespace CMEsteban\Page\Module\Form;
 
+use CMEsteban\CMEsteban;
 use CMEsteban\Page\Page;
 
 class EditImage extends EditForm
@@ -21,7 +22,7 @@ class EditImage extends EditForm
     {
         $values = $this->form->getValues();
 
-        $this->controller->editImage($this->entity);
+        CMEsteban::$controller->editImage($this->entity);
     }
     // }}}
     // {{{ populate

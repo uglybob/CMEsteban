@@ -2,12 +2,13 @@
 
 namespace CMEsteban\Page\Module\Form;
 
+use CMEsteban\CMEsteban;
+
 abstract class EditForm
 {
     // {{{ constructor
-    public function __construct($controller, $class, $id)
+    public function __construct($class, $id)
     {
-        $this->controller = $controller;
         $this->id = $id;
         $this->class = $class;
 
@@ -51,7 +52,7 @@ abstract class EditForm
     {
         if (!is_null($this->id)) {
             $getter = 'get' . ucfirst($this->class);
-            $this->entity = $this->controller->$getter($this->id);
+            $this->entity = CMEsteban::$controller->$getter($this->id);
         }
     }
     // }}}

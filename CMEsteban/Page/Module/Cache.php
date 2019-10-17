@@ -5,9 +5,9 @@ namespace CMEsteban\Page\Module;
 class Cache extends Form
 {
     // {{{ constructor
-    public function __construct($page, $controller)
+    public function __construct()
     {
-        parent::__construct($page, $controller);
+        parent::__construct();
 
         $cache = \CMEsteban\Lib\Cache::list();
         $path = \CMEsteban\Lib\Cache::getDir();
@@ -20,7 +20,7 @@ class Cache extends Form
         $list = Table::formatArray($list);
         $attributes = [0 => 'file', 1 => 'valid (s)'];
 
-        $rendered = new Table($page, $list, $attributes);
+        $rendered = new Table($list, $attributes);
 
         $this->form = new \Depage\HtmlForm\HtmlForm('clear' , ['label' => 'clear']);
         $this->form->addHTML($rendered);

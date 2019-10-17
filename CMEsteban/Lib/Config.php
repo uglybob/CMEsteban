@@ -29,4 +29,9 @@ abstract class Config
         return new \CMEsteban\Page\Template\CME();
     }
     // }}}
+    // {{{ getController
+    public static function getController() {
+        return new \CMEsteban\Lib\Controller();
+    }
+    // }}}
 }

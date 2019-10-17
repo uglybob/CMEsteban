@@ -4,7 +4,13 @@ namespace CMEsteban;
 
 class CMEsteban
 {
-    public function __construct($controller = null)
+    protected static $instance = null;
+    public static $controller = null;
+    public static $page = null;
+    public static $template = null;
+
+    // {{{ constructor
+    private function __construct()
     {
         if (!session_id()) {
             @session_start();
@@ -13,23 +19,21 @@ class CMEsteban
         $request = isset($_GET['page']) ? $_GET['page'] : 'home';
         $request = ltrim($request, '/');
 
-        if (is_null($controller)) {
-            $controller = new Lib\Controller();
-        }
+        self::$controller = \CMEsteban\Lib\Setup::getController();
 
         $output = '';
 
         try {
-            $output = $controller->getPageByRequest($request);
+            $output = self::$controller->getPageByRequest($request);
         } catch (Exception\NotFoundException $e) {
             try {
-                $output = $controller->getPageByRequest('404');
+                $output = self::$controller->getPageByRequest('404');
             } catch (\Exception $se) {
                 $output = $e->getMessage();
             }
         } catch (Exception\AccessException $e) {
             try {
-                $output = $controller->getPageByRequest('403');
+                $output = self::$controller->getPageByRequest('403');
             } catch (\Exception $se) {
                 $output = $e->getMessage();
             }
@@ -43,4 +47,26 @@ class CMEsteban
 
         echo($output);
     }
+    // }}}
+    // {{{ init
+    public function init()
+    {
+        if (is_null(self::$instance)) {
+            self::$instance = new self();
+        }
+    }
+    // }}}
+
+    // {{{ setPage
+    public function setPage($page)
+    {
+        self::$page = $page;
+    }
+    // }}}
+    // {{{ setTemplate
+    public function setTemplate($template)
+    {
+        self::$template = $template;
+    }
+    // }}}
 }

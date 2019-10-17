@@ -2,6 +2,7 @@
 
 namespace CMEsteban\Page;
 
+use CMEsteban\CMEsteban;
 use CMEsteban\Page\Module\DeleteEntity;
 
 class Delete extends Backend
@@ -11,7 +12,7 @@ class Delete extends Backend
     {
         parent::hookConstructor();
 
-        $this->template->addContent('main', new DeleteEntity($this, $this->controller));
+        CMEsteban::$template->addContent('main', new DeleteEntity());
     }
     // }}}
 }

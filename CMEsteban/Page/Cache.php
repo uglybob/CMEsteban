@@ -2,6 +2,7 @@
 
 namespace CMEsteban\Page;
 
+use CMEsteban\CMEsteban;
 use CMEsteban\Page\Module\HTML;
 
 class Cache extends Backend
@@ -11,7 +12,7 @@ class Cache extends Backend
     {
         parent::hookConstructor();
 
-        $this->template->addContent('main', new \CMEsteban\Page\Module\Cache($this, $this->controller));
+        CMEsteban::$template->addContent('main', new \CMEsteban\Page\Module\Cache());
     }
     // }}}
 }

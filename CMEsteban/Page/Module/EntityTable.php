@@ -5,7 +5,7 @@ namespace CMEsteban\Page\Module;
 class EntityTable extends Table
 {
     // {{{ constructor
-    public function __construct($page, array $entities, $edit = null, $add = true, $delete = 'Delete')
+    public function __construct(array $entities, $edit = null, $add = true, $delete = 'Delete')
     {
         foreach ($entities as $entity) {
             $properties = $this->getProperties($entity);
@@ -24,7 +24,7 @@ class EntityTable extends Table
             $items[] = $properties;
         }
 
-        parent::__construct($page, $items);
+        parent::__construct($items);
 
         if ($add && $edit) {
             $this->list .= HTML::div(

@@ -2,6 +2,8 @@
 
 namespace CMEsteban\Page;
 
+use CMEsteban\CMEsteban;
+
 class User extends Home
 {
     // {{{ hookConstructor
@@ -9,10 +11,10 @@ class User extends Home
     {
         parent::hookConstructor();
 
-        $this->template->addContent('main', new \CMEsteban\Page\Module\User($this, $this->controller));
+        CMEsteban::$template->addContent('main', new \CMEsteban\Page\Module\User());
         $this->cacheable = false;
 
-        $user = $this->controller->getCurrentUser();
+        $user = CMEsteban::$controller->getCurrentUser();
 
         if ($user) {
             $this->title = $user->getName();

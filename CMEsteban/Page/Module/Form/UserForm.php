@@ -2,20 +2,21 @@
 
 namespace CMEsteban\Page\Module\Form;
 
+use CMEsteban\CMEsteban;
 use CMEsteban\Page\Page;
 
 class UserForm extends EditForm
 {
     // {{{ constructor
-    public function __construct($controller, $id)
+    public function __construct($id)
     {
         $settings = \CMEsteban\Lib\Setup::getSettings();
 
         if (
             $settings['EnableRegistration']
-            || $controller->getCurrentUser()
+            || CMEsteban::$controller->getCurrentUser()
         ) {
-            parent::__construct($controller, 'User', $id);
+            parent::__construct('User', $id);
         } else {
             $this->form = 'Registration disabled';
         }
@@ -42,7 +43,7 @@ class UserForm extends EditForm
             $this->entity->setPass($values['Pass']);
         }
 
-        $this->controller->editUser($this->entity);
+        CMEsteban::$controller->editUser($this->entity);
     }
     // }}}
     // {{{ populate
@@ -69,7 +70,7 @@ class UserForm extends EditForm
     // {{{ loadEntity
     protected function loadEntity()
     {
-        $this->entity = $this->controller->getCurrentUser();
+        $this->entity = CMEsteban::$controller->getCurrentUser();
     }
     // }}}
     // {{{ redirect

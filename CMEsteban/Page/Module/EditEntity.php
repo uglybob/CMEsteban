@@ -2,17 +2,19 @@
 
 namespace CMEsteban\Page\Module;
 
+use CMEsteban\CMEsteban;
+
 class EditEntity extends Form
 {
     // {{{ constructor
-    public function __construct($page, $controller)
+    public function __construct()
     {
-        parent::__construct($page, $controller);
+        parent::__construct();
 
-        $class = ucfirst($page->getPath(1));
+        $class = ucfirst(CMEsteban::$page->getPath(1));
         $formType = 'CMEsteban\Page\Module\Form\Edit' . $class;
 
-        $this->form = new $formType($controller, $class, $page->getPath(2));
+        $this->form = new $formType($class, CMEsteban::$page->getPath(2));
     }
     // }}}
 }

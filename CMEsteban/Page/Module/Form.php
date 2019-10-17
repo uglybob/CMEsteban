@@ -2,15 +2,16 @@
 
 namespace CMEsteban\Page\Module;
 
+use CMEsteban\CMEsteban;
+
 abstract class Form extends Module
 {
     // {{{ constructor
-    public function __construct($page, $controller)
+    public function __construct()
     {
-        parent::__construct($page);
+        parent::__construct();
 
-        $this->page->getTemplate()->addStylesheet('/vendor/depage/htmlform/lib/css/depage-forms.css');
-        $this->controller = $controller;
+        CMEsteban::$template->addStylesheet('/vendor/depage/htmlform/lib/css/depage-forms.css');
     }
     // }}}
     // {{{ toString

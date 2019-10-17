@@ -2,6 +2,7 @@
 
 namespace CMEsteban\Page;
 
+use CMEsteban\CMEsteban;
 use CMEsteban\Page\Module\HTML;
 use CMEsteban\Page\Module\Email;
 use CMEsteban\Lib\Minify;
@@ -20,12 +21,14 @@ class Page
     // }}}
 
     // {{{ constructor
-    public function __construct($controller, $path = [])
+    public function __construct($path = [])
     {
-        $this->controller = $controller;
+        CMEsteban::$controller->access($this->accessLevel);
+
+        CMEsteban::setPage($this);
+        CMEsteban::setTemplate(Setup::getTemplate($this));
+
         $this->path = $path;
-        $this->template = Setup::getTemplate($this);
-        $this->controller->access($this->accessLevel);
 
         $this->hookConstructor();
     }
@@ -66,7 +69,7 @@ class Page
     // {{{ getTemplate
     public function getTemplate()
     {
-        return $this->template;
+        return CMEsteban::$template;
     }
     // }}}
 
@@ -74,7 +77,7 @@ class Page
     protected function renderStylesheets()
     {
         $rendered = '';
-        $stylesheets = $this->template->getStylesheets();
+        $stylesheets = CMEsteban::$template->getStylesheets();
 
         if ($stylesheets) {
             $handles = Minify::minify('css', $stylesheets);
@@ -95,7 +98,7 @@ class Page
     protected function renderScripts()
     {
         $rendered = '';
-        $scripts = $this->template->getScripts();
+        $scripts = CMEsteban::$template->getScripts();
 
         if ($scripts) {
             $handles = Minify::minify('js', $scripts);
@@ -113,7 +116,7 @@ class Page
     // {{{ renderFavicon
     public function renderFavicon()
     {
-        $favicon = $this->template->getFavicon();
+        $favicon = CMEsteban::$template->getFavicon();
 
         if (!is_null($favicon)) {
             $rendered = HTML::link([
@@ -169,7 +172,7 @@ class Page
             HTML::html(
                 $this->renderHead() .
                 HTML::body(
-                    HTML::div(['#content'], $this->template->render())
+                    HTML::div(['#content'], CMEsteban::$template->render())
                 )
             );
     }

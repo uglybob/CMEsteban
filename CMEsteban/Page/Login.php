@@ -2,6 +2,8 @@
 
 namespace CMEsteban\Page;
 
+use CMEsteban\CMEsteban;
+
 class Login extends Home
 {
     // {{{ hookConstructor
@@ -9,8 +11,9 @@ class Login extends Home
     {
         parent::hookConstructor();
 
-        $this->template->addContent('main', new \CMEsteban\Page\Module\Login($this, $this->controller));
         $this->cacheable = false;
+
+        CMEsteban::$template->addContent('main', new \CMEsteban\Page\Module\Login());
     }
     // }}}
 }

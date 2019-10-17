@@ -5,14 +5,14 @@ namespace CMEsteban\Page\Module;
 class Email extends Module
 {
     // {{{ constructor
-    public function __construct($page, $email)
+    public function __construct($email)
     {
-        parent::__construct($page);
+        parent::__construct();
 
         $this->email = $email;
 
-        $this->page->getTemplate()->addScript('/CMEsteban/Page/js/lib.js');
-        $this->page->getTemplate()->addScript('/CMEsteban/Page/js/mail.js');
+        CMEsteban::$template->addScript('/CMEsteban/Page/js/lib.js');
+        CMEsteban::$template->addScript('/CMEsteban/Page/js/mail.js');
     }
     // }}}
 

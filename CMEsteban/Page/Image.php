@@ -2,12 +2,14 @@
 
 namespace CMEsteban\Page;
 
+use CMEsteban\CMEsteban;
+
 class Image extends Page
 {
     // {{{ render
     public function render()
     {
-        $image = $this->controller->getImage($this->getPath(1));
+        $image = CMEsteban::$controller->getImage($this->getPath(1));
 
         if ($image->getLevel() == 0) {
             $this->redirect($image->getSrc());

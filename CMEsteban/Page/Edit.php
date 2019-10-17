@@ -3,6 +3,7 @@
 namespace CMEsteban\Page;
 
 use CMEsteban\Page\Module\EditEntity;
+use CMEsteban\CMEsteban;
 
 class Edit extends Backend
 {
@@ -11,7 +12,7 @@ class Edit extends Backend
     {
         parent::hookConstructor();
 
-        $this->template->addContent('main', new EditEntity($this, $this->controller));
+        CMEsteban::$template->addContent('main', new EditEntity($this, CMEsteban::$controller));
     }
     // }}}
 }

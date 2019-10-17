@@ -3,6 +3,7 @@
 namespace CMEsteban\Page;
 
 use CMEsteban\Page\Module\PageTable;
+use CMEsteban\CMEsteban;
 
 class Pages extends Backend
 {
@@ -11,7 +12,7 @@ class Pages extends Backend
     {
         parent::hookConstructor();
 
-        $this->template->addContent('main', new PageTable($this, $this->controller->getPages()));
+        CMEsteban::$template->addContent('main', new PageTable(CMEsteban::$controller->getPages()));
     }
     // }}}
 }

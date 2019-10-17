@@ -2,14 +2,16 @@
 
 namespace CMEsteban\Page\Module;
 
+use CMEsteban\CMEsteban;
+
 class Table extends Module
 {
     // {{{ constructor
-    public function __construct($page, array $items, array $attributes = [])
+    public function __construct(array $items, array $attributes = [])
     {
-        parent::__construct($page);
+        parent::__construct();
 
-        $this->page->getTemplate()->addStylesheet('/vendor/uglybob/cmesteban/CMEsteban/Page/css/table.css');
+        CMEsteban::$template->addStylesheet('/vendor/uglybob/cmesteban/CMEsteban/Page/css/table.css');
         $this->list = '';
 
         if (empty($attributes)) {

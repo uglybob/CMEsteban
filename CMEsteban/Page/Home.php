@@ -2,6 +2,7 @@
 
 namespace CMEsteban\Page;
 
+use CMEsteban\CMEsteban;
 use CMEsteban\Page\Module\Menu;
 use CMEsteban\Lib\Setup;
 
@@ -14,7 +15,7 @@ class Home extends Page
     {
         parent::hookConstructor();
 
-        $user = $this->controller->getCurrentUser();
+        $user = CMEsteban::$controller->getCurrentUser();
         $name = '';
 
         if ($user) {
@@ -37,10 +38,10 @@ class Home extends Page
             }
         }
 
-        $menu = new Menu($this, $links);
+        $menu = new Menu($links);
 
-        $this->template->addContent('header', $menu);
-        $this->template->addContent('main', "hi $name :)");
+        CMEsteban::$template->addContent('header', $menu);
+        CMEsteban::$template->addContent('main', "hi $name :)");
     }
     // }}}
 }

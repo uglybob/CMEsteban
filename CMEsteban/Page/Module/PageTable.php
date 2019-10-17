@@ -5,9 +5,9 @@ namespace CMEsteban\Page\Module;
 class PageTable extends EntityTable
 {
     // {{{ constructor
-    public function __construct($page, $pages)
+    public function __construct($pages)
     {
-        parent::__construct($page, $pages, 'page', true, 'delete');
+        parent::__construct($pages, 'page', true, 'delete');
     }
     // }}}
 

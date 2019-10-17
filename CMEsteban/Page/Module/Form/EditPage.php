@@ -2,6 +2,7 @@
 
 namespace CMEsteban\Page\Module\Form;
 
+use CMEsteban\CMEsteban;
 use CMEsteban\Page\Page;
 
 class EditPage extends EditForm
@@ -21,7 +22,7 @@ class EditPage extends EditForm
         $this->entity->setRequest($values['Request']);
         $this->entity->setPage($values['Page']);
 
-        $this->controller->editPage($this->entity);
+        CMEsteban::$controller->editPage($this->entity);
     }
     // }}}
     // {{{ populate

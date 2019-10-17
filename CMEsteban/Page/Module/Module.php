@@ -4,13 +4,11 @@ namespace CMEsteban\Page\Module;
 
 abstract class Module
 {
-    protected $page;
     protected $rendered;
 
     // {{{ constructor
-    public function __construct($page)
+    public function __construct()
     {
-        $this->page = $page;
         $this->rendered = '';
     }
     // }}}

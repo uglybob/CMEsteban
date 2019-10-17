@@ -2,6 +2,7 @@
 
 namespace CMEsteban\Page;
 
+use CMEsteban\CMEsteban;
 use CMEsteban\Page\Module\TextList;
 
 class Texts extends Backend
@@ -11,7 +12,7 @@ class Texts extends Backend
     // {{{ renderContent
     public function renderContent()
     {
-        return new TextList($this, $this->controller->getTexts(), 'Text', false, 'delete');
+        return new TextList(CMEsteban::$controller->getTexts(), 'Text', false, 'delete');
     }
     // }}}
 }

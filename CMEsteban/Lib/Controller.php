@@ -32,7 +32,7 @@ class Controller
         if ($handler) {
             $pageClass = 'CMEsteban\Page\\' . $handler->getPage();
             if (class_exists($pageClass)) {
-                $page = new $pageClass($this, $path);
+                $page = new $pageClass($path);
             } else {
                 throw new \CMEsteban\Exception\NotFoundException("Class does not exist: $pageClass");
             }

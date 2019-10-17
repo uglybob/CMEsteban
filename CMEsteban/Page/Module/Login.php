@@ -2,17 +2,18 @@
 
 namespace CMEsteban\Page\Module;
 
+use CMEsteban\CMEsteban;
 use CMEsteban\Page\Page;
 use Depage\HtmlForm\HtmlForm;
 
 class Login extends Form
 {
     // {{{ constructor
-    public function __construct($page, $controller)
+    public function __construct()
     {
-        parent::__construct($page, $controller);
+        parent::__construct();
 
-        $user = $controller->getCurrentUser();
+        $user = CMEsteban::$controller->getCurrentUser();
 
         if ($user) {
             $this->form = new HtmlForm('login', ['label' => 'logout']);
@@ -26,10 +27,10 @@ class Login extends Form
 
         if ($this->form->validate()) {
             if ($user) {
-                $controller->logoff();
+                CMEsteban::$controller->logoff();
             } else {
                 $values = $this->form->getValues();
-                $controller->login($values['User'], $values['Pass']);
+                CMEsteban::$controller->login($values['User'], $values['Pass']);
             }
 
             $this->form->clearSession();
