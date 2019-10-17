@@ -187,7 +187,7 @@ class Page
     // }}}
 
     // {{{ shorten
-    public function shorten($url)
+    public static function shorten($url)
     {
         $sites = [
             'facebook',
@@ -213,30 +213,28 @@ class Page
     }
     // }}}
     // {{{ replaceUrl
-    public function replaceUrl($match)
+    public static function replaceUrl($match)
     {
         $url = $match[0];
         $cleanedUrl = (preg_match("~^(?:f|ht)tps?://~i", $url)) ? $url : 'https://' . $url;
 
-        $short = $this->shorten($cleanedUrl);
+        $short = self::shorten($cleanedUrl);
         $trimmed = (strlen($short) > 33) ? substr($short, 0, 30) . '...' : $short;
 
         return HTML::a(['href' => $cleanedUrl],  ">$trimmed");
     }
     // }}}
     // {{{ replaceEmail
-    protected function replaceEmail($match)
+    protected static function replaceEmail($match)
     {
-        $email = $match[0];
-
-        return new Email($this, $email);
+        return new Email($match[0]);
     }
     // }}}
     // {{{ cleanText
-    public function cleanText($input)
+    public static function cleanText($input)
     {
-        $cleanLinks = preg_replace_callback('@(\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))))@', [$this, 'replaceUrl'], $input);
-        $cleanMails = preg_replace_callback('/[a-z\d._%+-]+@[a-z\d.-]+\.[a-z]{2,4}\b/i', [$this, 'replaceEmail'], $cleanLinks);
+        $cleanLinks = preg_replace_callback('@(\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))))@', 'self::replaceUrl', $input);
+        $cleanMails = preg_replace_callback('/[a-z\d._%+-]+@[a-z\d.-]+\.[a-z]{2,4}\b/i', 'self::replaceEmail', $cleanLinks);
         $cleanRs = preg_replace("/\r/", '', $cleanMails);
         $cleanNs = preg_replace("/\n/", HTML::br(), $cleanRs);
 

@@ -15,7 +15,7 @@ class CMEstebanTest extends \PHPUnit\Framework\TestCase
     public function testCMEstebanDefault()
     {
         $this->expectOutputString('Page not found: home');
-        $cmesteban = new \CMEsteban\CMEsteban();
+        \CMEsteban\CMEsteban::init();
     }
     // }}}
     // {{{ testCMEstebanCustomController

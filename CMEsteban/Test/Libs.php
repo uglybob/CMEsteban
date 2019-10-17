@@ -14,4 +14,9 @@ class Setup
             ]
         ];
     }
+
+    public static function getController()
+    {
+        return new Controller();
+    }
 }
