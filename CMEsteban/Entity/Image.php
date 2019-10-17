@@ -2,8 +2,8 @@
 
 namespace CMEsteban\Entity;
 
+use CMEsteban\CMEsteban;
 use CMEsteban\Page\Module\HTML;
-use CMEsteban\Lib\Setup;
 
 abstract class Image extends Named
 {
@@ -32,7 +32,7 @@ abstract class Image extends Named
     // {{{ getSrc
     public function getSrc($internal = false)
     {
-        $path = ($internal) ? Setup::getSettings('Path') : '/';
+        $path = ($internal) ? CMEsteban::$setup::getSettings('Path') : '/';
 
         if ($this->level == 0) {
             $src = $path . 'CMEsteban/Images/' . $this->getName();

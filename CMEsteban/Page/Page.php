@@ -6,7 +6,6 @@ use CMEsteban\CMEsteban;
 use CMEsteban\Page\Module\HTML;
 use CMEsteban\Page\Module\Email;
 use CMEsteban\Lib\Minify;
-use CMEsteban\Lib\Setup;
 
 class Page
 {
@@ -26,7 +25,7 @@ class Page
         CMEsteban::$controller->access($this->accessLevel);
 
         CMEsteban::setPage($this);
-        CMEsteban::setTemplate(Setup::getTemplate($this));
+        CMEsteban::setTemplate(CMEsteban::$setup->getTemplate($this));
 
         $this->path = $path;
 

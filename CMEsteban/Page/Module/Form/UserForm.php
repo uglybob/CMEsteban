@@ -10,7 +10,7 @@ class UserForm extends EditForm
     // {{{ constructor
     public function __construct($id)
     {
-        $settings = \CMEsteban\Lib\Setup::getSettings();
+        $settings = CMEsteban::$setup->getSettings();
 
         if (
             $settings['EnableRegistration']

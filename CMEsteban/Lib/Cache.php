@@ -2,6 +2,8 @@
 
 namespace CMEsteban\Lib;
 
+use CMEsteban\CMEsteban;
+
 class Cache
 {
     // {{{ get
@@ -79,7 +81,7 @@ class Cache
         $timeLeft = 0;
 
         if (is_file($file)) {
-            $timeLeft = Setup::getSettings('CacheTime') - (time() - filemtime($file));
+            $timeLeft = CMEsteban::$setup->getSettings('CacheTime') - (time() - filemtime($file));
             $timeLeft = ($timeLeft > 0) ? $timeLeft : 0;
         }
 
@@ -89,7 +91,7 @@ class Cache
     // {{{ getDir
     public function getDir()
     {
-        return Setup::getSettings('Path') . 'CMEsteban/Cache';
+        return CMEsteban::$setup->getSettings('Path') . 'CMEsteban/Cache';
     }
     // }}}
     // {{{ getFilename

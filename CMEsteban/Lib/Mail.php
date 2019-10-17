@@ -2,18 +2,22 @@
 
 namespace CMEsteban\Lib;
 
+use CMEsteban\CMEsteban;
+
 class Mail
 {
     // {{{ constructor
     public function __construct($dst, $subject, $message)
     {
-        $this->src = Setup::getSettings('MailAddress');
+        $setup = CMEsteban::$setup;
+
+        $this->src = $setup->getSettings('MailAddress');
         $this->dst = $dst;
         $this->subject = $subject;
         $this->message = $message;
-        $this->hostname = Setup::getSettings('MailHostname');
-        $this->host = Setup::getSettings('MailHost');
-        $this->pass = Setup::getSettings('MailPass');
+        $this->hostname = $setup->getSettings('MailHostname');
+        $this->host = $setup->getSettings('MailHost');
+        $this->pass = $setup->getSettings('MailPass');
     }
     // }}}
     // {{{ send

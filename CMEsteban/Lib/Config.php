@@ -5,10 +5,10 @@ namespace CMEsteban\Lib;
 abstract class Config
 {
     // {{{ getSettings
-    public static function getSettings($setting = null)
+    public function getSettings($setting = null)
     {
         $result = null;
-        $settings = Setup::$settings;
+        $settings = $this->settings;
         $settings['Path'] = realpath($settings['Path'] . "/../..") . '/';
 
         if (!is_null($setting)) {
@@ -25,12 +25,12 @@ abstract class Config
     }
     // }}}
     // {{{ getTemplate
-    public static function getTemplate($page) {
+    public function getTemplate($page) {
         return new \CMEsteban\Page\Template\CME();
     }
     // }}}
     // {{{ getController
-    public static function getController() {
+    public function getController() {
         return new \CMEsteban\Lib\Controller();
     }
     // }}}

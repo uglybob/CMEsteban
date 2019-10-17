@@ -4,7 +4,6 @@ namespace CMEsteban\Page\Template;
 
 use CMEsteban\CMEsteban;
 use CMEsteban\Page\Module\Menu;
-use CMEsteban\Lib\Setup;
 
 class CME extends Template
 {
@@ -33,7 +32,7 @@ class CME extends Template
                 'login' => '/login',
             ];
 
-            if (Setup::getSettings('EnableRegistration')) {
+            if (CMEsteban::$setup->getSettings('EnableRegistration')) {
                 $links['register'] = '/user';
             }
         }

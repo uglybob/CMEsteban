@@ -2,6 +2,8 @@
 
 namespace CMEsteban\Lib;
 
+use CMEsteban\CMEsteban;
+
 abstract class Minify
 {
     public static function minify($type, $files) {
@@ -15,7 +17,7 @@ abstract class Minify
                 $minifier = ($type == 'css') ? new \MatthiasMullie\Minify\CSS() : new \MatthiasMullie\Minify\JS();
 
                 foreach ($files as $file) {
-                    $minifier->add(Setup::getSettings('Path') . $file);
+                    $minifier->add(CMEsteban::$setup->getSettings('Path') . $file);
                 }
 
                 Cache::store($index, $minifier->minify());

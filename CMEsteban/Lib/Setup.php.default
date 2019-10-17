@@ -4,7 +4,7 @@ namespace CMEsteban\Lib;
 
 class Setup extends Config
 {
-    protected static $settings = [
+    protected $settings = [
         'Path' => __DIR__,
         'DevMode' => true,
         'CacheTime' => 1800,

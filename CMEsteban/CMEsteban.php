@@ -5,12 +5,13 @@ namespace CMEsteban;
 class CMEsteban
 {
     protected static $instance = null;
+    public static $setup = null;
     public static $controller = null;
     public static $page = null;
     public static $template = null;
 
     // {{{ constructor
-    private function __construct()
+    private function __construct($setup)
     {
         if (!session_id()) {
             @session_start();
@@ -19,7 +20,8 @@ class CMEsteban
         $request = isset($_GET['page']) ? $_GET['page'] : 'home';
         $request = ltrim($request, '/');
 
-        self::$controller = \CMEsteban\Lib\Setup::getController();
+        self::$setup = $setup;
+        self::$controller = self::$setup->getController();
 
         $output = '';
 
@@ -38,7 +40,7 @@ class CMEsteban
                 $output = $e->getMessage();
             }
         } catch (\Exception $e) {
-            $settings = \CMEsteban\Lib\Setup::getSettings();
+            $settings = self::$setup::getSettings();
 
             if ($settings['DevMode'] === true) {
                $output = $e;
@@ -48,11 +50,11 @@ class CMEsteban
         echo($output);
     }
     // }}}
-    // {{{ init
-    public function init()
+    // {{{ start
+    public function start($setup)
     {
         if (is_null(self::$instance)) {
-            self::$instance = new self();
+            self::$instance = new self($setup);
         }
     }
     // }}}

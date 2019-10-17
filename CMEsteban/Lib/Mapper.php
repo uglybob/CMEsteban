@@ -2,6 +2,7 @@
 
 namespace CMEsteban\Lib;
 
+use CMEsteban\CMEsteban;
 use CMEsteban\Entity\User;
 use CMEsteban\Entity\Page;
 
@@ -65,7 +66,7 @@ class Mapper
     // {{{ connect
     public function connect()
     {
-        $settings = Setup::getSettings();
+        $settings = CMEsteban::$setup->getSettings();
 
         $conn = $settings['DbConn'];
         $config = \Doctrine\ORM\Tools\Setup::createXMLMetadataConfiguration(
