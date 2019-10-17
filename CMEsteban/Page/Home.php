@@ -14,9 +14,8 @@ class Home extends Page
         parent::hookConstructor();
 
         $user = CMEsteban::$controller->getCurrentUser();
-        $name = ($user) ? $user->getName() : '';
 
-        CMEsteban::$template->addContent('main', "hi $name :)");
+        CMEsteban::$template->addContent('main', "hi $user :)");
     }
     // }}}
 }
