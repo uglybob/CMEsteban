@@ -2,10 +2,17 @@
 
 namespace CMEsteban\Page\Template;
 
+use CMEsteban\CMEsteban;
 use \CMEsteban\Page\Module\HTML;
 
 abstract class Template
 {
+    // {{{ constructor
+    public function __construct()
+    {
+        CMEsteban::setTemplate($this);
+    }
+    // }}}
     // {{{ variables
     protected $favicon = null;
     protected $stylesheets = [];

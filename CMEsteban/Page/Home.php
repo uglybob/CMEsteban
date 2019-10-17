@@ -3,8 +3,6 @@
 namespace CMEsteban\Page;
 
 use CMEsteban\CMEsteban;
-use CMEsteban\Page\Module\Menu;
-use CMEsteban\Lib\Setup;
 
 class Home extends Page
 {
@@ -16,31 +14,8 @@ class Home extends Page
         parent::hookConstructor();
 
         $user = CMEsteban::$controller->getCurrentUser();
-        $name = '';
+        $name = ($user) ? $user->getName() : '';
 
-        if ($user) {
-            $name = $user->getName();
-            $links = [
-                'home' => '/',
-                'pages' => '/pages',
-                'cache' => '/cache',
-                $name => '/user',
-                'logout' => '/login',
-            ];
-        } else {
-            $links = [
-                'home' => '/',
-                'login' => '/login',
-            ];
-
-            if (Setup::getSettings('EnableRegistration')) {
-                $links['register'] = '/user';
-            }
-        }
-
-        $menu = new Menu($links);
-
-        CMEsteban::$template->addContent('header', $menu);
         CMEsteban::$template->addContent('main', "hi $name :)");
     }
     // }}}
