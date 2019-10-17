@@ -2,6 +2,8 @@
 
 namespace CMEsteban\Lib;
 
+use  CMEsteban\Page\Template\Template;
+
 class Setup
 {
     public static function getSettings()
@@ -18,5 +20,10 @@ class Setup
     public static function getController()
     {
         return new Controller();
+    }
+
+    public static function getTemplate($page)
+    {
+        return new Template();
     }
 }

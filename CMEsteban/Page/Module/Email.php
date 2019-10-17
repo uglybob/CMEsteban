@@ -2,6 +2,8 @@
 
 namespace CMEsteban\Page\Module;
 
+use CMEsteban\CMEsteban;
+
 class Email extends Module
 {
     // {{{ constructor
@@ -9,23 +11,17 @@ class Email extends Module
     {
         parent::__construct();
 
-        $this->email = $email;
-
         CMEsteban::$template->addScript('/CMEsteban/Page/js/lib.js');
         CMEsteban::$template->addScript('/CMEsteban/Page/js/mail.js');
-    }
-    // }}}
 
-    // {{{ toString
-    public function __toString() {
+        $this->email = $email;
+
         $in = ['@', '.'];
         $out = ['+', ','];
 
-        $renderedMail = str_rot13($this->email);
-        $renderedMail = str_replace($in, $out, $renderedMail);
-        $renderedMail = HTML::span(['.shooo'], $renderedMail);
-
-        return $renderedMail;
+        $this->rendered = str_rot13($this->email);
+        $this->rendered = str_replace($in, $out, $this->rendered);
+        $this->rendered = HTML::span(['.shooo'], $this->rendered);
     }
     // }}}
 }

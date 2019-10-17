@@ -5,7 +5,7 @@ namespace CMEsteban\Page\Template;
 use CMEsteban\CMEsteban;
 use \CMEsteban\Page\Module\HTML;
 
-abstract class Template
+class Template
 {
     // {{{ constructor
     public function __construct()
