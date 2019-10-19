@@ -9,7 +9,7 @@ abstract class Minify
     public static function minify($type, $files) {
         $result = $files;
 
-        if (!Setup::getSettings('DevMode')) {
+        if (!CMEsteban::$setup->getSettings('DevMode')) {
             $index = md5(implode(' ', $files)) . ".$type";
             $cached = Cache::load($index);
 

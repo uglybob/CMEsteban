@@ -40,7 +40,7 @@ class CMEsteban
                 $output = $e->getMessage();
             }
         } catch (\Exception $e) {
-            $settings = self::$setup::getSettings();
+            $settings = self::$setup->getSettings();
 
             if ($settings['DevMode'] === true) {
                $output = $e;
