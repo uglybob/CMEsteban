@@ -22,14 +22,14 @@ class Cache
     // {{{ set
     public static function set($index, $data)
     {
-        $name = self::getFilename($index);
-        file_put_contents($name, $data);
+        return self::store($index, $data);
     }
     // }}}
 
     // {{{ load
     public static function load($index)
     {
+        // @TODO boilerplate
         $name = self::getFilename($index);
         $result = false;
 
