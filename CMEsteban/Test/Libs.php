@@ -4,25 +4,23 @@ namespace CMEsteban\Lib;
 
 use  CMEsteban\Page\Template\Template;
 
-class Setup
+class Setup extends Config
 {
-    public static function getSettings()
-    {
-        return [
-            'DevMode' => true,
-            'DbConn' => [
-                'driver' => 'pdo_sqlite',
-                'memory' => true,
-            ]
-        ];
-    }
+    protected $settings = [
+        'Path' => __DIR__,
+        'DevMode' => true,
+        'DbConn' => [
+            'driver' => 'pdo_sqlite',
+            'memory' => true,
+        ]
+    ];
 
-    public static function getController()
+    public function getController()
     {
         return new Controller();
     }
 
-    public static function getTemplate($page)
+    public function getTemplate($page)
     {
         return new Template();
     }

@@ -12,7 +12,8 @@ class AuthenticationTest extends DatabaseTestCase
         parent::setUp();
 
         $_SESSION = [];
-        $this->controller = new \CMEsteban\Lib\Controller();
+
+        $this->controller = CMEsteban::$controller;
 
         $user = new User('userName');
         $user->setPass('cmesteban_test_pass');

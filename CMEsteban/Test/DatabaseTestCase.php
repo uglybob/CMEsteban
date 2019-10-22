@@ -9,6 +9,8 @@ class DatabaseTestCase extends \PHPUnit\Framework\TestCase
     // {{{ setUpBeforeClass
     public static function setUpBeforeClass() : void
     {
+        $setup = new \CMEsteban\Lib\Setup();
+        \CMEsteban\CMEsteban::start($setup);
         Mapper::connect();
 
         $classes = ['\CMEsteban\Entity\User', '\CMEsteban\Entity\LogEntry', '\CMEsteban\Entity\Page'];
