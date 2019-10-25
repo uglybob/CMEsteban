@@ -20,6 +20,7 @@ class CMEstebanTest extends CMEstebanTestCase
 
         $setup = new \CMEsteban\Lib\Setup();
         $setup->testController = new \CMEsteban\Lib\CustomController();
+
         \CMEsteban\CMEsteban::start($setup);
     }
     // }}}

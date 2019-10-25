@@ -9,6 +9,7 @@ class DatabaseTest extends CMEstebanTestCase
     // {{{ setUp
     public function setUp() : void
     {
+        parent::setUp();
         Mapper::connect();
 
         $classes = ['\CMEsteban\Entity\User', '\CMEsteban\Entity\LogEntry', '\CMEsteban\Entity\Page'];

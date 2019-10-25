@@ -4,13 +4,12 @@ namespace CMEsteban\Test;
 
 use CMEsteban\Lib\Mapper;
 
-class DatabaseTestCase extends \PHPUnit\Framework\TestCase
+class DatabaseTestCase extends CMEstebanTestCase
 {
     // {{{ setUpBeforeClass
     public static function setUpBeforeClass() : void
     {
-        $setup = new \CMEsteban\Lib\Setup();
-        \CMEsteban\CMEsteban::start($setup);
+        parent::setUp();
         Mapper::connect();
 
         $classes = ['\CMEsteban\Entity\User', '\CMEsteban\Entity\LogEntry', '\CMEsteban\Entity\Page'];
@@ -35,6 +34,8 @@ class DatabaseTestCase extends \PHPUnit\Framework\TestCase
     // {{{ setUp
     protected function setUp() : void
     {
+        parent::setUp();
+
         $em = Mapper::getEntityManager();
 
         if ($em->isOpen()) {

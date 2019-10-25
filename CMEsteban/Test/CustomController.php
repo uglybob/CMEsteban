@@ -5,7 +5,7 @@ namespace CMEsteban\Lib;
 class CustomController extends Controller
 {
     // {{{ getPage
-    public function getPageByRequest($id)
+    public function getPageByRequest($request)
     {
         $page = new \CMEsteban\Page\CustomControllerPage();
 

@@ -6,16 +6,6 @@ use CMEsteban\Page\Module\Table;
 
 class TableTest extends CMEstebanTestCase
 {
-    // {{{ setUp
-    protected function setUp() : void
-    {
-        $this->controller = new \CMEsteban\Lib\Controller();
-        $this->page = new PageTestClass($this->controller);
- 
-        parent::setUp();
-    }
-    // }}}
-
     // {{{ testEmpty
     public function testEmpty()
     {

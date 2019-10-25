@@ -4,7 +4,7 @@ namespace CMEsteban;
 
 class CMEsteban
 {
-    protected static $instance = null;
+    public static $instance = null;
     public static $setup = null;
     public static $controller = null;
     public static $page = null;
