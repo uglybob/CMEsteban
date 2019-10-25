@@ -2,29 +2,23 @@
 
 class CMEstebanTest extends \PHPUnit\Framework\TestCase
 {
-    // {{{ setUp
-    protected function setUp() : void
-    {
-        $this->controller = new CMEsteban\Lib\Controller();
- 
-        parent::setUp();
-    }
-    // }}}
-
     // {{{ testCMEstebanDefault
     public function testCMEstebanDefault()
     {
         $this->expectOutputString('Page not found: home');
-        \CMEsteban\CMEsteban::init();
+
+        $setup = new \CMEsteban\Lib\Setup();
+        \CMEsteban\CMEsteban::start($setup);
     }
     // }}}
     // {{{ testCMEstebanCustomController
     public function testCMEstebanCustomController()
     {
-        $customController = new \CMEsteban\Lib\CustomController();
-
         $this->expectOutputString('This is a custom controller page.');
-        $cmesteban = new \CMEsteban\CMEsteban($customController);
+
+        $setup = new \CMEsteban\Lib\Setup();
+        $setup->testController = new \CMEsteban\Lib\CustomController();
+        \CMEsteban\CMEsteban::start($setup);
     }
     // }}}
 }
