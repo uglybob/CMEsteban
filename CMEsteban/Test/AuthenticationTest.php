@@ -2,6 +2,7 @@
 
 namespace CMEsteban\Test;
 
+use CMEsteban\CMEsteban;
 use CMEsteban\Entity\User;
 
 class AuthenticationTest extends DatabaseTestCase
