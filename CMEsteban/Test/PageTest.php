@@ -18,7 +18,7 @@ class PageTest extends \PhpUnit\Framework\TestCase
     public function testPath()
     {
         $path = ['aaa', 'bbb', 'ccc'];
-        $page = new PageTestClass($this->controller, $path);
+        $page = new PageTestClass($path);
 
         $this->assertEquals($path, $page->getPath());
         $this->assertEquals('aaa', $page->getPath(0));
@@ -31,7 +31,7 @@ class PageTest extends \PhpUnit\Framework\TestCase
     // {{{ testPathEmpty
     public function testPathEmpty()
     {
-        $page = new PageTestClass($this->controller, []);
+        $page = new PageTestClass([]);
 
         $this->assertEquals([], $page->getPath());
 
