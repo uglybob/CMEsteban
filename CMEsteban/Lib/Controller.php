@@ -2,6 +2,7 @@
 
 namespace CMEsteban\Lib;
 
+use CMEsteban\CMEsteban;
 use CMEsteban\Entity\User;
 
 class Controller
