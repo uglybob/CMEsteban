@@ -45,6 +45,7 @@ class Controller
         if (
             $page
             && $page->isCacheable()
+            && !CMEsteban::$setup->getSettings('DevMode')
             && !$this->getCurrentUser()
         ) {
             $index = implode('-', $path) . '.html';
