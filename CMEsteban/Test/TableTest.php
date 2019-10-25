@@ -19,7 +19,7 @@ class TableTest extends \PHPUnit\Framework\TestCase
     // {{{ testEmpty
     public function testEmpty()
     {
-        $table = new Table($this->page, []);
+        $table = new Table([]);
 
         $this->assertEquals('<div class="ctable"><div class="ctheader"><div class="ctrow"></div></div></div>', $table->__toString());
     }
@@ -27,7 +27,7 @@ class TableTest extends \PHPUnit\Framework\TestCase
     // {{{ testSimple
     public function testSimple()
     {
-        $table = new Table($this->page, [
+        $table = new Table([
             ['attribute1' => '0', 'attribute2' => '1'],
             ['attribute1' => '2', 'attribute2' => '3'],
         ]);
@@ -53,7 +53,7 @@ class TableTest extends \PHPUnit\Framework\TestCase
     // {{{ testSimpleAttributes
     public function testSimpleAttributes()
     {
-        $table = new Table($this->page, [
+        $table = new Table([
             ['attribute1' => '0', 'attribute2' => '1'],
             ['attribute1' => '2', 'attribute2' => '3'],
         ],
