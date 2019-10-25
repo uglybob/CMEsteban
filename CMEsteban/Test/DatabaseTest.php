@@ -4,7 +4,7 @@ namespace CMEsteban\Test;
 
 use CMEsteban\Lib\Mapper;
 
-class DatabaseTest extends \PHPUnit\Framework\TestCase
+class DatabaseTest extends CMEstebanTestCase
 {
     // {{{ setUp
     public function setUp() : void

@@ -4,7 +4,7 @@ namespace CMEsteban\Test;
 
 use CMEsteban\Page\Module\Table;
 
-class TableTest extends \PHPUnit\Framework\TestCase
+class TableTest extends CMEstebanTestCase
 {
     // {{{ setUp
     protected function setUp() : void

@@ -1,6 +1,8 @@
 <?php
 
-class CMEstebanTest extends \PHPUnit\Framework\TestCase
+namespace CMEsteban\Test;
+
+class CMEstebanTest extends CMEstebanTestCase
 {
     // {{{ testCMEstebanDefault
     public function testCMEstebanDefault()

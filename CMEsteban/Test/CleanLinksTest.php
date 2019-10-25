@@ -4,7 +4,7 @@ namespace CMEsteban\Test;
 
 use CMEsteban\Page\Page;
 
-class CleanLinksTest extends \PHPUnit\Framework\TestCase
+class CleanLinksTest extends CMEstebanTestCase
 {
     // {{{ testEmpty
     public function testEmpty()
