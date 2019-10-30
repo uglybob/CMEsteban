@@ -17,4 +17,13 @@ class Setup extends Config
             'password' => 'changepassword',
         ]
     ];
+
+    protected $pages = [
+        'cache' => 'Cache',
+        'delete' => 'Delete',
+        'edit' => 'Edit',
+        'home' => 'Home',
+        'login' => 'Login',
+        'user' => 'User',
+    ];
 }

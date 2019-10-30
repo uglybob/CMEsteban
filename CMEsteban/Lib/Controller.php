@@ -12,32 +12,14 @@ class Controller
     protected $user = null;
     // }}}
 
-    // {{{ getPage
-    public function getPage($id)
-    {
-        return (is_null($id)) ? null : Mapper::find('Page', $id);
-    }
-    // }}}
     // {{{ getPageByRequest
     public function getPageByRequest($request)
     {
-        $page = null;
         $path = explode('/', $request);
         $request = $path[0];
+        $page = CMEsteban::$setup->getPage($request, $path);
 
-        $handler = Mapper::findOneBy('Page', [
-            'request' => $request,
-            'deleted' => false
-        ]);
-
-        if ($handler) {
-            $pageClass = 'CMEsteban\Page\\' . $handler->getPage();
-            if (class_exists($pageClass)) {
-                $page = new $pageClass($path);
-            } else {
-                throw new \CMEsteban\Exception\NotFoundException("Class does not exist: $pageClass");
-            }
-        } else {
+        if (!$page) {
             if (!($page = $this->hookGetPageByRequest($request, $path))) {
                 throw new \CMEsteban\Exception\NotFoundException("Page not found: $request");
             }
@@ -66,30 +48,6 @@ class Controller
     // {{{ hookGetPageByRequest
     public function hookGetPageByRequest($request, $path)
     {
-    }
-    // }}}
-    // {{{ getPages
-    public function getPages()
-    {
-        $pages = [];
-
-        if ($this->access(5)) {
-            $pages = Mapper::findAll('Page');
-        }
-
-        return $pages;
-    }
-    // }}}
-    // {{{ editPage
-    public function editPage($page)
-    {
-        if ($this->access(5)) {
-            if (is_null($page->getId())) {
-                Mapper::save($page);
-            }
-
-            Mapper::commit();
-        }
     }
     // }}}
 
