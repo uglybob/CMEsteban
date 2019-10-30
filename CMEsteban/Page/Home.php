@@ -9,7 +9,7 @@ class Home extends Page
     protected $cacheable = true;
 
     // {{{ hookConstructor
-    public function hookConstructor()
+    protected function hookConstructor()
     {
         parent::hookConstructor();
 
