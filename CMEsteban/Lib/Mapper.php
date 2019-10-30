@@ -50,16 +50,8 @@ class Mapper
         $admin->setPass('yesitsreallyme');
         $admin->setEmail('sebastian@cmesteban.test');
         $admin->setLevel(5);
+
         self::save($admin);
-
-        self::save(new Page('cache', 'Cache'));
-        self::save(new Page('delete', 'Delete'));
-        self::save(new Page('edit', 'Edit'));
-        self::save(new Page('home', 'Home'));
-        self::save(new Page('login', 'Login'));
-        self::save(new Page('pages', 'Pages'));
-        self::save(new Page('user', 'User'));
-
         self::commit();
     }
     // }}}
@@ -153,7 +145,7 @@ class Mapper
     // {{{ save
     public static function save($entity)
     {
-        return self::getEntityManager()->persist($entity);
+        self::getEntityManager()->persist($entity);
     }
     // }}}
     // {{{ commit
