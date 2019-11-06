@@ -26,16 +26,16 @@ class CMEsteban
         $output = '';
 
         try {
-            $output = self::$controller->getPageByRequest($request);
+            $output = self::$controller->getPage($request);
         } catch (Exception\NotFoundException $e) {
             try {
-                $output = self::$controller->getPageByRequest('404');
+                $output = self::$controller->getPage('404');
             } catch (\Exception $se) {
                 $output = $e->getMessage();
             }
         } catch (Exception\AccessException $e) {
             try {
-                $output = self::$controller->getPageByRequest('403');
+                $output = self::$controller->getPage('403');
             } catch (\Exception $se) {
                 $output = $e->getMessage();
             }

@@ -8,53 +8,60 @@ use CMEsteban\Entity\User;
 class Controller
 {
     // {{{ variables
-    protected $request = null;
-    protected $user = null;
+    protected $pageGetters = ['getPageDefault', 'getPageText'];
     // }}}
 
-    // {{{ getPageByRequest
-    public function getPageByRequest($request)
+    // {{{ getPage
+    public function getPage($request)
     {
         $path = explode('/', $request);
         $request = $path[0];
-        $page = CMEsteban::$setup->getPage($request, $path);
+        $page = null;
+        $rendered = null;
+        $cache = (!$this->getCurrentUser() && !CMEsteban::$setup->getSettings('DevMode'));
 
-        if (!$page) {
-            $text = Mapper::findOneBy('Text', ['page' => $request]);
-            if (!is_null($text)) {
-                $page = new \CMEsteban\Page\Text($path, $text);
+        if ($cache) {
+            $index = implode('-', $path) . '.html';
+            $rendered = Cache::get($index);
+        }
+
+        if (!$rendered) {
+            while (is_null($page) && !empty($this->pageGetters)) {
+                $getter = array_shift($this->pageGetters);
+                $page = $this->$getter($request, $path);
             }
 
             if (!$page) {
-                if (!($page = $this->hookGetPageByRequest($request, $path))) {
-                    throw new \CMEsteban\Exception\NotFoundException("Page not found: $request");
+                throw new \CMEsteban\Exception\NotFoundException("Page not found: $request");
+            } else {
+                $rendered = $page->render();
+
+                if ($cache && $page->isCacheable()) {
+                    Cache::set($index, $rendered);
                 }
             }
-        }
-
-        if (
-            $page
-            && $page->isCacheable()
-            && !CMEsteban::$setup->getSettings('DevMode')
-            && !$this->getCurrentUser()
-        ) {
-            $index = implode('-', $path) . '.html';
-            $rendered = Cache::get($index);
-
-            if (!$rendered) {
-                $rendered = $page->render();
-                Cache::set($index, $rendered);
-            }
-        } else {
-            $rendered = $page->render();
         }
 
         return $rendered;
     }
     // }}}
-    // {{{ hookGetPageByRequest
-    public function hookGetPageByRequest($request, $path)
+    // {{{ getPageDefault
+    public function getPageDefault($request, $path)
     {
+        return CMEsteban::$setup->getPage($request, $path);
+    }
+    // }}}
+    // {{{ getPageText
+    public function getPageText($request, $path)
+    {
+        $page = null;
+        $text = Mapper::findOneBy('Text', ['page' => $request]);
+
+        if (!is_null($text)) {
+            $page = new \CMEsteban\Page\Text($path, $text);
+        }
+
+        return $page;
     }
     // }}}
 
