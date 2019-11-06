@@ -17,7 +17,6 @@ class Template
     protected $favicon = null;
     protected $stylesheets = [];
     protected $scripts = [];
-    protected $content = [];
     // }}}
 
     // {{{ addStylesheet
@@ -55,21 +54,12 @@ class Template
     }
     // }}}
 
-    // {{{ addContent
-    public function addContent($name, $content)
-    {
-        $this->content[$name] = $content;
-    }
-    // }}}
-
     // {{{ render
     public function render()
     {
-        $rendered  = (isset($this->content['header'])) ? HTML::div(['#header'], $this->content['header']) : '';
-        $rendered .= (isset($this->content['main'])) ? HTML::div(['#main'], $this->content['main']) : '';
-        $rendered .= (isset($this->content['footer'])) ? HTML::div(['#footer'], $this->content['footer']) : '';
+        $page = CMEsteban::$page;
 
-        return $rendered;
+        return $page->getContent('header') . $page->getContent('main') . $page->getContent('footer');
     }
     // }}}
 }

@@ -17,6 +17,7 @@ class Page
     protected $accessLevel = 0;
     protected $path;
     protected $cacheable = false;
+    protected $content = [];
     // }}}
 
     // {{{ constructor
@@ -167,7 +168,21 @@ class Page
     // {{{ addContent
     public function addContent($section, $content)
     {
-        CMEsteban::$template->addContent($section, $content);
+        $this->content[$section] = $content;
+    }
+    // }}}
+    // {{{ getContent
+    public function getContent($section = null)
+    {
+        $result = '';
+
+        if (is_null($section)) {
+            $result = $this->content;
+        } elseif (isset($this->content[$section])) {
+            $result = HTML::div(["#$section"], $this->content[$section]);
+        }
+
+        return $result;
     }
     // }}}
     // {{{ render
