@@ -11,8 +11,8 @@ class User extends Home
     {
         parent::hookConstructor();
 
-        CMEsteban::$template->addContent('main', new \CMEsteban\Page\Module\User());
         $this->cacheable = false;
+        $this->addContent('main', new \CMEsteban\Page\Module\User());
 
         $user = CMEsteban::$controller->getCurrentUser();
 

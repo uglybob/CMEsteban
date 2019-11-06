@@ -164,6 +164,12 @@ class Page
     }
     // }}}
 
+    // {{{ addContent
+    public function addContent($section, $content)
+    {
+        CMEsteban::$template->addContent($section, $content);
+    }
+    // }}}
     // {{{ render
     public function render()
     {

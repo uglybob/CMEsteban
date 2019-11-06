@@ -12,7 +12,7 @@ class Cache extends Backend
     {
         parent::hookConstructor();
 
-        CMEsteban::$template->addContent('main', new \CMEsteban\Page\Module\Cache());
+        $this->addContent('main', new \CMEsteban\Page\Module\Cache());
     }
     // }}}
 }

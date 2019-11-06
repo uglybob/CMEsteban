@@ -12,8 +12,7 @@ class Login extends Home
         parent::hookConstructor();
 
         $this->cacheable = false;
-
-        CMEsteban::$template->addContent('main', new \CMEsteban\Page\Module\Login());
+        $this->addContent('main', new \CMEsteban\Page\Module\Login());
     }
     // }}}
 }

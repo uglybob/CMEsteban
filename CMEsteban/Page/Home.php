@@ -15,7 +15,7 @@ class Home extends Page
 
         $user = CMEsteban::$controller->getCurrentUser();
 
-        CMEsteban::$template->addContent('main', "hi $user :)");
+        $this->addContent('main', "hi $user :)");
     }
     // }}}
 }

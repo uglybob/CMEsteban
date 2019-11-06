@@ -12,7 +12,7 @@ class Delete extends Backend
     {
         parent::hookConstructor();
 
-        CMEsteban::$template->addContent('main', new DeleteEntity());
+        $this->addContent('main', new DeleteEntity());
     }
     // }}}
 }

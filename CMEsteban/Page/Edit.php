@@ -12,7 +12,7 @@ class Edit extends Backend
     {
         parent::hookConstructor();
 
-        CMEsteban::$template->addContent('main', new EditEntity($this, CMEsteban::$controller));
+        $this->addContent('main', new EditEntity($this, CMEsteban::$controller));
     }
     // }}}
 }
