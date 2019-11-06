@@ -8,7 +8,13 @@ use CMEsteban\Entity\User;
 class Controller
 {
     // {{{ variables
-    protected $pageGetters = ['getPageDefault', 'getPageText'];
+    protected $pageGetters = [];
+    // }}}
+    // {{{ constructor
+    public function __construct()
+    {
+        $this->pageGetters = ['getPageDefault', 'getPageText'];
+    }
     // }}}
 
     // {{{ getPage
