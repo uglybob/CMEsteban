@@ -38,7 +38,7 @@ class CME extends Template
 
         $menu = new Menu($links);
 
-        $this->addContent('header', $menu);
+        CMEsteban::$page->addContent('header', $menu);
     }
     // }}}
 }
