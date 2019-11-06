@@ -3,16 +3,18 @@
 namespace CMEsteban\Page;
 
 use CMEsteban\CMEsteban;
-use CMEsteban\Page\Module\TextList;
+use CMEsteban\Page\Module\TextTable;
 
 class Texts extends Backend
 {
     public $title = 'Texts';
 
-    // {{{ renderContent
-    public function renderContent()
+    // {{{ hookConstructor
+    public function hookConstructor()
     {
-        return new TextList(CMEsteban::$controller->getTexts(), 'Text', false, 'delete');
+        parent::hookConstructor();
+
+        $this->addContent('main', new TextTable(CMEsteban::$controller->getTexts(), 'Text', true, 'delete'));
     }
     // }}}
 }

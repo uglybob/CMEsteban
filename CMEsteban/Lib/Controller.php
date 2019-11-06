@@ -20,8 +20,15 @@ class Controller
         $page = CMEsteban::$setup->getPage($request, $path);
 
         if (!$page) {
-            if (!($page = $this->hookGetPageByRequest($request, $path))) {
-                throw new \CMEsteban\Exception\NotFoundException("Page not found: $request");
+            $text = Mapper::findOneBy('Text', ['page' => $request]);
+            if (!is_null($text)) {
+                $page = new \CMEsteban\Page\Text($path, $text);
+            }
+
+            if (!$page) {
+                if (!($page = $this->hookGetPageByRequest($request, $path))) {
+                    throw new \CMEsteban\Exception\NotFoundException("Page not found: $request");
+                }
             }
         }
 
@@ -73,6 +80,24 @@ class Controller
         }
 
         return $pages;
+    }
+    // }}}
+
+    // {{{ getText
+    public function getText($id)
+    {
+        return Mapper::findOneBy(
+            'Text',
+            [
+                'id' => $id,
+            ]
+        );
+    }
+    // }}}
+    // {{{ getTexts
+    public function getTexts()
+    {
+        return Mapper::findAll('Text');
     }
     // }}}
 

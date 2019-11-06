@@ -21,6 +21,7 @@ class CME extends Template
             $name = $user->getName();
             $links = [
                 'home' => '/',
+                'texts' => '/texts',
                 'cache' => '/cache',
                 $name => '/user',
                 'logout' => '/login',

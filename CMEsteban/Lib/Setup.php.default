@@ -25,5 +25,6 @@ class Setup extends Config
         'home' => 'Home',
         'login' => 'Login',
         'user' => 'User',
+        'texts' => 'Texts',
     ];
 }

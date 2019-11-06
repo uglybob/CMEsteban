@@ -7,6 +7,8 @@ class EntityTable extends Table
     // {{{ constructor
     public function __construct(array $entities, $edit = null, $add = true, $delete = 'Delete')
     {
+        $items = [];
+
         foreach ($entities as $entity) {
             $properties = $this->getProperties($entity);
 
