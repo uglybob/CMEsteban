@@ -4,6 +4,7 @@ namespace CMEsteban\Page\Module\Form;
 
 use CMEsteban\CMEsteban;
 use CMEsteban\Page\Page;
+use CMEsteban\Page\Module\HTML;
 
 class EditImage extends EditForm
 {
@@ -15,6 +16,17 @@ class EditImage extends EditForm
         $this->form->addText('Import');
         $this->form->addText('Level');
         $this->form->addFile('Upload');
+
+        if ($this->entity) {
+            $this->form->addHtml(
+                HTML::p(
+                    HTML::label(
+                        HTML::span(['.depage-label'], 'Preview') .
+                        $this->entity
+                    )
+                )
+            );
+        }
     }
     // }}}
     // {{{ save
@@ -22,7 +34,21 @@ class EditImage extends EditForm
     {
         $values = $this->form->getValues();
 
-        CMEsteban::$controller->editImage($this->entity);
+        $this->entity->setName($values['Name']);
+        $this->entity->setAlt($values['Alt']);
+        $this->entity->setLevel($values['Level']);
+
+        if ($values['Upload']) {
+            $this->entity->download($values['Upload'][0]['tmp_name']);
+        }
+
+        if ($values['Import']) {
+            $this->entity->download($values['Import']);
+        }
+
+        $this->entity->save();
+        Mapper::commit();
+
     }
     // }}}
     // {{{ populate
@@ -41,7 +67,7 @@ class EditImage extends EditForm
     // {{{ redirect
     protected function redirect()
     {
-        Page::redirect('/Images');
+        Page::redirect('/images');
     }
     // }}}
 }
