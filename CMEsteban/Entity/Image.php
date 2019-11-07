@@ -32,12 +32,12 @@ class Image extends Named
     // {{{ getSrc
     public function getSrc($internal = false)
     {
-        $path = ($internal) ? CMEsteban::$setup->getSettings('Path') : '/';
+        $path = ($internal) ? CMEsteban::$setup->getSettings('Path') : '';
 
         if ($this->level == 0) {
-            $src = $path . 'CMEsteban/Images/' . $this->getName();
+            $src = $path . '/CMEsteban/Images/' . $this->getName();
         } else {
-            $src = $path . 'CMEsteban/PrivateImages/' . $this->getName();
+            $src = $path . '/CMEsteban/PrivateImages/' . $this->getName();
         }
 
         return $src;

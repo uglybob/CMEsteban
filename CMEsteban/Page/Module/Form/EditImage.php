@@ -3,6 +3,7 @@
 namespace CMEsteban\Page\Module\Form;
 
 use CMEsteban\CMEsteban;
+use CMEsteban\Lib\Mapper;
 use CMEsteban\Page\Page;
 use CMEsteban\Page\Module\HTML;
 
@@ -68,6 +69,13 @@ class EditImage extends EditForm
     protected function redirect()
     {
         Page::redirect('/images');
+    }
+    // }}}
+
+    // {{{ instantiateEntity
+    protected function instantiateEntity()
+    {
+        $this->entity = new \CMEsteban\Entity\Image('');
     }
     // }}}
 }

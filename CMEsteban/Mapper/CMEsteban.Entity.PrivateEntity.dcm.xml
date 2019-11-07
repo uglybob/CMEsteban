@@ -4,6 +4,6 @@
     http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
     <mapped-superclass name="CMEsteban\Entity\PrivateEntity">
-        <many-to-one field="user" target-entity="User"/>
+        <many-to-one field="user" target-entity="CMEsteban\Entity\User"/>
     </mapped-superclass>
 </doctrine-mapping>
