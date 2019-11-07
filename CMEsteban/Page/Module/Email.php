@@ -11,7 +11,7 @@ class Email extends Module
     {
         parent::__construct();
 
-        $path = CMEsteban::$setup->getSettings('PathCme') . '/CMesteban/Page/js';
+        $path = CMEsteban::$setup->getSettings('PathCme') . '/CMEsteban/Page/js';
 
         CMEsteban::$template->addScript($path . '/lib.js');
         CMEsteban::$template->addScript($path . '/mail.js');
