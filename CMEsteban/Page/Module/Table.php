@@ -11,7 +11,7 @@ class Table extends Module
     {
         parent::__construct();
 
-        CMEsteban::$template->addStylesheet('/vendor/uglybob/cmesteban/CMEsteban/Page/css/table.css');
+        CMEsteban::$template->addStylesheet(CMEsteban::$setup->getSettings('PathCme') . '/CMEsteban/Page/css/table.css');
         $this->list = '';
 
         if (empty($attributes)) {

@@ -11,7 +11,7 @@ abstract class Form extends Module
     {
         parent::__construct();
 
-        CMEsteban::$template->addStylesheet('/vendor/uglybob/cmesteban/CMEsteban/Page/css/depage-forms.css');
+        CMEsteban::$template->addStylesheet(CMEsteban::$setup->getSettings('PathCme') . '/CMEsteban/Page/css/depage-forms.css');
     }
     // }}}
     // {{{ toString

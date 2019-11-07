@@ -12,7 +12,7 @@ class CME extends Template
     {
         parent::__construct();
 
-        $this->addStylesheet('/vendor/uglybob/cmesteban/CMEsteban/Page/css/cme.css');
+        $this->addStylesheet(CMEsteban::$setup->getSettings('PathCme') . '/CMEsteban/Page/css/cme.css');
 
         $user = CMEsteban::$controller->getCurrentUser();
         $name = '';

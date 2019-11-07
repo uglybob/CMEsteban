@@ -11,8 +11,10 @@ class Email extends Module
     {
         parent::__construct();
 
-        CMEsteban::$template->addScript('/CMEsteban/Page/js/lib.js');
-        CMEsteban::$template->addScript('/CMEsteban/Page/js/mail.js');
+        $path = CMEsteban::$setup->getSettings('PathCme') . '/CMesteban/Page/js';
+
+        CMEsteban::$template->addScript($path . '/lib.js');
+        CMEsteban::$template->addScript($path . '/mail.js');
 
         $this->email = $email;
 

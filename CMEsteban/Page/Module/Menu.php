@@ -11,7 +11,7 @@ class Menu extends Module
     {
         parent::__construct();
 
-        CMEsteban::$template->addStylesheet('/vendor/uglybob/cmesteban/CMEsteban/Page/css/menu.css');
+        CMEsteban::$template->addStylesheet(CMEsteban::$setup->getSettings('PathCme') . '/CMEsteban/Page/css/menu.css');
         $this->links = $links;
     }
     // }}}
