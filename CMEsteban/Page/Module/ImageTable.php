@@ -8,8 +8,8 @@ class ImageTable extends EntityTable
     public function getProperties($image)
     {
         return [
-            'Name' => $image->getName(),
-            'Alt' => $image->getAlt(),
+            'Name' => $this->shorten($image->getName(), 30),
+            'Alt' => $this->shorten($image->getAlt(), 40),
         ];
     }
     // }}}
