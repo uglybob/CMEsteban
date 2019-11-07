@@ -46,7 +46,7 @@ class Table extends Module
     // }}}
 
     // {{{ formatArray
-    public static function formatArray(array $input)
+    public function formatArray(array $input)
     {
         $result = [];
 
@@ -61,6 +61,13 @@ class Table extends Module
     public function __toString()
     {
         return $this->list;
+    }
+    // }}}
+
+    // {{{ shorten
+    public function shorten($text, $length)
+    {
+        return (strlen($text) > $length) ? substr($text, 0, $length - 3) . '...' : $text;
     }
     // }}}
 }
