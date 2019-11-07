@@ -91,7 +91,7 @@ class Cache
     // {{{ getDir
     public function getDir()
     {
-        return CMEsteban::$setup->getSettings('Path') . 'CMEsteban/Cache';
+        return CMEsteban::$setup->getSettings('Path') . '/CMEsteban/Cache';
     }
     // }}}
     // {{{ getFilename
