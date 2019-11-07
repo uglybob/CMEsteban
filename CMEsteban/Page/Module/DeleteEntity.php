@@ -22,10 +22,10 @@ class DeleteEntity extends Form
             Page::redirect('/' . lcfirst($this->class) . 's');
         }
 
-        $name = method_exists($entity, 'getName') ? $entity->getName() : $entity->getId();
+        $name = is_callable([$entity, 'getName']) ? $entity->getName() : $entity->getId();
 
         $this->form = new \Depage\HtmlForm\HtmlForm('delete' . $this->class, ['label' => 'delete']);
-        $this->form->addBoolean('sure', ['label' => $name . ' delete?'])->setRequired();
+        $this->form->addBoolean('sure', ['label' => 'delete ' . $name . '?'])->setRequired();
         $this->form->process();
 
         if ($this->form->validate()) {
