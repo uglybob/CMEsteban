@@ -2,6 +2,9 @@
 
 namespace CMEsteban\Page\Module;
 
+use Depage\HtmlForm\HtmlForm;
+use CMEsteban\Page\Page;
+
 class EntityTable extends Table
 {
     // {{{ constructor
@@ -29,11 +32,16 @@ class EntityTable extends Table
         parent::__construct($items);
 
         if ($add && $edit) {
-            $this->list .= HTML::div(
-                HTML::div(
-                    HTML::a(['href' => "/edit/$edit/"], 'add ' . $edit)
-                )
-            );
+            $label = ($add === true) ? '+1' : $add;
+            $form = new HtmlForm('login', ['label' => $label]);
+            $form->process();
+
+            if ($form->validate()) {
+                $form->clearSession();
+                Page::redirect("/edit/$edit/");
+            }
+
+            $this->list .= $form;
         }
     }
     // }}}

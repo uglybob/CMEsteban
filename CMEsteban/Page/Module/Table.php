@@ -4,7 +4,7 @@ namespace CMEsteban\Page\Module;
 
 use CMEsteban\CMEsteban;
 
-class Table extends Module
+class Table extends Form
 {
     // {{{ constructor
     public function __construct(array $items, array $attributes = [])
