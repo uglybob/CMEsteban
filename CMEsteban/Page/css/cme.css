@@ -33,6 +33,7 @@ body {
     border-color: #ddd !important;
     padding-left: 6px !important;
     padding-right: 6px !important;
+    cursor: pointer;
 }
 
 #content {
