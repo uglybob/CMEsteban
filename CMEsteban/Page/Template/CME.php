@@ -22,6 +22,7 @@ class CME extends Template
             $links = [
                 'home' => '/',
                 'texts' => '/texts',
+                'images' => '/images',
                 'cache' => '/cache',
                 $name => '/user',
                 'logout' => '/login',
