@@ -25,6 +25,14 @@ class Image extends Named
     {
         $img = file_get_contents($url);
 
+        $info = getimagesize($url);
+        $ext = image_type_to_extension($info[2]);
+        $name = $this->getName();
+
+        if (substr(strtolower($name), - strlen($ext)) != $ext) {
+            $this->setName("$name$ext");
+        }
+
         return file_put_contents($this->getSrc(true), $img);
     }
     // }}}
