@@ -26,8 +26,8 @@ class UserForm extends EditForm
     // {{{ create
     protected function create()
     {
-        $this->form->addText('Name');
-        $this->form->addEmail('Email');
+        $this->form->addText('Name', ['required' => true]);
+        $this->form->addEmail('Email', ['required' => true]);
         $this->form->addPassword('Pass');
     }
     // }}}

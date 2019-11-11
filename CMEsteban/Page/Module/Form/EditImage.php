@@ -12,10 +12,10 @@ class EditImage extends EditForm
     // {{{ create
     protected function create()
     {
-        $this->form->addText('Name');
+        $this->form->addText('Name', ['required' => true]);
         $this->form->addText('Alt');
-        $this->form->addText('Import');
-        $this->form->addText('Level');
+        $this->form->addNumber('Level', ['label' => 'Access level', 'required' => true]);
+        $this->form->addText('Import', ['label' => 'Import URL']);
         $this->form->addFile('Upload');
 
         if ($this->entity) {

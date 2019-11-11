@@ -10,7 +10,7 @@ class EditText extends EditForm
     // {{{ create
     protected function create()
     {
-        $this->form->addText('Name');
+        $this->form->addText('Name', ['required' => true]);
         $this->form->addText('Link');
         $this->form->addTextarea('Text');
     }
