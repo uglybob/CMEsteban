@@ -18,6 +18,12 @@ html * {
     max-width: 100% !important;
 }
 
+.depage-form img {
+    width: 65%;
+    padding: 0.2em;
+    border: 1px solid #999999;
+}
+
 .depage-form input[type=submit] {
     background: #ddd !important;
     border-color: #ddd !important;
