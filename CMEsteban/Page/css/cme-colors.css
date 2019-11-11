@@ -1,0 +1,23 @@
+html * {
+    color: #333;
+}
+
+html a:hover {
+    color: #777;
+}
+
+#header, #main, #footer {
+    background-color: #fff;
+}
+
+.cthead {
+    border-bottom: 1px solid #ddd;
+}
+
+.ctrow:nth-child(2n) {
+    background-color: #fafafa;
+}
+
+html, .ctrow:hover {
+    background-color: #eee;
+}

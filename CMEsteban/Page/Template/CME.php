@@ -13,6 +13,8 @@ class CME extends Template
         parent::__construct();
 
         $this->addStylesheet(CMEsteban::$setup->getSettings('PathCme') . '/CMEsteban/Page/css/cme.css');
+        $this->addStylesheet(CMEsteban::$setup->getSettings('PathCme') . '/CMEsteban/Page/css/cme-layout.css');
+        $this->addStylesheet(CMEsteban::$setup->getSettings('PathCme') . '/CMEsteban/Page/css/cme-colors.css');
 
         $user = CMEsteban::$controller->getCurrentUser();
         $name = '';

@@ -1,29 +1,14 @@
-html, body {
-    margin: 0;
-    padding: 0;
-}
-
 html * {
     font-family: Arial, Helvetica, Sans-Serif;
     font-size: 13px;
     line-height: 22px;
     text-decoration: none;
-    color: #333;
-}
-
-html a:hover {
-    color: #777;
-}
-
-body {
-    overflow-y: scroll;
 }
 
 #header {
     padding-top: 50px;
     padding-bottom: 50px;
 }
-
 .depage-form {
     max-width: 100% !important;
 }
@@ -34,20 +19,6 @@ body {
     padding-left: 6px !important;
     padding-right: 6px !important;
     cursor: pointer;
-}
-
-#content {
-    margin-left: auto;
-    margin-right: auto;
-    background-color: #fff;
-    max-width: 640px;
-    min-width: 160px;
-    padding-left: 80px;
-    padding-right: 80px;
-}
-
-#content, body, html {
-    height: 100%;
 }
 
 .cmenu {
