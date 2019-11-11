@@ -52,9 +52,21 @@ class Controller
     }
     // }}}
     // {{{ getPageDefault
-    public function getPageDefault($request, $path)
-    {
-        return CMEsteban::$setup->getPage($request, $path);
+    public function getPageDefault($request, $path) {
+        $page = null;
+        $pages = CMEsteban::$setup->getSettings('pages');
+
+        if (isset($pages[$request])) {
+            $pageClass = 'CMEsteban\Page\\' . $pages[$request];
+
+            if (class_exists($pageClass)) {
+                $page = new $pageClass($path);
+            } else {
+                throw new \CMEsteban\Exception\NotFoundException("Page does not exist: $pageClass");
+            }
+        }
+
+        return $page;
     }
     // }}}
     // {{{ getPageText

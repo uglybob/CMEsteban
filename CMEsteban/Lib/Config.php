@@ -30,23 +30,6 @@ abstract class Config
         return $result;
     }
     // }}}
-    // {{{ getPage
-    public function getPage($request, $path) {
-        $page = null;
-
-        if (isset($this->pages[$request])) {
-            $pageClass = 'CMEsteban\Page\\' . $this->pages[$request];
-
-            if (class_exists($pageClass)) {
-                $page = new $pageClass($path);
-            } else {
-                throw new \CMEsteban\Exception\NotFoundException("Class does not exist: $pageClass");
-            }
-        }
-
-        return $page;
-    }
-    // }}}
     // {{{ getTemplate
     public function getTemplate($page) {
         return new \CMEsteban\Page\Template\CME();

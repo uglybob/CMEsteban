@@ -15,17 +15,17 @@ class Setup extends Config
             'dbname' => 'changedbname',
             'user' => 'changeuser',
             'password' => 'changepassword',
-        ]
+        ],
+        'pages' => [
+            'cache' => 'Cache',
+            'delete' => 'Delete',
+            'edit' => 'Edit',
+            'home' => 'Home',
+            'images' => 'Images',
+            'login' => 'Login',
+            'user' => 'User',
+            'texts' => 'Texts',
+        ],
     ];
 
-    protected $pages = [
-        'cache' => 'Cache',
-        'delete' => 'Delete',
-        'edit' => 'Edit',
-        'home' => 'Home',
-        'images' => 'Images',
-        'login' => 'Login',
-        'user' => 'User',
-        'texts' => 'Texts',
-    ];
 }
