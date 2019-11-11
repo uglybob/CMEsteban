@@ -4,6 +4,10 @@ html, body {
     height: 100%;
 }
 
+html {
+    margin-left: calc(100vw - 100%);
+}
+
 #header, #main, #footer {
     margin-left: auto;
     margin-right: auto;
