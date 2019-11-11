@@ -10,10 +10,6 @@ html a:hover {
     background-color: #fff;
 }
 
-.cthead {
-    border-bottom: 1px solid #ddd;
-}
-
 .ctrow:nth-child(2n) {
     background-color: #fafafa;
 }
