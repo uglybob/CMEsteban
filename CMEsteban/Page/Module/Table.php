@@ -60,8 +60,7 @@ class Table extends Form
         $properties = '';
 
         foreach ($this->attributes as $attribute => $caption) {
-            $class = preg_replace('/[^_\-a-z0-9]/i', '_', $caption);
-            $properties .= HTML::div([".$class", '.ctcell'], $item[$attribute]);
+            $properties .= HTML::div([".$attribute", '.ctcell'], $item[$attribute]);
         }
 
         $rowClasses = $this->generateRowClasses();
