@@ -41,7 +41,7 @@ class EntityTable extends Table
                 Page::redirect("/edit/$edit/");
             }
 
-            $this->list .= $form;
+            $this->table .= $form;
         }
     }
     // }}}

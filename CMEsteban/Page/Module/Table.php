@@ -6,45 +6,75 @@ use CMEsteban\CMEsteban;
 
 class Table extends Form
 {
+    // {{{ variables
+    protected $table;
+    // }}}
     // {{{ constructor
     public function __construct(array $items, array $attributes = [])
     {
         parent::__construct();
 
         CMEsteban::$template->addStylesheet(CMEsteban::$setup->getSettings('PathCme') . '/CMEsteban/Page/css/table.css');
-        $this->list = '';
 
-        if (empty($attributes)) {
-            $key = array_key_first($items);
-
-            if (isset($items[$key])) {
-                foreach ($items[$key] as $attribute => $value) {
-                    $attributes[$attribute] = $attribute;
-                }
-            }
-        }
-
-        $header = '';
-        foreach ($attributes as $attribute => $caption) {
-            $header .= HTML::div(['.cthead'], $caption);
-        }
-        $this->list .= HTML::div(['.ctheader'], HTML::div(['.ctrow'], $header));
+        $this->attributes = (empty($attributes)) ? $this->generateAttributes($items) : $attributes;
+        $this->table = $this->generateHeader();
 
         foreach ($items as $item) {
-            $properties = '';
-
-            foreach ($attributes as $attribute => $caption) {
-                $class = preg_replace('/[^_\-a-z0-9]/i', '_', $caption);
-                $properties .= HTML::div([".$class", '.ctcell'], $item[$attribute]);
-            }
-
-            $this->list .= HTML::div(['.ctrow'], $properties);
+            $this->table .= $this->generateRow($item);
         }
 
-        $this->list = HTML::div(['.ctable'], $this->list);
+        $this->table = HTML::div(['.ctable'], $this->table);
     }
     // }}}
 
+    // {{{ generateAttributes
+    public function generateAttributes(array $items)
+    {
+        $attributes = [];
+        $key = array_key_first($items);
+
+        if (isset($items[$key])) {
+            foreach ($items[$key] as $attribute => $value) {
+                $attributes[$attribute] = $attribute;
+            }
+        }
+
+        return $attributes;
+    }
+    // }}}
+    // {{{ generateHeader
+    public function generateHeader()
+    {
+        $cells = '';
+
+        foreach ($this->attributes as $attribute => $caption) {
+            $cells .= HTML::div(['.cthead'], $caption);
+        }
+
+        return HTML::div(['.ctheader'], HTML::div(['.ctrow'], $cells));
+    }
+    // }}}
+    // {{{ generateRow
+    public function generateRow($item)
+    {
+        $properties = '';
+
+        foreach ($this->attributes as $attribute => $caption) {
+            $class = preg_replace('/[^_\-a-z0-9]/i', '_', $caption);
+            $properties .= HTML::div([".$class", '.ctcell'], $item[$attribute]);
+        }
+
+        $rowClasses = $this->generateRowClasses();
+
+        return HTML::div($rowClasses, $properties);
+    }
+    // }}}
+    // {{{ generateRowClasses
+    public function generateRowClasses()
+    {
+        return ['.ctrow'];
+    }
+    // }}}
     // {{{ formatArray
     public function formatArray(array $input)
     {
@@ -60,7 +90,7 @@ class Table extends Form
     // {{{ toString
     public function __toString()
     {
-        return $this->list;
+        return $this->table;
     }
     // }}}
 

@@ -10,6 +10,10 @@
     display: table-row;
 }
 
+.ctrow.ctdeleted {
+    text-decoration: line-through;
+}
+
 .ctcell, .cthead {
     display: table-cell;
 }
