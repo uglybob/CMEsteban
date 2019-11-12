@@ -27,6 +27,13 @@ class Table extends Form
     }
     // }}}
 
+    // {{{ toString
+    public function __toString()
+    {
+        return $this->table;
+    }
+    // }}}
+
     // {{{ generateAttributes
     public function generateAttributes(array $items)
     {
@@ -34,7 +41,7 @@ class Table extends Form
         $key = array_key_first($items);
 
         if (isset($items[$key])) {
-            foreach ($items[$key] as $attribute => $value) {
+            foreach ($items[$key]['properties'] as $attribute => $value) {
                 $attributes[$attribute] = $attribute;
             }
         }
@@ -60,20 +67,21 @@ class Table extends Form
         $properties = '';
 
         foreach ($this->attributes as $attribute => $caption) {
-            $properties .= HTML::div([".$attribute", '.ctcell'], $item[$attribute]);
+            $properties .= HTML::div([".$attribute", '.ctcell'], $item['properties'][$attribute]);
         }
 
-        $rowClasses = $this->generateRowClasses();
+        $rowClasses = $this->generateRowClasses($item);
 
         return HTML::div($rowClasses, $properties);
     }
     // }}}
     // {{{ generateRowClasses
-    public function generateRowClasses()
+    public function generateRowClasses($item)
     {
-        return ['.ctrow'];
+        return array_merge(['.ctrow'], $item['classes']);
     }
     // }}}
+
     // {{{ formatArray
     public function formatArray(array $input)
     {
@@ -86,13 +94,6 @@ class Table extends Form
         return $result;
     }
     // }}}
-    // {{{ toString
-    public function __toString()
-    {
-        return $this->table;
-    }
-    // }}}
-
     // {{{ shorten
     public function shorten($text, $length)
     {
