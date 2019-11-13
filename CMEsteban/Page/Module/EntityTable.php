@@ -26,10 +26,7 @@ class EntityTable extends Table
                 $properties[$delete] = HTML::a(['href' => "/delete/$edit/$id"], 'x');
             }
 
-            $item['properties'] = $properties;
-            $item['classes'] = $this->getRowProperties($entity);
-
-            $items[] = $item;
+            $items[] = $properties;
         }
 
         parent::__construct($items);
@@ -53,13 +50,6 @@ class EntityTable extends Table
     public function getProperties($entity)
     {
         return ['name' => $entity];
-    }
-    // }}}
-    // {{{ getRowProperties
-    public function getRowProperties($entity)
-    {
-        $classes 
-        return [=> $entity->isDeleted()];
     }
     // }}}
 }

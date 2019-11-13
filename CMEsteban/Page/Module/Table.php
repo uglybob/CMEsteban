@@ -10,17 +10,17 @@ class Table extends Form
     protected $table;
     // }}}
     // {{{ constructor
-    public function __construct(array $items, array $attributes = [])
+    public function __construct(array $rows, array $headings = [])
     {
         parent::__construct();
 
         CMEsteban::$template->addStylesheet(CMEsteban::$setup->getSettings('PathCme') . '/CMEsteban/Page/css/table.css');
 
-        $this->attributes = (empty($attributes)) ? $this->generateAttributes($items) : $attributes;
+        $this->headings = (empty($headings)) ? $this->generateHeadings($rows) : $headings;
         $this->table = $this->generateHeader();
 
-        foreach ($items as $item) {
-            $this->table .= $this->generateRow($item);
+        foreach ($rows as $row) {
+            $this->table .= $this->generateRow($row);
         }
 
         $this->table = HTML::div(['.ctable'], $this->table);
@@ -34,19 +34,19 @@ class Table extends Form
     }
     // }}}
 
-    // {{{ generateAttributes
-    public function generateAttributes(array $items)
+    // {{{ generateHeadings
+    public function generateHeadings(array $rows)
     {
-        $attributes = [];
-        $key = array_key_first($items);
+        $headings = [];
+        $key = array_key_first($rows);
 
-        if (isset($items[$key])) {
-            foreach ($items[$key]['properties'] as $attribute => $value) {
-                $attributes[$attribute] = $attribute;
+        if (isset($rows[$key])) {
+            foreach ($rows[$key] as $heading => $value) {
+                $headings[$heading] = $heading;
             }
         }
 
-        return $attributes;
+        return $headings;
     }
     // }}}
     // {{{ generateHeader
@@ -54,7 +54,7 @@ class Table extends Form
     {
         $cells = '';
 
-        foreach ($this->attributes as $attribute => $caption) {
+        foreach ($this->headings as $heading => $caption) {
             $cells .= HTML::div(['.cthead'], $caption);
         }
 
@@ -62,23 +62,23 @@ class Table extends Form
     }
     // }}}
     // {{{ generateRow
-    public function generateRow($item)
+    public function generateRow($row)
     {
         $properties = '';
 
-        foreach ($this->attributes as $attribute => $caption) {
-            $properties .= HTML::div([".$attribute", '.ctcell'], $item['properties'][$attribute]);
+        foreach ($this->headings as $heading => $caption) {
+            $properties .= HTML::div([".$heading", '.ctcell'], $row[$heading]);
         }
 
-        $rowClasses = $this->generateRowClasses($item);
+        $rowClasses = $this->generateRowClasses($row);
 
         return HTML::div($rowClasses, $properties);
     }
     // }}}
     // {{{ generateRowClasses
-    public function generateRowClasses($item)
+    public function generateRowClasses($row)
     {
-        return array_merge(['.ctrow'], $item['classes']);
+        return ['.ctrow'];
     }
     // }}}
 
