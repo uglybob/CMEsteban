@@ -96,15 +96,11 @@ class Controller
     }
     // }}}
     // {{{ getImages
-    public function getImages()
+    public function getImages($showHidden = false)
     {
-        $pages = [];
+        $this->access(1);
 
-        if ($this->access(1)) {
-            $pages = Mapper::findAll('Image');
-        }
-
-        return $pages;
+        return Mapper::findAll('Image', $showHidden);
     }
     // }}}
 
@@ -120,9 +116,11 @@ class Controller
     }
     // }}}
     // {{{ getTexts
-    public function getTexts()
+    public function getTexts($showHidden = false)
     {
-        return Mapper::findAll('Text');
+        $this->access(1);
+
+        return Mapper::findAll('Text', $showHidden);
     }
     // }}}
 

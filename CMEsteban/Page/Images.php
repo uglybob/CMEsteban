@@ -14,7 +14,7 @@ class Images extends Backend
     {
         parent::hookConstructor();
 
-        $this->addContent('main', new ImageTable(CMEsteban::$controller->getImages(), 'Image', true, 'delete'));
+        $this->addContent('main', new ImageTable(CMEsteban::$controller->getImages(true), 'Image', true, 'delete'));
     }
     // }}}
 }

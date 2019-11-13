@@ -14,7 +14,7 @@ class Texts extends Backend
     {
         parent::hookConstructor();
 
-        $this->addContent('main', new TextTable(CMEsteban::$controller->getTexts(), 'Text', true, 'delete'));
+        $this->addContent('main', new TextTable(CMEsteban::$controller->getTexts(true), 'Text', true, 'delete'));
     }
     // }}}
 }

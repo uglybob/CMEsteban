@@ -11,6 +11,7 @@ class EntityTable extends Table
     public function __construct(array $entities, $edit = null, $add = true, $delete = 'Delete')
     {
         $rows = [];
+        $classes = [];
 
         foreach ($entities as $entity) {
             $properties = $this->getRow($entity);
@@ -27,6 +28,7 @@ class EntityTable extends Table
             }
 
             $rows[] = $properties;
+            $classes[] = $this->getClasses($entity);
         }
 
         $headings = $this->getHeadings();
@@ -35,7 +37,7 @@ class EntityTable extends Table
             $headings[] = $delete;
         }
 
-        parent::__construct($rows, $headings);
+        parent::__construct($rows, $headings, $classes);
 
         if ($add && $edit) {
             $label = ($add === true) ? '+1' : $add;
@@ -62,6 +64,18 @@ class EntityTable extends Table
     public function getRow($entity)
     {
         return [$entity];
+    }
+    // }}}
+    // {{{ getClasses
+    public function getClasses($entity)
+    {
+        $classes = [];
+
+        if ($entity->isDeleted()) {
+            $classes[] = '.ctdeleted';
+        }
+
+        return $classes;
     }
     // }}}
 }

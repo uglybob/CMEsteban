@@ -10,17 +10,18 @@ class Table extends Form
     protected $table;
     // }}}
     // {{{ constructor
-    public function __construct(array $rows, array $headings)
+    public function __construct(array $rows, array $headings, array $classes = [])
     {
         parent::__construct();
 
         CMEsteban::$template->addStylesheet(CMEsteban::$setup->getSettings('PathCme') . '/CMEsteban/Page/css/table.css');
 
         $this->headings = $headings;
+        $this->classes = $classes;
         $this->table = $this->generateHeader();
 
-        foreach ($rows as $row) {
-            $this->table .= $this->generateRow($row);
+        foreach ($rows as $number => $row) {
+            $this->table .= $this->generateRow($number, $row);
         }
 
         $this->table = HTML::div(['.ctable'], $this->table);
@@ -47,7 +48,7 @@ class Table extends Form
     }
     // }}}
     // {{{ generateRow
-    public function generateRow($row)
+    public function generateRow($number, $row)
     {
         $properties = '';
 
@@ -55,15 +56,21 @@ class Table extends Form
             $properties .= HTML::div([".$heading", '.ctcell'], $row[$heading]);
         }
 
-        $rowClasses = $this->generateRowClasses($row);
+        $rowClasses = $this->generateRowClasses($number);
 
         return HTML::div($rowClasses, $properties);
     }
     // }}}
     // {{{ generateRowClasses
-    public function generateRowClasses($row)
+    public function generateRowClasses($number)
     {
-        return ['.ctrow'];
+        $classes = ['.ctrow'];
+
+        if (!empty($this->classes)) {
+            $classes = array_merge($classes, $this->classes[$number]);
+        }
+
+        return $classes;
     }
     // }}}
 
