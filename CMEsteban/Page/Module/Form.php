@@ -17,7 +17,7 @@ abstract class Form extends Module
     // {{{ toString
     public function __toString()
     {
-        return preg_replace('~>\\s+<~m', '><', $this->form->__toString());
+        return ($this->form) ? preg_replace('~>\\s+<~m', '><', $this->form->__toString()) : '';
     }
     // }}}
 }

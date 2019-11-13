@@ -31,7 +31,7 @@ class Table extends Form
     // {{{ toString
     public function __toString()
     {
-        return $this->table;
+        return $this->table . parent::__toString();
     }
     // }}}
 

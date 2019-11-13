@@ -41,15 +41,13 @@ class EntityTable extends Table
 
         if ($add && $edit) {
             $label = ($add === true) ? '+1' : $add;
-            $form = new HtmlForm('login', ['label' => $label]);
-            $form->process();
+            $this->form = new HtmlForm('login', ['label' => $label]);
+            $this->form->process();
 
-            if ($form->validate()) {
-                $form->clearSession();
+            if ($this->form->validate()) {
+                $this->form->clearSession();
                 Page::redirect("/edit/$edit/");
             }
-
-            $this->table .= $form;
         }
     }
     // }}}
