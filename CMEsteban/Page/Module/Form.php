@@ -6,6 +6,9 @@ use CMEsteban\CMEsteban;
 
 abstract class Form extends Module
 {
+    // {{{ variables
+    protected $form;
+    // }}}
     // {{{ constructor
     public function __construct()
     {
