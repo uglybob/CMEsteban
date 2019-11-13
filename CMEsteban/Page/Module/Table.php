@@ -10,13 +10,13 @@ class Table extends Form
     protected $table;
     // }}}
     // {{{ constructor
-    public function __construct(array $rows, array $headings = [])
+    public function __construct(array $rows, array $headings)
     {
         parent::__construct();
 
         CMEsteban::$template->addStylesheet(CMEsteban::$setup->getSettings('PathCme') . '/CMEsteban/Page/css/table.css');
 
-        $this->headings = (empty($headings)) ? $this->generateHeadings($rows) : $headings;
+        $this->headings = $headings;
         $this->table = $this->generateHeader();
 
         foreach ($rows as $row) {
@@ -34,28 +34,13 @@ class Table extends Form
     }
     // }}}
 
-    // {{{ generateHeadings
-    public function generateHeadings(array $rows)
-    {
-        $headings = [];
-        $key = array_key_first($rows);
-
-        if (isset($rows[$key])) {
-            foreach ($rows[$key] as $heading => $value) {
-                $headings[$heading] = $heading;
-            }
-        }
-
-        return $headings;
-    }
-    // }}}
     // {{{ generateHeader
     public function generateHeader()
     {
         $cells = '';
 
-        foreach ($this->headings as $heading => $caption) {
-            $cells .= HTML::div(['.cthead'], $caption);
+        foreach ($this->headings as $heading) {
+            $cells .= HTML::div(['.cthead'], $heading);
         }
 
         return HTML::div(['.ctheader'], HTML::div(['.ctrow'], $cells));

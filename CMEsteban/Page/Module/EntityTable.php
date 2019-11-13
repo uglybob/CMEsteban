@@ -10,10 +10,10 @@ class EntityTable extends Table
     // {{{ constructor
     public function __construct(array $entities, $edit = null, $add = true, $delete = 'Delete')
     {
-        $items = [];
+        $rows = [];
 
         foreach ($entities as $entity) {
-            $properties = $this->getProperties($entity);
+            $properties = $this->getRow($entity);
 
             if ($edit) {
                 $id = $entity->getId();
@@ -23,13 +23,19 @@ class EntityTable extends Table
             }
 
             if ($delete) {
-                $properties[$delete] = HTML::a(['href' => "/delete/$edit/$id"], 'x');
+                $properties[] = HTML::a(['href' => "/delete/$edit/$id"], 'x');
             }
 
-            $items[] = $properties;
+            $rows[] = $properties;
         }
 
-        parent::__construct($items);
+        $headings = $this->getHeadings();
+
+        if ($delete) {
+            $headings[] = $delete;
+        }
+
+        parent::__construct($rows, $headings);
 
         if ($add && $edit) {
             $label = ($add === true) ? '+1' : $add;
@@ -46,10 +52,16 @@ class EntityTable extends Table
     }
     // }}}
 
-    // {{{ getProperties
-    public function getProperties($entity)
+    // {{{ getHeadings
+    public function getHeadings()
     {
-        return ['name' => $entity];
+        return ['Name'];
+    }
+    // }}}
+    // {{{ getRow
+    public function getRow($entity)
+    {
+        return [$entity];
     }
     // }}}
 }

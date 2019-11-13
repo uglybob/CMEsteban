@@ -4,13 +4,23 @@ namespace CMEsteban\Page\Module;
 
 class TextTable extends EntityTable
 {
-    // {{{ getProperties
-    public function getProperties($text)
+    // {{{ getHeading
+    public function getHeadings()
     {
         return [
-            'Name' => $this->shorten($text->getName(), 30),
-            'Link' => $text->getPage(),
-            'Text' => $this->shorten($text->getText(), 30),
+            'Name',
+            'Link',
+            'Text',
+        ];
+    }
+    // }}}
+    // {{{ getRow
+    public function getRow($text)
+    {
+        return [
+            $this->shorten($text->getName(), 30),
+            $text->getPage(),
+            $this->shorten($text->getText(), 30),
         ];
     }
     // }}}

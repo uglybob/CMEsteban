@@ -4,12 +4,21 @@ namespace CMEsteban\Page\Module;
 
 class ImageTable extends EntityTable
 {
-    // {{{ getProperties
-    public function getProperties($image)
+    // {{{ getHeadings
+    public function getHeadings()
     {
         return [
-            'Name' => $this->shorten($image->getName(), 30),
-            'Alt' => $this->shorten($image->getAlt(), 40),
+            'Name',
+            'Alt',
+        ];
+    }
+    // }}}
+    // {{{ getRow
+    public function getRow($image)
+    {
+        return [
+            $this->shorten($image->getName(), 30),
+            $this->shorten($image->getAlt(), 40),
         ];
     }
     // }}}
