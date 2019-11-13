@@ -117,6 +117,12 @@ abstract class Entity
         $this->deleted = true;
     }
     // }}}
+    // {{{ undelete
+    public function undelete()
+    {
+        $this->deleted = false;
+    }
+    // }}}
     // {{{ isDeleted
     public function isDeleted()
     {

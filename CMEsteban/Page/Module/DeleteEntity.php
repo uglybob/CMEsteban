@@ -24,12 +24,14 @@ class DeleteEntity extends Form
 
         $name = is_callable([$entity, 'getName']) ? $entity->getName() : $entity->getId();
 
-        $this->form = new \Depage\HtmlForm\HtmlForm('delete' . $this->class, ['label' => 'delete']);
-        $this->form->addBoolean('sure', ['label' => 'delete ' . $name . '?'])->setRequired();
+        $delete = ($entity->isDeleted()) ? 'undelete' : 'delete';
+
+        $this->form = new \Depage\HtmlForm\HtmlForm($delete . $this->class, ['label' => $delete]);
+        $this->form->addBoolean('sure', ['label' => "$delete " . $name . '?'])->setRequired();
         $this->form->process();
 
         if ($this->form->validate()) {
-            $entity->delete();
+            $entity->$delete();
             Mapper::commit();
             $this->form->clearSession();
 
