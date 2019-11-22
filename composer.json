@@ -19,7 +19,7 @@
         "depage/htmlform": "*",
         "matthiasmullie/minify": "*",
         "phpmailer/phpmailer": "*",
-        "doctrine/orm": "*"
+        "doctrine/orm": "2.6.*"
     },
     "autoload": {
         "psr-0": {"CMEsteban\\": "./"}

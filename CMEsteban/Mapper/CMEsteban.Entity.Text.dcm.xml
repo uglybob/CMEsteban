@@ -4,7 +4,7 @@
     http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
     <entity name="CMEsteban\Entity\Text" table="texts">
-        <field name="text" column-definition="TEXT NOT NULL" />
+        <field name="text" column-definition="TEXT NULL" />
         <field name="page" type="string" nullable="false" />
     </entity>
 </doctrine-mapping>
