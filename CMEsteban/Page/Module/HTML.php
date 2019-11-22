@@ -130,17 +130,4 @@ class HTML
         return $result;
     }
     // }}}
-
-    // {{{ menu
-    public static function menu($links)
-    {
-        $menu = '';
-
-        foreach ($links as $title => $link) {
-            $menu .= Html::a(['href' => $link], $title);
-        }
-
-        return Html::div(['class' => 'menu'], $menu);
-    }
-    // }}}
 }
