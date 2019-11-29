@@ -27,5 +27,4 @@ class Setup extends Config
             'texts' => 'Texts',
         ],
     ];
-
 }
