@@ -20,18 +20,63 @@ class Image extends Named
     }
     // }}}
 
+    // {{{ setName
+    public function setName($new)
+    {
+        if (
+            $this->getName()
+            && $new != $this->getName()
+        ) {
+            $oldPath = $this->getSrc(true);
+
+            $path = CMEsteban::$setup->getSettings('Path');
+
+            if (file_exists($oldPath)) {
+                $ext = $this->getExtension();
+
+                if (substr(strtolower($new), - strlen($ext)) != $ext) {
+                    $new = "$name$ext";
+                }
+
+                $newPath = $path . '/CMEsteban/Images/' . $new;
+
+                rename($oldPath, $newPath);
+            }
+        }
+
+        parent::setName($new);
+    }
+    // }}}
+    // {{{ getExtension
+    public function getExtension($url = '')
+    {
+        if (!$url) {
+            $url = $this->getSrc(true);
+        }
+
+        $info = getimagesize($url);
+
+        return image_type_to_extension($info[2]);
+    }
+    // }}}
+    // {{{ getProperName
+    public function getProperName($url = '')
+    {
+        $ext = $this->getExtension($url);
+        $name = $this->getName();
+
+        if (substr(strtolower($name), - strlen($ext)) != $ext) {
+            $name = "$name$ext";
+        }
+
+        return $name;
+    }
+    // }}}
     // {{{ download
     public function download($url)
     {
         $img = file_get_contents($url);
-
-        $info = getimagesize($url);
-        $ext = image_type_to_extension($info[2]);
-        $name = $this->getName();
-
-        if (substr(strtolower($name), - strlen($ext)) != $ext) {
-            $this->setName("$name$ext");
-        }
+        $this->name = $this->getProperName($url);
 
         return file_put_contents($this->getSrc(true), $img);
     }

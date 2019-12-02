@@ -3,6 +3,7 @@
 namespace CMEsteban\Page\Module\Form;
 
 use CMEsteban\CMEsteban;
+use CMEsteban\Page\Page;
 
 abstract class EditForm
 {
@@ -50,7 +51,7 @@ abstract class EditForm
     // {{{ loadEntity
     protected function loadEntity()
     {
-        if (!is_null($this->id)) {
+        if ($this->id) {
             $getter = 'get' . ucfirst($this->class);
             $this->entity = CMEsteban::$controller->$getter($this->id);
         }
@@ -60,13 +61,13 @@ abstract class EditForm
     protected function instantiateEntity()
     {
         $classString = 'CMEsteban\\Entity\\' . $this->class;
-        $this->entity = new $classString();
+        $this->entity = new $classString('');
     }
     // }}}
     // {{{ redirect
     protected function redirect()
     {
-        Page::redirect('/list/' . lcfirst($this->class));
+        Page::redirect('/' . lcfirst($this->class) . 's');
     }
     // }}}
 
