@@ -13,8 +13,6 @@ abstract class EditImageEntity extends EditForm
     protected function create()
     {
         $this->form->addText('Name', ['required' => true]);
-        $this->form->addText('Alt');
-        $this->form->addFile('Upload');
 
         if ($this->image) {
             $this->form->addHtml(
@@ -26,6 +24,8 @@ abstract class EditImageEntity extends EditForm
                 )
             );
         }
+
+        $this->form->addFile('Upload');
     }
     // }}}
     // {{{ populate
@@ -33,7 +33,6 @@ abstract class EditImageEntity extends EditForm
     {
         $values = [
             'Name' => $this->entity->getName(),
-            'Alt' => $this->image->getAlt(),
         ];
 
         $this->form->populate($values);
@@ -48,7 +47,7 @@ abstract class EditImageEntity extends EditForm
         $this->entity->setName($name);
 
         $this->image->setName($name . '_image');
-        $this->image->setAlt($values['Alt']);
+        $this->image->setAlt("$name Image");
 
         if ($values['Upload']) {
             $this->image->download($values['Upload'][0]['tmp_name']);
