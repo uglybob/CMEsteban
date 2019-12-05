@@ -10,7 +10,6 @@ class TextTable extends EntityTable
         return [
             'Name',
             'Link',
-            'Text',
         ];
     }
     // }}}
@@ -20,7 +19,6 @@ class TextTable extends EntityTable
         return [
             $this->shorten($text->getName(), 30),
             $text->getPage(),
-            $this->shorten($text->getText(), 30),
         ];
     }
     // }}}
