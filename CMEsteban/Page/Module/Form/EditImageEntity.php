@@ -45,18 +45,18 @@ abstract class EditImageEntity extends EditForm
         $name = $values['Name'];
 
         $this->entity->setName($name);
-
         $this->image->setName($name . '_image');
         $this->image->setAlt("$name Image");
 
         if ($values['Upload']) {
             $this->image->download($values['Upload'][0]['tmp_name']);
-        } else {
-            $this->entity->setImage($this->image);
         }
 
-        $this->entity->save();
+        $this->image->fixExtension();
+        $this->entity->setImage($this->image);
+
         $this->image->save();
+        $this->entity->save();
 
         Mapper::commit();
     }
