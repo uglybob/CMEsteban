@@ -1,0 +1,14 @@
+.cimg-zoom {
+    overflow: hidden;
+}
+
+.cimg-zoom .image {
+    transition: transform 0.8s ease;
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+}
+
+.cimg-zoom:hover .image {
+    transform: scale(1.05);
+}
