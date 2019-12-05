@@ -168,7 +168,11 @@ class Page
     // {{{ addContent
     public function addContent($section, $content)
     {
-        $this->content[$section] = $content;
+        if (isset($this->content[$section])) {
+            $this->content[$section] .= $content;
+        } else {
+            $this->content[$section] = $content;
+        }
     }
     // }}}
     // {{{ getContent
