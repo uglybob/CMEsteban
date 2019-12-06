@@ -249,7 +249,7 @@ class Page
         $cleanedUrl = (preg_match("~^(?:f|ht)tps?://~i", $url)) ? $url : 'https://' . $url;
 
         $short = self::shortenUrl($cleanedUrl);
-        $trimmed = self::shortenString($short);
+        $trimmed = self::shortenString($short, 30);
 
         return HTML::a(['href' => $cleanedUrl],  ">$trimmed");
     }

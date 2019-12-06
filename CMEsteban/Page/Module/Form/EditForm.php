@@ -7,6 +7,9 @@ use CMEsteban\Page\Page;
 
 abstract class EditForm
 {
+    // {{{ variables
+    protected $entity;
+    // }}}
     // {{{ constructor
     public function __construct($class, $id)
     {

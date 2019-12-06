@@ -9,6 +9,9 @@ use CMEsteban\Page\Module\HTML;
 
 abstract class EditImageEntity extends EditForm
 {
+    // {{{ variables
+    protected $image;
+    // }}}
     // {{{ create
     protected function create()
     {
