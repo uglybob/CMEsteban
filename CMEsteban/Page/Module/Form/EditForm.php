@@ -67,7 +67,7 @@ abstract class EditForm
     // {{{ redirect
     protected function redirect()
     {
-        Page::redirect('/' . lcfirst($this->class) . 's');
+        Page::redirect('/table/' . $this->class);
     }
     // }}}
 

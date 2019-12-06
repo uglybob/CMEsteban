@@ -4,6 +4,7 @@ namespace CMEsteban\Entity;
 
 use CMEsteban\CMEsteban;
 use CMEsteban\Page\Module\HTML;
+use CMEsteban\Page\Page;
 
 class Image extends Named
 {
@@ -91,6 +92,25 @@ class Image extends Named
         }
 
         return HTML::img($attributes);
+    }
+    // }}}
+
+    // {{{ getHeadings
+    public static function getHeadings()
+    {
+        return [
+            'Name',
+            'Alt',
+        ];
+    }
+    // }}}
+    // {{{ getRow
+    public function getRow()
+    {
+        return [
+            Page::shortenString($this->getName(), 30),
+            Page::shortenString($this->getAlt(), 40),
+        ];
     }
     // }}}
 }

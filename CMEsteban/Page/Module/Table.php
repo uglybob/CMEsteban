@@ -86,10 +86,4 @@ class Table extends Form
         return $result;
     }
     // }}}
-    // {{{ shorten
-    public function shorten($text, $length)
-    {
-        return (strlen($text) > $length) ? substr($text, 0, $length - 3) . '...' : $text;
-    }
-    // }}}
 }

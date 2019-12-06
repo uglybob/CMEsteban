@@ -8,30 +8,31 @@ use CMEsteban\Page\Page;
 class EntityTable extends Table
 {
     // {{{ constructor
-    public function __construct(array $entities, $edit = null, $add = true, $delete = 'Delete')
+    public function __construct($class, array $entities, $edit = true, $add = true, $delete = '-1')
     {
         $rows = [];
         $classes = [];
 
         foreach ($entities as $entity) {
-            $properties = $this->getRow($entity);
+            $properties = $entity->getRow();
 
             if ($edit) {
                 $id = $entity->getId();
                 foreach ($properties as $key => $property) {
-                    $properties[$key] = HTML::a(['href' => "/edit/$edit/$id"], $property);
+                    $properties[$key] = HTML::a(['href' => "/edit/$class/$id"], $property);
                 }
             }
 
             if ($delete) {
-                $properties[] = HTML::a(['href' => "/delete/$edit/$id"], 'x');
+                $properties[] = HTML::a(['href' => "/delete/$class/$id"], 'x');
             }
 
             $rows[] = $properties;
             $classes[] = $this->getClasses($entity);
         }
 
-        $headings = $this->getHeadings();
+        $fullClass = "\\CMEsteban\\Entity\\$class";
+        $headings = $fullClass::getHeadings();
 
         if ($delete) {
             $headings[] = $delete;
@@ -46,24 +47,12 @@ class EntityTable extends Table
 
             if ($this->form->validate()) {
                 $this->form->clearSession();
-                Page::redirect("/edit/$edit/");
+                Page::redirect("/edit/$class/");
             }
         }
     }
     // }}}
 
-    // {{{ getHeadings
-    public function getHeadings()
-    {
-        return ['Name'];
-    }
-    // }}}
-    // {{{ getRow
-    public function getRow($entity)
-    {
-        return [$entity];
-    }
-    // }}}
     // {{{ getClasses
     public function getClasses($entity)
     {

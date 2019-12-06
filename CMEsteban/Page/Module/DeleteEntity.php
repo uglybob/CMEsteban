@@ -35,7 +35,7 @@ class DeleteEntity extends Form
             Mapper::commit();
             $this->form->clearSession();
 
-            Page::redirect('/' . lcfirst($this->class) . 's');
+            Page::redirect('/table/' . $this->class);
         }
     }
     // }}}

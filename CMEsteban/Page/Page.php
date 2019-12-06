@@ -210,8 +210,14 @@ class Page
     }
     // }}}
 
-    // {{{ shorten
-    public static function shorten($url)
+    // {{{ shortenString
+    public static function shortenString($text, $length)
+    {
+        return (strlen($text) > $length) ? substr($text, 0, $length - 3) . '...' : $text;
+    }
+    // }}}
+    // {{{ shortenUrl
+    public static function shortenUrl($url)
     {
         $sites = [
             'facebook',
@@ -242,8 +248,8 @@ class Page
         $url = $match[0];
         $cleanedUrl = (preg_match("~^(?:f|ht)tps?://~i", $url)) ? $url : 'https://' . $url;
 
-        $short = self::shorten($cleanedUrl);
-        $trimmed = (strlen($short) > 33) ? substr($short, 0, 30) . '...' : $short;
+        $short = self::shortenUrl($cleanedUrl);
+        $trimmed = self::shortenString($short);
 
         return HTML::a(['href' => $cleanedUrl],  ">$trimmed");
     }

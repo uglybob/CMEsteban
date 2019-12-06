@@ -136,4 +136,17 @@ abstract class Entity
         throw new \CMEsteban\Exception\EntityException('Call to undefined method ' . get_class($this) . '::' . $name);
     }
     // }}}
+
+    // {{{ getHeadings
+    public static function getHeadings()
+    {
+        return ['ID'];
+    }
+    // }}}
+    // {{{ getRow
+    public function getRow()
+    {
+        return [$this->getId()];
+    }
+    // }}}
 }
