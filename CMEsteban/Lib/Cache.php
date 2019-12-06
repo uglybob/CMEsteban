@@ -74,6 +74,14 @@ class Cache
         return $success;
     }
     // }}}
+    // {{{ autoClear
+    public static function autoClear()
+    {
+        if (CMEsteban::$setup->getSettings('CacheAutoClear')) {
+            self::clear();
+        }
+    }
+    // }}}
 
     // {{{ validTime
     protected function validTime($file)

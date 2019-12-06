@@ -3,6 +3,7 @@
 namespace CMEsteban\Page\Module\Form;
 
 use CMEsteban\CMEsteban;
+use CMEsteban\Lib\Cache;
 use CMEsteban\Page\Page;
 
 abstract class EditForm
@@ -46,9 +47,20 @@ abstract class EditForm
         }
     }
     // }}}
+    // {{{ create
+    protected function create()
+    {
+    }
+    // }}}
     // {{{ populate
     protected function populate()
     {
+    }
+    // }}}
+    // {{{ save
+    protected function save()
+    {
+        Cache::autoClear();
     }
     // }}}
     // {{{ loadEntity

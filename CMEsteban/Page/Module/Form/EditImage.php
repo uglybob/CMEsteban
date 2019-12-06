@@ -50,6 +50,7 @@ class EditImage extends EditForm
         $this->entity->save();
         Mapper::commit();
 
+        parent::save();
     }
     // }}}
     // {{{ populate

@@ -8,6 +8,7 @@ class Setup extends Config
         'Path' => __DIR__,
         'DevMode' => true,
         'CacheTime' => 1800,
+        'CacheAutoClear' => true,
         'EnableRegistration' => true,
         'DbConn' => [
             'driver' => 'pdo_mysql',

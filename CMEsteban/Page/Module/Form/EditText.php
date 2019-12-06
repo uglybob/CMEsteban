@@ -38,6 +38,8 @@ class EditText extends EditForm
 
         $this->entity->save();
         Mapper::commit();
+
+        parent::save();
     }
     // }}}
 
