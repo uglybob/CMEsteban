@@ -77,7 +77,7 @@ class Cache
     // {{{ autoClear
     public static function autoClear()
     {
-        if (CMEsteban::$setup->getSettings('CacheAutoClear')) {
+        if (CMEsteban::$setup->getSettings('CacheTime') == 'auto') {
             self::clear();
         }
     }
@@ -89,8 +89,14 @@ class Cache
         $timeLeft = 0;
 
         if (is_file($file)) {
-            $timeLeft = CMEsteban::$setup->getSettings('CacheTime') - (time() - filemtime($file));
-            $timeLeft = ($timeLeft > 0) ? $timeLeft : 0;
+            $cacheTime = CMEsteban::$setup->getSettings('CacheTime');
+
+            if ($cacheTime == 'auto') {
+                $timeLeft = 'auto';
+            } else {
+                $timeLeft = CMEsteban::$setup->getSettings('CacheTime') - (time() - filemtime($file));
+                $timeLeft = ($timeLeft > 0) ? $timeLeft : 0;
+            }
         }
 
         return $timeLeft;

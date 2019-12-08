@@ -152,6 +152,7 @@ class Mapper
     public static function commit()
     {
         self::getEntityManager()->flush();
+        Cache::autoclear();
     }
     // }}}
 }

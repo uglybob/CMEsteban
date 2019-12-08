@@ -3,7 +3,6 @@
 namespace CMEsteban\Page\Module\Form;
 
 use CMEsteban\Page\Page;
-use CMEsteban\Lib\Mapper;
 
 class EditText extends EditForm
 {
@@ -36,24 +35,7 @@ class EditText extends EditForm
         $this->entity->setPage($values['Link']);
         $this->entity->setText($values['Text']);
 
-        $this->entity->save();
-        Mapper::commit();
-
         parent::save();
-    }
-    // }}}
-
-    // {{{ redirect
-    protected function redirect()
-    {
-        Page::redirect('/texts');
-    }
-    // }}}
-
-    // {{{ instantiateEntity
-    protected function instantiateEntity()
-    {
-        $this->entity = new \CMEsteban\Entity\Text('');
     }
     // }}}
 }

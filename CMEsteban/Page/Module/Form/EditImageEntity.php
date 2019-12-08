@@ -61,8 +61,6 @@ abstract class EditImageEntity extends EditForm
         $this->image->save();
         $this->entity->save();
 
-        Mapper::commit();
-
         parent::save();
     }
     // }}}

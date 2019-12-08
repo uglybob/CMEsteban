@@ -3,7 +3,6 @@
 namespace CMEsteban\Page\Module\Form;
 
 use CMEsteban\CMEsteban;
-use CMEsteban\Lib\Mapper;
 use CMEsteban\Page\Page;
 use CMEsteban\Page\Module\HTML;
 
@@ -47,9 +46,6 @@ class EditImage extends EditForm
             $this->entity->download($values['Import']);
         }
 
-        $this->entity->save();
-        Mapper::commit();
-
         parent::save();
     }
     // }}}
@@ -63,20 +59,6 @@ class EditImage extends EditForm
         ];
 
         $this->form->populate($values);
-    }
-    // }}}
-
-    // {{{ redirect
-    protected function redirect()
-    {
-        Page::redirect('/images');
-    }
-    // }}}
-
-    // {{{ instantiateEntity
-    protected function instantiateEntity()
-    {
-        $this->entity = new \CMEsteban\Entity\Image('');
     }
     // }}}
 }

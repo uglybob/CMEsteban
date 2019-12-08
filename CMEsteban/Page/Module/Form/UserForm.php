@@ -60,13 +60,6 @@ class UserForm extends EditForm
     }
     // }}}
 
-    // {{{ instantiateEntity
-    protected function instantiateEntity()
-    {
-        $this->entity = new \CMEsteban\Entity\User('');
-    }
-    // }}}
-
     // {{{ loadEntity
     protected function loadEntity()
     {

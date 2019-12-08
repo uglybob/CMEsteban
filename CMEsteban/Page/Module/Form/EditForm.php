@@ -3,7 +3,7 @@
 namespace CMEsteban\Page\Module\Form;
 
 use CMEsteban\CMEsteban;
-use CMEsteban\Lib\Cache;
+use CMEsteban\Lib\Mapper;
 use CMEsteban\Page\Page;
 
 abstract class EditForm
@@ -60,7 +60,9 @@ abstract class EditForm
     // {{{ save
     protected function save()
     {
-        Cache::autoClear();
+        $this->entity->save();
+
+        Mapper::commit();
     }
     // }}}
     // {{{ loadEntity
