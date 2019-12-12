@@ -20,4 +20,17 @@ abstract class PrivateNamed extends PrivateEntity
         return $this->name;
     }
     // }}}
+
+    // {{{ getHeadings
+    public static function getHeadings()
+    {
+        return ['Name'];
+    }
+    // }}}
+    // {{{ getRow
+    public function getRow()
+    {
+        return [$this->getName()];
+    }
+    // }}}
 }
