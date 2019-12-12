@@ -171,8 +171,14 @@ class Page
         if (isset($this->content[$section])) {
             $this->content[$section] .= $content;
         } else {
-            $this->content[$section] = $content;
+            $this->setContent($section, $content);
         }
+    }
+    // }}}
+    // {{{ setContent
+    public function setContent($section, $content)
+    {
+        $this->content[$section] = $content;
     }
     // }}}
     // {{{ getContent

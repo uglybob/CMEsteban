@@ -30,14 +30,4 @@ abstract class Config
         return $result;
     }
     // }}}
-    // {{{ getTemplate
-    public function getTemplate($page) {
-        return new \CMEsteban\Page\Template\CME();
-    }
-    // }}}
-    // {{{ getController
-    public function getController() {
-        return new \CMEsteban\Lib\Controller();
-    }
-    // }}}
 }
