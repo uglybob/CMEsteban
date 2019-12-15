@@ -12,19 +12,19 @@ class Text extends Named
     // {{{ getHeading
     public static function getHeadings()
     {
-        return [
-            'Name',
-            'Link',
-        ];
+        $headings = parent::getHeadings();
+        $headings[] = 'Link';
+
+        return $headings;
     }
     // }}}
     // {{{ getRow
     public function getRow()
     {
-        return [
-            Page::shortenString($this->getName(), 30),
-            $this->getPage(),
-        ];
+        $rows = parent::getRow();
+        $rows[] = $this->getPage();
+
+        return $rows;
     }
     // }}}
 }

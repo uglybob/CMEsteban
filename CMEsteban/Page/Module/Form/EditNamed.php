@@ -4,23 +4,21 @@ namespace CMEsteban\Page\Module\Form;
 
 use CMEsteban\Page\Page;
 
-class EditText extends EditNamed
+class EditNamed extends EditForm
 {
     // {{{ create
     protected function create()
     {
         parent::create();
 
-        $this->form->addText('Link');
-        $this->form->addTextarea('Text');
+        $this->form->addText('Name', ['required' => true]);
     }
     // }}}
     // {{{ populate
     protected function populate()
     {
         $values = [
-            'Link' => $this->entity->getPage(),
-            'Text' => $this->entity->getText(),
+            'Name' => $this->entity->getName(),
         ];
 
         $this->form->populate($values);
@@ -33,8 +31,7 @@ class EditText extends EditNamed
     {
         $values = $this->form->getValues();
 
-        $this->entity->setPage($values['Link']);
-        $this->entity->setText($values['Text']);
+        $this->entity->setName($values['Name']);
 
         parent::save();
     }
