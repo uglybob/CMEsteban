@@ -2,6 +2,8 @@
 
 namespace CMEsteban\Entity;
 
+use CMEsteban\Page\Page;
+
 abstract class Named extends Entity
 {
     protected $name;
@@ -30,7 +32,7 @@ abstract class Named extends Entity
     // {{{ getRow
     public function getRow()
     {
-        return [$this->getName()];
+        return [Page::shortenString($this->getName(), 30)];
     }
     // }}}
 }
