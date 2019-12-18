@@ -13,15 +13,29 @@ class CMEsteban
     // {{{ constructor
     private function __construct($setup)
     {
+        self::$setup = $setup;
+        self::$controller = self::$setup->getController();
+    }
+    // }}}
+    // {{{ startQuiet
+    public function startQuiet($setup)
+    {
+        if (is_null(self::$instance)) {
+            self::$instance = new self($setup);
+        }
+    }
+    // }}}
+    // {{{ start
+    public function start($setup)
+    {
+        self::startQuiet($setup);
+
         if (!session_id()) {
             @session_start();
         }
 
         $request = isset($_GET['page']) ? $_GET['page'] : 'home';
         $request = ltrim($request, '/');
-
-        self::$setup = $setup;
-        self::$controller = self::$setup->getController();
 
         $output = '';
 
@@ -48,14 +62,6 @@ class CMEsteban
         }
 
         echo($output);
-    }
-    // }}}
-    // {{{ start
-    public function start($setup)
-    {
-        if (is_null(self::$instance)) {
-            self::$instance = new self($setup);
-        }
     }
     // }}}
 

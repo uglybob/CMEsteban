@@ -63,7 +63,7 @@ class Mapper
         $conn = $settings['DbConn'];
         $config = \Doctrine\ORM\Tools\Setup::createXMLMetadataConfiguration(
             [
-                __DIR__ . '/../Mapper',
+                realpath(__DIR__ . '/../Mapper'),
                 'CMEsteban/Mapper',
             ],
             $settings['DevMode']
