@@ -41,9 +41,13 @@ abstract class EditForm
         $this->form->process();
 
         if ($this->form->validate()) {
-            $this->save();
-            $this->form->clearSession();
-            $this->redirect();
+            try {
+                $this->save();
+                $this->form->clearSession();
+                $this->redirect();
+            } catch (\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
+                $this->form->addHTML('Error: duplicate entry, try again :)');
+            }
         }
     }
     // }}}
