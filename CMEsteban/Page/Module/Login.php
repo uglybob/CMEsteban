@@ -19,7 +19,7 @@ class Login extends Form
             $this->form = new HtmlForm('login', ['label' => 'logout']);
         } else {
             $this->form = new HtmlForm('login', ['label' => 'login']);
-            $this->form->addText('User');
+            $this->form->addText('User', ['required' => true]);
             $this->form->addPassword('Pass');
         }
 
@@ -28,13 +28,19 @@ class Login extends Form
         if ($this->form->validate()) {
             if ($user) {
                 CMEsteban::$controller->logoff();
+                $this->form->clearSession();
+                Page::redirect('/');
             } else {
                 $values = $this->form->getValues();
-                CMEsteban::$controller->login($values['User'], $values['Pass']);
-            }
 
-            $this->form->clearSession();
-            Page::redirect('/');
+                if (CMEsteban::$controller->login($values['User'], $values['Pass'])) {
+                    $this->form->clearSession();
+                    Page::redirect('/');
+                } else {
+                    $this->form->addHtml('Wrong user name or password');
+                    $this->form->clearSession();
+                }
+            }
         }
     }
     // }}}
