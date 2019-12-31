@@ -25,9 +25,15 @@ class Breadcrumbs extends Module
     public function __toString()
     {
         $breadcrumbs = '';
+        $first = true;
 
         foreach ($this->items as $title => $link) {
-            $breadcrumbs .= HTML::span('>');
+            if ($first) {
+                $first = false;
+            } else {
+                $breadcrumbs .= HTML::span('>');
+            }
+
             $breadcrumbs .= HTML::span(HTML::a(['href' => $link], $title));
         }
 
