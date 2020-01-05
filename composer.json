@@ -16,7 +16,7 @@
         "phpunit/phpunit": "*"
     },
     "require" : {
-        "depage/htmlform": "1.*",
+        "depage/htmlform": "dev-master",
         "matthiasmullie/minify": "1.*",
         "phpmailer/phpmailer": "6.*",
         "doctrine/orm": "2.7.*"
