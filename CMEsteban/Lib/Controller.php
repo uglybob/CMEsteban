@@ -73,7 +73,7 @@ class Controller
     public function getPageText($request, $path)
     {
         $page = null;
-        $text = Mapper::findOneBy('Text', ['page' => $request]);
+        $text = Mapper::findOneBy('Text', ['link' => $request]);
 
         if (!is_null($text)) {
             $page = new \CMEsteban\Page\Text($path, $text);

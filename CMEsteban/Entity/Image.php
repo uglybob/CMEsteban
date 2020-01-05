@@ -13,7 +13,7 @@ use CMEsteban\Page\Page;
 class Image extends Named
 {
     /**
-     * @Column(type="string")
+     * @Column(type="string", nullable=true)
      **/
     protected $alt;
     /**

@@ -14,7 +14,7 @@ abstract class GalleryItem extends ImageEntity
      **/
     protected $position;
     /**
-     * @Column(type="text")
+     * @Column(type="text", nullable=true)
      **/
     protected $text;
 

@@ -8,7 +8,7 @@ namespace CMEsteban\Entity;
 abstract class GalleryItemLinked extends GalleryItem
 {
     /**
-     * @Column(type="string", unique=true)
+     * @Column(type="string", unique=true, nullable=true)
      **/
     protected $link;
 

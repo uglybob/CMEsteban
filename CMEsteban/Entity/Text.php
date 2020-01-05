@@ -9,13 +9,13 @@ namespace CMEsteban\Entity;
 class Text extends Named
 {
     /**
-     * @Column(type="text")
+     * @Column(type="text", nullable=true)
      **/
     protected $text;
     /**
-     * @Column(type="string", unique=true)
+     * @Column(type="string", unique=true, nullable=true)
      **/
-    protected $page;
+    protected $link;
 
     // {{{ getHeading
     public static function getHeadings()
