@@ -2,14 +2,14 @@
 
 namespace CMEsteban\Page\Module\Form;
 
-class EditGalleryItemLinked extends EditGalleryItem
+abstract class EditGalleryItemLinked extends EditGalleryItem
 {
     // {{{ create
     protected function create()
     {
         parent::create();
 
-        $this->form->addText('Link');
+        $this->form->addText('Link', ['required' => true]);
     }
     // }}}
     // {{{ populate
