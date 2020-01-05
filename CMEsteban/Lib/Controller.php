@@ -226,17 +226,4 @@ class Controller
         return $result;
     }
     // }}}
-
-    // {{{ entityList
-    public function entityList(array $entities)
-    {
-       $list = [];
-
-        foreach ($entities as $entity) {
-            $list[$entity->getId()] = $entity->getName();
-        }
-
-        return $list;
-    }
-    // }}}
 }

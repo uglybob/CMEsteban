@@ -98,4 +98,17 @@ abstract class EditForm
         return (string) $this->form;
     }
     // }}}
+
+    // {{{ entityList
+    public function entityList(array $entities)
+    {
+       $list = [];
+
+        foreach ($entities as $entity) {
+            $list[$entity->getId()] = $entity->getName();
+        }
+
+        return $list;
+    }
+    // }}}
 }
