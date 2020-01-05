@@ -30,7 +30,7 @@ class Text extends Named
     public function getRow()
     {
         $rows = parent::getRow();
-        $rows[] = $this->getPage();
+        $rows[] = $this->getLink();
 
         return $rows;
     }

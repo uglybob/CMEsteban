@@ -19,7 +19,7 @@ class EditText extends EditNamed
     protected function populate()
     {
         $values = [
-            'Link' => $this->entity->getPage(),
+            'Link' => $this->entity->getLink(),
             'Text' => $this->entity->getText(),
         ];
 
@@ -33,7 +33,7 @@ class EditText extends EditNamed
     {
         $values = $this->form->getValues();
 
-        $this->entity->setPage($values['Link']);
+        $this->entity->setLink($values['Link']);
         $this->entity->setText($values['Text']);
 
         parent::save();

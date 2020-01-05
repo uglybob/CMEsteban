@@ -9,7 +9,7 @@ abstract class EditGalleryItemLinked extends EditGalleryItem
     {
         parent::create();
 
-        $this->form->addText('Link', ['required' => true]);
+        $this->form->addText('Link');
     }
     // }}}
     // {{{ populate
