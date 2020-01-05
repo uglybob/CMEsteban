@@ -7,7 +7,7 @@ use CMEsteban\Page\Page;
 abstract class GalleryItem extends ImageEntity
 {
     protected $position;
-    protected $description;
+    protected $text;
 
     // {{{ getHeading
     public static function getHeadings()
