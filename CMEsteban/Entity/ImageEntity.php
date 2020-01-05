@@ -2,7 +2,13 @@
 
 namespace CMEsteban\Entity;
 
-class ImageEntity extends Named
+/**
+ * @MappedSuperclass
+ **/
+abstract class ImageEntity extends Named
 {
+    /**
+     * @ManyToOne(targetEntity="CMEsteban\Entity\Image")
+     **/
     protected $image;
 }

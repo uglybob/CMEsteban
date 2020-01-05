@@ -6,9 +6,19 @@ use CMEsteban\CMEsteban;
 use CMEsteban\Page\Module\HTML;
 use CMEsteban\Page\Page;
 
+/**
+ * @Table(name="images")
+ * @Entity
+ **/
 class Image extends Named
 {
+    /**
+     * @Column(type="string")
+     **/
     protected $alt;
+    /**
+     * @Column(type="integer")
+     **/
     protected $level;
 
     // {{{ constructor

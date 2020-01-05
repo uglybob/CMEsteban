@@ -2,10 +2,25 @@
 
 namespace CMEsteban\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @Table(name="users")
+ * @Entity
+ **/
 class User extends Named
 {
+    /**
+     * @Column(type="string", unique=true)
+     **/
     protected $email;
+    /**
+     * @Column(type="string")
+     **/
     protected $pass;
+    /**
+     * @Column(type="integer")
+     **/
     protected $level;
 
     // {{{ constructor

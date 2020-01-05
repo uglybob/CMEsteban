@@ -16,10 +16,10 @@
         "phpunit/phpunit": "*"
     },
     "require" : {
-        "depage/htmlform": "*",
-        "matthiasmullie/minify": "*",
-        "phpmailer/phpmailer": "*",
-        "doctrine/orm": "2.6.*"
+        "depage/htmlform": "1.*",
+        "matthiasmullie/minify": "1.*",
+        "phpmailer/phpmailer": "6.*",
+        "doctrine/orm": "2.7.*"
     },
     "autoload": {
         "psr-0": {"CMEsteban\\": "./"}

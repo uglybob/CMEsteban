@@ -4,9 +4,18 @@ namespace CMEsteban\Entity;
 
 use CMEsteban\Page\Page;
 
+/**
+ * @MappedSuperclass
+ **/
 abstract class GalleryItem extends ImageEntity
 {
+    /**
+     * @Column(type="integer")
+     **/
     protected $position;
+    /**
+     * @Column(type="text")
+     **/
     protected $text;
 
     // {{{ getHeading

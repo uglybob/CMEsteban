@@ -4,8 +4,14 @@ namespace CMEsteban\Entity;
 
 use CMEsteban\Page\Page;
 
+/**
+ * @MappedSuperclass
+ **/
 abstract class Named extends Entity
 {
+    /**
+     * @Column(type="string", unique=true)
+     **/
     protected $name;
 
     // {{{ constructor

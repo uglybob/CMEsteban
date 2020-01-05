@@ -4,12 +4,29 @@ namespace CMEsteban\Entity;
 
 use CMEsteban\Lib\Mapper;
 
+/**
+ * @MappedSuperclass
+ **/
 abstract class Entity
 {
     // {{{ variables
+    /**
+     * @Id
+     * @Column(type="integer")
+     * @GeneratedValue
+     **/
     private $id;
+    /**
+     * @Column(type="datetime")
+     **/
     private $created;
+    /**
+     * @Column(type="datetime")
+     **/
     private $modified;
+    /**
+     * @Column(type="boolean")
+     **/
     private $deleted;
 
     private $protected = [

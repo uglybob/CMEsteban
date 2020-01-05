@@ -2,8 +2,14 @@
 
 namespace CMEsteban\Entity;
 
+/**
+ * @MappedSuperclass
+ **/
 abstract class PrivateEntity extends Entity
 {
+    /**
+     * @ManyToOne(targetEntity="CMEsteban\Entity\User")
+     **/
     protected $user;
 
     // {{{ constructor

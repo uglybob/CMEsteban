@@ -2,8 +2,16 @@
 
 namespace CMEsteban\Entity;
 
+use CMEsteban\Page\Page;
+
+/**
+ * @MappedSuperclass
+ **/
 abstract class PrivateNamed extends PrivateEntity
 {
+    /**
+     * @Column(type="string", unique=true)
+     **/
     protected $name;
 
     // {{{ constructor

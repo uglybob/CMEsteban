@@ -2,11 +2,19 @@
 
 namespace CMEsteban\Entity;
 
-use CMEsteban\Page\Page;
-
+/**
+ * @Entity
+ * @Table(name="texts")
+ **/
 class Text extends Named
 {
+    /**
+     * @Column(type="text")
+     **/
     protected $text;
+    /**
+     * @Column(type="string", unique=true)
+     **/
     protected $page;
 
     // {{{ getHeading

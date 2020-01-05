@@ -61,10 +61,10 @@ class Mapper
         $settings = CMEsteban::$setup->getSettings();
 
         $conn = $settings['DbConn'];
-        $config = \Doctrine\ORM\Tools\Setup::createXMLMetadataConfiguration(
+        $config = \Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(
             [
-                realpath(__DIR__ . '/../Mapper'),
-                'CMEsteban/Mapper',
+                realpath(__DIR__ . '/../Entity'),
+                'CMEsteban/Entity',
             ],
             $settings['DevMode']
         );

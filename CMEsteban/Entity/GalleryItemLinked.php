@@ -2,8 +2,14 @@
 
 namespace CMEsteban\Entity;
 
+/**
+ * @MappedSuperclass
+ **/
 abstract class GalleryItemLinked extends GalleryItem
 {
+    /**
+     * @Column(type="string", unique=true)
+     **/
     protected $link;
 
     // {{{ getHeading
