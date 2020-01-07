@@ -8,14 +8,6 @@ html {
     margin-left: calc(100vw - 100%);
 }
 
-#header, #main, #footer {
-    margin-left: auto;
-    margin-right: auto;
-    width: 640px;
-    padding-left: 80px;
-    padding-right: 80px;
-}
-
 #main {
     flex-grow: 1;
 }
@@ -26,3 +18,30 @@ html {
     height: 100%;
 }
 
+@media (max-width: 800px) {
+    #header, #main, #footer {
+        width: 94%;
+        padding-left: 3%;
+        padding-right: 3%;
+    }
+
+    #header .cmenu li {
+        display: inline-block;
+    }
+}
+
+@media (max-width: 800px) {
+    .depage-form input {
+        width: 99% !important;
+    }
+}
+
+@media (min-width: 800px) {
+    #header, #main, #footer {
+        margin-left: auto;
+        margin-right: auto;
+        width: 640px;
+        padding-left: 80px;
+        padding-right: 80px;
+    }
+}
