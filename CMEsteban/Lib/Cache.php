@@ -47,6 +47,12 @@ class Cache
         file_put_contents($name, $data);
     }
     // }}}
+    // {{{ storeImage
+    public static function storeImage($index, $data)
+    {
+        $name = self::getFilename($index);
+    }
+    // }}}
 
     // {{{ list
     public static function list()
@@ -109,7 +115,7 @@ class Cache
     }
     // }}}
     // {{{ getFilename
-    protected function getFilename($index)
+    public function getFilename($index)
     {
         return self::getDir() . "/$index";
     }

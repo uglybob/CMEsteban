@@ -3,8 +3,10 @@
 namespace CMEsteban\Entity;
 
 use CMEsteban\CMEsteban;
+use CMEsteban\Lib\Cache;
 use CMEsteban\Page\Module\HTML;
 use CMEsteban\Page\Page;
+use CMEsteban\Exception\EntityException;
 
 /**
  * @Table(name="images")
@@ -76,6 +78,33 @@ class Image extends Named
     }
     // }}}
 
+    // {{{ imagecreatefromfile
+    protected static function imagecreatefromfile($filename) {
+        if (!file_exists($filename)) {
+            throw new EntityException("File \"$filename\" not found.");
+        }
+
+        switch (strtolower(pathinfo($filename, PATHINFO_EXTENSION))) {
+            case 'jpeg':
+            case 'jpg':
+                return imagecreatefromjpeg($filename);
+            break;
+
+            case 'png':
+                return imagecreatefrompng($filename);
+            break;
+
+            case 'gif':
+                return imagecreatefromgif($filename);
+            break;
+
+            default:
+                throw new EntityException("File \"$filename\" is not valid jpg, png or gif image.");
+            break;
+        }
+    }
+    // }}}
+
     // {{{ getSrc
     public function getSrc($internal = false)
     {
@@ -91,17 +120,44 @@ class Image extends Named
 
     }
     // }}}
-
-    // {{{ toString
-    public function __toString()
+    // {{{ getSrcDimensions
+    public function getSrcDimensions($width, $height = -1)
     {
-        $attributes = ['src' => $this->getSrc()];
+        $info = pathinfo($this->getName());
+        $name = $info['filename'];
+        $filename = $name . $width . 'x' . $height . '.jpg';
+        $path = Cache::getFilename($filename);
+
+        if (!file_exists($path)) {
+            $resource = $this::imagecreatefromfile($this->getSrc(true));
+            $scaled = imagescale($resource, $width , $height);
+            Cache::storeImage($filename, $scaled);
+        }
+
+        return $path;
+    }
+    // }}}
+
+    // {{{ toHtml
+    public function toHtml($width = null, $height = -1)
+    {
+        if (is_null($width)) {
+            $attributes = ['src' => $this->getSrc()];
+        } else {
+            $attributes = ['src' => $this->getSrcDimensions($width, $height)];
+        }
 
         if ($this->alt) {
             $attributes['alt'] = $this->alt;
         }
 
         return HTML::img($attributes);
+    }
+    // }}}
+    // {{{ toString
+    public function __toString()
+    {
+        return $this->toHtml();
     }
     // }}}
 
