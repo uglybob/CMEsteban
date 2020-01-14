@@ -51,6 +51,7 @@ class Cache
     public static function storeImage($index, $data)
     {
         $name = self::getFilename($index);
+        return imagejpeg($data, $name);
     }
     // }}}
 
