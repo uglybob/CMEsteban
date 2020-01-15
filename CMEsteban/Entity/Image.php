@@ -126,15 +126,25 @@ class Image extends Named
         $info = pathinfo($this->getName());
         $name = $info['filename'];
         $filename = $name . $width . 'x' . $height . '.jpg';
-        $path = Cache::getFilename($filename);
-        $result = '/CMEsteban/Cache/' . $filename;
+        $result = Cache::loadReference($filename);
 
-        if (!file_exists($path)) {
+        if (!$result) {
             try {
                 $resource = $this::imagecreatefromfile($this->getSrc(true));
                 $scaled = imagescale($resource, $width , $height);
-                Cache::storeImage($filename, $scaled);
-            } catch (EntityException $e) {
+
+                ob_start();
+                imagejpeg($scaled);
+                $imageString = ob_get_clean();
+
+                Cache::set($filename, $imageString);
+            } catch (Exception $e) {
+                $result = $this->getSrc();
+            }
+
+            $result = Cache::loadReference($filename);
+
+            if (!$result) {
                 $result = $this->getSrc();
             }
         }

@@ -40,18 +40,25 @@ class Cache
         return $result;
     }
     // }}}
+    // {{{ loadReference
+    public static function loadReference($index)
+    {
+        $name = self::getFilename($index);
+        $result = false;
+
+        if (is_file($name)) {
+            $result = "/CMEsteban/Cache/$index";
+        }
+
+        return $result;
+    }
+    // }}}
     // {{{ store
     public static function store($index, $data)
     {
         $name = self::getFilename($index);
-        file_put_contents($name, $data);
-    }
-    // }}}
-    // {{{ storeImage
-    public static function storeImage($index, $data)
-    {
-        $name = self::getFilename($index);
-        return imagejpeg($data, $name);
+
+        return (file_put_contents($name, $data) !== false);
     }
     // }}}
 
