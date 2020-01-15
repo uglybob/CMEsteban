@@ -10,7 +10,7 @@ abstract class Minify
         $result = $files;
 
         if (!CMEsteban::$setup->getSettings('DevMode')) {
-            $index = crc32(implode(' ', $files)) . ".$type";
+            $index = hash('crc32b', implode(' ', $files)) . ".$type";
             $link = Cache::getLink($index, true);
 
             if (!$link) {
