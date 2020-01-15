@@ -27,14 +27,14 @@ class Cache
         return $result;
     }
     // }}}
-    // {{{ getReference
-    public static function getReference($index, $includeExpired = false)
+    // {{{ getLink
+    public static function getLink($index, $includeExpired = false)
     {
         $result = false;
         $name = self::isGettable($index, $includeExpired);
 
         if ($name) {
-            $result = self::getDir(false) . "/$index";
+            $result = self::getFilename($index, false);
         }
 
         return $result;
@@ -121,9 +121,9 @@ class Cache
     }
     // }}}
     // {{{ getFilename
-    public function getFilename($index)
+    public function getFilename($index, $internal = true)
     {
-        return self::getDir() . "/$index";
+        return self::getDir($internal) . "/$index";
     }
     // }}}
 }

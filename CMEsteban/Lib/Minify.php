@@ -10,8 +10,8 @@ abstract class Minify
         $result = $files;
 
         if (!CMEsteban::$setup->getSettings('DevMode')) {
-            $index = md5(implode(' ', $files)) . ".$type";
-            $link = Cache::getReference($index, true);
+            $index = crc32(implode(' ', $files)) . ".$type";
+            $link = Cache::getLink($index, true);
 
             if (!$link) {
                 $minifier = ($type == 'css') ? new \MatthiasMullie\Minify\CSS() : new \MatthiasMullie\Minify\JS();
@@ -21,11 +21,13 @@ abstract class Minify
                 }
 
                 if (Cache::set($index, $minifier->minify())) {
-                    $link = Cache::getReference($index);
+                    $link = Cache::getFilename($index, false);
                 }
             }
 
-            $result = [$link];
+            if ($link) {
+                $result = [$link];
+            }
         }
 
         return $result;
