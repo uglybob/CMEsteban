@@ -6,59 +6,57 @@ use CMEsteban\CMEsteban;
 
 class Cache
 {
-    // {{{ get
-    public static function get($index)
-    {
-        $name = self::getFilename($index);
-        $result = false;
-
-        if (self::validTime($name)) {
-            $result = file_get_contents($name);
-        }
-
-        return $result;
-    }
-    // }}}
     // {{{ set
     public static function set($index, $data)
-    {
-        return self::store($index, $data);
-    }
-    // }}}
-
-    // {{{ load
-    public static function load($index)
-    {
-        // @TODO boilerplate
-        $name = self::getFilename($index);
-        $result = false;
-
-        if (is_file($name)) {
-            $result = file_get_contents($name);
-        }
-
-        return $result;
-    }
-    // }}}
-    // {{{ loadReference
-    public static function loadReference($index)
-    {
-        $name = self::getFilename($index);
-        $result = false;
-
-        if (is_file($name)) {
-            $result = "/CMEsteban/Cache/$index";
-        }
-
-        return $result;
-    }
-    // }}}
-    // {{{ store
-    public static function store($index, $data)
     {
         $name = self::getFilename($index);
 
         return (file_put_contents($name, $data) !== false);
+    }
+    // }}}
+    // {{{ get
+    public static function get($index, $includeExpired = false)
+    {
+        $result = false;
+        $name = self::isGettable($index, $includeExpired);
+
+        if ($name) {
+            $result = file_get_contents($name);
+        }
+
+        return $result;
+    }
+    // }}}
+    // {{{ getReference
+    public static function getReference($index, $includeExpired = false)
+    {
+        $result = false;
+        $name = self::isGettable($index, $includeExpired);
+
+        if ($name) {
+            $result = self::getDir(false) . "/$index";
+        }
+
+        return $result;
+    }
+    // }}}
+    // {{{ isGettable
+    protected static function isGettable($index, $includeExpired = false)
+    {
+        $name = self::getFilename($index);
+        $result = false;
+
+        if (
+            is_file($name)
+            && (
+                $includeExpired
+                || self::validTime($name)
+            )
+        ) {
+            $result = $name;
+        }
+
+        return $result;
     }
     // }}}
 
@@ -102,24 +100,24 @@ class Cache
     {
         $timeLeft = 0;
 
-        if (is_file($file)) {
-            $cacheTime = CMEsteban::$setup->getSettings('CacheTime');
+        $cacheTime = CMEsteban::$setup->getSettings('CacheTime');
 
-            if ($cacheTime == 'auto') {
-                $timeLeft = 'auto';
-            } else {
-                $timeLeft = CMEsteban::$setup->getSettings('CacheTime') - (time() - filemtime($file));
-                $timeLeft = ($timeLeft > 0) ? $timeLeft : 0;
-            }
+        if ($cacheTime == 'auto') {
+            $timeLeft = 'auto';
+        } else {
+            $timeLeft = CMEsteban::$setup->getSettings('CacheTime') - (time() - filemtime($file));
+            $timeLeft = ($timeLeft > 0) ? $timeLeft : 0;
         }
 
         return $timeLeft;
     }
     // }}}
     // {{{ getDir
-    public function getDir()
+    public function getDir($internal = true)
     {
-        return CMEsteban::$setup->getSettings('Path') . '/CMEsteban/Cache';
+        $root = ($internal) ? CMEsteban::$setup->getSettings('Path') : '';
+
+        return $root . '/CMEsteban/Cache';
     }
     // }}}
     // {{{ getFilename

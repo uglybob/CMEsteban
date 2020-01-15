@@ -126,7 +126,7 @@ class Image extends Named
         $info = pathinfo($this->getName());
         $name = $info['filename'];
         $filename = $name . $width . 'x' . $height . '.jpg';
-        $result = Cache::loadReference($filename);
+        $result = Cache::getReference($filename, true);
 
         if (!$result) {
             try {
@@ -138,11 +138,11 @@ class Image extends Named
                 $imageString = ob_get_clean();
 
                 Cache::set($filename, $imageString);
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $result = $this->getSrc();
             }
 
-            $result = Cache::loadReference($filename);
+            $result = Cache::getReference($filename, true);
 
             if (!$result) {
                 $result = $this->getSrc();
