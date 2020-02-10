@@ -3,6 +3,9 @@
 namespace CMEsteban\Lib;
 
 use CMEsteban\CMEsteban;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
 class Mail
 {
@@ -26,7 +29,7 @@ class Mail
         $success = true;
 
         try {
-            $mail = new \PHPMailer(true);
+            $mail = new PHPMailer(true);
 
             $mail->SMTPOptions = [
                 'ssl' => [
@@ -38,10 +41,10 @@ class Mail
             $mail->isSMTP();
             $mail->Host = $this->host;
             $mail->SMTPAuth = true;
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Username = $this->src;
             $mail->Password = $this->pass;
-            $mail->SMTPSecure = 'ssl';
-            $mail->Port = 465;
+            $mail->Port = 587;
             $mail->Hostname = $this->hostname;
             $mail->setFrom($this->src, $this->hostname);
             $mail->addAddress($this->dst);
