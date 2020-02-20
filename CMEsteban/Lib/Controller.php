@@ -115,6 +115,17 @@ class Controller
         );
     }
     // }}}
+    // {{{ getTextByLink
+    public function getTextByLink($link)
+    {
+        return Mapper::findOneBy(
+            'Text',
+            [
+                'link' => $link,
+            ]
+        );
+    }
+    // }}}
     // {{{ getTexts
     public function getTexts($showHidden = false)
     {
