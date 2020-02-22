@@ -11,7 +11,7 @@ class Text extends Module
     {
         parent::__construct();
 
-        $this->text = $text;
+        $this->text = self::cleanText($text);
     }
     // }}}
     // {{{ toString
@@ -24,6 +24,70 @@ class Text extends Module
         }
 
         return $result;
+    }
+    // }}}
+
+    // {{{ shortenUrl
+    public static function shortenUrl($url)
+    {
+        $sites = [
+            'facebook',
+            'bandcamp',
+            'youtube',
+            'soundcloud',
+            'mixcloud',
+            'twitter',
+            'vimeo',
+            'myspace',
+        ];
+
+        $host = parse_url($url, PHP_URL_HOST);
+
+        foreach ($sites as $site) {
+            if (preg_match('/' . $site . '/i', $host)) return $site;
+        }
+
+        $short = preg_replace('/(?:https?:\/\/)?(?:www\.)?(.*)\/?$/i', '$1', $url);
+        $short = preg_replace('@\/$@', '', $short);
+
+        return $short;
+    }
+    // }}}
+    // {{{ replaceUrl
+    public static function replaceUrl($match)
+    {
+        $url = $match[0];
+        $cleanedUrl = (preg_match("~^(?:f|ht)tps?://~i", $url)) ? $url : 'https://' . $url;
+
+        $short = self::shortenUrl($cleanedUrl);
+        $trimmed = self::shortenString($short, 30);
+
+        return HTML::a(['href' => $cleanedUrl],  ">$trimmed");
+    }
+    // }}}
+    // {{{ replaceEmail
+    protected static function replaceEmail($match)
+    {
+        return new Email($match[0]);
+    }
+    // }}}
+    // {{{ nl2br
+    public static function nl2br($text)
+    {
+        $cleanRs = preg_replace("/\r/", '', $text);
+        $clean = preg_replace("/\n/", HTML::br(), $cleanRs);
+
+        return $clean;
+    }
+    // }}}
+    // {{{ cleanText
+    public static function cleanText($input)
+    {
+        $cleanLinks = preg_replace_callback('@(\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))))@', 'self::replaceUrl', $input);
+        $cleanMails = preg_replace_callback('/[a-z\d._%+-]+@[a-z\d.-]+\.[a-z]{2,4}\b/i', 'self::replaceEmail', $cleanLinks);
+        $clean = self::nl2br($cleanMails);
+
+        return $clean;
     }
     // }}}
 }
