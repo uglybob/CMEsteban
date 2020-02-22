@@ -34,4 +34,23 @@ abstract class AbstractText extends Named
         return $rows;
     }
     // }}}
+
+    // {{{ getFormattedText
+    public function getFormattedText()
+    {
+        return self::format($this->getText());
+    }
+    // }}}
+    // {{{ format
+    public static function format($text)
+    {
+        $result = '';
+
+        if ($text) {
+            $result = new \CMEsteban\Page\Module\Text($text);
+        }
+
+        return $result;
+    }
+    // }}}
 }

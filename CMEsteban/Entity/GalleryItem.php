@@ -36,4 +36,11 @@ abstract class GalleryItem extends ImageEntity
         ];
     }
     // }}}
+
+    // {{{ getFormattedText
+    public function getFormattedText()
+    {
+        return AbstractText::format($this->getText());
+    }
+    // }}}
 }

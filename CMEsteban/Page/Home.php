@@ -16,5 +16,4 @@ class Home extends Page
         $this->addContent('main', '');
     }
     // }}}
-
 }

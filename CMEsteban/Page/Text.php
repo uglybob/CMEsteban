@@ -12,11 +12,9 @@ class Text extends Home
         parent::__construct($path);
 
         $this->title = $text->getName();
+        $rendered = HTML::h1($this->title) . $text->getFormattedText();
 
-        $title = HTML::h1($this->title);
-        $formatted = $this->cleanText($text->getText());
-
-        $this->addContent('main', $title . $formatted);
+        $this->addContent('main', $rendered);
     }
     // }}}
 }
