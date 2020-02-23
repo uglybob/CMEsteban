@@ -266,15 +266,23 @@ class Page
         return new Email($match[0]);
     }
     // }}}
+    // {{{ cleanLinebreaks
+    public static function cleanLinebreaks($text)
+    {
+        $cleanRs = preg_replace("/\r/", '', $text);
+        $clean = preg_replace("/\n/", HTML::br(), $cleanRs);
+
+        return $clean;
+    }
+    // }}}
     // {{{ cleanText
     public static function cleanText($input)
     {
         $cleanLinks = preg_replace_callback('@(\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))))@', 'self::replaceUrl', $input);
         $cleanMails = preg_replace_callback('/[a-z\d._%+-]+@[a-z\d.-]+\.[a-z]{2,4}\b/i', 'self::replaceEmail', $cleanLinks);
-        $cleanRs = preg_replace("/\r/", '', $cleanMails);
-        $cleanNs = preg_replace("/\n/", HTML::br(), $cleanRs);
+        $clean = self::cleanLineBreaks($cleanMails);
 
-        return $cleanNs;
+        return $clean;
     }
     // }}}
 }
