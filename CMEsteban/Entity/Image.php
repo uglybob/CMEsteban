@@ -5,7 +5,6 @@ namespace CMEsteban\Entity;
 use CMEsteban\CMEsteban;
 use CMEsteban\Lib\Cache;
 use CMEsteban\Page\Module\HTML;
-use CMEsteban\Page\Page;
 use CMEsteban\Exception\EntityException;
 
 /**
@@ -187,8 +186,8 @@ class Image extends Named
     public function getRow()
     {
         return [
-            Page::shortenString($this->getName(), 30),
-            Page::shortenString($this->getAlt(), 40),
+            \CMEsteban\Page\Module\Text::shortenString($this->getName(), 30),
+            \CMEsteban\Page\Module\Text::shortenString($this->getAlt(), 40),
         ];
     }
     // }}}

@@ -7,10 +7,11 @@ use CMEsteban\CMEsteban;
 class Text extends Module
 {
     // {{{ constructor
-    public function __construct($text)
+    public function __construct($text, $createAnchors = true)
     {
         parent::__construct();
 
+        $this->createAnchors = $createAnchors;
         $this->text = self::cleanText($text);
     }
     // }}}
@@ -27,6 +28,12 @@ class Text extends Module
     }
     // }}}
 
+    // {{{ shortenString
+    public static function shortenString($text, $length)
+    {
+        return (strlen($text) > $length) ? substr($text, 0, $length - 3) . '...' : $text;
+    }
+    // }}}
     // {{{ shortenUrl
     public static function shortenUrl($url)
     {
@@ -57,18 +64,24 @@ class Text extends Module
     public static function replaceUrl($match)
     {
         $url = $match[0];
-        $cleanedUrl = (preg_match("~^(?:f|ht)tps?://~i", $url)) ? $url : 'https://' . $url;
+        $result = $url;
 
-        $short = self::shortenUrl($cleanedUrl);
-        $trimmed = self::shortenString($short, 30);
+        if ($this->createAnchors) {
+            $cleanedUrl = (preg_match("~^(?:f|ht)tps?://~i", $url)) ? $url : 'https://' . $url;
 
-        return HTML::a(['href' => $cleanedUrl],  ">$trimmed");
+            $short = self::shortenUrl($cleanedUrl);
+            $trimmed = self::shortenString($short, 30);
+
+            $result = HTML::a(['href' => $cleanedUrl],  ">$trimmed");
+        }
+
+        return $result;
     }
     // }}}
     // {{{ replaceEmail
     protected static function replaceEmail($match)
     {
-        return new Email($match[0]);
+        return new Email($match[0], $this->createAnchors);
     }
     // }}}
     // {{{ nl2br

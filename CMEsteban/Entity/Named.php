@@ -2,8 +2,6 @@
 
 namespace CMEsteban\Entity;
 
-use CMEsteban\Page\Page;
-
 /**
  * @MappedSuperclass
  **/
@@ -38,7 +36,7 @@ abstract class Named extends Entity
     // {{{ getRow
     public function getRow()
     {
-        return [Page::shortenString($this->getName(), 30)];
+        return [\CMEsteban\Page\Module\Text::shortenString($this->getName(), 30)];
     }
     // }}}
 }

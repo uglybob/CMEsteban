@@ -2,8 +2,6 @@
 
 namespace CMEsteban\Entity;
 
-use CMEsteban\Page\Page;
-
 /**
  * @MappedSuperclass
  **/
@@ -31,7 +29,7 @@ abstract class GalleryItem extends ImageEntity
     public function getRow()
     {
         return [
-            Page::shortenString($this->getName(), 30),
+            \CMEsteban\Page\Module\Text::shortenString($this->getName(), 30),
             $this->getPosition(),
         ];
     }

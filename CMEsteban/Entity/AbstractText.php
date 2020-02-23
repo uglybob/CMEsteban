@@ -36,18 +36,18 @@ abstract class AbstractText extends Named
     // }}}
 
     // {{{ getFormattedText
-    public function getFormattedText()
+    public function getFormattedText($createAnchors = true)
     {
-        return self::format($this->getText());
+        return self::format($this->getText(), $createAnchors);
     }
     // }}}
     // {{{ format
-    public static function format($text)
+    public static function format($text, $createAnchors)
     {
         $result = '';
 
         if ($text) {
-            $result = new \CMEsteban\Page\Module\Text($text);
+            $result = new \CMEsteban\Page\Module\Text($text, $createAnchors);
         }
 
         return $result;
