@@ -11,19 +11,24 @@ class Email extends Module
     {
         parent::__construct();
 
-        $path = CMEsteban::$setup->getSettings('PathCme') . '/CMEsteban/Page/js';
+        $path = CMEsteban::$setup->getSettings('PathCme') . '/CMEsteban/Page';
 
-        CMEsteban::$template->addScript($path . '/lib.js');
-        CMEsteban::$template->addScript($path . '/mail.js');
+        CMEsteban::$template->addScript($path . '/js/lib.js');
+        CMEsteban::$template->addScript($path . '/js/mail.js');
+        CMEsteban::$template->addStylesheet($path . '/css/mail.css');
 
         $this->email = $email;
 
         $in = ['@', '.'];
         $out = ['+', ','];
 
-        $this->rendered = str_rot13($this->email);
-        $this->rendered = str_replace($in, $out, $this->rendered);
-        $this->rendered = HTML::span(['.shooo'], $this->rendered);
+        $encrypted = str_replace($in, $out, str_rot13($this->email));
+        $message = 'Please activate JavaScript to see this email address.';
+
+        $this->rendered = HTML::span(['.cmo'],
+            HTML::span(['.cmom'], $message) .
+            HTML::span(['.cmoe'], $encrypted)
+        );
     }
     // }}}
 }

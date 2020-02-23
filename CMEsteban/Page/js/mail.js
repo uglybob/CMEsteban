@@ -1,6 +1,6 @@
 ready(function() {
-    document.querySelectorAll('.shooo').forEach(function (mail) {
-        mail.textContent = mail.textContent.replace(
+    document.querySelectorAll('.cmoe').forEach(function (email) {
+        email.textContent = email.textContent.replace(
             /[a-zA-Z]/g,
             function(c) {
                 return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);
@@ -9,10 +9,15 @@ ready(function() {
         .replace(/\,/g, ".");
 
         var a = document.createElement('a');
-        a.textContent = mail.textContent;
-        a.setAttribute('href', 'mailto:' + mail.textContent);
+        a.textContent = email.textContent;
+        a.setAttribute('href', 'emailto:' + email.textContent);
 
-        mail.parentNode.insertBefore(a, mail);
-        mail.parentNode.removeChild(mail);
-    })
+        email.parentNode.insertBefore(a, email);
+        email.parentNode.removeChild(email);
+        email.style.display = "block";
+    });
+
+    document.querySelectorAll('.cmom').forEach(function(message) {
+        message.style.display = "none";
+    });
 });
