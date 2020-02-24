@@ -68,6 +68,7 @@ class Mapper
             ],
             $settings['DevMode']
         );
+        $config->setAutoGenerateProxyClasses(\Doctrine\Common\Proxy\AbstractProxyFactory::AUTOGENERATE_FILE_NOT_EXISTS);
 
         self::$entityManager = \Doctrine\ORM\EntityManager::create($conn, $config);
     }
