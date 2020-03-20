@@ -31,8 +31,8 @@ abstract class GalleryItem extends ImageEntity
         ];
     }
 
-    public function getFormattedText()
+    public function getFormattedText($createAnchors = true)
     {
-        return AbstractText::format($this->getText());
+        return AbstractText::format($this->getText(), $createAnchors);
     }
 }
