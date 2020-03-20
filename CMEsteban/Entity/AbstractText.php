@@ -35,7 +35,7 @@ abstract class AbstractText extends Named
     {
         return self::format($this->getText(), $createAnchors);
     }
-    public static function format($text, $createAnchors)
+    public static function format($text, $createAnchors = true)
     {
         $result = '';
 
