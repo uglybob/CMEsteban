@@ -66,26 +66,24 @@ class Text extends Module
         $url = $match[0];
         $result = $url;
 
-        if ($this->createAnchors) {
-            $cleanedUrl = (preg_match("~^(?:f|ht)tps?://~i", $url)) ? $url : 'https://' . $url;
+        $cleanedUrl = (preg_match("~^(?:f|ht)tps?://~i", $url)) ? $url : 'https://' . $url;
 
-            $short = self::shortenUrl($cleanedUrl);
-            $trimmed = self::shortenString($short, 30);
+        $short = self::shortenUrl($cleanedUrl);
+        $trimmed = self::shortenString($short, 30);
 
-            $result = HTML::a(['href' => $cleanedUrl],  ">$trimmed");
-        }
+        $result = HTML::a(['href' => $cleanedUrl],  ">$trimmed");
 
         return $result;
     }
     // }}}
     // {{{ replaceEmail
-    protected static function replaceEmail($match)
+    protected static function replaceEmail($match, $createAnchors = true)
     {
-        return new Email($match[0], $this->createAnchors);
+        return new Email($match[0], $createAnchors);
     }
     // }}}
-    // {{{ nl2br
-    public static function nl2br($text)
+    // {{{ cleanLinebreaks
+    public static function cleanLinebreaks($text)
     {
         $cleanRs = preg_replace("/\r/", '', $text);
         $clean = preg_replace("/\n/", HTML::br(), $cleanRs);
@@ -94,11 +92,23 @@ class Text extends Module
     }
     // }}}
     // {{{ cleanText
-    public static function cleanText($input)
+    public static function cleanText($input, $createAnchors = true)
     {
-        $cleanLinks = preg_replace_callback('@(\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))))@', 'self::replaceUrl', $input);
-        $cleanMails = preg_replace_callback('/[a-z\d._%+-]+@[a-z\d.-]+\.[a-z]{2,4}\b/i', 'self::replaceEmail', $cleanLinks);
-        $clean = self::nl2br($cleanMails);
+        $cleanLinks = preg_replace_callback(
+            '@(\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))))@',
+            'self::replaceUrl',
+            $input
+        );
+
+        $cleanMails = preg_replace_callback(
+            '/[a-z\d._%+-]+@[a-z\d.-]+\.[a-z]{2,4}\b/i',
+            function($match) use ($createAnchors) {
+                return Text::replaceEmail($match, $createAnchors);
+            },
+            $cleanLinks
+        );
+
+        $clean = self::cleanLinebreaks($cleanMails);
 
         return $clean;
     }
