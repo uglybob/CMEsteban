@@ -6,10 +6,7 @@ use CMEsteban\CMEsteban;
 
 class Table extends Form
 {
-    // {{{ variables
     protected $table;
-    // }}}
-    // {{{ constructor
     public function __construct(array $rows, array $headings, array $classes = [])
     {
         parent::__construct();
@@ -26,16 +23,12 @@ class Table extends Form
 
         $this->table = HTML::div(['.ctable'], $this->table);
     }
-    // }}}
 
-    // {{{ toString
     public function __toString()
     {
         return $this->table . parent::__toString();
     }
-    // }}}
 
-    // {{{ generateHeader
     public function generateHeader()
     {
         $cells = '';
@@ -46,8 +39,6 @@ class Table extends Form
 
         return HTML::div(['.ctheader'], HTML::div(['.ctrow'], $cells));
     }
-    // }}}
-    // {{{ generateRow
     public function generateRow($number, $row)
     {
         $properties = '';
@@ -60,8 +51,6 @@ class Table extends Form
 
         return HTML::div($rowClasses, $properties);
     }
-    // }}}
-    // {{{ generateRowClasses
     public function generateRowClasses($number)
     {
         $classes = ['.ctrow'];
@@ -72,9 +61,7 @@ class Table extends Form
 
         return $classes;
     }
-    // }}}
 
-    // {{{ formatArray
     public function formatArray(array $input)
     {
         $result = [];
@@ -85,5 +72,4 @@ class Table extends Form
 
         return $result;
     }
-    // }}}
 }

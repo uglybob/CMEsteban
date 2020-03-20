@@ -7,17 +7,12 @@ use CMEsteban\Entity\User;
 
 class Controller
 {
-    // {{{ variables
     protected $pageGetters = [];
-    // }}}
-    // {{{ constructor
     public function __construct()
     {
         $this->pageGetters = ['getPageDefault', 'getPageText'];
     }
-    // }}}
 
-    // {{{ getPage
     public function getPage($request)
     {
         $path = explode('/', $request);
@@ -50,8 +45,6 @@ class Controller
 
         return $rendered;
     }
-    // }}}
-    // {{{ getPageDefault
     public function getPageDefault($request, $path) {
         $page = null;
         $pages = CMEsteban::$setup->getSettings('pages');
@@ -68,8 +61,6 @@ class Controller
 
         return $page;
     }
-    // }}}
-    // {{{ getPageText
     public function getPageText($request, $path)
     {
         $page = null;
@@ -81,9 +72,7 @@ class Controller
 
         return $page;
     }
-    // }}}
 
-    // {{{ getImage
     public function getImage($id)
     {
         if (is_null($id)) {
@@ -94,17 +83,13 @@ class Controller
 
         return $image;
     }
-    // }}}
-    // {{{ getImages
     public function getImages($showHidden = false)
     {
         $this->access(1);
 
         return Mapper::findAll('Image', $showHidden);
     }
-    // }}}
 
-    // {{{ getText
     public function getText($id)
     {
         return Mapper::findOneBy(
@@ -114,8 +99,6 @@ class Controller
             ]
         );
     }
-    // }}}
-    // {{{ getTextByLink
     public function getTextByLink($link)
     {
         return Mapper::findOneBy(
@@ -125,17 +108,13 @@ class Controller
             ]
         );
     }
-    // }}}
-    // {{{ getTexts
     public function getTexts($showHidden = false)
     {
         $this->access(1);
 
         return Mapper::findAll('Text', $showHidden);
     }
-    // }}}
 
-    // {{{ login
     public function login($name, $pass)
     {
         $result = false;
@@ -148,14 +127,10 @@ class Controller
 
         return $result;
     }
-    // }}}
-    // {{{ logoff
     public function logoff()
     {
         unset($_SESSION['userId']);
     }
-    // }}}
-    // {{{ getCurrentUser
     public function getCurrentUser()
     {
         $user = null;
@@ -166,8 +141,6 @@ class Controller
 
         return $user;
     }
-    // }}}
-    // {{{ access
     public function access($level)
     {
         $result = false;
@@ -184,9 +157,7 @@ class Controller
 
         return $result;
     }
-    // }}}
 
-    // {{{ getUser
     public function getUser($id)
     {
         if (is_null($id)) {
@@ -197,20 +168,14 @@ class Controller
 
         return $user;
     }
-    // }}}
-    // {{{ getUserByName
     public function getUserByName($name)
     {
         return Mapper::findOneBy('User', ['name' => $name]);
     }
-    // }}}
-    // {{{ getUserByEmail
     public function getUserByEmail($email)
     {
         return Mapper::findOneBy('User', ['email' => strtolower($email)]);
     }
-    // }}}
-    // {{{ editUser
     public function editUser(User $newUser)
     {
         $result = false;
@@ -236,5 +201,4 @@ class Controller
 
         return $result;
     }
-    // }}}
 }

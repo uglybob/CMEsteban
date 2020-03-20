@@ -9,7 +9,6 @@ use CMEsteban\Lib\Mapper;
  **/
 abstract class Entity
 {
-    // {{{ variables
     /**
      * @Id
      * @Column(type="integer")
@@ -35,9 +34,7 @@ abstract class Entity
         'created',
         'modified',
     ];
-    // }}}
 
-    // {{{ constructor
     public function __construct()
     {
         $this->deleted = false;
@@ -46,16 +43,12 @@ abstract class Entity
         $this->created = $now;
         $this->modified = $now;
     }
-    // }}}
 
-    // {{{ toString
     public function __toString()
     {
         return (string) $this->id;
     }
-    // }}}
 
-    // {{{ call
     public function __call($name, $arguments)
     {
         $methods = ['get', 'set'];
@@ -68,8 +61,6 @@ abstract class Entity
 
         $this->undefinedMethodException($name);
     }
-    // }}}
-    // {{{ get
     private function get($attribute, $arguments)
     {
         $result = null;
@@ -96,8 +87,6 @@ abstract class Entity
 
         return $result;
     }
-    // }}}
-    // {{{ set
     private function set($attribute, $arguments)
     {
         if (
@@ -110,8 +99,6 @@ abstract class Entity
             $this->undefinedMethodException('set' . ucfirst($attribute));
         }
     }
-    // }}}
-    // {{{ extractAttribute
     private function extractAttribute($haystack, $needle)
     {
         if (substr($haystack, 0, strlen($needle)) === $needle) {
@@ -120,50 +107,35 @@ abstract class Entity
             return false;
         }
     }
-    // }}}
 
-    // {{{ save
     public function save()
     {
         return Mapper::save($this);
     }
-    // }}}
-    // {{{ delete
     public function delete()
     {
         $this->deleted = true;
     }
-    // }}}
-    // {{{ undelete
     public function undelete()
     {
         $this->deleted = false;
     }
-    // }}}
-    // {{{ isDeleted
     public function isDeleted()
     {
         return $this->deleted;
     }
-    // }}}
 
-    // {{{ undefinedMethodException
     public function undefinedMethodException($name)
     {
         throw new \CMEsteban\Exception\EntityException('Call to undefined method ' . get_class($this) . '::' . $name);
     }
-    // }}}
 
-    // {{{ getHeadings
     public static function getHeadings()
     {
         return ['ID'];
     }
-    // }}}
-    // {{{ getRow
     public function getRow()
     {
         return [$this->getId()];
     }
-    // }}}
 }

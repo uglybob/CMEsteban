@@ -6,7 +6,6 @@ use CMEsteban\CMEsteban;
 
 class Text extends Module
 {
-    // {{{ constructor
     public function __construct($text, $createAnchors = true)
     {
         parent::__construct();
@@ -14,8 +13,6 @@ class Text extends Module
         $this->createAnchors = $createAnchors;
         $this->text = self::cleanText($text);
     }
-    // }}}
-    // {{{ toString
     public function __toString()
     {
         $result = '';
@@ -26,15 +23,11 @@ class Text extends Module
 
         return $result;
     }
-    // }}}
 
-    // {{{ shortenString
     public static function shortenString($text, $length)
     {
         return (strlen($text) > $length) ? substr($text, 0, $length - 3) . '...' : $text;
     }
-    // }}}
-    // {{{ shortenUrl
     public static function shortenUrl($url)
     {
         $sites = [
@@ -59,8 +52,6 @@ class Text extends Module
 
         return $short;
     }
-    // }}}
-    // {{{ replaceUrl
     public static function replaceUrl($match)
     {
         $url = $match[0];
@@ -75,14 +66,10 @@ class Text extends Module
 
         return $result;
     }
-    // }}}
-    // {{{ replaceEmail
     protected static function replaceEmail($match, $createAnchors = true)
     {
         return new Email($match[0], $createAnchors);
     }
-    // }}}
-    // {{{ cleanLinebreaks
     public static function cleanLinebreaks($text)
     {
         $cleanRs = preg_replace("/\r/", '', $text);
@@ -90,8 +77,6 @@ class Text extends Module
 
         return $clean;
     }
-    // }}}
-    // {{{ cleanText
     public static function cleanText($input, $createAnchors = true)
     {
         $cleanLinks = preg_replace_callback(
@@ -112,5 +97,4 @@ class Text extends Module
 
         return $clean;
     }
-    // }}}
 }

@@ -6,7 +6,6 @@ use CMEsteban\CMEsteban;
 
 class EditEntity extends Form
 {
-    // {{{ constructor
     public function __construct()
     {
         parent::__construct();
@@ -16,5 +15,4 @@ class EditEntity extends Form
 
         $this->form = new $formType($class, CMEsteban::$page->getPath(2));
     }
-    // }}}
 }

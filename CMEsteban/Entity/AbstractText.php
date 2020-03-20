@@ -16,7 +16,6 @@ abstract class AbstractText extends Named
      **/
     protected $link;
 
-    // {{{ getHeading
     public static function getHeadings()
     {
         $headings = parent::getHeadings();
@@ -24,8 +23,6 @@ abstract class AbstractText extends Named
 
         return $headings;
     }
-    // }}}
-    // {{{ getRow
     public function getRow()
     {
         $rows = parent::getRow();
@@ -33,15 +30,11 @@ abstract class AbstractText extends Named
 
         return $rows;
     }
-    // }}}
 
-    // {{{ getFormattedText
     public function getFormattedText($createAnchors = true)
     {
         return self::format($this->getText(), $createAnchors);
     }
-    // }}}
-    // {{{ format
     public static function format($text, $createAnchors)
     {
         $result = '';
@@ -52,5 +45,4 @@ abstract class AbstractText extends Named
 
         return $result;
     }
-    // }}}
 }

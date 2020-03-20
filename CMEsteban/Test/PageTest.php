@@ -4,7 +4,6 @@ namespace CMEsteban\Test;
 
 class PageTest extends CMEstebanTestCase
 {
-    // {{{ setUp
     protected function setUp() : void
     {
         @session_start();
@@ -12,9 +11,7 @@ class PageTest extends CMEstebanTestCase
  
         parent::setUp();
     }
-    // }}}
 
-    // {{{ testPath
     public function testPath()
     {
         $path = ['aaa', 'bbb', 'ccc'];
@@ -27,8 +24,6 @@ class PageTest extends CMEstebanTestCase
         $this->assertNull($page->getPath(-1));
         $this->assertNull($page->getPath(3));
     }
-    // }}}
-    // {{{ testPathEmpty
     public function testPathEmpty()
     {
         $page = new PageTestClass([]);
@@ -38,5 +33,4 @@ class PageTest extends CMEstebanTestCase
         $this->assertNull($page->getPath(0));
         $this->assertNull($page->getPath(1));
     }
-    // }}}
 }

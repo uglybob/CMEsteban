@@ -8,17 +8,12 @@ use CMEsteban\Entity\Page;
 
 class Mapper
 {
-    // {{{ variables
     protected static $entityManager;
-    // }}}
-    // {{{ constructor
     private function __construct()
     {
         self::connect();
     }
-    // }}}
 
-    // {{{ init
     public static function init()
     {
         $path = __DIR__ . '/../Entity/*.php';
@@ -54,8 +49,6 @@ class Mapper
         self::save($admin);
         self::commit();
     }
-    // }}}
-    // {{{ connect
     public function connect()
     {
         $settings = CMEsteban::$setup->getSettings();
@@ -72,8 +65,6 @@ class Mapper
 
         self::$entityManager = \Doctrine\ORM\EntityManager::create($conn, $config);
     }
-    // }}}
-    // {{{ getEntityManager
     public static function getEntityManager()
     {
         if (!self::$entityManager) {
@@ -82,9 +73,7 @@ class Mapper
 
         return self::$entityManager;
     }
-    // }}}
 
-    // {{{ find
     public static function find($class, $id, $showHidden = false)
     {
         try {
@@ -96,8 +85,6 @@ class Mapper
 
         return $result;
     }
-    // }}}
-    // {{{ findOneBy
     public static function findOneBy($class, array $conditions, $showHidden = false)
     {
         try {
@@ -109,8 +96,6 @@ class Mapper
 
         return $result;
     }
-    // }}}
-    // {{{ findBy
     public static function findBy($class, array $conditions, $showHidden = false, array $order = [])
     {
         try {
@@ -122,8 +107,6 @@ class Mapper
 
         return $result;
     }
-    // }}}
-    // {{{ findAll
     public static function findAll($class, $showHidden = false)
     {
         $entityClass = 'CMEsteban\Entity\\' . $class;
@@ -141,19 +124,14 @@ class Mapper
 
         return $result;
     }
-    // }}}
 
-    // {{{ save
     public static function save($entity)
     {
         self::getEntityManager()->persist($entity);
     }
-    // }}}
-    // {{{ commit
     public static function commit()
     {
         self::getEntityManager()->flush();
         Cache::autoclear();
     }
-    // }}}
 }

@@ -9,7 +9,6 @@ use CMEsteban\Lib\Minify;
 
 class Page
 {
-    // {{{ variables
     protected $controller;
     protected $title = '';
     protected $description = '';
@@ -18,9 +17,7 @@ class Page
     protected $path;
     protected $cacheable = false;
     protected $content = [];
-    // }}}
 
-    // {{{ constructor
     public function __construct($path = [])
     {
         CMEsteban::$controller->access($this->accessLevel);
@@ -32,9 +29,7 @@ class Page
 
         $this->hookConstructor();
     }
-    // }}}
 
-    // {{{ getPath
     public function getPath($offset = null)
     {
         $path = null;
@@ -47,33 +42,23 @@ class Page
 
         return $path;
     }
-    // }}}
 
-    // {{{ hookConstructor
     protected function hookConstructor()
     {
     }
-    // }}}
-    // {{{ hookTitle
     protected function hookTitle()
     {
         return $this->title;
     }
-    // }}}
-    // {{{ hookHead
     protected function hookHead()
     {
     }
-    // }}}
 
-    // {{{ getTemplate
     public function getTemplate()
     {
         return CMEsteban::$template;
     }
-    // }}}
 
-    // {{{ renderStylesheets
     protected function renderStylesheets()
     {
         $rendered = '';
@@ -93,8 +78,6 @@ class Page
 
         return $rendered;
     }
-    // }}}
-    // {{{ renderScripts
     protected function renderScripts()
     {
         $rendered = '';
@@ -112,8 +95,6 @@ class Page
 
         return $rendered;
     }
-    // }}}
-    // {{{ renderFavicon
     public function renderFavicon()
     {
         $favicon = CMEsteban::$template->getFavicon();
@@ -130,15 +111,11 @@ class Page
 
         return $rendered;
     }
-    // }}}
 
-    // {{{ addKeywords
     public function addKeywords($keywords)
     {
         $this->keywords = array_merge($this->keywords, $keywords);
     }
-    // }}}
-    // {{{ renderHead
     protected function renderHead()
     {
         $head = HTML::head(
@@ -156,16 +133,12 @@ class Page
 
         return $head;
     }
-    // }}}
 
-    // {{{ isCacheable
     public function isCacheable()
     {
         return $this->cacheable;
     }
-    // }}}
 
-    // {{{ addContent
     public function addContent($section, $content)
     {
         if (isset($this->content[$section])) {
@@ -174,14 +147,10 @@ class Page
             $this->setContent($section, $content);
         }
     }
-    // }}}
-    // {{{ setContent
     public function setContent($section, $content)
     {
         $this->content[$section] = $content;
     }
-    // }}}
-    // {{{ getContent
     public function getContent($section = null)
     {
         $result = '';
@@ -194,8 +163,6 @@ class Page
 
         return $result;
     }
-    // }}}
-    // {{{ render
     public function render()
     {
         return '<!DOCTYPE html>' .
@@ -206,13 +173,10 @@ class Page
                 )
             );
     }
-    // }}}
 
-    // {{{ redirect
     public static function redirect($url)
     {
         header('Location: ' . $url);
         die();
     }
-    // }}}
 }

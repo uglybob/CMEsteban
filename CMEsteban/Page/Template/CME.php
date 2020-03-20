@@ -7,7 +7,6 @@ use CMEsteban\Page\Module\Menu;
 
 class CME extends Template
 {
-    // {{{ constructor
     public function __construct()
     {
         parent::__construct();
@@ -44,5 +43,4 @@ class CME extends Template
 
         CMEsteban::$page->addContent('header', $menu);
     }
-    // }}}
 }

@@ -6,7 +6,6 @@ use CMEsteban\CMEsteban;
 
 class User extends Home
 {
-    // {{{ hookConstructor
     public function hookConstructor()
     {
         parent::hookConstructor();
@@ -22,5 +21,4 @@ class User extends Home
             $this->title = 'register';
         }
     }
-    // }}}
 }

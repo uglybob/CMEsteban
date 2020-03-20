@@ -9,10 +9,7 @@ use CMEsteban\Page\Module\HTML;
 
 abstract class EditImageEntity extends EditForm
 {
-    // {{{ variables
     protected $image;
-    // }}}
-    // {{{ create
     protected function create()
     {
         $this->form->addText('Name', ['required' => true]);
@@ -30,8 +27,6 @@ abstract class EditImageEntity extends EditForm
 
         $this->form->addFile('Upload');
     }
-    // }}}
-    // {{{ populate
     protected function populate()
     {
         $values = [
@@ -40,8 +35,6 @@ abstract class EditImageEntity extends EditForm
 
         $this->form->populate($values);
     }
-    // }}}
-    // {{{ save
     protected function save()
     {
         $values = $this->form->getValues();
@@ -63,9 +56,7 @@ abstract class EditImageEntity extends EditForm
 
         parent::save();
     }
-    // }}}
 
-    // {{{ loadEntity
     protected function loadEntity()
     {
         parent::loadEntity();
@@ -74,8 +65,6 @@ abstract class EditImageEntity extends EditForm
             $this->image = $this->entity->getImage();
         }
     }
-    // }}}
-    // {{{ instantiateEntity
     protected function instantiateEntity()
     {
         parent::instantiateEntity();
@@ -84,5 +73,4 @@ abstract class EditImageEntity extends EditForm
 
         $this->entity->setImage($this->image);
     }
-    // }}}
 }

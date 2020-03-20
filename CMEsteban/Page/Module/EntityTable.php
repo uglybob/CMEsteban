@@ -7,7 +7,6 @@ use CMEsteban\Page\Page;
 
 class EntityTable extends Table
 {
-    // {{{ constructor
     public function __construct($class, array $entities, $edit = true, $add = true, $delete = '-1')
     {
         $rows = [];
@@ -51,9 +50,7 @@ class EntityTable extends Table
             }
         }
     }
-    // }}}
 
-    // {{{ getClasses
     public function getClasses($entity)
     {
         $classes = [];
@@ -64,5 +61,4 @@ class EntityTable extends Table
 
         return $classes;
     }
-    // }}}
 }

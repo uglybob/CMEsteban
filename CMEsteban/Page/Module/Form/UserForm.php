@@ -7,7 +7,6 @@ use CMEsteban\Page\Page;
 
 class UserForm extends EditForm
 {
-    // {{{ constructor
     public function __construct($id)
     {
         $settings = CMEsteban::$setup->getSettings();
@@ -21,17 +20,13 @@ class UserForm extends EditForm
             $this->form = 'Registration disabled';
         }
     }
-    // }}}
 
-    // {{{ create
     protected function create()
     {
         $this->form->addText('Name', ['required' => true]);
         $this->form->addEmail('Email', ['required' => true]);
         $this->form->addPassword('Pass');
     }
-    // }}}
-    // {{{ save
     protected function save()
     {
         $values = $this->form->getValues();
@@ -45,8 +40,6 @@ class UserForm extends EditForm
 
         CMEsteban::$controller->editUser($this->entity);
     }
-    // }}}
-    // {{{ populate
     protected function populate()
     {
         if ($this->entity) {
@@ -58,18 +51,13 @@ class UserForm extends EditForm
             $this->form->populate($values);
         }
     }
-    // }}}
 
-    // {{{ loadEntity
     protected function loadEntity()
     {
         $this->entity = CMEsteban::$controller->getCurrentUser();
     }
-    // }}}
-    // {{{ redirect
     protected function redirect()
     {
         Page::redirect('/');
     }
-    // }}}
 }

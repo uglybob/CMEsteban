@@ -8,10 +8,7 @@ use CMEsteban\Page\Page;
 
 abstract class EditForm
 {
-    // {{{ variables
     protected $entity;
-    // }}}
-    // {{{ constructor
     public function __construct($class, $id)
     {
         $this->id = $id;
@@ -19,9 +16,7 @@ abstract class EditForm
 
         $this->buildForm();
     }
-    // }}}
 
-    // {{{ buildForm
     protected function buildForm()
     {
         $this->form = new \Depage\HtmlForm\HtmlForm('edit' . $this->class . $this->id, ['label' => 'save']);
@@ -50,26 +45,18 @@ abstract class EditForm
             }
         }
     }
-    // }}}
-    // {{{ create
     protected function create()
     {
     }
-    // }}}
-    // {{{ populate
     protected function populate()
     {
     }
-    // }}}
-    // {{{ save
     protected function save()
     {
         $this->entity->save();
 
         Mapper::commit();
     }
-    // }}}
-    // {{{ loadEntity
     protected function loadEntity()
     {
         if ($this->id) {
@@ -77,29 +64,21 @@ abstract class EditForm
             $this->entity = CMEsteban::$controller->$getter($this->id);
         }
     }
-    // }}}
-    // {{{ instantiateEntity
     protected function instantiateEntity()
     {
         $classString = 'CMEsteban\\Entity\\' . $this->class;
         $this->entity = new $classString('');
     }
-    // }}}
-    // {{{ redirect
     protected function redirect()
     {
         Page::redirect('/table/' . $this->class);
     }
-    // }}}
 
-    // {{{ toString
     public function __toString()
     {
         return (string) $this->form;
     }
-    // }}}
 
-    // {{{ entityList
     public function entityList(array $entities)
     {
        $list = [];
@@ -110,5 +89,4 @@ abstract class EditForm
 
         return $list;
     }
-    // }}}
 }

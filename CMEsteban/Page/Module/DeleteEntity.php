@@ -9,7 +9,6 @@ use CMEsteban\Page\Page;
 
 class DeleteEntity extends Form
 {
-    // {{{ constructor
     public function __construct()
     {
         parent::__construct();
@@ -40,5 +39,4 @@ class DeleteEntity extends Form
             Page::redirect('/table/' . $this->class);
         }
     }
-    // }}}
 }

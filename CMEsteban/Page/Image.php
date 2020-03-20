@@ -6,7 +6,6 @@ use CMEsteban\CMEsteban;
 
 class Image extends Page
 {
-    // {{{ render
     public function render()
     {
         $image = CMEsteban::$controller->getImage($this->getPath(1));
@@ -22,5 +21,4 @@ class Image extends Page
 
         return imagejpeg($resource);
     }
-    // }}}
 }

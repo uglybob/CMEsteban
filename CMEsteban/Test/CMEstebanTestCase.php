@@ -8,7 +8,6 @@ use CMEsteban\Lib\Controller;
 
 class CMEstebanTestCase extends \PHPUnit\Framework\TestCase
 {
-    // {{{ setUp
     protected function setUp() : void
     {
         CMEsteban::$setup = new Setup();
@@ -16,8 +15,6 @@ class CMEstebanTestCase extends \PHPUnit\Framework\TestCase
         CMEsteban::$page = new PageTestClass();
         CMEsteban::$template = new TemplateTestClass;
     }
-    // }}}
-    // {{{ tearDown
     protected function tearDown() : void
     {
         CMEsteban::$instance = null;
@@ -26,5 +23,4 @@ class CMEstebanTestCase extends \PHPUnit\Framework\TestCase
         CMEsteban::$page = null;
         CMEsteban::$template = null;
     }
-    // }}}
 }

@@ -7,7 +7,6 @@ use CMEsteban\Entity\User;
 
 class AuthenticationTest extends DatabaseTestCase
 {
-    // {{{ setUp
     protected function setUp() : void
     {
         parent::setUp();
@@ -21,31 +20,23 @@ class AuthenticationTest extends DatabaseTestCase
         $user->setEmail('user@cmesteban.net');
         $this->save($user);
     }
-    // }}}
 
-    // {{{ testLogin
     public function testLogin()
     {
         $this->assertTrue($this->controller->login('userName', 'cmesteban_test_pass'));
         $this->assertEquals('userName', $this->controller->getCurrentUser()->getName());
     }
-    // }}}
-    // {{{ testLoginFailUser
     public function testLoginFailUser()
     {
         $this->assertFalse($this->controller->login('unknownuser', 'cmesteban_test_pass'));
         $this->assertNull($this->controller->getCurrentUser());
     }
-    // }}}
-    // {{{ testLoginFailPass
     public function testLoginFailPass()
     {
         $this->assertFalse($this->controller->login('userName', 'wrong_pass'));
         $this->assertNull($this->controller->getCurrentUser());
     }
-    // }}}
 
-    // {{{ testRegister
     public function testRegister()
     {
         $user = new User('newUserName');
@@ -57,8 +48,6 @@ class AuthenticationTest extends DatabaseTestCase
         $this->assertTrue($this->controller->login('newUserName', 'newUserPass'));
         $this->assertEquals('newUserName', $this->controller->getCurrentUser()->getName());
     }
-    // }}}
-    // {{{ testRegisterDuplicateName
     public function testRegisterDuplicateName()
     {
         $user = new \CMEsteban\Entity\User('userName');
@@ -67,8 +56,6 @@ class AuthenticationTest extends DatabaseTestCase
 
         $this->assertFalse($this->controller->editUser($user));
     }
-    // }}}
-    // {{{ testRegisterDuplicateEmail
     public function testRegisterDuplicateEmail()
     {
         $user = new \CMEsteban\Entity\User('newUserName');
@@ -77,9 +64,7 @@ class AuthenticationTest extends DatabaseTestCase
 
         $this->assertFalse($this->controller->editUser($user));
     }
-    // }}}
 
-    // {{{ testEditUser
     public function testEditUser()
     {
         $this->assertTrue($this->controller->login('userName', 'cmesteban_test_pass'));
@@ -96,8 +81,6 @@ class AuthenticationTest extends DatabaseTestCase
         $this->assertTrue($this->controller->login('newUserName', 'newUserPass'));
         $this->assertEquals('newUserName', $this->controller->getCurrentUser()->getName());
     }
-    // }}}
-    // {{{ testEditUserDuplicateName
     public function testEditUserDuplicateName()
     {
         $user = new User('userName2');
@@ -115,8 +98,6 @@ class AuthenticationTest extends DatabaseTestCase
 
         $this->assertFalse($this->controller->editUser($user));
     }
-    // }}}
-    // {{{ testEditUserDuplicateEmail
     public function testEditUserDuplicateEmail()
     {
         $user = new User('userName2');
@@ -134,5 +115,4 @@ class AuthenticationTest extends DatabaseTestCase
 
         $this->assertFalse($this->controller->editUser($user));
     }
-    // }}}
 }

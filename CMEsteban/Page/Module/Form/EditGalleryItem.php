@@ -4,7 +4,6 @@ namespace CMEsteban\Page\Module\Form;
 
 abstract class EditGalleryItem extends EditImageEntity
 {
-    // {{{ create
     protected function create()
     {
         parent::create();
@@ -12,8 +11,6 @@ abstract class EditGalleryItem extends EditImageEntity
         $this->form->addNumber('Position');
         $this->form->addTextarea('Text');
     }
-    // }}}
-    // {{{ populate
     protected function populate()
     {
         parent::populate();
@@ -25,8 +22,6 @@ abstract class EditGalleryItem extends EditImageEntity
 
         $this->form->populate($values);
     }
-    // }}}
-    // {{{ save
     protected function save()
     {
         $values = $this->form->getValues();
@@ -36,5 +31,4 @@ abstract class EditGalleryItem extends EditImageEntity
 
         parent::save();
     }
-    // }}}
 }

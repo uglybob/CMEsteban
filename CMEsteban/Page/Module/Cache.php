@@ -4,7 +4,6 @@ namespace CMEsteban\Page\Module;
 
 class Cache extends Form
 {
-    // {{{ constructor
     public function __construct()
     {
         parent::__construct();
@@ -32,5 +31,4 @@ class Cache extends Form
             \CMEsteban\Page\Page::redirect('/cache');
         }
     }
-    // }}}
 }

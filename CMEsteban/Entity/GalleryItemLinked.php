@@ -12,7 +12,6 @@ abstract class GalleryItemLinked extends GalleryItem
      **/
     protected $link;
 
-    // {{{ getHeading
     public static function getHeadings()
     {
         $headings = parent::getHeadings();
@@ -20,8 +19,6 @@ abstract class GalleryItemLinked extends GalleryItem
 
         return $headings;
     }
-    // }}}
-    // {{{ getRow
     public function getRow()
     {
         $rows = parent::getRow();
@@ -29,5 +26,4 @@ abstract class GalleryItemLinked extends GalleryItem
 
         return $rows;
     }
-    // }}}
 }

@@ -6,7 +6,6 @@ use CMEsteban\CMEsteban;
 
 class Menu extends Module
 {
-    // {{{ constructor
     public function __construct($links = [])
     {
         parent::__construct();
@@ -14,8 +13,6 @@ class Menu extends Module
         CMEsteban::$template->addStylesheet(CMEsteban::$setup->getSettings('PathCme') . '/CMEsteban/Page/css/menu.css');
         $this->links = $links;
     }
-    // }}}
-    // {{{ toString
     public function __toString()
     {
         $menu = '';
@@ -28,5 +25,4 @@ class Menu extends Module
 
         return HTML::nav(['class' => 'cmenu'], HTML::ul($menu));
     }
-    // }}}
 }

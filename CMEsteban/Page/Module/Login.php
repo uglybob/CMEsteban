@@ -8,7 +8,6 @@ use Depage\HtmlForm\HtmlForm;
 
 class Login extends Form
 {
-    // {{{ constructor
     public function __construct()
     {
         parent::__construct();
@@ -43,5 +42,4 @@ class Login extends Form
             }
         }
     }
-    // }}}
 }

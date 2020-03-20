@@ -6,15 +6,12 @@ use CMEsteban\CMEsteban;
 
 class Cache
 {
-    // {{{ set
     public static function set($index, $data)
     {
         $name = self::getFilename($index);
 
         return (file_put_contents($name, $data) !== false);
     }
-    // }}}
-    // {{{ get
     public static function get($index, $includeExpired = false)
     {
         $result = false;
@@ -26,8 +23,6 @@ class Cache
 
         return $result;
     }
-    // }}}
-    // {{{ getLink
     public static function getLink($index, $includeExpired = false)
     {
         $result = false;
@@ -39,8 +34,6 @@ class Cache
 
         return $result;
     }
-    // }}}
-    // {{{ isGettable
     protected static function isGettable($index, $includeExpired = false)
     {
         $name = self::getFilename($index);
@@ -58,9 +51,7 @@ class Cache
 
         return $result;
     }
-    // }}}
 
-    // {{{ list
     public static function list()
     {
         $files = glob(self::getDir() . '/*');
@@ -72,8 +63,6 @@ class Cache
 
         return $list;
     }
-    // }}}
-    // {{{ clear
     public static function clear()
     {
         $success = true;
@@ -85,17 +74,13 @@ class Cache
 
         return $success;
     }
-    // }}}
-    // {{{ autoClear
     public static function autoClear()
     {
         if (CMEsteban::$setup->getSettings('CacheTime') == 'auto') {
             self::clear();
         }
     }
-    // }}}
 
-    // {{{ validTime
     protected function validTime($file)
     {
         $timeLeft = 0;
@@ -111,19 +96,14 @@ class Cache
 
         return $timeLeft;
     }
-    // }}}
-    // {{{ getDir
     public function getDir($internal = true)
     {
         $root = ($internal) ? CMEsteban::$setup->getSettings('Path') : '';
 
         return $root . '/CMEsteban/Cache';
     }
-    // }}}
-    // {{{ getFilename
     public function getFilename($index, $internal = true)
     {
         return self::getDir($internal) . "/$index";
     }
-    // }}}
 }

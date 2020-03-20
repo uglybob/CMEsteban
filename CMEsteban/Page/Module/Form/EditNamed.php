@@ -6,15 +6,12 @@ use CMEsteban\Page\Page;
 
 class EditNamed extends EditForm
 {
-    // {{{ create
     protected function create()
     {
         parent::create();
 
         $this->form->addText('Name', ['required' => true]);
     }
-    // }}}
-    // {{{ populate
     protected function populate()
     {
         $values = [
@@ -25,8 +22,6 @@ class EditNamed extends EditForm
 
         parent::populate();
     }
-    // }}}
-    // {{{ save
     protected function save()
     {
         $values = $this->form->getValues();
@@ -35,5 +30,4 @@ class EditNamed extends EditForm
 
         parent::save();
     }
-    // }}}
 }

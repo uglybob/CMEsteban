@@ -6,7 +6,6 @@ use CMEsteban\Lib\Mapper;
 
 class DatabaseTest extends CMEstebanTestCase
 {
-    // {{{ setUp
     public function setUp() : void
     {
         parent::setUp();
@@ -29,9 +28,7 @@ class DatabaseTest extends CMEstebanTestCase
         $this->assertFalse($sm->tablesExist(['pages']));
         $this->assertFalse($sm->tablesExist(['logs']));
     }
-    // }}}
 
-    // {{{ testInit
     public function testInit()
     {
         Mapper::connect();
@@ -49,8 +46,6 @@ class DatabaseTest extends CMEstebanTestCase
         $this->controller = new \CMEsteban\Lib\Controller();
         $this->assertTrue($this->controller->login('sebastian', 'yesitsreallyme'));
     }
-    // }}}
-    // {{{ testInitTrigger
     public function testInitTrigger()
     {
         Mapper::connect();
@@ -66,5 +61,4 @@ class DatabaseTest extends CMEstebanTestCase
         $this->assertTrue($sm->tablesExist(['logs']));
         $this->assertFalse($sm->tablesExist(['notatable']));
     }
-    // }}}
 }

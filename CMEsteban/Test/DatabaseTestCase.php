@@ -6,7 +6,6 @@ use CMEsteban\Lib\Mapper;
 
 class DatabaseTestCase extends CMEstebanTestCase
 {
-    // {{{ setUpBeforeClass
     public static function setUpBeforeClass() : void
     {
         parent::setUp();
@@ -30,8 +29,6 @@ class DatabaseTestCase extends CMEstebanTestCase
         $schemaTool->dropSchema($metadata);
         $schemaTool->createSchema($metadata);
     }
-    // }}}
-    // {{{ setUp
     protected function setUp() : void
     {
         parent::setUp();
@@ -49,13 +46,10 @@ class DatabaseTestCase extends CMEstebanTestCase
             $this->setUpBeforeClass();
         }
     }
-    // }}}
 
-    // {{{ save
     protected function save($entity)
     {
         Mapper::save($entity);
         Mapper::commit();
     }
-    // }}}
 }

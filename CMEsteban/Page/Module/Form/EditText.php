@@ -6,7 +6,6 @@ use CMEsteban\Page\Page;
 
 class EditText extends EditNamed
 {
-    // {{{ create
     protected function create()
     {
         parent::create();
@@ -14,8 +13,6 @@ class EditText extends EditNamed
         $this->form->addText('Link');
         $this->form->addTextarea('Text');
     }
-    // }}}
-    // {{{ populate
     protected function populate()
     {
         $values = [
@@ -27,8 +24,6 @@ class EditText extends EditNamed
 
         parent::populate();
     }
-    // }}}
-    // {{{ save
     protected function save()
     {
         $values = $this->form->getValues();
@@ -38,5 +33,4 @@ class EditText extends EditNamed
 
         parent::save();
     }
-    // }}}
 }

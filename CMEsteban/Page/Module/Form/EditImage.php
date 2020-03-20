@@ -8,7 +8,6 @@ use CMEsteban\Page\Module\HTML;
 
 class EditImage extends EditForm
 {
-    // {{{ create
     protected function create()
     {
         $this->form->addText('Name', ['required' => true]);
@@ -28,8 +27,6 @@ class EditImage extends EditForm
             );
         }
     }
-    // }}}
-    // {{{ save
     protected function save()
     {
         $values = $this->form->getValues();
@@ -48,8 +45,6 @@ class EditImage extends EditForm
 
         parent::save();
     }
-    // }}}
-    // {{{ populate
     protected function populate()
     {
         $values = [
@@ -60,5 +55,4 @@ class EditImage extends EditForm
 
         $this->form->populate($values);
     }
-    // }}}
 }

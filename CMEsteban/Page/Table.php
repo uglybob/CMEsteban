@@ -7,7 +7,6 @@ use CMEsteban\Page\Module\EntityTable;
 
 class Table extends Backend
 {
-    // {{{ hookConstructor
     public function hookConstructor()
     {
         parent::hookConstructor();
@@ -19,5 +18,4 @@ class Table extends Backend
 
         $this->addContent('main', new EntityTable($class, $entities));
     }
-    // }}}
 }

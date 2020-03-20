@@ -6,7 +6,6 @@ use CMEsteban\CMEsteban;
 
 class Email extends Module
 {
-    // {{{ constructor
     public function __construct($email)
     {
         parent::__construct();
@@ -30,5 +29,4 @@ class Email extends Module
             HTML::span(['.cmoe'], $encrypted)
         );
     }
-    // }}}
 }

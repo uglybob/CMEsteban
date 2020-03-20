@@ -4,7 +4,6 @@ namespace CMEsteban\Page\Module;
 
 class HTML
 {
-    // {{{ variables
     protected static $voidTags = [
         'br',
         'img',
@@ -33,9 +32,7 @@ class HTML
         'title',
         'ul',
     ];
-    // }}}
 
-    // {{{ callStatic
     public static function __callStatic($name, $arguments)
     {
         $result = null;
@@ -53,9 +50,7 @@ class HTML
 
         return $result;
     }
-    // }}}
 
-    // {{{ tag
     protected static function tag($name, bool $void, $first = null, $second = null)
     {
         if (empty($name)) {
@@ -85,8 +80,6 @@ class HTML
 
         return $markup;
     }
-    // }}}
-    // {{{ renderAttributes
     protected static function renderAttributes($attributes)
     {
         $list = [];
@@ -117,8 +110,6 @@ class HTML
 
         return $renderedAttributes;
     }
-    // }}}
-    // {{{ formatArgument
     protected static function formatArgument($argument)
     {
         if (is_array($argument) || is_null($argument)) {
@@ -129,5 +120,4 @@ class HTML
 
         return $result;
     }
-    // }}}
 }

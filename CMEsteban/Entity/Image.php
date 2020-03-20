@@ -22,7 +22,6 @@ class Image extends Named
      **/
     protected $level;
 
-    // {{{ constructor
     public function __construct($name, $level = 0, $alt = null)
     {
         parent::__construct($name);
@@ -30,9 +29,7 @@ class Image extends Named
         $this->level = $level;
         $this->alt = $alt;
     }
-    // }}}
 
-    // {{{ setName
     public function setName($new)
     {
         $oldPath = $this->getSrc(true);
@@ -51,8 +48,6 @@ class Image extends Named
 
         parent::setName($new);
     }
-    // }}}
-    // {{{ fixExtension
     public function fixExtension()
     {
         $info = getimagesize($this->getSrc(true));
@@ -65,8 +60,6 @@ class Image extends Named
 
         $this->setName($name);
     }
-    // }}}
-    // {{{ download
     public function download($url)
     {
         $img = file_get_contents($url);
@@ -75,9 +68,7 @@ class Image extends Named
 
         $this->fixExtension();
     }
-    // }}}
 
-    // {{{ imagecreatefromfile
     protected static function imagecreatefromfile($filename) {
         if (!file_exists($filename)) {
             throw new EntityException("File \"$filename\" not found.");
@@ -102,9 +93,7 @@ class Image extends Named
             break;
         }
     }
-    // }}}
 
-    // {{{ getSrc
     public function getSrc($internal = false)
     {
         $path = ($internal) ? CMEsteban::$setup->getSettings('Path') : '';
@@ -118,8 +107,6 @@ class Image extends Named
         return $src;
 
     }
-    // }}}
-    // {{{ getSrcDimensions
     public function getSrcDimensions($width, $height = -1)
     {
         $info = pathinfo($this->getName());
@@ -148,9 +135,7 @@ class Image extends Named
 
         return $result;
     }
-    // }}}
 
-    // {{{ toHtml
     public function toHtml($width = null, $height = -1)
     {
         if (is_null($width)) {
@@ -165,15 +150,11 @@ class Image extends Named
 
         return HTML::img($attributes);
     }
-    // }}}
-    // {{{ toString
     public function __toString()
     {
         return $this->toHtml();
     }
-    // }}}
 
-    // {{{ getHeadings
     public static function getHeadings()
     {
         return [
@@ -181,8 +162,6 @@ class Image extends Named
             'Alt',
         ];
     }
-    // }}}
-    // {{{ getRow
     public function getRow()
     {
         return [
@@ -190,5 +169,4 @@ class Image extends Named
             \CMEsteban\Page\Module\Text::shortenString($this->getAlt(), 40),
         ];
     }
-    // }}}
 }

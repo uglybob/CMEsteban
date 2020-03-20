@@ -4,15 +4,12 @@ namespace CMEsteban\Lib;
 
 abstract class Config
 {
-    // {{{ constructor
     public function __construct()
     {
         $this->settings['Path'] = realpath($this->settings['Path'] . "/../..");
         $this->settings['PathCme'] = str_replace($this->settings['Path'], '', realpath(__DIR__ . "/../.."));
     }
-    // }}}
 
-    // {{{ getSettings
     public function getSettings($setting = null)
     {
         $result = null;
@@ -29,5 +26,4 @@ abstract class Config
 
         return $result;
     }
-    // }}}
 }

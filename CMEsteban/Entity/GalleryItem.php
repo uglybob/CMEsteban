@@ -16,7 +16,6 @@ abstract class GalleryItem extends ImageEntity
      **/
     protected $text;
 
-    // {{{ getHeading
     public static function getHeadings()
     {
         return [
@@ -24,8 +23,6 @@ abstract class GalleryItem extends ImageEntity
             'Position',
         ];
     }
-    // }}}
-    // {{{ getRow
     public function getRow()
     {
         return [
@@ -33,12 +30,9 @@ abstract class GalleryItem extends ImageEntity
             $this->getPosition(),
         ];
     }
-    // }}}
 
-    // {{{ getFormattedText
     public function getFormattedText()
     {
         return AbstractText::format($this->getText());
     }
-    // }}}
 }

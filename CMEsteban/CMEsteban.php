@@ -10,22 +10,17 @@ class CMEsteban
     public static $page = null;
     public static $template = null;
 
-    // {{{ constructor
     private function __construct($setup)
     {
         self::$setup = $setup;
         self::$controller = self::$setup->getController();
     }
-    // }}}
-    // {{{ startQuiet
     public function startQuiet($setup)
     {
         if (is_null(self::$instance)) {
             self::$instance = new self($setup);
         }
     }
-    // }}}
-    // {{{ start
     public function start($setup)
     {
         self::startQuiet($setup);
@@ -63,18 +58,13 @@ class CMEsteban
 
         echo($output);
     }
-    // }}}
 
-    // {{{ setPage
     public function setPage($page)
     {
         self::$page = $page;
     }
-    // }}}
-    // {{{ setTemplate
     public function setTemplate($template)
     {
         self::$template = $template;
     }
-    // }}}
 }

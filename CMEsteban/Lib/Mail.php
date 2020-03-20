@@ -9,7 +9,6 @@ use PHPMailer\PHPMailer\Exception;
 
 class Mail
 {
-    // {{{ constructor
     public function __construct($dst, $subject, $message)
     {
         $setup = CMEsteban::$setup;
@@ -22,8 +21,6 @@ class Mail
         $this->host = $setup->getSettings('MailHost');
         $this->pass = $setup->getSettings('MailPass');
     }
-    // }}}
-    // {{{ send
     public function send()
     {
         $success = true;
@@ -59,5 +56,4 @@ class Mail
 
         return $success;
     }
-    // }}}
 }

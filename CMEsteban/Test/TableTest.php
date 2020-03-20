@@ -6,15 +6,12 @@ use CMEsteban\Page\Module\Table;
 
 class TableTest extends CMEstebanTestCase
 {
-    // {{{ testEmpty
     public function testEmpty()
     {
         $table = new Table([]);
 
         $this->assertEquals('<div class="ctable"><div class="ctheader"><div class="ctrow"></div></div></div>', $table->__toString());
     }
-    // }}}
-    // {{{ testSimple
     public function testSimple()
     {
         $table = new Table([
@@ -39,8 +36,6 @@ class TableTest extends CMEstebanTestCase
             '</div>' .
         '</div>', $table->__toString());
     }
-    // }}}
-    // {{{ testSimpleAttributes
     public function testSimpleAttributes()
     {
         $table = new Table([
@@ -69,5 +64,4 @@ class TableTest extends CMEstebanTestCase
             '</div>' .
         '</div>', $table->__toString());
     }
-    // }}}
 }

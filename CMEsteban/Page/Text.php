@@ -6,7 +6,6 @@ use CMEsteban\Page\Module\HTML;
 
 class Text extends Home
 {
-    // {{{ constructor
     public function __construct($path = [], $text)
     {
         parent::__construct($path);
@@ -16,5 +15,4 @@ class Text extends Home
 
         $this->addContent('main', $rendered);
     }
-    // }}}
 }
