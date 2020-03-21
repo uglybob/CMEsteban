@@ -11,10 +11,6 @@ abstract class GalleryItem extends ImageEntity
      * @Column(type="integer")
      **/
     protected $position;
-    /**
-     * @Column(type="text", nullable=true)
-     **/
-    protected $text;
 
     public static function getHeadings()
     {
@@ -29,10 +25,5 @@ abstract class GalleryItem extends ImageEntity
             \CMEsteban\Page\Module\Text::shortenString($this->getName(), 30),
             $this->getPosition(),
         ];
-    }
-
-    public function toHtmlText($createAnchors = true)
-    {
-        return new \CMEsteban\Page\Module\Text($this, $createAnchors);
     }
 }
