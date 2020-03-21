@@ -31,18 +31,8 @@ abstract class AbstractText extends Named
         return $rows;
     }
 
-    public function getFormattedText($createAnchors = true)
+    public function toHtml($createAnchors = true)
     {
-        return self::format($this->getText(), $createAnchors);
-    }
-    public static function format($text, $createAnchors = true)
-    {
-        $result = '';
-
-        if ($text) {
-            $result = new \CMEsteban\Page\Module\Text($text, $createAnchors);
-        }
-
-        return $result;
+        return new \CMEsteban\Page\Module\Text($this, $createAnchors);
     }
 }

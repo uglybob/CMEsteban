@@ -11,6 +11,11 @@ class Text extends Module
         parent::__construct();
 
         $this->createAnchors = $createAnchors;
+
+        if (!is_string($text)) {
+            $text = $text->getText();
+        }
+
         $this->text = self::cleanText($text);
     }
     public function __toString()

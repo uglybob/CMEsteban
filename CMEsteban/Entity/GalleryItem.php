@@ -31,8 +31,8 @@ abstract class GalleryItem extends ImageEntity
         ];
     }
 
-    public function getFormattedText($createAnchors = true)
+    public function toHtmlText($createAnchors = true)
     {
-        return AbstractText::format($this->getText(), $createAnchors);
+        return new \CMEsteban\Page\Module\Text($this, $createAnchors);
     }
 }
