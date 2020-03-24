@@ -5,12 +5,8 @@ namespace CMEsteban\Entity;
 /**
  * @MappedSuperclass
  **/
-abstract class AbstractText extends Named
+abstract class AbstractText extends AbstractSimpleText
 {
-    /**
-     * @Column(type="text", nullable=true)
-     **/
-    protected $text;
     /**
      * @Column(type="string", unique=true, nullable=true)
      **/
@@ -31,8 +27,4 @@ abstract class AbstractText extends Named
         return $rows;
     }
 
-    public function toHtml($createAnchors = true)
-    {
-        return new \CMEsteban\Page\Module\Text($this, $createAnchors);
-    }
 }
