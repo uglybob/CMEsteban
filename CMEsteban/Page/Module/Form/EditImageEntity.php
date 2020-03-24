@@ -12,6 +12,8 @@ abstract class EditImageEntity extends EditForm
     protected $image;
     protected function create()
     {
+        parent::create();
+
         $this->form->addText('Name', ['required' => true]);
 
         if ($this->image) {
@@ -29,6 +31,8 @@ abstract class EditImageEntity extends EditForm
     }
     protected function populate()
     {
+        parent::populate();
+
         $values = [
             'Name' => $this->entity->getName(),
         ];
@@ -62,15 +66,23 @@ abstract class EditImageEntity extends EditForm
         parent::loadEntity();
 
         if ($this->entity) {
-            $this->image = $this->entity->getImage();
+            if (is_null($this->entity->getImage())) {
+                $this->instantiateImage();
+            } else {
+                $this->image = $this->entity->getImage();
+            }
         }
     }
     protected function instantiateEntity()
     {
         parent::instantiateEntity();
 
-        $this->image = new \CMEsteban\Entity\Image('');
+        $this->instantiateImage();
+    }
 
+    protected function instantiateImage()
+    {
+        $this->image = new \CMEsteban\Entity\Image('');
         $this->entity->setImage($this->image);
     }
 }

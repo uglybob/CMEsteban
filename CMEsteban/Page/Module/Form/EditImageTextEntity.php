@@ -2,7 +2,7 @@
 
 namespace CMEsteban\Page\Module\Form;
 
-abstract class EditGalleryItem extends EditImageEntity
+abstract class EditImageTextEntity extends EditImageEntity
 {
     protected function create()
     {
