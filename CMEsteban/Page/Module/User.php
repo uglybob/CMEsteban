@@ -7,10 +7,8 @@ use CMEsteban\Page\Module\Form\UserForm;
 
 class User extends Form
 {
-    public function __construct()
+    protected function prepare()
     {
-        parent::__construct();
-
         $this->form = new UserForm(CMEsteban::$page->getPath(1));
     }
 }

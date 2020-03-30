@@ -8,7 +8,12 @@ abstract class Module
 
     public function __construct()
     {
-        $this->rendered = '';
+        $this->rendered = $this->render();
+    }
+
+    public function rendere()
+    {
+        return '';
     }
 
     public function __toString()

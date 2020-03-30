@@ -8,10 +8,8 @@ use Depage\HtmlForm\HtmlForm;
 
 class Login extends Form
 {
-    public function __construct()
+    protected function prepare()
     {
-        parent::__construct();
-
         $user = CMEsteban::$controller->getCurrentUser();
 
         if ($user) {

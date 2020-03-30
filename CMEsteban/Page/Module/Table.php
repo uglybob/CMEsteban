@@ -7,26 +7,34 @@ use CMEsteban\CMEsteban;
 class Table extends Form
 {
     protected $table;
+
     public function __construct(array $rows, array $headings, array $classes = [])
     {
-        parent::__construct();
-
         CMEsteban::$template->addStylesheet(CMEsteban::$setup->getSettings('PathCme') . '/CMEsteban/Page/css/table.css');
 
+        $this->rows = $rows;
         $this->headings = $headings;
         $this->classes = $classes;
+
+        $this->prepareTable();
+
+        parent::__construct();
+    }
+
+    protected function prepareTable()
+    {
         $this->table = $this->generateHeader();
 
-        foreach ($rows as $number => $row) {
+        foreach ($this->rows as $number => $row) {
             $this->table .= $this->generateRow($number, $row);
         }
 
         $this->table = HTML::div(['.ctable'], $this->table);
     }
 
-    public function __toString()
+    protected function render()
     {
-        return $this->table . parent::__toString();
+        return $this->table . parent::render();
     }
 
     public function generateHeader()

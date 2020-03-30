@@ -6,10 +6,8 @@ use CMEsteban\CMEsteban;
 
 class EditEntity extends Form
 {
-    public function __construct()
+    protected function prepare()
     {
-        parent::__construct();
-
         $class = ucfirst(CMEsteban::$page->getPath(1));
         $formType = 'CMEsteban\Page\Module\Form\Edit' . $class;
 

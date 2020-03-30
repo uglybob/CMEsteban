@@ -8,15 +8,17 @@ class ImageZoom extends Module
 {
     public function __construct($image, $width = null, $height = -1)
     {
-        parent::__construct();
 
         $this->image = $image;
         $this->width = $width;
         $this->height = $height;
 
         CMEsteban::$template->addStylesheet(CMEsteban::$setup->getSettings('PathCme') . '/CMEsteban/Page/css/image-zoom.css');
+
+        parent::__construct();
     }
-    public function __toString()
+
+    protected function render()
     {
         $src = (is_null($this->width)) ? $this->image->getSrc() : $this->image->getSrcDimensions($this->width, $this->height);
 

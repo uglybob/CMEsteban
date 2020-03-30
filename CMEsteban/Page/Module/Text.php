@@ -8,8 +8,6 @@ class Text extends Module
 {
     public function __construct($text, $createAnchors = true)
     {
-        parent::__construct();
-
         $this->createAnchors = $createAnchors;
 
         if (!is_string($text)) {
@@ -17,8 +15,11 @@ class Text extends Module
         }
 
         $this->text = self::cleanText($text);
+
+        parent::__construct();
     }
-    public function __toString()
+
+    protected function render()
     {
         $result = '';
 

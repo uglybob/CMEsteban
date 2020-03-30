@@ -9,10 +9,8 @@ use CMEsteban\Page\Page;
 
 class DeleteEntity extends Form
 {
-    public function __construct()
+    protected function prepare()
     {
-        parent::__construct();
-
         $this->class = ucfirst(CMEsteban::$page->getPath(1));
         $this->id = CMEsteban::$page->getPath(2);
 

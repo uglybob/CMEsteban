@@ -17,7 +17,7 @@ class Breadcrumbs extends Module
     {
         $this->items[$name] = $link;
     }
-    public function __toString()
+    public function render()
     {
         $breadcrumbs = '';
         $first = true;

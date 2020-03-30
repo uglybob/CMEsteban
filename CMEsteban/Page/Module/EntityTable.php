@@ -37,8 +37,6 @@ class EntityTable extends Table
             $headings[] = $delete;
         }
 
-        parent::__construct($rows, $headings, $classes);
-
         if ($add && $edit) {
             $label = ($add === true) ? '+1' : $add;
             $this->form = new HtmlForm('login', ['label' => $label]);
@@ -49,6 +47,8 @@ class EntityTable extends Table
                 Page::redirect("/edit/$class/");
             }
         }
+
+        parent::__construct($rows, $headings, $classes);
     }
 
     public function getClasses($entity)

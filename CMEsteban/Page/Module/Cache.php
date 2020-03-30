@@ -4,10 +4,8 @@ namespace CMEsteban\Page\Module;
 
 class Cache extends Form
 {
-    public function __construct()
+    protected function prepare()
     {
-        parent::__construct();
-
         $cache = \CMEsteban\Lib\Cache::list();
         $path = \CMEsteban\Lib\Cache::getDir();
         $list = [];
