@@ -10,7 +10,7 @@ ready(function() {
 
         var a = document.createElement('a');
         a.textContent = email.textContent;
-        a.setAttribute('href', 'emailto:' + email.textContent);
+        a.setAttribute('href', 'mailto:' + email.textContent);
 
         email.parentNode.insertBefore(a, email);
         email.parentNode.removeChild(email);
