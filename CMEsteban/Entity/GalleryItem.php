@@ -5,7 +5,7 @@ namespace CMEsteban\Entity;
 /**
  * @MappedSuperclass
  **/
-abstract class GalleryItem extends ImageEntity
+abstract class GalleryItem extends ImageTextEntity
 {
     /**
      * @Column(type="integer")
