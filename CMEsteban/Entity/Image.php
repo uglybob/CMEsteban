@@ -94,6 +94,10 @@ class Image extends Named
         }
     }
 
+    public function isAvailable()
+    {
+        return file_exists($this->getSrc(true));
+    }
     public function getSrc($internal = false)
     {
         $path = ($internal) ? CMEsteban::$setup->getSettings('Path') : '';
