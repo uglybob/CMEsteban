@@ -27,9 +27,11 @@ class Email extends Module
         $encrypted = str_replace($in, $out, str_rot13($this->email));
         $message = 'Please activate JavaScript to see this email address.';
 
+        $encryptClass = ($this->createAnchors) ? 'cmoe' : 'cmoa';
+
         return HTML::span(['.cmo'],
             HTML::span(['.cmom'], $message) .
-            HTML::span(['.cmoe'], $encrypted)
+            HTML::span([".$encryptClass"], $encrypted)
         );
     }
 }
