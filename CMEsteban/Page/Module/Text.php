@@ -34,43 +34,9 @@ class Text extends Module
     {
         return (strlen($text) > $length) ? substr($text, 0, $length - 3) . '...' : $text;
     }
-    public static function shortenUrl($url)
+    public static function replaceUrl($match, $createAnchors = true)
     {
-        $sites = [
-            'facebook',
-            'bandcamp',
-            'youtube',
-            'soundcloud',
-            'mixcloud',
-            'twitter',
-            'vimeo',
-            'myspace',
-        ];
-
-        $host = parse_url($url, PHP_URL_HOST);
-
-        foreach ($sites as $site) {
-            if (preg_match('/' . $site . '/i', $host)) return $site;
-        }
-
-        $short = preg_replace('/(?:https?:\/\/)?(?:www\.)?(.*)\/?$/i', '$1', $url);
-        $short = preg_replace('@\/$@', '', $short);
-
-        return $short;
-    }
-    public static function replaceUrl($match)
-    {
-        $url = $match[0];
-        $result = $url;
-
-        $cleanedUrl = (preg_match("~^(?:f|ht)tps?://~i", $url)) ? $url : 'https://' . $url;
-
-        $short = self::shortenUrl($cleanedUrl);
-        $trimmed = self::shortenString($short, 30);
-
-        $result = HTML::a(['href' => $cleanedUrl],  ">$trimmed");
-
-        return $result;
+        return new URL($match[0], $createAnchors);
     }
     protected static function replaceEmail($match, $createAnchors = true)
     {
@@ -87,7 +53,9 @@ class Text extends Module
     {
         $cleanLinks = preg_replace_callback(
             '@(\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))))@',
-            'self::replaceUrl',
+            function($match) use ($createAnchors) {
+                return Text::replaceUrl($match, $createAnchors);
+            },
             $input
         );
 

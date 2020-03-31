@@ -6,7 +6,7 @@ use CMEsteban\CMEsteban;
 
 class Email extends Module
 {
-    public function __construct($email)
+    public function __construct($email, $createAnchors = true)
     {
         $path = CMEsteban::$setup->getSettings('PathCme') . '/CMEsteban/Page';
         CMEsteban::$template->addScript($path . '/js/lib.js');
@@ -14,6 +14,7 @@ class Email extends Module
         CMEsteban::$template->addStylesheet($path . '/css/mail.css');
 
         $this->email = $email;
+        $this->createAnchors = $createAnchors;
 
         parent::__construct();
     }
