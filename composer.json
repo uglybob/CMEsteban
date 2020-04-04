@@ -23,6 +23,6 @@
         "spatie/icalendar-generator": "1.0.*"
     },
     "autoload": {
-        "psr-4": {"CMEsteban\\": "./CMEsteban"}
+        "psr-4": {"CMEsteban\\": "CMEsteban"}
     }
 }
