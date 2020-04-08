@@ -2,10 +2,14 @@
 
 namespace CMEsteban;
 
+use CMEsteban\Lib\CacheFile;
+
 class CMEsteban
 {
     public static $instance = null;
     public static $setup = null;
+    public static $cache = null;
+    public static $frontCache = null;
     public static $controller = null;
     public static $page = null;
     public static $template = null;
@@ -13,6 +17,8 @@ class CMEsteban
     private function __construct($setup)
     {
         self::$setup = $setup;
+        self::$cache = self::$setup->getCache();
+        self::$frontCache = new CacheFile($setup->getSettings('Path') . '/CMEsteban/Cache', '/CMEsteban/Cache');
         self::$controller = self::$setup->getController();
     }
     public function startQuiet($setup)

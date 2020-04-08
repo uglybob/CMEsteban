@@ -4,7 +4,6 @@ namespace CMEsteban\Page\Module;
 
 use CMEsteban\CMEsteban;
 use CMEsteban\Lib\Mapper;
-use CMEsteban\Lib\Cache;
 use CMEsteban\Page\Page;
 
 class DeleteEntity extends Form
@@ -32,7 +31,6 @@ class DeleteEntity extends Form
             $entity->$delete();
             Mapper::commit();
             $this->form->clearSession();
-            Cache::autoClear();
 
             Page::redirect('/table/' . $this->class);
         }

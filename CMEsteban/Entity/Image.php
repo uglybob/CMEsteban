@@ -3,7 +3,6 @@
 namespace CMEsteban\Entity;
 
 use CMEsteban\CMEsteban;
-use CMEsteban\Lib\Cache;
 use CMEsteban\Page\Module\HTML;
 use CMEsteban\Exception\EntityException;
 
@@ -116,7 +115,8 @@ class Image extends Named
         $info = pathinfo($this->getName());
         $name = $info['filename'];
         $filename = $name . $width . 'x' . $height . '.jpg';
-        $result = Cache::getLink($filename, true);
+        $cache = CMEsteban::$frontCache;
+        $result = $cache->getLink($filename, true);
 
         if (!$result) {
             try {
@@ -127,8 +127,8 @@ class Image extends Named
                 imagejpeg($scaled);
                 $imageString = ob_get_clean();
 
-                if (Cache::set($filename, $imageString)) {
-                    $result = Cache::getFilename($filename, false);
+                if ($cache->write($filename, $imageString)) {
+                    $result = $cache->getFilename($filename, false);
                 } else {
                     $result = $this->getSrc();
                 }

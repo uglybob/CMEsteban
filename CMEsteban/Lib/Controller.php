@@ -23,7 +23,7 @@ class Controller
 
         if ($cache) {
             $index = implode('-', $path) . '.html';
-            $rendered = Cache::get($index);
+            $rendered = CMEsteban::$cache->read($index);
         }
 
         if (!$rendered) {
@@ -38,7 +38,7 @@ class Controller
                 $rendered = $page->render();
 
                 if ($cache && $page->isCacheable()) {
-                    Cache::set($index, $rendered);
+                    CMEsteban::$cache->write($index, $rendered);
                 }
             }
         }

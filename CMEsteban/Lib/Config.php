@@ -30,4 +30,9 @@ abstract class Config
 
         return $result;
     }
+
+    public function getCache()
+    {
+        return new CacheFile('/tmp');
+    }
 }

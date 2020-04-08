@@ -2,15 +2,21 @@
 
 namespace CMEsteban\Page\Module;
 
+use CMEsteban\CMEsteban;
+use CMEsteban\Page\Page;
+use Depage\HtmlForm\HtmlForm;
+
 class Cache extends Form
 {
     protected function prepare()
     {
-        $cache = \CMEsteban\Lib\Cache::list();
-        $path = \CMEsteban\Lib\Cache::getDir();
+        $cache = CMEsteban::$cache;
+
+        $files = $cache->list();
+        $path = $cache->getDir();
         $list = [];
 
-        foreach ($cache as $file => $valid) {
+        foreach ($files as $file => $valid) {
             $list[str_replace("$path/", '', $file)] = $valid;
         }
 
@@ -19,14 +25,14 @@ class Cache extends Form
 
         $rendered = new Table($list, $attributes);
 
-        $this->form = new \Depage\HtmlForm\HtmlForm('clear' , ['label' => 'clear']);
+        $this->form = new HtmlForm('clear' , ['label' => 'clear']);
         $this->form->addHTML($rendered);
         $this->form->process();
 
         if ($this->form->validate()) {
-            \CMEsteban\Lib\Cache::clear();
+            $cache->clear();
             $this->form->clearSession();
-            \CMEsteban\Page\Page::redirect('/cache');
+            Page::redirect('/cache');
         }
     }
 }
