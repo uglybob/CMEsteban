@@ -18,71 +18,18 @@ class CacheFile extends Cache
 
         return (file_put_contents($name, $data) !== false);
     }
-    public function read($index, $includeExpired = false)
+
+    protected function readData($name)
     {
-        $result = false;
-        $name = $this->isGettable($index, $includeExpired);
-
-        if ($name) {
-            $result = file_get_contents($name);
-        }
-
-        return $result;
+        return file_get_contents($name);
     }
-    public function list()
-    {
-        $files = glob($this->getDir() . '/*');
-        $list = [];
-
-        foreach ($files as $file) {
-            $list[$file] = $this->validTime($file);
-        }
-
-        return $list;
+    public function getEntries() {
+        return glob($this->getDir() . '/*');
     }
-    public function clear()
-    {
-        $success = true;
-        $files = $this->list();
-
-        foreach ($files as $file => $valid) {
-            $success = unlink($file) && $success;
-        }
-
-        return $success;
+    protected function filemtime($file) {
+        return filemtime($file);
     }
-    protected function validTime($file)
-    {
-        $timeLeft = 0;
 
-        $cacheTime = CMEsteban::$setup->getSettings('CacheTime');
-
-        if ($cacheTime == 'auto') {
-            $timeLeft = 'auto';
-        } else {
-            $timeLeft = CMEsteban::$setup->getSettings('CacheTime') - (time() - filemtime($file));
-            $timeLeft = ($timeLeft > 0) ? $timeLeft : 0;
-        }
-
-        return $timeLeft;
-    }
-    protected function isGettable($index, $includeExpired = false)
-    {
-        $name = $this->getFilename($index);
-        $result = false;
-
-        if (
-            is_file($name)
-            && (
-                $includeExpired
-                || $this->validTime($name)
-            )
-        ) {
-            $result = $name;
-        }
-
-        return $result;
-    }
     public function getLink($index, $includeExpired = false)
     {
         $result = false;
@@ -93,5 +40,15 @@ class CacheFile extends Cache
         }
 
         return $result;
+    }
+    protected function is_file($file) {
+        return is_file($file);
+    }
+    protected function unlink($file) {
+        return unlink($file);
+    }
+    public function getDir()
+    {
+        return $this->path;
     }
 }
