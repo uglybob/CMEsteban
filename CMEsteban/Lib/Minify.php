@@ -23,7 +23,7 @@ abstract class Minify
                 }
 
                 if ($cache->write($index, $minifier->minify())) {
-                    $link = $cache->getFilename($index, false);
+                    $link = $cache->getLink($index, true);
                 }
             }
 
