@@ -21,10 +21,10 @@ class Page extends Component
 
     public function __construct($path = [])
     {
-        CMEsteban::$controller->access($this->accessLevel);
+        $this->getController()->access($this->accessLevel);
 
         CMEsteban::setPage($this);
-        CMEsteban::setTemplate(CMEsteban::$setup->instantiateTemplate($this));
+        CMEsteban::setTemplate($this->getSetup()->instantiateTemplate($this));
 
         $this->path = $path;
 
@@ -59,7 +59,7 @@ class Page extends Component
     protected function renderStylesheets()
     {
         $rendered = '';
-        $stylesheets = CMEsteban::$template->getStylesheets();
+        $stylesheets = $this->getTemplate()->getStylesheets();
 
         if ($stylesheets) {
             $handles = Minify::minify('css', $stylesheets);
@@ -78,7 +78,7 @@ class Page extends Component
     protected function renderScripts()
     {
         $rendered = '';
-        $scripts = CMEsteban::$template->getScripts();
+        $scripts = $this->getTemplate()->getScripts();
 
         if ($scripts) {
             $handles = Minify::minify('js', $scripts);
@@ -94,7 +94,7 @@ class Page extends Component
     }
     public function renderFavicon()
     {
-        $favicon = CMEsteban::$template->getFavicon();
+        $favicon = $this->getTemplate()->getFavicon();
 
         if (!is_null($favicon)) {
             $rendered = HTML::link([
@@ -166,7 +166,7 @@ class Page extends Component
             HTML::html(
                 $this->renderHead() .
                 HTML::body(
-                    HTML::div(['#content'], CMEsteban::$template->render())
+                    HTML::div(['#content'], $this->getTemplate()->render())
                 )
             );
     }

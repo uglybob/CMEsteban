@@ -13,7 +13,7 @@ class User extends Home
         $this->cacheable = false;
         $this->addContent('main', new \CMEsteban\Page\Module\User());
 
-        $user = CMEsteban::$controller->getCurrentUser();
+        $user = $this->getController()->getCurrentUser();
 
         if ($user) {
             $this->title = $user->getName();

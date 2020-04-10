@@ -10,7 +10,7 @@ abstract class Form extends Module
 
     public function __construct()
     {
-        CMEsteban::$template->addStylesheet(CMEsteban::$setup->getSettings('PathCme') . '/CMEsteban/Page/css/depage-forms.css');
+        $this->getTemplate()->addStylesheet($this->getSetup()->getSettings('PathCme') . '/CMEsteban/Page/css/depage-forms.css');
 
         parent::__construct();
     }

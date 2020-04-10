@@ -8,7 +8,7 @@ class Image extends Page
 {
     public function render()
     {
-        $image = CMEsteban::$controller->getImage($this->getPath(1));
+        $image = $this->getController()->getImage($this->getPath(1));
 
         if ($image->getLevel() == 0) {
             $this->redirect($image->getSrc());

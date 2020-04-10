@@ -10,7 +10,7 @@ class Login extends Form
 {
     protected function prepare()
     {
-        $user = CMEsteban::$controller->getCurrentUser();
+        $user = $this->getController()->getCurrentUser();
 
         if ($user) {
             $this->form = new HtmlForm('login', ['label' => 'logout']);
@@ -24,13 +24,13 @@ class Login extends Form
 
         if ($this->form->validate()) {
             if ($user) {
-                CMEsteban::$controller->logoff();
+                $this->getController()->logoff();
                 $this->form->clearSession();
                 Page::redirect('/');
             } else {
                 $values = $this->form->getValues();
 
-                if (CMEsteban::$controller->login($values['User'], $values['Pass'])) {
+                if ($this->getController()->login($values['User'], $values['Pass'])) {
                     $this->form->clearSession();
                     Page::redirect('/');
                 } else {

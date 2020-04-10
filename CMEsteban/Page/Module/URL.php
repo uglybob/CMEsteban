@@ -19,7 +19,7 @@ class URL extends Module
     {
         return
             isset($this->parsed[$component])
-            && CMEsteban::$setup->getSettings("url_$component", true);
+            && $this->getSetup()->getSettings("url_$component", true);
     }
 
     protected function render()
@@ -38,7 +38,7 @@ class URL extends Module
     }
 
     protected function renderUrl() {
-        $prefix = CMEsteban::$setup->getSettings('url_prefix', true);
+        $prefix = $this->getSetup()->getSettings('url_prefix', true);
         $scheme = $this->isDisplayed('scheme') ? $this->parsed['scheme'] . '://' : '';
         $host = $this->isDisplayed('host') ? $this->parsed['host'] : '';
         $port = $this->isDisplayed('port') ? ':' . $this->parsed['port'] : '';
@@ -48,11 +48,11 @@ class URL extends Module
         $path = $this->isDisplayed('path') ? $this->parsed['path'] : '';
         $query = $this->isDisplayed('query') ? '?' . $this->parsed['query'] : '';
         $fragment = $this->isDisplayed('fragment') ? '#' . $this->parsed['fragment'] : '';
-        $postfix = CMEsteban::$setup->getSettings('url_postfix', true);
+        $postfix = $this->getSetup()->getSettings('url_postfix', true);
 
         $result = "$prefix$scheme$user$pass$host$port$path$query$fragment$postfix";
 
-        $maxLength = CMEsteban::$setup->getSettings('url_max_length', true);
+        $maxLength = $this->getSetup()->getSettings('url_max_length', true);
 
         if ($maxLength) {
             $result = Text::shortenString($result, $maxLength);

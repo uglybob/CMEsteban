@@ -11,10 +11,10 @@ class Table extends Backend
     {
         parent::hookConstructor();
 
-        $class = ucfirst(CMEsteban::$page->getPath(1));
+        $class = ucfirst($this->getPage()->getPath(1));
         $getter = "get{$class}s";
 
-        $entities = CMEsteban::$controller->$getter(true);
+        $entities = $this->getController()->$getter(true);
 
         $this->addContent('main', new EntityTable($class, $entities));
     }

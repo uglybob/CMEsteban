@@ -2,6 +2,8 @@
 
 namespace CMEsteban\Lib;
 
+use CMEsteban\CMEsteban;
+
 abstract class Component
 {
     protected function getSetup()

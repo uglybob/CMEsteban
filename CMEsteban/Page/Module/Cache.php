@@ -10,7 +10,7 @@ class Cache extends Form
 {
     protected function prepare()
     {
-        $cache = CMEsteban::$cache;
+        $cache = $this->getCache();
 
         $files = $cache->list();
         $path = $cache->getDir();

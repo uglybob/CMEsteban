@@ -12,7 +12,7 @@ class Controller extends Component
         $this->pageGetters = ['getPageDefault', 'getPageText'];
     }
 
-    public function getPage($request)
+    public function renderPage($request)
     {
         $path = explode('/', $request);
         $request = $path[0];
@@ -22,7 +22,7 @@ class Controller extends Component
 
         if ($cache) {
             $index = implode('-', $path) . '.html';
-            $rendered = CMEsteban::$cache->read($index);
+            $rendered = $this->getCache()->read($index);
         }
 
         if (!$rendered) {
@@ -37,7 +37,7 @@ class Controller extends Component
                 $rendered = $page->render();
 
                 if ($cache && $page->isCacheable()) {
-                    CMEsteban::$cache->write($index, $rendered);
+                    $this->getCache()->write($index, $rendered);
                 }
             }
         }

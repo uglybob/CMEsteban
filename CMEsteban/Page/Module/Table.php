@@ -10,7 +10,7 @@ class Table extends Form
 
     public function __construct(array $rows, array $headings, array $classes = [])
     {
-        CMEsteban::$template->addStylesheet(CMEsteban::$setup->getSettings('PathCme') . '/CMEsteban/Page/css/table.css');
+        $this->getTemplate()->addStylesheet($this->getSetup()->getSettings('PathCme') . '/CMEsteban/Page/css/table.css');
 
         $this->rows = $rows;
         $this->headings = $headings;

@@ -8,7 +8,7 @@ abstract class Cache
 {
     public function autoClear()
     {
-        if (CMEsteban::$setup->getSettings('CacheTime') == 'auto') {
+        if ($this->getSetup()->getSettings('CacheTime') == 'auto') {
             $this->clear();
         }
     }
@@ -62,7 +62,7 @@ abstract class Cache
     {
         $timeLeft = 0;
 
-        $cacheTime = CMEsteban::$setup->getSettings('CacheTime');
+        $cacheTime = $this->getSetup()->getSettings('CacheTime');
 
         if ($cacheTime == 'auto') {
             $timeLeft = 'auto';

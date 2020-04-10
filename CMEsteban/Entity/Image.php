@@ -39,7 +39,7 @@ class Image extends Named
             && $new != $this->getName()
             && file_exists($oldPath)
         ) {
-            $path = CMEsteban::$setup->getSettings('Path');
+            $path = $this->getSetup()->getSettings('Path');
             $newPath = $path . '/CMEsteban/Images/' . $new;
 
             rename($oldPath, $newPath);
@@ -99,7 +99,7 @@ class Image extends Named
     }
     public function getSrc($internal = false)
     {
-        $path = ($internal) ? CMEsteban::$setup->getSettings('Path') : '';
+        $path = ($internal) ? $this->getSetup()->getSettings('Path') : '';
 
         if ($this->level == 0) {
             $src = $path . '/CMEsteban/Images/' . $this->getName();
@@ -115,7 +115,7 @@ class Image extends Named
         $info = pathinfo($this->getName());
         $name = $info['filename'];
         $filename = $name . $width . 'x' . $height . '.jpg';
-        $cache = CMEsteban::$frontCache;
+        $cache = $this->getFrontCache();
         $result = $cache->getLink($filename, true);
 
         if (!$result) {

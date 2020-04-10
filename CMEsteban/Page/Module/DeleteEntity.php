@@ -10,10 +10,10 @@ class DeleteEntity extends Form
 {
     protected function prepare()
     {
-        $this->class = ucfirst(CMEsteban::$page->getPath(1));
-        $this->id = CMEsteban::$page->getPath(2);
+        $this->class = ucfirst($this->getPage()->getPath(1));
+        $this->id = $this->getPage()->getPath(2);
 
-        $entity = CMEsteban::$controller->{'get' . $this->class}($this->id);
+        $entity = $this->getController()->{'get' . $this->class}($this->id);
 
         if (!$entity) {
             Page::redirect('/' . lcfirst($this->class) . 's');

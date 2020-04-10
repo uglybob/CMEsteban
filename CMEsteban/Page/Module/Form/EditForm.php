@@ -61,7 +61,7 @@ abstract class EditForm
     {
         if ($this->id) {
             $getter = 'get' . ucfirst($this->class);
-            $this->entity = CMEsteban::$controller->$getter($this->id);
+            $this->entity = $this->getController()->$getter($this->id);
         }
     }
     protected function instantiateEntity()

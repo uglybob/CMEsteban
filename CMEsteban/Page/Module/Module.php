@@ -2,7 +2,9 @@
 
 namespace CMEsteban\Page\Module;
 
-abstract class Module
+use CMEsteban\Lib\Component;
+
+abstract class Module extends Component
 {
     protected $rendered;
 

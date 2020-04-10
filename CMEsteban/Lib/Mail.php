@@ -11,7 +11,7 @@ class Mail
 {
     public function __construct($dst, $subject, $message)
     {
-        $setup = CMEsteban::$setup;
+        $setup = $this->getSetup();
 
         $this->src = $setup->getSettings('MailAddress');
         $this->dst = $dst;

@@ -2,10 +2,11 @@
 
 namespace CMEsteban\Page\Template;
 
+use CMEsteban\Lib\Component;
 use CMEsteban\CMEsteban;
 use \CMEsteban\Page\Module\HTML;
 
-class Template
+class Template extends Component
 {
     public function __construct()
     {
@@ -42,7 +43,7 @@ class Template
 
     public function render()
     {
-        $page = CMEsteban::$page;
+        $page = $this->getPage();
 
         return $page->getContent('header') . $page->getContent('main') . $page->getContent('footer');
     }

@@ -11,11 +11,11 @@ class CME extends Template
     {
         parent::__construct();
 
-        $this->addStylesheet(CMEsteban::$setup->getSettings('PathCme') . '/CMEsteban/Page/css/cme.css');
-        $this->addStylesheet(CMEsteban::$setup->getSettings('PathCme') . '/CMEsteban/Page/css/cme-layout.css');
-        $this->addStylesheet(CMEsteban::$setup->getSettings('PathCme') . '/CMEsteban/Page/css/cme-colors.css');
+        $this->addStylesheet($this->getSetup()->getSettings('PathCme') . '/CMEsteban/Page/css/cme.css');
+        $this->addStylesheet($this->getSetup()->getSettings('PathCme') . '/CMEsteban/Page/css/cme-layout.css');
+        $this->addStylesheet($this->getSetup()->getSettings('PathCme') . '/CMEsteban/Page/css/cme-colors.css');
 
-        $user = CMEsteban::$controller->getCurrentUser();
+        $user = $this->getController()->getCurrentUser();
         $name = '';
 
         if ($user) {
@@ -34,13 +34,13 @@ class CME extends Template
                 'login' => '/login',
             ];
 
-            if (CMEsteban::$setup->getSettings('EnableRegistration')) {
+            if ($this->getSetup()->getSettings('EnableRegistration')) {
                 $links['register'] = '/user';
             }
         }
 
         $menu = new Menu($links);
 
-        CMEsteban::$page->addContent('header', $menu);
+        $this->getPage()->addContent('header', $menu);
     }
 }

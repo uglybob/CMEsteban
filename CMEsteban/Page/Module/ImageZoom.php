@@ -13,7 +13,7 @@ class ImageZoom extends Module
         $this->width = $width;
         $this->height = $height;
 
-        CMEsteban::$template->addStylesheet(CMEsteban::$setup->getSettings('PathCme') . '/CMEsteban/Page/css/image-zoom.css');
+        $this->getTemplate()->addStylesheet($this->getSetup()->getSettings('PathCme') . '/CMEsteban/Page/css/image-zoom.css');
 
         parent::__construct();
     }

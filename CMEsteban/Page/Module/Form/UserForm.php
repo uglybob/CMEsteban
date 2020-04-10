@@ -9,11 +9,11 @@ class UserForm extends EditForm
 {
     public function __construct($id)
     {
-        $settings = CMEsteban::$setup->getSettings();
+        $settings = $this->getSetup()->getSettings();
 
         if (
             $settings['EnableRegistration']
-            || CMEsteban::$controller->getCurrentUser()
+            || $this->getController()->getCurrentUser()
         ) {
             parent::__construct('User', $id);
         } else {
@@ -38,7 +38,7 @@ class UserForm extends EditForm
             $this->entity->setPass($values['Pass']);
         }
 
-        CMEsteban::$controller->editUser($this->entity);
+        $this->getController()->editUser($this->entity);
     }
     protected function populate()
     {
@@ -54,7 +54,7 @@ class UserForm extends EditForm
 
     protected function loadEntity()
     {
-        $this->entity = CMEsteban::$controller->getCurrentUser();
+        $this->entity = $this->getController()->getCurrentUser();
     }
     protected function redirect()
     {

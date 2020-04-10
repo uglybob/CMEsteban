@@ -19,7 +19,7 @@ class CMEsteban
         self::$setup = $setup;
         self::$cache = self::$setup->instantiateCache();
         self::$frontCache = new CacheFile($setup->getSettings('Path') . '/CMEsteban/Cache', '/CMEsteban/Cache');
-        self::$controller = self::$setup->getController();
+        self::$controller = self::$setup->instantiateController();
     }
     public function startQuiet($setup)
     {
@@ -41,16 +41,16 @@ class CMEsteban
         $output = '';
 
         try {
-            $output = self::$controller->getPage($request);
+            $output = self::$controller->renderPage($request);
         } catch (Exception\NotFoundException $e) {
             try {
-                $output = self::$controller->getPage('404');
+                $output = self::$controller->renderPage('404');
             } catch (\Exception $se) {
                 $output = $e->getMessage();
             }
         } catch (Exception\AccessException $e) {
             try {
-                $output = self::$controller->getPage('403');
+                $output = self::$controller->renderPage('403');
             } catch (\Exception $se) {
                 $output = $e->getMessage();
             }

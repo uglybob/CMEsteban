@@ -8,7 +8,7 @@ class Menu extends Module
 {
     public function __construct($links = [])
     {
-        CMEsteban::$template->addStylesheet(CMEsteban::$setup->getSettings('PathCme') . '/CMEsteban/Page/css/menu.css');
+        $this->getTemplate()->addStylesheet($this->getSetup()->getSettings('PathCme') . '/CMEsteban/Page/css/menu.css');
         $this->links = $links;
 
         parent::__construct();
