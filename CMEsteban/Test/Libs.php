@@ -14,7 +14,9 @@ class Setup extends Config
         'DbConn' => [
             'driver' => 'pdo_sqlite',
             'memory' => true,
-        ]
+        ],
+        'pages' => [
+        ],
     ];
 
     public function instantiateController()
