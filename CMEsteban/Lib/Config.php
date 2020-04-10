@@ -2,7 +2,7 @@
 
 namespace CMEsteban\Lib;
 
-abstract class Config
+abstract class Config extends Component
 {
     public function __construct()
     {
@@ -31,7 +31,7 @@ abstract class Config
         return $result;
     }
 
-    public function getCache()
+    public function instantiateCache()
     {
         return new CacheFile('/tmp');
     }

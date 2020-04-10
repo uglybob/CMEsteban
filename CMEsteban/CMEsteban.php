@@ -17,7 +17,7 @@ class CMEsteban
     private function __construct($setup)
     {
         self::$setup = $setup;
-        self::$cache = self::$setup->getCache();
+        self::$cache = self::$setup->instantiateCache();
         self::$frontCache = new CacheFile($setup->getSettings('Path') . '/CMEsteban/Cache', '/CMEsteban/Cache');
         self::$controller = self::$setup->getController();
     }

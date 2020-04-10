@@ -2,12 +2,13 @@
 
 namespace CMEsteban\Page;
 
+use CMEsteban\Lib\Component;
 use CMEsteban\CMEsteban;
 use CMEsteban\Page\Module\HTML;
 use CMEsteban\Page\Module\Email;
 use CMEsteban\Lib\Minify;
 
-class Page
+class Page extends Component
 {
     protected $controller;
     protected $title = '';
@@ -23,7 +24,7 @@ class Page
         CMEsteban::$controller->access($this->accessLevel);
 
         CMEsteban::setPage($this);
-        CMEsteban::setTemplate(CMEsteban::$setup->getTemplate($this));
+        CMEsteban::setTemplate(CMEsteban::$setup->instantiateTemplate($this));
 
         $this->path = $path;
 
@@ -54,10 +55,6 @@ class Page
     {
     }
 
-    public function getTemplate()
-    {
-        return CMEsteban::$template;
-    }
 
     protected function renderStylesheets()
     {

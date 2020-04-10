@@ -2,10 +2,9 @@
 
 namespace CMEsteban\Lib;
 
-use CMEsteban\CMEsteban;
 use CMEsteban\Entity\User;
 
-class Controller
+class Controller extends Component
 {
     protected $pageGetters = [];
     public function __construct()
@@ -19,7 +18,7 @@ class Controller
         $request = $path[0];
         $page = null;
         $rendered = null;
-        $cache = (!$this->getCurrentUser() && !CMEsteban::$setup->getSettings('DevMode'));
+        $cache = (!$this->getCurrentUser() && !$this->getSetup()->getSettings('DevMode'));
 
         if ($cache) {
             $index = implode('-', $path) . '.html';
@@ -47,7 +46,7 @@ class Controller
     }
     public function getPageDefault($request, $path) {
         $page = null;
-        $pages = CMEsteban::$setup->getSettings('pages');
+        $pages = $this->getSetup()->getSettings('pages');
 
         if (isset($pages[$request])) {
             $pageClass = 'CMEsteban\Page\\' . $pages[$request];

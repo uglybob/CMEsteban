@@ -2,12 +2,13 @@
 
 namespace CMEsteban\Entity;
 
+use CMEsteban\Lib\Component;
 use CMEsteban\Lib\Mapper;
 
 /**
  * @MappedSuperclass
  **/
-abstract class Entity
+abstract class Entity extends Component
 {
     /**
      * @Id
