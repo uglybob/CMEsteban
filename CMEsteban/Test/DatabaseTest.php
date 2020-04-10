@@ -50,15 +50,11 @@ class DatabaseTest extends CMEstebanTestCase
     {
         Mapper::connect();
 
-        Mapper::findAll('Page');
-
         $em = Mapper::getEntityManager();
         $conn = $em->getConnection();
         $sm = $conn->getSchemaManager();
 
         $this->assertTrue($sm->tablesExist(['users']));
-        $this->assertTrue($sm->tablesExist(['pages']));
-        $this->assertTrue($sm->tablesExist(['logs']));
         $this->assertFalse($sm->tablesExist(['notatable']));
     }
 }
