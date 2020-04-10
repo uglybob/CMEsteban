@@ -132,6 +132,9 @@ class Mapper
     public static function commit()
     {
         self::getEntityManager()->flush();
-        CMEsteban::$cache->autoclear();
+
+        if (CMEsteban::$cache) {
+            CMEsteban::$cache->autoclear();
+        }
     }
 }
