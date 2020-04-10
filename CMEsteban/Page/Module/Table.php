@@ -50,7 +50,7 @@ class Table extends Form
         $properties = '';
 
         foreach ($this->headings as $heading => $caption) {
-            $properties .= HTML::div([".$heading", '.ctcell'], $row[$heading]);
+            $properties .= HTML::div(['.ctcell'], $row[$heading]);
         }
 
         $rowClasses = $this->generateRowClasses($number);
