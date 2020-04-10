@@ -16,7 +16,7 @@ class Setup extends Config
         ]
     ];
 
-    public function getController()
+    public function instantiateController()
     {
         if ($this->testController) {
             return $this->testController;
@@ -25,7 +25,7 @@ class Setup extends Config
         }
     }
 
-    public function getTemplate($page)
+    public function instantiateTemplate($page)
     {
         return new Template();
     }

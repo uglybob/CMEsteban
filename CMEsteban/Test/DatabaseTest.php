@@ -11,7 +11,7 @@ class DatabaseTest extends CMEstebanTestCase
         parent::setUp();
         Mapper::connect();
 
-        $classes = ['\CMEsteban\Entity\User', '\CMEsteban\Entity\LogEntry', '\CMEsteban\Entity\Page'];
+        $classes = ['\CMEsteban\Entity\User'];
 
         $em = Mapper::getEntityManager();
         $conn = $em->getConnection();
