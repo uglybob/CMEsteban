@@ -2,7 +2,6 @@
 
 namespace CMEsteban\Page;
 
-use CMEsteban\CMEsteban;
 use CMEsteban\Page\Module\EntityTable;
 
 class Table extends Backend

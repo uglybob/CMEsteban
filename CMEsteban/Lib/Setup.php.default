@@ -4,7 +4,6 @@ namespace CMEsteban\Lib;
 
 class Setup extends Config
 {
-    // {{{ settings
     protected $settings = [
         'Path' => __DIR__,
         'DevMode' => true,
@@ -27,16 +26,11 @@ class Setup extends Config
             'table' => 'Table',
         ],
     ];
-    // }}}
 
-    // {{{ getTemplate
-    public function getTemplate($page) {
+    public function instantiateTemplate($page) {
         return new \CMEsteban\Page\Template\CME();
     }
-    // }}}
-    // {{{ getController
-    public function getController() {
+    public function instantiateController() {
         return new \CMEsteban\Lib\Controller();
     }
-    // }}}
 }

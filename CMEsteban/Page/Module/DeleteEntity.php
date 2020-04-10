@@ -2,7 +2,6 @@
 
 namespace CMEsteban\Page\Module;
 
-use CMEsteban\CMEsteban;
 use CMEsteban\Lib\Mapper;
 use CMEsteban\Page\Page;
 

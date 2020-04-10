@@ -2,8 +2,6 @@
 
 namespace CMEsteban\Lib;
 
-use CMEsteban\CMEsteban;
-
 class CacheOpcode extends CacheFile
 {
     public function write($index, $data)

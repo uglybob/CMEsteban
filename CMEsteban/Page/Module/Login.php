@@ -2,7 +2,6 @@
 
 namespace CMEsteban\Page\Module;
 
-use CMEsteban\CMEsteban;
 use CMEsteban\Page\Page;
 use Depage\HtmlForm\HtmlForm;
 

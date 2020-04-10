@@ -2,8 +2,6 @@
 
 namespace CMEsteban\Page\Module;
 
-use CMEsteban\CMEsteban;
-
 class ImageZoom extends Module
 {
     public function __construct($image, $width = null, $height = -1)

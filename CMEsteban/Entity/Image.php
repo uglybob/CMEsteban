@@ -2,7 +2,6 @@
 
 namespace CMEsteban\Entity;
 
-use CMEsteban\CMEsteban;
 use CMEsteban\Page\Module\HTML;
 use CMEsteban\Exception\EntityException;
 

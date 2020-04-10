@@ -2,8 +2,6 @@
 
 namespace CMEsteban\Page;
 
-use CMEsteban\CMEsteban;
-
 class Image extends Page
 {
     public function render()

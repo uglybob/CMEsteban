@@ -2,8 +2,6 @@
 
 namespace CMEsteban\Page\Module;
 
-use CMEsteban\CMEsteban;
-
 class Text extends Module
 {
     public function __construct($text, $createAnchors = true)

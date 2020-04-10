@@ -2,8 +2,6 @@
 
 namespace CMEsteban\Page\Module;
 
-use CMEsteban\CMEsteban;
-
 abstract class Form extends Module
 {
     protected $form;

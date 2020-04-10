@@ -2,8 +2,6 @@
 
 namespace CMEsteban\Page\Module;
 
-use CMEsteban\CMEsteban;
-
 class Table extends Form
 {
     protected $table;

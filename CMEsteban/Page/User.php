@@ -2,8 +2,6 @@
 
 namespace CMEsteban\Page;
 
-use CMEsteban\CMEsteban;
-
 class User extends Home
 {
     public function hookConstructor()

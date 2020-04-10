@@ -2,8 +2,6 @@
 
 namespace CMEsteban\Page\Module;
 
-use CMEsteban\CMEsteban;
-
 class EditEntity extends Form
 {
     protected function prepare()

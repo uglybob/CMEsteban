@@ -2,8 +2,6 @@
 
 namespace CMEsteban\Lib;
 
-use CMEsteban\CMEsteban;
-
 class CacheFile extends Cache
 {
     public function __construct($path, $external = null)

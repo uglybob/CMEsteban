@@ -2,7 +2,6 @@
 
 namespace CMEsteban\Page\Template;
 
-use CMEsteban\CMEsteban;
 use CMEsteban\Page\Module\Menu;
 
 class CME extends Template

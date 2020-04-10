@@ -2,8 +2,6 @@
 
 namespace CMEsteban\Page\Module;
 
-use CMEsteban\CMEsteban;
-
 class URL extends Module
 {
     public function __construct($url, $createAnchors = true)

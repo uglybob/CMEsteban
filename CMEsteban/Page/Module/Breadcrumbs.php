@@ -2,8 +2,6 @@
 
 namespace CMEsteban\Page\Module;
 
-use CMEsteban\CMEsteban;
-
 class Breadcrumbs extends Module
 {
     public function __construct($items = [])
