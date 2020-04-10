@@ -2,7 +2,7 @@
 
 namespace CMEsteban\Lib;
 
-abstract class Cache
+abstract class Cache extends Component
 {
     public function autoClear()
     {

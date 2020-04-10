@@ -10,6 +10,7 @@ class Setup extends Config
     protected $settings = [
         'Path' => __DIR__,
         'DevMode' => true,
+        'CacheTime' => 1800,
         'DbConn' => [
             'driver' => 'pdo_sqlite',
             'memory' => true,
