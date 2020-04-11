@@ -53,24 +53,80 @@ class CleanLinksTest extends CMEstebanTestCase
 
     public function testEmail()
     {
-        $this->assertEquals('<span class="shooo">nppbhag+ubfg,pbz</span>', Text::cleanText('account@host.com'));
+        $expected =
+            '<span class="cmo">' .
+                '<span class="cmom">' .
+                    'Please activate JavaScript to see this email address.' .
+                '</span>' .
+                '<span class="cmoe">nppbhag+ubfg,pbz</span>' .
+            '</span>';
+
+        $this->assertEquals($expected, Text::cleanText('account@host.com'));
     }
     public function testEmailMultiple()
     {
-        $this->assertEquals('<span class="shooo">nppbhag+ubfg,pbz</span> <span class="shooo">nppbhag2+ubfg,pbz</span>', Text::cleanText('account@host.com account2@host.com'));
+        $expected =
+            '<span class="cmo">' .
+                '<span class="cmom">' .
+                    'Please activate JavaScript to see this email address.' .
+                '</span>' .
+                '<span class="cmoe">nppbhag+ubfg,pbz</span>' .
+            '</span>' .
+            ' ' .
+            '<span class="cmo">' .
+                '<span class="cmom">' .
+                    'Please activate JavaScript to see this email address.' .
+                '</span>' .
+                '<span class="cmoe">nppbhag2+ubfg,pbz</span>' .
+            '</span>';
+
+        $this->assertEquals($expected, Text::cleanText('account@host.com account2@host.com'));
     }
     public function testEmailRecursive()
     {
-        $this->assertEquals('<span class="shooo">nppbhag+ubfg,pbz</span> <span class="shooo">ppbhag+ubfg,pbz</span>', Text::cleanText('account@host.com ccount@host.com'));
+        $expected =
+            '<span class="cmo">' .
+                '<span class="cmom">' .
+                    'Please activate JavaScript to see this email address.' .
+                '</span>' .
+                '<span class="cmoe">nppbhag+ubfg,pbz</span>' .
+            '</span>' .
+            ' ' .
+            '<span class="cmo">' .
+                '<span class="cmom">' .
+                    'Please activate JavaScript to see this email address.' .
+                '</span>' .
+                '<span class="cmoe">ppbhag+ubfg,pbz</span>' .
+            '</span>';
+
+        $this->assertEquals($expected, Text::cleanText('account@host.com ccount@host.com'));
     }
     public function testEnclosed()
     {
-        $this->assertEquals('|<span class="shooo">nppbhag+ubfg,pbz</span>|', Text::cleanText('|account@host.com|'));
+        $expected =
+            '<span class="cmo">' .
+                '<span class="cmom">' .
+                    'Please activate JavaScript to see this email address.' .
+                '</span>' .
+                '<span class="cmoe">nppbhag+ubfg,pbz</span>' .
+            '</span>';
+
+        $this->assertEquals("|$expected|", Text::cleanText('|account@host.com|'));
     }
 
     public function testMixed()
     {
-        $this->assertEquals('<span class="shooo">nppbhag+ubfg,pbz</span> <a href="https://www.url.com">url.com</a>', Text::cleanText('account@host.com www.url.com'));
+        $expected =
+            '<span class="cmo">' .
+                '<span class="cmom">' .
+                    'Please activate JavaScript to see this email address.' .
+                '</span>' .
+                '<span class="cmoe">nppbhag+ubfg,pbz</span>' .
+            '</span>' .
+            ' ' .
+            '<a href="https://www.url.com">www.url.com</a>';
+
+        $this->assertEquals($expected, Text::cleanText('account@host.com www.url.com'));
     }
 
     public function testLineBreak()
