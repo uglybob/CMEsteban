@@ -10,13 +10,13 @@ class Cache extends Form
     protected function prepare()
     {
         $cache = $this->getCache();
+        $frontCache = $this->getFrontCache();
 
-        $files = $cache->list();
-        $path = $cache->getDir();
+        $files = array_merge($cache->list(), $frontCache->list());
         $list = [];
 
         foreach ($files as $file => $valid) {
-            $list[str_replace("$path/", '', $file)] = $valid;
+            $list[$file] = $valid;
         }
 
         $list = Table::formatArray($list);
@@ -30,6 +30,8 @@ class Cache extends Form
 
         if ($this->form->validate()) {
             $cache->clear();
+            $frontCache->clear();
+
             $this->form->clearSession();
             Page::redirect('/cache');
         }

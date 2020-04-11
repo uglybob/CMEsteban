@@ -127,7 +127,7 @@ class Image extends Named
                 $imageString = ob_get_clean();
 
                 if ($cache->write($filename, $imageString)) {
-                    $result = $cache->getFilename($filename, false);
+                    $result = $cache->getLink($filename, true);
                 } else {
                     $result = $this->getSrc();
                 }
