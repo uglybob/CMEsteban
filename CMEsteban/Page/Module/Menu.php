@@ -6,7 +6,7 @@ class Menu extends Module
 {
     public function __construct($links = [])
     {
-        $this->addStylesheet('/CMEsteban/Page/menu.css', true);
+        $this->addStylesheet('/CMEsteban/Page/css/menu.css', true);
         $this->links = $links;
 
         parent::__construct();

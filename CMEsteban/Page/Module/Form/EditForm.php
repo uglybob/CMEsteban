@@ -2,11 +2,11 @@
 
 namespace CMEsteban\Page\Module\Form;
 
-use CMEsteban\CMEsteban;
+use CMEsteban\Lib\Component;
 use CMEsteban\Lib\Mapper;
 use CMEsteban\Page\Page;
 
-abstract class EditForm
+abstract class EditForm extends Component
 {
     protected $entity;
     public function __construct($class, $id)

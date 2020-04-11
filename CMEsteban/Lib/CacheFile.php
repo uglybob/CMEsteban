@@ -4,10 +4,9 @@ namespace CMEsteban\Lib;
 
 class CacheFile extends Cache
 {
-    public function __construct($path, $external = null)
+    public function __construct($path)
     {
         $this->path = $path;
-        $this->external = $external;
     }
 
     public function write($index, $data)
@@ -28,17 +27,6 @@ class CacheFile extends Cache
         return filemtime($file);
     }
 
-    public function getLink($index, $includeExpired = false)
-    {
-        $result = false;
-        $name = $this->isGettable($index, $includeExpired);
-
-        if ($name) {
-            $result = $this->external . "/$index";
-        }
-
-        return $result;
-    }
     protected function is_file($file) {
         return is_file($file);
     }

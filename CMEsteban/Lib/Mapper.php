@@ -138,8 +138,6 @@ class Mapper
     {
         self::getEntityManager()->flush();
 
-        if (CMEsteban::$cache) {
-            CMEsteban::$cache->autoclear();
-        }
+        CMEsteban::autoClear();
     }
 }

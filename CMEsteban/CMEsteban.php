@@ -2,7 +2,7 @@
 
 namespace CMEsteban;
 
-use CMEsteban\Lib\CacheFile;
+use CMEsteban\Lib\CacheExternal;
 
 class CMEsteban
 {
@@ -18,16 +18,16 @@ class CMEsteban
     {
         self::$setup = $setup;
         self::$cache = self::$setup->instantiateCache();
-        self::$frontCache = new CacheFile($setup->getSettings('Path') . '/CMEsteban/Cache', '/CMEsteban/Cache');
+        self::$frontCache = new CacheExternal($setup->getSettings('Path') . '/CMEsteban/Cache', '/CMEsteban/Cache');
         self::$controller = self::$setup->instantiateController();
     }
-    public function startQuiet($setup)
+    public static function startQuiet($setup)
     {
         if (is_null(self::$instance)) {
             self::$instance = new self($setup);
         }
     }
-    public function start($setup)
+    public static function start($setup)
     {
         self::startQuiet($setup);
 
@@ -65,12 +65,17 @@ class CMEsteban
         echo($output);
     }
 
-    public function setPage($page)
+    public static function setPage($page)
     {
         self::$page = $page;
     }
-    public function setTemplate($template)
+    public static function setTemplate($template)
     {
         self::$template = $template;
+    }
+    public static function autoClear()
+    {
+        self::$cache->autoClear();
+        self::$frontCache->autoClear();
     }
 }
