@@ -9,6 +9,8 @@ use CMEsteban\Entity\Page;
 class Mapper
 {
     protected static $entityManager;
+    protected static $prefix = '\CMEsteban\Entity\\';
+
     private function __construct()
     {
         self::connect();
@@ -20,7 +22,7 @@ class Mapper
         $classes = [];
 
         foreach (glob($path) as $file) {
-            $class = '\CMEsteban\Entity\\' . basename($file, '.php');
+            $class = self::$prefix . basename($file, '.php');
             $reflectionClass = new \ReflectionClass($class);
 
             if ($reflectionClass->isInstantiable()) {
@@ -77,10 +79,10 @@ class Mapper
     public static function find($class, $id, $showHidden = false)
     {
         try {
-            $result = self::getEntityManager()->find('CMEsteban\Entity\\' . $class, $id);
+            $result = self::getEntityManager()->find(self::$prefix . $class, $id);
         } catch (\Doctrine\DBAL\Exception\TableNotFoundException $e) {
             self::init();
-            $result = self::getEntityManager()->find('CMEsteban\Entity\\' . $class, $id);
+            $result = self::getEntityManager()->find(self::$prefix . $class, $id);
         }
 
         return $result;
@@ -88,10 +90,10 @@ class Mapper
     public static function findOneBy($class, array $conditions, $showHidden = false)
     {
         try {
-            $result = self::getEntityManager()->getRepository('CMEsteban\Entity\\' . $class)->findOneBy($conditions);
+            $result = self::getRepository($class)->findOneBy($conditions);
         } catch (\Doctrine\DBAL\Exception\TableNotFoundException $e) {
             self::init();
-            $result = self::getEntityManager()->getRepository('CMEsteban\Entity\\' . $class)->findOneBy($conditions);
+            $result = self::getRepository($class)->findOneBy($conditions);
         }
 
         return $result;
@@ -99,30 +101,33 @@ class Mapper
     public static function findBy($class, array $conditions, $showHidden = false, array $order = [])
     {
         try {
-            $result = self::getEntityManager()->getRepository('CMEsteban\Entity\\' . $class)->findBy($conditions, $order);
+            $result = self::getRepository($class)->findBy($conditions, $order);
         } catch (\Doctrine\DBAL\Exception\TableNotFoundException $e) {
             self::init();
-            $result = self::getEntityManager()->getRepository('CMEsteban\Entity\\' . $class)->findBy($conditions, $order);
+            $result = self::getRepository($class)->findBy($conditions, $order);
         }
 
         return $result;
     }
     public static function findAll($class, $showHidden = false)
     {
-        $entityClass = 'CMEsteban\Entity\\' . $class;
-
         if ($showHidden) {
             try {
-                $result = self::getEntityManager()->getRepository($entityClass)->findAll();
+                $result = self::getRepository($class)->findAll();
             } catch (\Doctrine\DBAL\Exception\TableNotFoundException $e) {
                 self::init();
-                $result = self::getEntityManager()->getRepository($entityClass)->findAll();
+                $result = self::getRepository($class)->findAll();
             }
         } else {
             $result = self::findBy($class, ['deleted' => false], $showHidden);
         }
 
         return $result;
+    }
+
+    protected static function getRepository($class)
+    {
+        return self::getEntityManager()->getRepository(self::$prefix . $class);
     }
 
     public static function save($entity)
