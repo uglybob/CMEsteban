@@ -13,7 +13,7 @@ abstract class Module extends Component
         $this->rendered = $this->render();
     }
 
-    public function rendere()
+    public function render()
     {
         return '';
     }
