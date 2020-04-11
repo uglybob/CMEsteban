@@ -12,7 +12,7 @@ class Controller extends Component
         $this->pageGetters = ['getPageDefault', 'getPageText'];
     }
 
-    public function renderPage($request)
+    public function loadPage($request)
     {
         $path = explode('/', $request);
         $request = $path[0];

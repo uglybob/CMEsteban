@@ -41,23 +41,9 @@ class CMEsteban
         $output = '';
 
         try {
-            $output = self::$controller->renderPage($request);
-        } catch (Exception\NotFoundException $e) {
-            try {
-                $output = self::$controller->renderPage('404');
-            } catch (\Exception $se) {
-                $output = $e->getMessage();
-            }
-        } catch (Exception\AccessException $e) {
-            try {
-                $output = self::$controller->renderPage('403');
-            } catch (\Exception $se) {
-                $output = $e->getMessage();
-            }
+            $output = self::$controller->loadPage($request);
         } catch (\Exception $e) {
-            $settings = self::$setup->getSettings();
-
-            if ($settings['DevMode'] === true) {
+            if (self::$setup->getSettings('DevMode') === true) {
                $output = $e;
             }
         }
