@@ -25,8 +25,6 @@ class DatabaseTest extends CMEstebanTestCase
         $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($em);
         $schemaTool->dropSchema($metadata);
         $this->assertFalse($sm->tablesExist(['users']));
-        $this->assertFalse($sm->tablesExist(['pages']));
-        $this->assertFalse($sm->tablesExist(['logs']));
     }
 
     public function testInit()
@@ -39,22 +37,9 @@ class DatabaseTest extends CMEstebanTestCase
         $sm = $conn->getSchemaManager();
 
         $this->assertTrue($sm->tablesExist(['users']));
-        $this->assertTrue($sm->tablesExist(['pages']));
-        $this->assertTrue($sm->tablesExist(['logs']));
         $this->assertFalse($sm->tablesExist(['notatable']));
 
         $this->controller = new \CMEsteban\Lib\Controller();
         $this->assertTrue($this->controller->login('sebastian', 'yesitsreallyme'));
-    }
-    public function testInitTrigger()
-    {
-        Mapper::connect();
-
-        $em = Mapper::getEntityManager();
-        $conn = $em->getConnection();
-        $sm = $conn->getSchemaManager();
-
-        $this->assertTrue($sm->tablesExist(['users']));
-        $this->assertFalse($sm->tablesExist(['notatable']));
     }
 }
