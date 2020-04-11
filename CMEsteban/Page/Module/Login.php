@@ -16,7 +16,7 @@ class Login extends Form
         } else {
             $this->form = new HtmlForm('login', ['label' => 'login']);
             $this->form->addText('User', ['required' => true]);
-            $this->form->addPassword('Pass');
+            $this->password = $this->form->addPassword('Password');
         }
 
         $this->form->process();
@@ -29,12 +29,12 @@ class Login extends Form
             } else {
                 $values = $this->form->getValues();
 
-                if ($this->getController()->login($values['User'], $values['Pass'])) {
+                if ($this->getController()->login($values['User'], $values['Password'])) {
                     $this->form->clearSession();
                     Page::redirect('/');
                 } else {
                     $this->form->addHtml('Wrong user name or password');
-                    $this->form->clearSession();
+                    $this->password->setValue('');
                 }
             }
         }

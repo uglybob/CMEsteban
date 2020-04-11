@@ -5,6 +5,7 @@ namespace CMEsteban\Page\Module\Form;
 use CMEsteban\Lib\Component;
 use CMEsteban\Lib\Mapper;
 use CMEsteban\Page\Page;
+use CMEsteban\Page\Module\HTML;
 
 abstract class EditForm extends Component
 {
@@ -35,13 +36,13 @@ abstract class EditForm extends Component
         $this->populate();
         $this->form->process();
 
-        if ($this->form->validate()) {
+        if ($this->validate()) {
             try {
                 $this->save();
                 $this->form->clearSession();
                 $this->redirect();
             } catch (\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
-                $this->form->addHTML('Error: duplicate entry, try again :)');
+                $this->addErrorMessage('duplicate entry');
             }
         }
     }
@@ -56,6 +57,14 @@ abstract class EditForm extends Component
         $this->entity->save();
 
         Mapper::commit();
+    }
+    protected function validate()
+    {
+        return $this->form->validate();
+    }
+    protected function addErrorMessage($message)
+    {
+        $this->form->addHTML(HTML::p(['.error-message'], 'Error: ' . $message));
     }
     protected function loadEntity()
     {

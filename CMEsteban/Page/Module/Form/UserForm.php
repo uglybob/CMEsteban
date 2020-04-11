@@ -25,7 +25,8 @@ class UserForm extends EditForm
     {
         $this->form->addText('Name', ['required' => true]);
         $this->form->addEmail('Email', ['required' => true]);
-        $this->form->addPassword('Pass');
+        $this->form->addPassword('Password');
+        $this->form->addPassword('Confirm');
     }
     protected function save()
     {
@@ -34,8 +35,8 @@ class UserForm extends EditForm
         $this->entity->setName($values['Name']);
         $this->entity->setEmail($values['Email']);
 
-        if (!empty($values['Pass'])) {
-            $this->entity->setPass($values['Pass']);
+        if (!empty($values['Password'])) {
+            $this->entity->setPass($values['Password']);
         }
 
         $this->getController()->editUser($this->entity);
@@ -52,6 +53,18 @@ class UserForm extends EditForm
         }
     }
 
+    protected function validate()
+    {
+        $values = $this->form->getValues();
+
+        $equal = ($values['Password'] === $values['Confirm']);
+
+        if (!$equal) {
+            $this->addErrorMessage('passwords don\'t match');
+        }
+
+        return parent::validate() && $equal;
+    }
     protected function loadEntity()
     {
         $this->entity = $this->getController()->getCurrentUser();

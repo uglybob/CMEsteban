@@ -6,7 +6,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-class Mail
+class Mail extends Component
 {
     public function __construct($dst, $subject, $message)
     {
@@ -20,6 +20,7 @@ class Mail
         $this->host = $setup->getSettings('MailHost');
         $this->pass = $setup->getSettings('MailPass');
     }
+
     public function send()
     {
         $success = true;
