@@ -6,7 +6,12 @@ class CMEstebanTest extends CMEstebanTestCase
 {
     public function testCMEstebanDefault()
     {
-        $this->expectOutputString('Page not found: home');
+        $expected =
+            preg_quote('<!DOCTYPE html><html><head><title></title><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="date.rendered" content="') .
+            ".*" .
+            preg_quote('" /></head><body><div id="content"><div id="main"></div></div></body></html>');
+
+        $this->expectOutputRegex("|$expected|");
 
         $setup = new \CMEsteban\Lib\Setup();
         \CMEsteban\CMEsteban::start($setup);

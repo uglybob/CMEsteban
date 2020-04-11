@@ -17,6 +17,7 @@ class Setup extends Config
             'memory' => true,
         ],
         'pages' => [
+            'home' => 'Home',
         ],
     ];
 
