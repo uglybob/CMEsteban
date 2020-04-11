@@ -13,7 +13,17 @@ class CacheFile extends Cache
     {
         $name = $this->getFilename($index);
 
-        return (file_put_contents($name, $data) !== false);
+        $result = @file_put_contents($name, $data);
+
+        if (
+            $result === false
+            && !is_dir($this->path)
+            && mkdir($this->path, 0777, true)
+        ) {
+            $result = @file_put_contents($name, $data);
+        }
+
+        return ($result !== false);
     }
 
     protected function readData($name)

@@ -33,6 +33,6 @@ abstract class Config extends Component
 
     public function instantiateCache()
     {
-        return new CacheFile('/tmp');
+        return new CacheFile('/tmp/CMEsteban');
     }
 }
