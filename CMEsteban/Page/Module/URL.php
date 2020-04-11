@@ -4,20 +4,38 @@ namespace CMEsteban\Page\Module;
 
 class URL extends Module
 {
-    public function __construct($url, $createAnchors = true)
+    public function __construct($url, $createAnchors = true, $settings = null)
     {
         $this->url = $url;
         $this->createAnchors = $createAnchors;
-        $this->parsed = parse_url($this->url);
+        $this->parsed = $this->parseUrl($this->url);
+        $this->settings = is_null($settings) ? $this->getSetup()->getSettings('URL') : $settings;
 
         parent::__construct();
     }
 
+    protected function getSetting($setting)
+    {
+        return (isset($this->settings[$setting])) ? $this->settings[$setting] : false;
+    }
+
+    protected function parseUrl($url)
+    {
+        $parsed = parse_url($url);
+
+        if (
+            !isset($parsed['host'])
+            && isset($parsed['path'])
+        ) {
+            $parsed['host'] = $parsed['path'];
+            unset($parsed['path']);
+        }
+
+        return $parsed;
+    }
     protected function isDisplayed($component)
     {
-        return
-            isset($this->parsed[$component])
-            && $this->getSetup()->getSettings("url_$component", true);
+        return (isset($this->parsed[$component])) ? $this->getSetting($component) : false;
     }
 
     protected function render()
@@ -36,7 +54,7 @@ class URL extends Module
     }
 
     protected function renderUrl() {
-        $prefix = $this->getSetup()->getSettings('url_prefix', true);
+        $prefix = $this->getSetting('prefix');
         $scheme = $this->isDisplayed('scheme') ? $this->parsed['scheme'] . '://' : '';
         $host = $this->isDisplayed('host') ? $this->parsed['host'] : '';
         $port = $this->isDisplayed('port') ? ':' . $this->parsed['port'] : '';
@@ -46,11 +64,11 @@ class URL extends Module
         $path = $this->isDisplayed('path') ? $this->parsed['path'] : '';
         $query = $this->isDisplayed('query') ? '?' . $this->parsed['query'] : '';
         $fragment = $this->isDisplayed('fragment') ? '#' . $this->parsed['fragment'] : '';
-        $postfix = $this->getSetup()->getSettings('url_postfix', true);
+        $postfix = $this->getSetting('postfix');
 
         $result = "$prefix$scheme$user$pass$host$port$path$query$fragment$postfix";
 
-        $maxLength = $this->getSetup()->getSettings('url_max_length', true);
+        $maxLength = $this->getSetting('max_length');
 
         if ($maxLength) {
             $result = Text::shortenString($result, $maxLength);

@@ -9,8 +9,8 @@ abstract class Config extends Component
         $this->settings['Path'] = realpath($this->settings['Path'] . "/../..");
         $this->settings['PathCme'] = str_replace($this->settings['Path'], '', realpath(__DIR__ . "/../.."));
 
-        $this->settings['url_host'] = true;
-        $this->settings['url_max_length'] = 60;
+        $this->settings['URL']['host'] = true;
+        $this->settings['URL']['max_length'] = 60;
     }
 
     public function getSettings($setting = null, $optional = false)

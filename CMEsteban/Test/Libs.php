@@ -7,6 +7,7 @@ use  CMEsteban\Page\Template\Template;
 class Setup extends Config
 {
     public $testController = null;
+
     protected $settings = [
         'Path' => __DIR__,
         'DevMode' => true,
