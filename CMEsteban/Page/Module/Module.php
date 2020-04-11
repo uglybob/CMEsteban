@@ -13,7 +13,7 @@ abstract class Module extends Component
         $this->rendered = $this->render();
     }
 
-    public function render()
+    protected function render()
     {
         return '';
     }
@@ -21,5 +21,13 @@ abstract class Module extends Component
     public function __toString()
     {
         return $this->rendered;
+    }
+    protected function addStylesheet($stylesheet, $pathCme = false)
+    {
+        $this->getTemplate()->addStylesheet($stylesheet, $pathCme);
+    }
+    protected function addScript($script, $pathCme = false)
+    {
+        $this->getTemplate()->addScript($script, $pathCme);
     }
 }

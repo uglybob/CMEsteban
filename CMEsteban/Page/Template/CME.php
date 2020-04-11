@@ -10,9 +10,9 @@ class CME extends Template
     {
         parent::__construct();
 
-        $this->addStylesheet($this->getSetup()->getSettings('PathCme') . '/CMEsteban/Page/css/cme.css');
-        $this->addStylesheet($this->getSetup()->getSettings('PathCme') . '/CMEsteban/Page/css/cme-layout.css');
-        $this->addStylesheet($this->getSetup()->getSettings('PathCme') . '/CMEsteban/Page/css/cme-colors.css');
+        $this->addStylesheet('/CMEsteban/Page/css/cme.css', true);
+        $this->addStylesheet('/CMEsteban/Page/css/cme-layout.css', true);
+        $this->addStylesheet('/CMEsteban/Page/css/cme-colors.css', true);
 
         $user = $this->getController()->getCurrentUser();
         $name = '';

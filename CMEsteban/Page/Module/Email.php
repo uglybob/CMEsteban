@@ -6,10 +6,9 @@ class Email extends Module
 {
     public function __construct($email, $createAnchors = true)
     {
-        $path = $this->getSetup()->getSettings('PathCme') . '/CMEsteban/Page';
-        $this->getTemplate()->addScript($path . '/js/lib.js');
-        $this->getTemplate()->addScript($path . '/js/mail.js');
-        $this->getTemplate()->addStylesheet($path . '/css/mail.css');
+        $this->addScript('/CMEsteban/Page/js/lib.js', true);
+        $this->addScript('/CMEsteban/Page/js/mail.js', true);
+        $this->addStylesheet('/CMEsteban/Page/css/mail.css', true);
 
         $this->email = $email;
         $this->createAnchors = $createAnchors;

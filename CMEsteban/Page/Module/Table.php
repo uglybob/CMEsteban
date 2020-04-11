@@ -8,7 +8,7 @@ class Table extends Form
 
     public function __construct(array $rows, array $headings, array $classes = [])
     {
-        $this->getTemplate()->addStylesheet($this->getSetup()->getSettings('PathCme') . '/CMEsteban/Page/css/table.css');
+        $this->addStylesheet('/CMEsteban/Page/css/table.css', true);
 
         $this->rows = $rows;
         $this->headings = $headings;
