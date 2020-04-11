@@ -11,7 +11,6 @@ class CacheExternal extends CacheFile
         parent::__construct($path);
     }
 
-
     public function getLink($index, $includeExpired = false)
     {
         $result = false;

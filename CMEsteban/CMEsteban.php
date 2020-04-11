@@ -75,7 +75,12 @@ class CMEsteban
     }
     public static function autoClear()
     {
-        self::$cache->autoClear();
-        self::$frontCache->autoClear();
+        if (self::$cache) {
+            self::$cache->autoClear();
+        }
+
+        if (self::$frontCache) {
+            self::$frontCache->autoClear();
+        }
     }
 }
