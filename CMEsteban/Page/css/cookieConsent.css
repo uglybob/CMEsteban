@@ -1,5 +1,4 @@
 #cookieConsent {
-    opacity: 90%;
     display: none;
     width: 100%;
     text-align: center;
@@ -9,18 +8,21 @@
     z-index: 1000;
 }
 
-#cookieConsent:hover {
+#cookieConsent > div:hover {
     opacity: 1;
 }
 
 #cookieConsent > div {
+    opacity: 90%;
     width: 80%;
     margin: 0 auto 0 auto;
     background-color: #fff;
-    border-left: 1px solid #000;
-    border-right: 1px solid #000;
-    border-top: 1px solid #000;
+    border-left: 3px solid #ccc;
+    border-right: 3px solid #ccc;
+    border-top: 3px solid #ccc;
     padding: 40px 15px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
 }
 
 #cookieConsent.visible {
@@ -37,10 +39,14 @@
     margin: 0 auto;
 }
 
+#cookieConsent button:hover {
+    background-color: #000;
+}
+
 #cookieConsent button {
     border: none;
     color: #fff;
-    background-color: #000;
+    background-color: #333;
     padding: 6px 14px;
     margin: auto 10px;
     cursor: pointer;
