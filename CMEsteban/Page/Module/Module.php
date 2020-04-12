@@ -10,7 +10,17 @@ abstract class Module extends Component
 
     public function __construct()
     {
+        $this->addScripts();
+        $this->addStylesheets();
+
         $this->rendered = $this->render();
+    }
+
+    protected function addScripts()
+    {
+    }
+    protected function addStylesheets()
+    {
     }
 
     protected function render()
@@ -22,12 +32,12 @@ abstract class Module extends Component
     {
         return $this->rendered;
     }
-    protected function addStylesheet($stylesheet, $pathCme = false)
-    {
-        $this->getTemplate()->addStylesheet($stylesheet, $pathCme);
-    }
     protected function addScript($script, $pathCme = false)
     {
         $this->getTemplate()->addScript($script, $pathCme);
+    }
+    protected function addStylesheet($stylesheet, $pathCme = false)
+    {
+        $this->getTemplate()->addStylesheet($stylesheet, $pathCme);
     }
 }

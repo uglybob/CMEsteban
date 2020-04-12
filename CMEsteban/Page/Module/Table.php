@@ -8,8 +8,6 @@ class Table extends Form
 
     public function __construct(array $rows, array $headings, array $classes = [])
     {
-        $this->addStylesheet('/CMEsteban/Page/css/table.css', true);
-
         $this->rows = $rows;
         $this->headings = $headings;
         $this->classes = $classes;
@@ -17,6 +15,15 @@ class Table extends Form
         $this->prepareTable();
 
         parent::__construct();
+    }
+
+    protected function addStylesheets()
+    {
+        $this->addStylesheet('/CMEsteban/Page/css/table.css', true);
+    }
+    protected function render()
+    {
+        return $this->table . parent::render();
     }
 
     protected function prepareTable()
@@ -28,11 +35,6 @@ class Table extends Form
         }
 
         $this->table = HTML::div(['.ctable'], $this->table);
-    }
-
-    protected function render()
-    {
-        return $this->table . parent::render();
     }
 
     public function generateHeader()

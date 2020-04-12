@@ -6,14 +6,16 @@ class ImageZoom extends Module
 {
     public function __construct($image, $width = null, $height = -1)
     {
-
         $this->image = $image;
         $this->width = $width;
         $this->height = $height;
 
-        $this->addStylesheet('/CMEsteban/Page/css/image-zoom.css', true);
-
         parent::__construct();
+    }
+
+    protected function addStylesheets()
+    {
+        $this->addStylesheet('/CMEsteban/Page/css/image-zoom.css', true);
     }
 
     protected function render()

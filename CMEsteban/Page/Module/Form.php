@@ -6,13 +6,10 @@ abstract class Form extends Module
 {
     protected $form;
 
-    public function __construct()
+    protected function addStylesheets()
     {
         $this->addStylesheet('/CMEsteban/Page/css/depage-forms.css', true);
-
-        parent::__construct();
     }
-
     protected function render()
     {
         $this->prepare();

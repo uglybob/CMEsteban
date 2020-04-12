@@ -6,16 +6,21 @@ class Email extends Module
 {
     public function __construct($email, $createAnchors = true)
     {
-        $this->addScript('/CMEsteban/Page/js/lib.js', true);
-        $this->addScript('/CMEsteban/Page/js/mail.js', true);
-        $this->addStylesheet('/CMEsteban/Page/css/mail.css', true);
-
         $this->email = $email;
         $this->createAnchors = $createAnchors;
 
         parent::__construct();
     }
 
+    protected function addScripts()
+    {
+        $this->addScript('/CMEsteban/Page/js/lib.js', true);
+        $this->addScript('/CMEsteban/Page/js/mail.js', true);
+    }
+    protected function addStylesheets()
+    {
+        $this->addStylesheet('/CMEsteban/Page/css/mail.css', true);
+    }
     protected function render()
     {
         $in = ['@', '.'];
