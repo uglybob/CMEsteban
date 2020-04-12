@@ -13,7 +13,7 @@
     opacity: 1;
 }
 
-#cookieConsent div {
+#cookieConsent > div {
     width: 80%;
     margin: 0 auto 0 auto;
     background-color: #fff;
@@ -27,12 +27,21 @@
     display: block;
 }
 
+#cookieConsent .ccbtn, #cookieConsent .cctext {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#cookieConsent .ccwrap {
+    display: table;
+    margin: 0 auto;
+}
+
 #cookieConsent button {
     border: none;
     color: #fff;
     background-color: #000;
     padding: 6px 14px;
-    margin: 0 10px;
+    margin: auto 10px;
     cursor: pointer;
-    display: inline-block;
 }

@@ -23,6 +23,13 @@ class CookieConsent extends Module
     }
     protected function render()
     {
-        return HTML::div(['#cookieConsent'], HTML::div($this->message . HTML::button('ok')));
+        return HTML::div(['#cookieConsent'],
+            HTML::div(
+                HTML::div(['.ccwrap'],
+                    HTML::div(['.cctext'], $this->message) .
+                    HTML::div(['.ccbtn'], HTML::button('ok'))
+                )
+            )
+        );
     }
 }
