@@ -57,7 +57,10 @@ class UserForm extends EditForm
     {
         $values = $this->form->getValues();
 
-        $equal = ($values['Password'] === $values['Confirm']);
+        $equal = (
+            empty($values)
+            || ($values['Password'] === $values['Confirm'])
+        );
 
         if (!$equal) {
             $this->addErrorMessage('passwords don\'t match');
