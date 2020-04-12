@@ -13,6 +13,7 @@ class HTML
     protected static $nonVoidTags = [
         'a',
         'body',
+        'button',
         'div',
         'h1',
         'h2',
