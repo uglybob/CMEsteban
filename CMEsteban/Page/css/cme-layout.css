@@ -4,6 +4,10 @@ html, body {
     height: 100%;
 }
 
+a {
+    outline: none;
+}
+
 html {
     margin-left: calc(100vw - 100%);
 }

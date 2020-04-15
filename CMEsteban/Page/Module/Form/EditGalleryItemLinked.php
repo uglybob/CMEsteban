@@ -8,7 +8,7 @@ abstract class EditGalleryItemLinked extends EditGalleryItem
     {
         parent::create();
 
-        $this->form->addText('Link');
+        $this->form->addText('Link', ['validator' => '/[a-zA-Z0-9\-]+/']);
     }
     protected function populate()
     {
