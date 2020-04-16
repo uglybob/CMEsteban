@@ -96,6 +96,10 @@ class Image extends Named
     {
         return file_exists($this->getSrc(true));
     }
+    public function getFilemtime()
+    {
+        return filemtime($this->getSrc(true));
+    }
     public function getSrc($internal = false)
     {
         $path = ($internal) ? $this->getSetup()->getSettings('Path') : '';
@@ -105,6 +109,8 @@ class Image extends Named
         } else {
             $src = $path . '/CMEsteban/PrivateImages/' . $this->getName();
         }
+
+        $src .= ($internal) ? '' : $this->getFilemtime();
 
         return $src;
 
@@ -117,7 +123,9 @@ class Image extends Named
         $cache = $this->getFrontCache();
         $result = $cache->getLink($filename, true);
 
-        if (!$result) {
+        if ($result) {
+            $result .= '?' . $this->getFilemtime();
+        } else {
             try {
                 $resource = $this::imagecreatefromfile($this->getSrc(true));
                 $scaled = imagescale($resource, $width , $height);
@@ -127,7 +135,7 @@ class Image extends Named
                 $imageString = ob_get_clean();
 
                 if ($cache->write($filename, $imageString)) {
-                    $result = $cache->getLink($filename, true);
+                    $result = $cache->getLink($filename, true) . '?' . $this->getFilemtime();
                 } else {
                     $result = $this->getSrc();
                 }
