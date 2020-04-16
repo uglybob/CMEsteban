@@ -110,7 +110,7 @@ class Image extends Named
             $src = $path . '/CMEsteban/PrivateImages/' . $this->getName();
         }
 
-        $src .= ($internal) ? '' : $this->getFilemtime();
+        $src .= ($internal) ? '' : '?' . $this->getFilemtime();
 
         return $src;
 
