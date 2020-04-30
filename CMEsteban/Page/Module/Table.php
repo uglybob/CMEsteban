@@ -20,6 +20,8 @@ class Table extends Form
     protected function addStylesheets()
     {
         $this->addStylesheet('/CMEsteban/Page/css/table.css', true);
+        $this->addScript('/CMEsteban/Page/js/lib.js', true);
+        $this->addScript('/CMEsteban/Page/js/table.js', true);
     }
     protected function render()
     {

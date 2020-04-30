@@ -4,6 +4,7 @@
 
 .ctheader {
     display: table-header-group;
+    cursor: pointer;
 }
 
 .ctrow {
