@@ -12,7 +12,7 @@ class Text extends Module
             $text = $text->getText();
         }
 
-        $this->text = self::cleanText($text);
+        $this->text = self::cleanText($text, $this->createAnchors);
 
         parent::__construct();
     }
