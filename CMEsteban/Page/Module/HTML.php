@@ -9,9 +9,11 @@ class HTML
         'img',
         'link',
         'meta',
+        'source',
     ];
     protected static $nonVoidTags = [
         'a',
+        'audio',
         'body',
         'button',
         'div',
