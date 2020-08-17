@@ -7,6 +7,7 @@ class HTML
     protected static $voidTags = [
         'br',
         'img',
+        'input',
         'link',
         'meta',
         'source',
