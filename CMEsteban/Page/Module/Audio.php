@@ -17,6 +17,7 @@ class Audio extends Module
     protected function render()
     {
         $sources = '';
+        $attributes = [];
 
         foreach ($this->sources as $src => $type) {
             $sources .= HTML::source([
@@ -25,8 +26,10 @@ class Audio extends Module
             ]);
         }
 
-        return HTML::div(['.caudio'],
-            HTML::audio(['controls' => 'controls'], $sources)
-        );
+        if ($this->controls) {
+            $attributes['controls'] = 'controls';
+        }
+
+        return HTML::audio($attributes, $sources);
     }
 }
