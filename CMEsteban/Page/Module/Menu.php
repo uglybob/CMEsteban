@@ -4,9 +4,13 @@ namespace CMEsteban\Page\Module;
 
 class Menu extends Module
 {
-    public function __construct($links = [])
+    protected $links;
+    protected $selected;
+
+    public function __construct($links = [], $selected = null)
     {
         $this->links = $links;
+        $this->selected = $selected;
 
         parent::__construct();
     }
@@ -20,7 +24,13 @@ class Menu extends Module
         $menu = '';
 
         foreach ($this->links as $title => $link) {
-            $menu .= HTML::li(
+            $attributes = [];
+
+            if ($this->selected == $title) {
+                $attributes[] = '.selected';
+            }
+
+            $menu .= HTML::li($attributes,
                 HTML::a(['href' => $link], $title)
             );
         }
